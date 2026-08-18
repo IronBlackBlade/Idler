@@ -1455,7 +1455,7 @@ function createCombatSkillTreeLayout(
             ]
         },
         {
-            id: "staff",
+            id: "magic_weapon",
             icon: "🔮",
             name: "Broń magiczna",
 

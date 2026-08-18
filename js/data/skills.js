@@ -1411,7 +1411,7 @@ const skills = {
             "Zwiększa obrażenia podstawowych ataków różdżkami i kosturami. Łączny bonus na kolejnych poziomach: 1%, 3%, 5%, 7% i 10%.",
 
         tree: "combat",
-        branch: "staff",
+        branch: "magic_weapon",
         type: "passive",
 
         requiredLevel: 2,
