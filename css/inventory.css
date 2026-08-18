@@ -1,0 +1,904 @@
+
+.inventory-item {
+    background: #161616;
+    border: 1px solid #6b5b2e;
+    border-radius: 12px;
+    padding: 12px;
+}
+
+.inventory-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.inventory-item-header strong {
+    font-size: 16px;
+}
+
+.inventory-quantity {
+    background: #222;
+    border: 1px solid #444;
+    border-radius: 999px;
+    padding: 3px 8px;
+    font-size: 13px;
+    color: #ffd166;
+    white-space: nowrap;
+}
+
+.inventory-item-tags,
+.inventory-item-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+}
+
+.inventory-item-tags span,
+.inventory-item-stats span {
+    background: #222;
+    border: 1px solid #444;
+    border-radius: 999px;
+    padding: 4px 8px;
+    font-size: 13px;
+    color: #ddd;
+}
+
+.inventory-item-stats span {
+    border-color: #6b5b2e;
+    color: #ffd166;
+}
+
+.inventory-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+}
+
+.inventory-actions button {
+    padding: 5px 9px;
+    font-size: 12px;
+    min-height: 30px;
+}
+
+
+.inventory-item-compact {
+    padding: 8px;
+    min-height: auto;
+}
+
+.inventory-item-compact .inventory-item-header {
+    margin-bottom: 5px;
+}
+
+.inventory-item-compact .inventory-item-header strong {
+    font-size: 14px;
+}
+
+.inventory-item-compact .inventory-quantity {
+    font-size: 12px;
+    padding: 2px 7px;
+}
+
+.inventory-item-compact .inventory-item-tags {
+    gap: 4px;
+    margin-top: 5px;
+}
+
+.inventory-item-compact .inventory-item-tags span {
+    font-size: 11px;
+    padding: 3px 6px;
+}
+
+.inventory-item-compact .inventory-item-stats {
+    display: none;
+}
+
+.inventory-item-compact .inventory-actions {
+    margin-top: 7px;
+    gap: 4px;
+}
+
+.inventory-item-compact .inventory-actions button {
+    font-size: 11px;
+    padding: 4px 6px;
+    min-height: 26px;
+}
+
+
+.inventory-item{
+
+    background:#333;
+
+    border:1px solid #555;
+
+    border-radius:8px;
+
+    padding:12px;
+
+    margin-bottom:10px;
+
+}
+
+.inventory-panel {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+#inventory-list {
+    width: 100%;
+    display: block;
+}
+
+.inventory-filters {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    margin: 0 0 14px 0;
+    padding-bottom: 12px;
+
+    border-bottom: 1px solid #3a3220;
+}
+
+.inventory-filters button {
+    width: auto;
+    min-width: 0;
+
+    padding: 7px 11px;
+    border-radius: 999px;
+
+    border: 1px solid #3f3722;
+    background: #151515;
+    color: #c8bc8e;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    box-shadow: none;
+}
+
+.inventory-filters button:hover {
+    border-color: #8a7438;
+    color: #f1d98a;
+    background: #1f1b12;
+}
+
+.inventory-filters button.active {
+    border-color: #b8862b;
+    background: #2a2315;
+    color: #f1d98a;
+}
+
+.inventory-items-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 12px;
+}
+
+.inventory-item {
+    min-height: 0;
+    padding: 11px;
+
+    border-radius: 13px;
+    background: #151515;
+    border: 1px solid #3f3722;
+
+    box-sizing: border-box;
+}
+
+.inventory-item:hover {
+    border-color: #8a7438;
+}
+
+.inventory-item-compact {
+    min-height: 120px;
+}
+
+.inventory-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+
+    margin-bottom: 8px;
+}
+
+.inventory-item-header strong {
+    color: #f1d98a;
+    font-size: 14px;
+    line-height: 1.25;
+}
+
+.inventory-quantity {
+    padding: 3px 7px;
+    border-radius: 999px;
+
+    background: #101010;
+    border: 1px solid #302716;
+
+    color: #f1d98a;
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.inventory-item-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+
+    margin-bottom: 8px;
+}
+
+.inventory-item-tags span {
+    padding: 3px 7px;
+    border-radius: 999px;
+
+    background: #101010;
+    border: 1px solid #2e291c;
+
+    color: #d8c98f;
+    font-size: 10px;
+}
+
+.inventory-item-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+
+    margin: 6px 0;
+}
+
+.inventory-item-stats span {
+    color: #c8bc8e;
+    font-size: 11px;
+}
+
+.inventory-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+
+    margin-top: 9px;
+}
+
+.inventory-actions button {
+    width: auto;
+    min-width: 0;
+
+    padding: 6px 8px;
+    border-radius: 8px;
+
+    font-size: 11px;
+}
+
+.inventory-empty {
+    margin: 8px 0 0 0;
+    color: #a89b70;
+    font-size: 13px;
+}
+
+.rarity-common {
+    border-color: #4a4a4a;
+}
+
+.rarity-uncommon {
+    border-color: #3f8f4f;
+    box-shadow: 0 0 12px rgba(63, 143, 79, 0.12);
+}
+
+.rarity-rare {
+    border-color: #3f6fd8;
+    box-shadow: 0 0 12px rgba(63, 111, 216, 0.14);
+}
+
+.rarity-epic {
+    border-color: #9b4fd8;
+    box-shadow: 0 0 12px rgba(155, 79, 216, 0.16);
+}
+
+.rarity-legendary {
+    border-color: #d89b3f;
+    box-shadow: 0 0 16px rgba(216, 155, 63, 0.22);
+}
+
+
+.inventory-panel {
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    align-self: stretch;
+    box-sizing: border-box;
+}
+
+#inventory-list {
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    display: block;
+    box-sizing: border-box;
+}
+
+.inventory-items-grid {
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 12px;
+
+    box-sizing: border-box;
+}
+
+.inventory-item {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+.inventory-filters button[data-filter="mining"].active {
+    border-color: #817451;
+    background: #29251a;
+    color: #dfce91;
+}
+
+.inventory-filters button[data-filter="herbalism"].active {
+    border-color: #527348;
+    background: #192218;
+    color: #b7d9a5;
+}
+
+.inventory-filters
+button[data-filter="crafting_material"].active {
+    border-color: #8a7441;
+    background: #292318;
+    color: #e0ca91;
+}
+
+.inventory-item-tags .inventory-rarity-tag,
+.inventory-item-tags .inventory-purpose-tag,
+.inventory-item-tags .inventory-value-tag {
+    padding: 3px 7px;
+
+    border: 1px solid #2e291c;
+    border-radius: 999px;
+
+    background: #101010;
+    color: #d8c98f;
+
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 1.2;
+}
+
+.inventory-item-tags .inventory-value-tag {
+    color: #d8c98f;
+}
+
+.inventory-item-tags .inventory-purpose-tag {
+    color: #c9bd8b;
+}
+
+.inventory-item-compact
+.inventory-item-tags
+.inventory-rarity-tag,
+
+.inventory-item-compact
+.inventory-item-tags
+.inventory-purpose-tag,
+
+.inventory-item-compact
+.inventory-item-tags
+
+.inventory-item-compact
+.inventory-item-tags
+.inventory-value-tag {
+    padding: 3px 6px;
+    font-size: 10px;
+}
+
+.inventory-item-tags {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+
+    margin-top: 8px;
+}
+
+.inventory-item-tags span,
+.inventory-item-tags .inventory-rarity-tag,
+.inventory-item-tags .inventory-purpose-tag,
+.inventory-item-tags .inventory-value-tag {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 4px 8px;
+
+    border: 1px solid #39301b;
+    border-radius: 999px;
+
+    background: #111111;
+    color: #d9cc96;
+
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 1;
+}
+
+.inventory-item-tags .inventory-purpose-tag {
+    color: #c4ba94;
+}
+
+.inventory-item-tags .inventory-value-tag {
+    color: #d9cc96;
+}
+
+.inventory-sell-all-bar {
+    display: flex;
+    justify-content: flex-end;
+
+    margin: 0 0 12px;
+}
+
+.inventory-sell-all-button {
+    width: auto;
+    min-width: 170px;
+
+    padding: 8px 12px;
+
+    border-color: #8a6932;
+    background: #271f13;
+    color: #e7ce87;
+}
+
+.inventory-sell-all-button:hover {
+    border-color: #c3933d;
+    background: #332718;
+}
+
+.inventory-filters
+button[data-filter="potion"].active {
+    border-color: #765593;
+    background: #24182d;
+    color: #d9b9ef;
+}
+
+.inventory-item-potion {
+    border-color: #624879;
+    background:
+        linear-gradient(
+            145deg,
+            #1d1723,
+            #17141b
+        );
+}
+
+.inventory-item-potion:hover {
+    border-color: #8b68a7;
+}
+
+.inventory-potion-duration-tag {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 3px 7px;
+
+    border: 1px solid #554263;
+    border-radius: 999px;
+
+    background: #21182a;
+    color: #cdb5df;
+
+    font-size: 10px;
+}
+
+.inventory-potion-description {
+    margin: 10px 0 6px;
+
+    color: #bcb2c4;
+    font-size: 12px;
+    line-height: 1.45;
+}
+
+.inventory-potion-effect {
+    margin-bottom: 12px;
+    padding: 8px 10px;
+
+    border: 1px solid #493a55;
+    border-radius: 7px;
+
+    background: #18121e;
+    color: #d5b9e8;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.inventory-use-potion-button {
+    border-color: #72528c;
+    background: #342140;
+    color: #e1c7f2;
+}
+
+.inventory-use-potion-button:hover {
+    border-color: #9c74b9;
+    background: #472d57;
+}
+
+/* ========================================
+   BLOKOWANIE PRZEDMIOTÓW
+======================================== */
+
+.inventory-item-locked {
+    border-color: #806b32;
+
+    background:
+        linear-gradient(
+            135deg,
+            #191712,
+            #141414
+        );
+
+    box-shadow:
+        inset 3px 0 0 #c49c38;
+}
+
+.inventory-lock-tag {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 3px 7px;
+
+    border: 1px solid #806b32;
+    border-radius: 999px;
+
+    background: #282112;
+
+    color: #e2bf62;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.inventory-lock-button {
+    border-color: #665b42;
+
+    background: #22201b;
+
+    color: #cfc3a5;
+}
+
+.inventory-lock-button.locked {
+    border-color: #a0802f;
+
+    background: #332a15;
+
+    color: #f0cf72;
+}
+
+.inventory-actions button:disabled {
+    cursor: not-allowed;
+
+    opacity: 0.42;
+}
+
+.inventory-actions button:disabled:hover {
+    transform: none;
+}
+
+/* ========================================
+   KOMPAKTOWY PLECAK I PODKATEGORIE
+======================================== */
+
+.inventory-subfilters {
+    width: 100%;
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+
+    margin: -5px 0 12px;
+    padding: 8px 10px;
+
+    border: 1px solid #302918;
+    border-radius: 10px;
+
+    background: #121212;
+
+    box-sizing: border-box;
+}
+
+.inventory-subfilters-label {
+    margin-right: 3px;
+
+    color: #9f936d;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.inventory-subfilters button {
+    width: auto;
+    min-width: 0;
+    min-height: 27px;
+
+    padding: 4px 8px;
+
+    border: 1px solid #39321f;
+    border-radius: 999px;
+
+    background: #181818;
+    color: #bfb48d;
+
+    font-size: 10px;
+
+    box-shadow: none;
+}
+
+.inventory-subfilters button:hover {
+    border-color: #796633;
+    background: #211d14;
+    color: #ead486;
+}
+
+.inventory-subfilters button.active {
+    border-color: #a77d2c;
+    background: #2a2214;
+    color: #f1d98a;
+}
+
+
+/* Siatka nie rozciąga pojedynczego
+   przedmiotu na cały ekran. */
+
+.inventory-items-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fill,
+            minmax(270px, 340px)
+        );
+
+    justify-content: start;
+    align-items: start;
+
+    gap: 10px;
+}
+
+
+/* Kompaktowy kafelek. */
+
+.inventory-item {
+    width: 100%;
+    min-height: 0;
+
+    margin: 0;
+    padding: 9px;
+
+    border-radius: 10px;
+
+    box-sizing: border-box;
+}
+
+.inventory-item-header {
+    margin-bottom: 4px;
+}
+
+.inventory-item-header strong {
+    font-size: 13px;
+    line-height: 1.2;
+}
+
+.inventory-quantity {
+    padding: 2px 6px;
+    font-size: 10px;
+}
+
+
+/* Mniejsze etykiety. */
+
+.inventory-item-tags {
+    gap: 4px;
+
+    margin-top: 4px;
+    margin-bottom: 6px;
+}
+
+.inventory-item-tags span,
+.inventory-item-tags
+.inventory-rarity-tag,
+.inventory-item-tags
+.inventory-purpose-tag,
+.inventory-item-tags
+.inventory-value-tag {
+    padding: 3px 6px;
+
+    font-size: 9px;
+}
+
+
+/* Statystyki w dwóch kolumnach. */
+
+.inventory-item-stats {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0, 1fr)
+        );
+
+    gap: 4px;
+
+    margin: 5px 0 0;
+}
+
+.inventory-item-stats span {
+    display: flex;
+    align-items: center;
+
+    min-height: 23px;
+
+    padding: 3px 6px;
+
+    border: 1px solid #3a301a;
+    border-radius: 6px;
+
+    background: #181818;
+    color: #d9c788;
+
+    font-size: 10px;
+    line-height: 1.2;
+
+    box-sizing: border-box;
+}
+
+
+/* Przyciski w układzie 2 × 2. */
+
+.inventory-actions {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0, 1fr)
+        );
+
+    gap: 5px;
+
+    margin-top: 7px;
+}
+
+.inventory-actions button {
+    width: 100%;
+    min-width: 0;
+    min-height: 27px;
+
+    padding: 4px 5px;
+
+    font-size: 10px;
+    line-height: 1.15;
+}
+
+
+/* Materiały pozostają jeszcze mniejsze. */
+
+.inventory-item-compact {
+    min-height: 0;
+    padding: 8px;
+}
+
+
+/* Telefon i wąskie okna. */
+
+@media (max-width: 650px) {
+    .inventory-items-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .inventory-item-stats {
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(0, 1fr)
+            );
+    }
+
+    .inventory-subfilters-label {
+        width: 100%;
+    }
+}
+
+.inventory-filters
+button[data-filter="monster_material"].active {
+    border-color: #80504a;
+    background: #291b19;
+    color: #e3b0a8;
+}
+
+.inventory-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.inventory-panel-header > span {
+    min-width: 0;
+}
+
+.inventory-panel-header
+.inventory-sell-all-button {
+    flex: 0 0 auto;
+    margin-left: auto;
+}
+
+@media (max-width: 520px) {
+    .inventory-panel-header {
+        gap: 8px;
+    }
+
+    .inventory-panel-header
+    .inventory-sell-all-button {
+        min-width: 0;
+        padding: 7px 9px;
+        font-size: 11px;
+        white-space: nowrap;
+    }
+}
+
+.inventory-panel {
+    display: block !important;
+}
+
+.inventory-panel-header {
+    width: 100% !important;
+    box-sizing: border-box;
+}
+
+/* ========================================
+   PREMIA SPRZEDAŻY Z DRZEWKA HANDEL
+======================================== */
+
+.inventory-item-tags
+.inventory-value-bonus {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+
+    border-color: #517b48;
+
+    background: #182318;
+
+    color: #8ed681;
+}
+
+.inventory-value-bonus del {
+    color: #878787;
+    font-size: 9px;
+}
+
+.inventory-value-bonus strong {
+    color: #92df83;
+    font-size: inherit;
+}
+
+.inventory-item-tags
+.inventory-trade-bonus-tag {
+    border-color: #5b814f;
+
+    background: #1b2919;
+
+    color: #93dd83;
+
+    font-weight: 700;
+}

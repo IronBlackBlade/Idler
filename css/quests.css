@@ -1,0 +1,462 @@
+#quests {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 10px;
+}
+
+.quest {
+    background: #161616;
+    border: 1px solid #4a3f25;
+    border-radius: 12px;
+    padding: 10px;
+    box-sizing: border-box;
+    font-size: 13px;
+}
+
+.quest h3 {
+    margin: 0 0 6px 0;
+    font-size: 14px;
+    color: #f1d98a;
+}
+
+.quest p {
+    margin: 4px 0;
+    color: #c8bc8e;
+    font-size: 12px;
+    line-height: 1.35;
+}
+
+.quest-progress-text {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    font-size: 11px;
+    color: #b9aa7a;
+}
+
+.quest-progress-bar {
+    height: 7px;
+    width: 100%;
+    margin-top: 4px;
+    background: #0f0f0f;
+    border: 1px solid #2c2618;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.quest-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #6d5520, #e0b84f);
+    border-radius: 999px;
+}
+
+.quest-reward {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+}
+
+.quest-reward span {
+    padding: 3px 7px;
+    border-radius: 999px;
+    background: #211d13;
+    border: 1px solid #4a3f25;
+    color: #e8d99d;
+    font-size: 11px;
+}
+
+.quest button {
+    width: 100%;
+    margin-top: 8px;
+    padding: 7px 9px;
+    border-radius: 9px;
+    font-size: 12px;
+}
+
+.quest-completed {
+    border-color: #8a7438;
+    box-shadow: 0 0 12px rgba(224, 184, 79, 0.08);
+}
+
+.quest-claimed {
+    opacity: 0.55;
+}
+
+.quest-actions {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.quest-claim-all-button {
+    width: auto;
+    min-width: 210px;
+    padding: 10px 18px;
+    border: 1px solid #8a7438;
+    border-radius: 10px;
+    background: #2b2414;
+    color: #f1d98a;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.quest-claim-all-button:hover:not(:disabled) {
+    background: #3a3019;
+    border-color: #c3a44d;
+}
+
+.quest-claim-all-button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+@media (max-width: 700px) {
+    .quest-actions {
+        justify-content: stretch;
+    }
+
+    .quest-claim-all-button {
+        width: 100%;
+        min-width: 0;
+    }
+}
+
+/* ========================================
+   GŁÓWNE ZAKŁADKI ZADAŃ
+======================================== */
+
+.quest-category-tabs {
+    grid-column: 1 / -1;
+
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fit, minmax(125px, 1fr));
+    gap: 7px;
+
+    margin: 4px 0 3px;
+    padding: 9px;
+
+    border: 1px solid #342e1f;
+    border-radius: 12px;
+
+    background:
+        linear-gradient(145deg, #15140f, #101010);
+}
+
+.quest-category-tab-button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+
+    width: 100%;
+    min-width: 0;
+    min-height: 42px;
+
+    margin: 0;
+    padding: 8px 10px;
+
+    border: 1px solid #403824;
+    border-radius: 9px;
+
+    background: #191815;
+    color: #bcb18d;
+
+    font-size: 11px;
+    font-weight: 700;
+    text-align: left;
+
+    box-shadow: none;
+}
+
+.quest-category-tab-button span {
+    min-width: 0;
+}
+
+.quest-category-tab-button small {
+    flex-shrink: 0;
+
+    padding: 2px 5px;
+
+    border: 1px solid #403824;
+    border-radius: 999px;
+
+    color: #8f8669;
+    font-size: 9px;
+    font-weight: 700;
+}
+
+.quest-category-tab-button:hover {
+    border-color: #776334;
+    background: #252014;
+    color: #e0cc83;
+}
+
+.quest-category-tab-button.active {
+    border-color: #a88735;
+    background:
+        linear-gradient(145deg, #3a2e16, #211c12);
+    color: #f0d77d;
+
+    box-shadow:
+        inset 0 -2px 0 #c99e3b,
+        0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.quest-category-tab-button.active small {
+    border-color: #80682e;
+    background: #17130c;
+    color: #f0d77d;
+}
+
+/* ========================================
+   PODZAKŁADKI LOKACJI POLOWANIA
+======================================== */
+
+.quest-location-subtabs {
+    grid-column: 1 / -1;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+
+    margin: 0 0 7px;
+    padding: 7px 9px;
+
+    border: 1px solid #2f2b21;
+    border-radius: 10px;
+    background: #121212;
+}
+
+.quest-location-subtabs::before {
+    content: "Lokacja:";
+
+    display: inline-flex;
+    align-items: center;
+
+    padding: 0 3px;
+
+    color: #847a5e;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.45px;
+    text-transform: uppercase;
+}
+
+.quest-location-subtab-button {
+    width: auto;
+    min-width: 0;
+    min-height: 28px;
+
+    margin: 0;
+    padding: 5px 9px;
+
+    border: 1px solid #393323;
+    border-radius: 999px;
+
+    background: #191813;
+    color: #aaa080;
+
+    font-size: 10px;
+    box-shadow: none;
+}
+
+.quest-location-subtab-button:hover {
+    border-color: #746234;
+    color: #ddc97f;
+}
+
+.quest-location-subtab-button.active {
+    border-color: #9b7c32;
+    background: #2c2414;
+    color: #efd373;
+}
+
+/* ========================================
+   POSTĘP ZADAŃ W LOKACJI
+======================================== */
+
+.quest-completion-summary {
+    grid-column: 1 / -1;
+
+    margin-bottom: 10px;
+    padding: 11px 12px;
+
+    border: 1px solid #443a22;
+    border-radius: 10px;
+
+    background:
+        linear-gradient(145deg,
+            #191711,
+            #121212);
+}
+
+.quest-completion-summary-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    margin-bottom: 8px;
+}
+
+.quest-completion-summary-header>div:first-child {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.quest-completion-summary-header strong {
+    color: #e0cf91;
+    font-size: 13px;
+}
+
+.quest-completion-summary-header span {
+    color: #958c73;
+    font-size: 10px;
+}
+
+.quest-completion-summary-result {
+    display: flex;
+    align-items: baseline;
+    gap: 7px;
+
+    white-space: nowrap;
+}
+
+.quest-completion-summary-result strong {
+    color: #efd16b;
+    font-size: 15px;
+}
+
+.quest-completion-summary-result span {
+    color: #aaa17e;
+    font-size: 10px;
+}
+
+.quest-completion-summary-track {
+    width: 100%;
+    height: 8px;
+
+    overflow: hidden;
+
+    border: 1px solid #332c1c;
+    border-radius: 999px;
+
+    background: #0d0d0d;
+}
+
+.quest-completion-summary-fill {
+    height: 100%;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(90deg,
+            #75602b,
+            #d0aa48);
+
+    transition:
+        width 0.3s ease;
+}
+
+@media (max-width: 480px) {
+    .quest-completion-summary-header {
+        align-items: flex-start;
+    }
+
+    .quest-category-tabs {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+        padding: 7px;
+    }
+
+    .quest-category-tab-button {
+        min-height: 40px;
+        padding: 7px 8px;
+        font-size: 10px;
+    }
+
+    .quest-location-subtabs::before {
+        flex: 0 0 100%;
+    }
+}
+
+.quest-empty-state {
+    grid-column: 1 / -1;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+
+    padding: 28px 18px;
+
+    border: 1px dashed #403824;
+    border-radius: 11px;
+
+    background: #151515;
+    color: #8f876f;
+    text-align: center;
+}
+
+.quest-empty-state > span {
+    font-size: 24px;
+}
+
+.quest-empty-state strong {
+    color: #d6c487;
+    font-size: 13px;
+}
+
+.quest-empty-state p {
+    max-width: 430px;
+    margin: 0;
+    font-size: 11px;
+    line-height: 1.45;
+}
+
+/* ========================================
+   RENOMA KUPIECKA — NAGRODY ZA ZADANIA
+======================================== */
+
+.quest-reward
+.quest-gold-reward-bonus {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+
+    border-color: #557c49;
+
+    background: #192419;
+
+    color: #92db82;
+}
+
+.quest-gold-reward-bonus del {
+    color: #898989;
+    font-size: 10px;
+}
+
+.quest-gold-reward-bonus strong {
+    color: #9be68b;
+}
+
+.quest-reward
+.quest-trade-reward-bonus {
+    border-color: #5c824e;
+
+    background: #1c2a1a;
+
+    color: #97df86;
+
+    font-weight: 700;
+}

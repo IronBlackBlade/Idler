@@ -1,0 +1,370 @@
+/* ==================================================
+   KARCZMA - PANEL ŚMIAŁKÓW
+================================================== */
+
+#screen-tavern {
+    gap: 18px;
+}
+
+#tavern-adventurers-panel {
+    width: 100%;
+}
+
+/* Główny panel */
+
+.tavern-dashboard-card {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 16px;
+    border: 1px solid #665029;
+    border-radius: 15px;
+    background: linear-gradient(145deg, #342315, #141210);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
+}
+
+/* Nagłówek z karczmarzem */
+
+.tavern-dashboard-header {
+    display: grid;
+    grid-template-columns: 56px minmax(0, 1fr);
+    gap: 12px;
+    align-items: center;
+    padding-bottom: 13px;
+    border-bottom: 1px solid #4e4028;
+}
+
+.tavern-keeper-portrait {
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    border: 1px solid #74582d;
+    border-radius: 13px;
+    background: rgba(22, 17, 12, 0.76);
+    font-size: 29px;
+}
+
+.tavern-dashboard-title {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.tavern-dashboard-title span {
+    color: #9f9079;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.tavern-dashboard-title strong {
+    color: #f5d382;
+    font-size: 20px;
+}
+
+.tavern-dashboard-title p {
+    margin: 0;
+    color: #b7a58e;
+    font-size: 12px;
+    line-height: 1.45;
+}
+
+/* Wewnętrzne sekcje */
+
+.tavern-dashboard-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.tavern-dashboard-section {
+    padding: 12px;
+    border: 1px solid #493e2c;
+    border-radius: 12px;
+    background: rgba(15, 15, 14, 0.76);
+}
+
+.tavern-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.tavern-section-header strong {
+    color: #e8cd8a;
+    font-size: 15px;
+}
+
+.tavern-section-header span {
+    color: #8e826f;
+    font-size: 11px;
+}
+
+.tavern-muted-text {
+    margin: 0;
+    color: #a99d8d;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+/* Aktywne zlecenie */
+
+.tavern-active-compact {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    gap: 10px;
+    align-items: center;
+}
+
+.tavern-active-compact > div {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+.tavern-active-compact strong {
+    color: #f0cb69;
+}
+
+.tavern-active-compact span {
+    color: #a99d8d;
+    font-size: 11px;
+}
+
+.tavern-active-time {
+    padding: 8px 10px;
+    border: 1px solid #4e4028;
+    border-radius: 9px;
+    background: rgba(15, 14, 12, 0.72);
+    color: #d8bf82;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+#tavern-active-time-value {
+    color: #f5cd68;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Ostatni powrót */
+
+.tavern-last-return-compact {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.tavern-return-summary strong {
+    color: #f0cb69;
+}
+
+.tavern-rewards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 6px;
+}
+
+.tavern-reward-pill {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 7px 8px;
+    border: 1px solid #493c22;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.06);
+    color: #bbaa7a;
+    font-size: 11px;
+}
+
+.tavern-reward-pill strong {
+    color: #f0cb69;
+}
+
+/* Odbieranie łupów */
+
+.tavern-return-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 2px;
+}
+
+/* Lista śmiałków */
+
+.tavern-adventurer-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.tavern-adventurer-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 210px 160px 110px;
+    gap: 10px;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #3a3220;
+    border-radius: 11px;
+    background: rgba(15, 15, 14, 0.78);
+}
+
+.tavern-adventurer-main {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+}
+
+.tavern-adventurer-icon {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    border: 1px solid #5d4e2b;
+    border-radius: 10px;
+    background: #211a12;
+    font-size: 20px;
+}
+
+.tavern-adventurer-main strong {
+    display: block;
+    overflow: hidden;
+    color: #e8cd8a;
+    font-size: 14px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.tavern-adventurer-main span {
+    display: block;
+    margin-top: 2px;
+    overflow: hidden;
+    color: #8e826f;
+    font-size: 11px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Select obszaru */
+
+.tavern-area-select,
+.tavern-duration-select {
+    width: 100%;
+    min-height: 36px;
+    padding: 6px 8px;
+    border: 1px solid #4d4228;
+    border-radius: 8px;
+    background: #111111;
+    color: #e8d99d;
+    font: inherit;
+    font-size: 12px;
+}
+
+.tavern-area-select:focus,
+.tavern-duration-select:focus {
+    outline: 2px solid rgba(210, 168, 63, 0.18);
+    border-color: #d2a83f;
+}
+
+/* Przyciski */
+
+.tavern-hire-button,
+.tavern-secondary-button,
+.tavern-claim-button {
+    min-height: 36px;
+    padding: 7px 11px;
+    border: 1px solid #6ba85d;
+    border-radius: 9px;
+    background: linear-gradient(180deg, #31512b, #1e351b);
+    color: #ddffd4;
+    font: inherit;
+    font-size: 12px;
+    font-weight: 800;
+    text-align: center;
+}
+
+.tavern-secondary-button {
+    border-color: #6a5840;
+    background: #1a1711;
+    color: #d7c48a;
+}
+
+.tavern-hire-button:hover:not(:disabled),
+.tavern-secondary-button:hover:not(:disabled),
+.tavern-claim-button:hover:not(:disabled) {
+    border-color: #94dc7f;
+    background: linear-gradient(180deg, #3d6b35, #264a21);
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.tavern-hire-button:disabled,
+.tavern-secondary-button:disabled,
+.tavern-claim-button:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    border-color: #4d4228;
+    background: #181818;
+    color: #9f9270;
+}
+
+/* Starsze klasy - neutralizacja, gdyby gdzieś zostały */
+
+.tavern-adventurers-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.tavern-adventurer-card,
+.tavern-active-card,
+.tavern-last-return-card,
+.tavern-keeper-card {
+    margin: 0;
+}
+
+/* Responsywność */
+
+@media (max-width: 900px) {
+    .tavern-adventurer-row {
+        grid-template-columns: 1fr;
+    }
+
+    .tavern-active-compact {
+        grid-template-columns: 1fr;
+    }
+
+    .tavern-return-actions {
+        justify-content: stretch;
+    }
+
+    .tavern-return-actions button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    .tavern-dashboard-card {
+        padding: 12px;
+    }
+
+    .tavern-dashboard-header {
+        grid-template-columns: 46px minmax(0, 1fr);
+    }
+
+    .tavern-keeper-portrait {
+        width: 46px;
+        height: 46px;
+        min-width: 46px;
+        font-size: 24px;
+    }
+
+    .tavern-dashboard-title strong {
+        font-size: 17px;
+    }
+}

@@ -1,0 +1,1568 @@
+const alchemyCategories = [
+    {
+        id: "hunting",
+        name: "⚔️ Polowanie"
+    },
+    {
+        id: "gathering",
+        name: "🌿 Zbieractwo"
+    },
+    {
+        id: "mining",
+        name: "⛏️ Kopalnia"
+    }
+];
+
+let currentAlchemyCategory =
+    localStorage.getItem(
+        "idler_alchemy_category"
+    ) || "hunting";
+
+function setAlchemyCategory(categoryId) {
+    currentAlchemyCategory =
+        categoryId;
+
+    localStorage.setItem(
+        "idler_alchemy_category",
+        categoryId
+    );
+
+    renderAlchemy();
+}
+
+const alchemyHuntingSubcategories = [
+    {
+        id: "all",
+        name: "Wszystkie"
+    },
+    {
+        id: "healing",
+        name: "❤️ Leczenie"
+    },
+    {
+        id: "weapon",
+        name: "🗡️ Broń"
+    },
+    {
+        id: "spells",
+        name: "✨ Czary"
+    },
+    {
+        id: "defense",
+        name: "🛡️ Obrona"
+    },
+    {
+        id: "loot",
+        name: "🎁 Łupy"
+    }
+];
+
+let currentAlchemyHuntingSubcategory =
+    localStorage.getItem(
+        "idler_alchemy_hunting_subcategory"
+    ) || "all";
+
+function setAlchemyHuntingSubcategory(
+    subcategoryId
+) {
+    currentAlchemyHuntingSubcategory =
+        subcategoryId;
+
+    localStorage.setItem(
+        "idler_alchemy_hunting_subcategory",
+        subcategoryId
+    );
+
+    renderAlchemy();
+}
+
+const alchemyBatchCounts = {};
+
+function getAlchemyBatchCount(recipeId) {
+    return Math.max(
+        1,
+        Math.floor(
+            Number(alchemyBatchCounts[recipeId]) || 1
+        )
+    );
+}
+
+function getClampedAlchemyBatchCount(recipeId) {
+    const recipe =
+        getAlchemyRecipe(recipeId);
+
+    const maximum =
+        getMaxCraftableAlchemyQuantity(recipe);
+
+    const requested =
+        getAlchemyBatchCount(recipeId);
+
+    if (maximum <= 0) {
+        return 1;
+    }
+
+    return Math.max(
+        1,
+        Math.min(
+            requested,
+            maximum
+        )
+    );
+}
+
+function setAlchemyBatchCount(recipeId, value) {
+    const recipe =
+        getAlchemyRecipe(recipeId);
+
+    const maximum =
+        getMaxCraftableAlchemyQuantity(recipe);
+
+    const safeValue =
+        Math.max(
+            1,
+            Math.floor(
+                Number(value) || 1
+            )
+        );
+
+    alchemyBatchCounts[recipeId] =
+        maximum > 0
+            ? Math.min(
+                safeValue,
+                maximum
+            )
+            : 1;
+
+    renderAlchemy();
+}
+
+function changeAlchemyBatchCount(recipeId, change) {
+    setAlchemyBatchCount(
+        recipeId,
+        getAlchemyBatchCount(recipeId) + change
+    );
+}
+
+function setMaxAlchemyBatchCount(recipeId) {
+    const recipe =
+        getAlchemyRecipe(recipeId);
+
+    const maximum =
+        getMaxCraftableAlchemyQuantity(recipe);
+
+    setAlchemyBatchCount(
+        recipeId,
+        Math.max(1, maximum)
+    );
+}
+
+const alchemyHuntingSubcategoryByEffect = {
+    instant_healing: "healing",
+
+    melee_weapon_damage: "weapon",
+    ranged_weapon_damage: "weapon",
+    magic_weapon_damage: "weapon",
+
+    spell_damage: "spells",
+    mana_regeneration: "spells",
+
+    combat_defense: "defense",
+    hunter_luck: "loot"
+};
+
+function getAlchemyHuntingSubcategory(
+    recipe
+) {
+    const resultItem =
+        items[recipe.resultItemId];
+
+    const potionEffectId =
+        resultItem?.potionEffectId;
+
+    return (
+        alchemyHuntingSubcategoryByEffect[
+        potionEffectId
+        ] || null
+    );
+}
+
+function openAlchemyRecipeFromJournal(
+    recipeId
+) {
+    const recipe =
+        typeof alchemyRecipes !==
+            "undefined"
+            ? alchemyRecipes.find(
+                recipeData => {
+                    return (
+                        recipeData.id ===
+                        recipeId
+                    );
+                }
+            )
+            : null;
+
+    if (!recipe) {
+        console.warn(
+            "Nie znaleziono receptury alchemicznej:",
+            recipeId
+        );
+
+        return;
+    }
+
+    /*
+     * Wybieramy kategorię receptury,
+     * np. Polowanie, Zbieractwo
+     * albo Kopalnia.
+     */
+    currentAlchemyCategory =
+        recipe.category;
+
+    localStorage.setItem(
+        "idler_alchemy_category",
+        currentAlchemyCategory
+    );
+
+    /*
+     * Mikstury z kategorii Polowanie
+     * posiadają dodatkowe podkategorie.
+     */
+    if (
+        recipe.category ===
+        "hunting"
+    ) {
+        currentAlchemyHuntingSubcategory =
+            getAlchemyHuntingSubcategory(
+                recipe
+            ) ||
+            "all";
+
+        localStorage.setItem(
+            "idler_alchemy_hunting_subcategory",
+            currentAlchemyHuntingSubcategory
+        );
+    }
+
+    if (
+        typeof showScreen ===
+        "function"
+    ) {
+        showScreen(
+            "screen-alchemy"
+        );
+    }
+
+    renderAlchemy();
+
+    if (
+        typeof focusJournalNavigationTarget ===
+        "function"
+    ) {
+        focusJournalNavigationTarget(
+            '[data-alchemy-recipe-id="' +
+            recipeId +
+            '"]'
+        );
+    }
+}
+
+function renderAlchemy() {
+    ensureAlchemyState();
+
+    const recipesContainer =
+        document.getElementById(
+            "alchemy-recipes-list"
+        );
+
+    const progressContainer =
+        document.getElementById(
+            "alchemy-progress-panel"
+        );
+
+    if (recipesContainer) {
+        renderAlchemyRecipes(
+            recipesContainer
+        );
+    }
+
+    if (progressContainer) {
+        renderAlchemyProgressPanel(
+            progressContainer
+        );
+    }
+}
+
+function renderAlchemyCategoryTabs(
+    container
+) {
+    const tabs =
+        document.createElement("div");
+
+    tabs.className =
+        "alchemy-category-tabs";
+
+    alchemyCategories.forEach(
+        category => {
+            const recipeCount =
+                alchemyRecipes.filter(
+                    recipe =>
+                        recipe.category ===
+                        category.id
+                ).length;
+
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+            button.type = "button";
+
+            button.className =
+                "alchemy-category-tab";
+
+            if (
+                category.id ===
+                currentAlchemyCategory
+            ) {
+                button.classList.add(
+                    "active"
+                );
+            }
+
+            button.textContent =
+                `${category.name} (${recipeCount})`;
+
+            button.onclick = () => {
+                setAlchemyCategory(
+                    category.id
+                );
+            };
+
+            tabs.appendChild(button);
+        }
+    );
+
+    container.appendChild(tabs);
+}
+
+function renderAlchemyHuntingSubcategoryTabs(
+    container
+) {
+    if (
+        currentAlchemyCategory !==
+        "hunting"
+    ) {
+        return;
+    }
+
+    const tabs =
+        document.createElement("div");
+
+    tabs.className =
+        "alchemy-category-tabs " +
+        "alchemy-subcategory-tabs";
+
+    alchemyHuntingSubcategories.forEach(
+        subcategory => {
+            const recipeCount =
+                alchemyRecipes.filter(
+                    recipe => {
+                        if (
+                            recipe.category !==
+                            "hunting"
+                        ) {
+                            return false;
+                        }
+
+                        if (
+                            subcategory.id ===
+                            "all"
+                        ) {
+                            return true;
+                        }
+
+                        return (
+                            getAlchemyHuntingSubcategory(
+                                recipe
+                            ) ===
+                            subcategory.id
+                        );
+                    }
+                ).length;
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+            button.type = "button";
+
+            button.className =
+                "alchemy-category-tab " +
+                "alchemy-subcategory-tab";
+
+            if (
+                subcategory.id ===
+                currentAlchemyHuntingSubcategory
+            ) {
+                button.classList.add(
+                    "active"
+                );
+            }
+
+            button.textContent =
+                `${subcategory.name} (${recipeCount})`;
+
+            button.onclick = () => {
+                setAlchemyHuntingSubcategory(
+                    subcategory.id
+                );
+            };
+
+            tabs.appendChild(button);
+        }
+    );
+
+    container.appendChild(tabs);
+}
+
+function renderAlchemyRecipes(
+    container
+) {
+    container.innerHTML = "";
+
+    renderAlchemyCategoryTabs(
+        container
+    );
+
+    renderAlchemyHuntingSubcategoryTabs(
+        container
+    );
+
+    const visibleRecipes =
+        alchemyRecipes.filter(recipe => {
+            const isCurrentCategory =
+                recipe.category ===
+                currentAlchemyCategory;
+
+            if (!isCurrentCategory) {
+                return false;
+            }
+
+            if (
+                currentAlchemyCategory !==
+                "hunting" ||
+                currentAlchemyHuntingSubcategory ===
+                "all"
+            ) {
+                return true;
+            }
+
+            return (
+                getAlchemyHuntingSubcategory(
+                    recipe
+                ) ===
+                currentAlchemyHuntingSubcategory
+            );
+        });
+
+    visibleRecipes.forEach(recipe => {
+        const isUnlocked =
+            isAlchemyRecipeUnlocked(
+                recipe
+            );
+
+        const hasIngredients =
+            hasAlchemyIngredients(
+                recipe
+            );
+
+        const isActiveRecipe =
+            player.alchemy.isCrafting &&
+            player.alchemy.activeRecipeId ===
+            recipe.id;
+
+        const resultItem =
+            items[
+            recipe.resultItemId
+            ];
+        const potionEffectText =
+            resultItem?.type ===
+                "potion" &&
+                typeof getPotionEffectText ===
+                "function"
+                ? getPotionEffectText(
+                    resultItem
+                )
+                : "";
+
+        const potionDurationText =
+            resultItem?.type ===
+                "potion" &&
+                typeof getPotionDurationText ===
+                "function"
+                ? getPotionDurationText(
+                    resultItem.durationSeconds
+                )
+                : "";
+
+        const card =
+            document.createElement(
+                "div"
+            );
+
+        card.className =
+            "alchemy-recipe-card";
+
+        card.dataset.alchemyRecipeId =
+            recipe.id;
+
+        if (!isUnlocked) {
+            card.classList.add(
+                "alchemy-recipe-locked"
+            );
+        }
+
+        if (isActiveRecipe) {
+            card.classList.add(
+                "alchemy-recipe-active"
+            );
+        }
+        const maxCraftable =
+            getMaxCraftableAlchemyQuantity(
+                recipe
+            );
+
+        const selectedQuantity =
+            getClampedAlchemyBatchCount(
+                recipe.id
+            );
+
+        const canCraftSelected =
+            isUnlocked &&
+            maxCraftable > 0;
+
+        const ingredientsHtml =
+            recipe.ingredients
+                .map(ingredient => {
+                    const item =
+                        items[
+                        ingredient.itemId
+                        ];
+
+                    const ownedQuantity =
+                        getInventoryItemQuantity(
+                            ingredient.itemId
+                        );
+
+                    const requiredQuantity =
+                        ingredient.quantity *
+                        selectedQuantity;
+
+                    const hasEnough =
+                        ownedQuantity >=
+                        requiredQuantity;
+
+                    return `
+                        <div class="alchemy-ingredient-row ${hasEnough
+                            ? "alchemy-ingredient-ready"
+                            : "alchemy-ingredient-missing"
+                        }">
+                            <span>
+                                ${item?.name ||
+                        ingredient.itemId
+                        }
+                            </span>
+
+                            <strong>
+                                ${ownedQuantity}/${requiredQuantity}
+                            </strong>
+                        </div>
+                    `;
+                })
+                .join("");
+
+        let buttonText =
+            player.alchemy.isCrafting
+                ? "DODAJ DO KOLEJKI 🧪"
+                : "ROZPOCZNIJ WARZENIE 🧪";
+
+        if (!isUnlocked) {
+            buttonText =
+                "WYMAGA POZIOMU ALCHEMII " +
+                recipe.requiredAlchemyLevel;
+        } else if (!hasIngredients) {
+            buttonText =
+                "BRAK SKŁADNIKÓW";
+        }
+
+        const isDisabled =
+            !isUnlocked ||
+            !hasIngredients;
+
+
+        card.innerHTML = `
+            <div class="alchemy-recipe-header">
+                <div>
+                    <span class="alchemy-recipe-status">
+                        ${isActiveRecipe
+                ? "🧪 Trwa warzenie"
+                : isUnlocked
+                    ? "Dostępna receptura"
+                    : "Zablokowana"
+            }
+                    </span>
+
+                    <h3>
+                        ${resultItem?.name ||
+            recipe.name
+            }
+                    </h3>
+                </div>
+
+                <div class="alchemy-level-badge">
+                    🧪 Lv. ${recipe.requiredAlchemyLevel}
+                </div>
+            </div>
+
+<p class="alchemy-recipe-description">
+    ${resultItem?.description ||
+            recipe.description}
+</p>
+
+${potionEffectText
+                ? `
+        <div class="alchemy-potion-compact-box">
+            <div class="alchemy-potion-compact-row">
+                <span class="alchemy-potion-compact-label">
+                    Efekt
+                </span>
+
+                <strong>
+                    ${potionEffectText}
+                </strong>
+            </div>
+
+            <div class="alchemy-potion-compact-row">
+                <span class="alchemy-potion-compact-label">
+                    Czas działania
+                </span>
+
+                <span>
+                    ⏱️ ${potionDurationText}
+                </span>
+            </div>
+        </div>
+    `
+                : ""
+            }
+
+<div class="alchemy-recipe-info">
+    <span>
+        Czas:
+        <strong>
+            ${recipe.craftingDurationSeconds} s
+        </strong>
+    </span>
+
+    <span>
+        Wynik:
+        <strong>
+            x${recipe.resultQuantity || 1}
+        </strong>
+    </span>
+
+    <span>
+        EXP:
+        <strong>
+            +${getAlchemyRecipeExp(recipe)}
+        </strong>
+    </span>
+</div>
+
+           <div class="alchemy-ingredients">
+    <h4>Składniki</h4>
+
+    ${ingredientsHtml}
+</div>
+
+<div class="alchemy-recipe-actions alchemy-batch-actions">
+    <div class="alchemy-batch-panel">
+        <div class="alchemy-batch-controls">
+            <button
+                type="button"
+                class="alchemy-batch-button"
+                onclick="changeAlchemyBatchCount('${recipe.id}', -1)"
+                ${!canCraftSelected ? "disabled" : ""}
+            >
+                −
+            </button>
+
+            <input
+                id="alchemy-quantity-${recipe.id}"
+                class="alchemy-batch-input"
+                type="number"
+                min="1"
+                max="${maxCraftable}"
+                value="${selectedQuantity}"
+                onchange="setAlchemyBatchCount('${recipe.id}', this.value)"
+                ${!canCraftSelected ? "disabled" : ""}
+            >
+
+            <button
+                type="button"
+                class="alchemy-batch-button"
+                onclick="changeAlchemyBatchCount('${recipe.id}', 1)"
+                ${!canCraftSelected ? "disabled" : ""}
+            >
+                +
+            </button>
+
+            <button
+                type="button"
+                class="alchemy-batch-max-button"
+                onclick="setMaxAlchemyBatchCount('${recipe.id}')"
+                ${!canCraftSelected ? "disabled" : ""}
+            >
+                MAX
+            </button>
+        </div>
+
+        <div class="alchemy-batch-bottom-row">
+            <div class="alchemy-batch-summary">
+                Maks.: ${maxCraftable}
+            </div>
+
+            <button
+                class="alchemy-craft-button alchemy-batch-add-button ${canCraftSelected ? "is-ready" : ""}"
+                onclick="startAlchemyCraftingFromUI('${recipe.id}')"
+                ${!canCraftSelected ? "disabled" : ""}
+            >
+                ${canCraftSelected
+                ? "Dodaj x" + selectedQuantity
+                : buttonText
+            }
+            </button>
+        </div>
+    </div>
+</div>
+`;
+
+        container.appendChild(
+            card
+        );
+    });
+}
+
+function enableAlchemyQueueDragging(list) {
+    let draggedRow = null;
+    let dragHandle = null;
+    let activePointerId = null;
+
+    function resetAlchemyDrag() {
+        if (draggedRow) {
+            draggedRow.classList.remove(
+                "is-dragging",
+            );
+        }
+
+        if (
+            dragHandle &&
+            activePointerId !== null &&
+            dragHandle.hasPointerCapture(
+                activePointerId,
+            )
+        ) {
+            dragHandle.releasePointerCapture(
+                activePointerId,
+            );
+        }
+
+        draggedRow = null;
+        dragHandle = null;
+        activePointerId = null;
+    }
+
+    list.addEventListener(
+        "pointerdown",
+        (event) => {
+            if (event.button !== 0) {
+                return;
+            }
+
+            const handle = event.target.closest(
+                "[data-alchemy-drag-handle]",
+            );
+
+            if (!handle) {
+                return;
+            }
+
+            const row = handle.closest(
+                "[data-alchemy-job-id]",
+            );
+
+            if (!row) {
+                return;
+            }
+
+            event.preventDefault();
+
+            draggedRow = row;
+            dragHandle = handle;
+            activePointerId = event.pointerId;
+
+            draggedRow.classList.add(
+                "is-dragging",
+            );
+
+            dragHandle.setPointerCapture(
+                activePointerId,
+            );
+        },
+    );
+
+    list.addEventListener(
+        "pointermove",
+        (event) => {
+            if (
+                !draggedRow ||
+                event.pointerId !== activePointerId
+            ) {
+                return;
+            }
+
+            event.preventDefault();
+
+            const listRectangle =
+                list.getBoundingClientRect();
+
+            if (
+                event.clientY <
+                listRectangle.top + 45
+            ) {
+                list.scrollTop -= 10;
+            } else if (
+                event.clientY >
+                listRectangle.bottom - 45
+            ) {
+                list.scrollTop += 10;
+            }
+
+            const otherRows = Array.from(
+                list.querySelectorAll(
+                    ".alchemy-queue-waiting",
+                ),
+            ).filter((row) => {
+                return row !== draggedRow;
+            });
+
+            let rowWasMoved = false;
+
+            for (const row of otherRows) {
+                const rectangle =
+                    row.getBoundingClientRect();
+
+                const rowMiddle =
+                    rectangle.top +
+                    rectangle.height / 2;
+
+                if (event.clientY < rowMiddle) {
+                    list.insertBefore(
+                        draggedRow,
+                        row,
+                    );
+
+                    rowWasMoved = true;
+                    break;
+                }
+            }
+
+            if (!rowWasMoved) {
+                list.appendChild(draggedRow);
+            }
+        },
+    );
+
+
+    list.addEventListener(
+        "pointerup",
+        (event) => {
+            if (
+                !draggedRow ||
+                event.pointerId !== activePointerId
+            ) {
+                return;
+            }
+
+            const movedJobId =
+                draggedRow.dataset.alchemyJobId;
+
+            const waitingRows = Array.from(
+                list.querySelectorAll(
+                    "[data-alchemy-job-id]",
+                ),
+            );
+
+            const targetIndex =
+                waitingRows.indexOf(draggedRow);
+
+            resetAlchemyDrag();
+
+            const moved = moveAlchemyQueueJob(
+                movedJobId,
+                targetIndex,
+            );
+
+            if (moved) {
+                renderAlchemy();
+            }
+        },
+    );
+
+    list.addEventListener(
+        "pointercancel",
+        () => {
+            resetAlchemyDrag();
+        },
+    );
+}
+
+function renderAlchemyProgressPanel(
+    container
+) {
+    const level =
+        player.alchemy.level;
+
+    const exp =
+        player.alchemy.exp;
+
+    const expNeeded =
+        player.alchemy
+            .expToNextLevel;
+
+    const expProgress =
+        expNeeded > 0
+            ? Math.min(
+                100,
+                exp / expNeeded * 100
+            )
+            : 0;
+
+    const activeRecipe =
+        player.alchemy.isCrafting
+            ? getAlchemyRecipe(
+                player.alchemy
+                    .activeRecipeId
+            )
+            : null;
+
+    const activeQuantity =
+        player.alchemy.isCrafting
+            ? Math.max(
+                1,
+                Math.floor(
+                    Number(
+                        player.alchemy.craftingQuantity
+                    ) || 1
+                )
+            )
+            : 0;
+
+    const activeCompletedQuantity =
+        player.alchemy.isCrafting
+            ? Math.max(
+                0,
+                Math.floor(
+                    Number(
+                        player.alchemy.activeCompletedQuantity
+                    ) || 0
+                )
+            )
+            : 0;
+
+    const activeCurrentQuantity =
+        activeRecipe
+            ? Math.min(
+                activeQuantity,
+                activeCompletedQuantity + 1
+            )
+            : 0;
+
+
+    const craftingProgress =
+        activeRecipe
+            ? getAlchemyCraftingProgressPercent()
+            : 0;
+
+    const remainingSeconds =
+        activeRecipe
+            ? getAlchemyTimeRemainingSeconds()
+            : 0;
+
+    const lastResultHtml =
+        getAlchemyLastResultHtml();
+
+
+    const queueHtml =
+        getAlchemyQueueHtml();
+
+    const activeRemainingQuantity =
+        player.alchemy.isCrafting
+            ? Math.max(
+                0,
+                Math.floor(
+                    Number(
+                        player.alchemy.craftingQuantity
+                    ) || 1
+                ) -
+                Math.max(
+                    0,
+                    Math.floor(
+                        Number(
+                            player.alchemy.activeCompletedQuantity
+                        ) || 0
+                    )
+                )
+            )
+            : 0;
+
+    const waitingQueueCount =
+        Array.isArray(
+            player.alchemy.queue
+        )
+            ? player.alchemy.queue.reduce(
+                (total, job) => {
+                    return (
+                        total +
+                        Math.max(
+                            1,
+                            Math.floor(
+                                Number(job.quantity) || 1
+                            )
+                        )
+                    );
+                },
+                0
+            )
+            : 0;
+
+    const totalQueueCount =
+        waitingQueueCount +
+        activeRemainingQuantity;
+
+    container.innerHTML = `
+        <div class="alchemy-progress-header has-profession-tool-context">
+            <div>
+                <span>Stan alchemii</span>
+
+                <h3>
+                    ${activeRecipe
+            ? activeRecipe.name +
+            (
+                activeQuantity > 1
+                    ? " (" +
+                    activeCurrentQuantity +
+                    "/" +
+                    activeQuantity +
+                    ")"
+                    : ""
+            )
+            : "Brak aktywnego warzenia"
+        }
+                </h3>
+            </div>
+
+            <div
+                class="profession-tool-context-slot"
+                data-profession-tool-panel="alchemyKit"
+            ></div>
+
+            <div class="alchemy-current-level">
+                Poziom alchemii
+                <strong>${level}</strong>
+            </div>
+        </div>
+
+        <div class="alchemy-exp-label">
+            <span>EXP alchemii</span>
+
+            <strong>
+                ${exp}/${expNeeded}
+            </strong>
+        </div>
+
+        <div class="alchemy-exp-bar">
+            <div
+                class="alchemy-exp-fill"
+                style="width: ${expProgress}%"
+            ></div>
+        </div>
+
+        <div class="alchemy-crafting-label">
+            <span>
+                ${activeRecipe
+            ? "Trwa warzenie..."
+            : "Kocioł jest wolny"
+        }
+            </span>
+
+            <strong id="alchemy-progress-percent">
+                ${Math.floor(craftingProgress)}%
+            </strong>
+        </div>
+
+        <div class="alchemy-crafting-bar">
+            <div
+                id="alchemy-progress-fill"
+                class="alchemy-crafting-fill"
+                style="width: ${craftingProgress}%"
+            ></div>
+        </div>
+
+        <div class="alchemy-time-row">
+            <span>Pozostały czas</span>
+
+            <strong id="alchemy-time-remaining">
+                ${activeRecipe
+            ? remainingSeconds + " s"
+            : "—"
+        }
+            </strong>
+        </div>
+
+                <div class="alchemy-queue-section">
+    <div class="alchemy-queue-header">
+        <div>
+            <span>Kolejka warzenia</span>
+
+            <strong>
+                ${totalQueueCount}
+                ${totalQueueCount === 1
+            ? "mikstura"
+            : "mikstur"
+        }
+            </strong>
+        </div>
+
+        <small>
+            Oczekujące:
+            ${waitingQueueCount}
+        </small>
+    </div>
+
+    <div class="alchemy-queue-list">
+        ${queueHtml}
+    </div>
+</div>
+
+
+        <div class="alchemy-last-result">
+            <h4>Ostatnie warzenie</h4>
+
+            ${lastResultHtml}
+        </div>
+    `;
+
+    const toolPanel =
+        container.querySelector(
+            "[data-profession-tool-panel='alchemyKit']"
+        );
+
+    if (
+        toolPanel &&
+        typeof renderProfessionToolContextPanel ===
+        "function"
+    ) {
+        renderProfessionToolContextPanel(
+            toolPanel,
+            "alchemyKit"
+        );
+    }
+
+    const queueList = container.querySelector(
+        ".alchemy-queue-list",
+    );
+
+    if (queueList) {
+        enableAlchemyQueueDragging(
+            queueList,
+        );
+    }
+}
+
+function updateAlchemyProgressUI() {
+    if (
+        !player.alchemy ||
+        !player.alchemy.isCrafting
+    ) {
+        return;
+    }
+
+    const progressFill =
+        document.getElementById(
+            "alchemy-progress-fill"
+        );
+
+    const progressPercent =
+        document.getElementById(
+            "alchemy-progress-percent"
+        );
+
+    const timeRemaining =
+        document.getElementById(
+            "alchemy-time-remaining"
+        );
+    const totalQueueTime =
+        document.querySelector(
+            "[data-alchemy-total-queue-time]"
+        );
+
+    if (
+        !progressFill ||
+        !progressPercent ||
+        !timeRemaining
+    ) {
+        return;
+    }
+
+    const progress =
+        getAlchemyCraftingProgressPercent();
+
+    const remainingSeconds =
+        getAlchemyTimeRemainingSeconds();
+
+    progressFill.style.width =
+        progress + "%";
+
+    progressPercent.textContent =
+        Math.floor(progress) + "%";
+
+    timeRemaining.textContent =
+        formatAlchemyDuration(
+            remainingSeconds
+        );
+
+    if (
+        totalQueueTime &&
+        typeof getAlchemyTotalQueueRemainingSeconds ===
+        "function"
+    ) {
+        totalQueueTime.textContent =
+            "Łącznie: " +
+            formatAlchemyDuration(
+                getAlchemyTotalQueueRemainingSeconds()
+            );
+    }
+}
+
+function getAlchemyLastResultHtml() {
+    const result =
+        player.alchemy.lastResult;
+
+    if (!result) {
+        return `
+            <p class="alchemy-empty-result">
+                Nie uwarzono jeszcze żadnej mikstury.
+            </p>
+        `;
+    }
+
+    const item =
+        items[
+        result.resultItemId
+        ];
+
+    return `
+        <div class="alchemy-result-row">
+            <span>
+                ${item?.name ||
+        result.resultItemId
+        }
+            </span>
+
+            <strong>
+                x${result.resultQuantity}
+            </strong>
+        </div>
+
+        <div class="alchemy-result-exp">
+            Zdobyte doświadczenie:
+            <strong>
+                +${result.alchemyExp} EXP
+            </strong>
+        </div>
+    `;
+
+}
+
+function startAlchemyCraftingFromUI(
+    recipeId
+) {
+    const quantity =
+        getClampedAlchemyBatchCount(
+            recipeId
+        );
+
+    startAlchemyCrafting(
+        recipeId,
+        quantity
+    );
+}
+
+function getAlchemyQueueHtml() {
+    ensureAlchemyState();
+
+    const activeRecipe =
+        player.alchemy.isCrafting
+            ? getAlchemyRecipe(
+                player.alchemy.activeRecipeId
+            )
+            : null;
+
+    const waitingQueue =
+        Array.isArray(player.alchemy.queue)
+            ? player.alchemy.queue
+            : [];
+
+    if (
+        !activeRecipe &&
+        waitingQueue.length === 0
+    ) {
+        return `
+            <p class="alchemy-empty-queue">
+                Kolejka warzenia jest pusta.
+            </p>
+        `;
+    }
+
+    let html = "";
+
+    if (activeRecipe) {
+        const activeItem =
+            items[activeRecipe.resultItemId];
+
+        const activeTotalQuantity =
+            Math.max(
+                1,
+                Math.floor(
+                    Number(
+                        player.alchemy.craftingQuantity
+                    ) || 1
+                )
+            );
+
+        const activeCompletedQuantity =
+            Math.max(
+                0,
+                Math.floor(
+                    Number(
+                        player.alchemy.activeCompletedQuantity
+                    ) || 0
+                )
+            );
+
+        const activeCurrentQuantity =
+            Math.min(
+                activeTotalQuantity,
+                activeCompletedQuantity + 1
+            );
+
+        const activeStackText =
+            activeTotalQuantity > 1
+                ? " " +
+                activeCurrentQuantity +
+                "/" +
+                activeTotalQuantity
+                : "";
+
+        html += `
+        <div class="alchemy-queue-item alchemy-queue-active">
+            <div class="alchemy-queue-number">
+                🧪
+            </div>
+
+            <div class="alchemy-queue-info">
+                <span>Aktualnie warzona</span>
+
+                <strong>
+                    ${activeItem?.name ||
+            activeRecipe.name
+            }${activeStackText}
+                </strong>
+            </div>
+
+<div
+    class="alchemy-queue-status"
+    data-alchemy-total-queue-time
+>
+    Łącznie:
+    ${formatAlchemyDuration(
+                typeof getAlchemyTotalQueueRemainingSeconds ===
+                    "function"
+                    ? getAlchemyTotalQueueRemainingSeconds()
+                    : 0
+            )}
+</div>
+
+            <button
+                type="button"
+                class="alchemy-queue-remove-button alchemy-active-cancel-button"
+                onclick="cancelActiveAlchemyJob()"
+            >
+                Anuluj
+            </button>
+        </div>
+    `;
+    }
+
+    waitingQueue.forEach(
+        (job, index) => {
+            const recipe =
+                getAlchemyRecipe(
+                    job.recipeId
+                );
+
+            if (!recipe) {
+                return;
+            }
+
+            const resultItem =
+                items[
+                recipe.resultItemId
+                ];
+
+            const queuePosition =
+                index + 1;
+
+            const jobQuantity =
+                Math.max(
+                    1,
+                    Math.floor(
+                        Number(job.quantity) || 1
+                    )
+                );
+
+            const jobDurationSeconds =
+                Math.ceil(
+                    (
+                        getAlchemyRecipeDurationMs(
+                            recipe
+                        ) *
+                        jobQuantity
+                    ) / 1000
+                );
+
+            const jobStackText =
+                jobQuantity > 1
+                    ? " x" + jobQuantity
+                    : "";
+
+            html += `
+                <div
+  class="alchemy-queue-item alchemy-queue-waiting"
+  data-alchemy-job-id="${job.id}"
+>
+<button
+  type="button"
+  class="alchemy-queue-drag-handle"
+  data-alchemy-drag-handle="true"
+  title="Przytrzymaj i przeciągnij"
+  aria-label="Przeciągnij ${recipe.name}"
+>
+  ⠿
+</button>
+                    <div class="alchemy-queue-number">
+                        ${queuePosition}
+                    </div>
+
+                    <div class="alchemy-queue-info">
+                        <span>
+                            Pozycja w kolejce
+                        </span>
+
+                        <strong>
+                            ${resultItem?.name ||
+                recipe.name
+                }${jobStackText}
+                        </strong>
+                    </div>
+
+                    <div class="alchemy-queue-duration">
+                        ${formatAlchemyDuration(
+                    jobDurationSeconds
+                )}
+                    </div>
+
+                    <button
+                        type="button"
+                        class="alchemy-queue-remove-button"
+                        onclick="removeAlchemyQueueItem('${job.id}')"
+                    >
+                        Usuń
+                    </button>
+                </div>
+            `;
+        }
+    );
+
+    return html;
+}
+
+function formatAlchemyDuration(
+    totalSeconds
+) {
+    const safeSeconds =
+        Math.max(
+            0,
+            Math.ceil(
+                Number(
+                    totalSeconds
+                ) || 0
+            )
+        );
+
+    const hours =
+        Math.floor(
+            safeSeconds /
+            3600
+        );
+
+    const minutes =
+        Math.floor(
+            (
+                safeSeconds %
+                3600
+            ) /
+            60
+        );
+
+    const seconds =
+        safeSeconds %
+        60;
+
+    if (hours > 0) {
+        return (
+            hours +
+            " godz. " +
+            minutes +
+            " min " +
+            seconds +
+            " s"
+        );
+    }
+
+    if (minutes > 0) {
+        return (
+            minutes +
+            " min " +
+            seconds +
+            " s"
+        );
+    }
+
+    return (
+        seconds +
+        " s"
+    );
+}

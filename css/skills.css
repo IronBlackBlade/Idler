@@ -1,0 +1,2847 @@
+.skills-panel {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.skills-points-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+
+    margin-bottom: 12px;
+    padding: 9px 11px;
+
+    border-radius: 11px;
+    background: #151515;
+    border: 1px solid #4a3f25;
+}
+
+.skills-points-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.skills-points-info span {
+    color: #a89b70;
+    font-size: 12px;
+}
+
+.skills-points-info strong {
+    color: #ffcc66;
+    font-size: 16px;
+}
+
+.skills-reset-button {
+    width: auto;
+    min-height: 34px;
+    padding: 7px 10px;
+
+    border-color: #6f4a37;
+    background: #261b17;
+    color: #e4b79b;
+
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.skills-reset-button:hover:not(:disabled) {
+    border-color: #a86e4f;
+    color: #ffe0cb;
+}
+
+.skills-reset-button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.skill-tree-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+
+    margin-bottom: 12px;
+}
+
+.skill-tree-tabs button {
+    width: auto;
+    padding: 7px 10px;
+
+    border-radius: 999px;
+    border: 1px solid #3f3722;
+
+    background: #151515;
+    color: #c8bc8e;
+
+    font-size: 12px;
+}
+
+.skill-tree-tabs button:hover {
+    border-color: #8a7438;
+    color: #f1d98a;
+}
+
+.skill-tree-tabs button.active {
+    border-color: #b8862b;
+    background: #2a2315;
+    color: #f1d98a;
+}
+
+.skill-tree-description {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    margin-bottom: 14px;
+    padding: 10px;
+
+    border-radius: 11px;
+    background: #111;
+    border: 1px solid #302716;
+}
+
+.skill-tree-description strong {
+    color: #f1d98a;
+    font-size: 14px;
+}
+
+.skill-tree-description span {
+    color: #a89b70;
+    font-size: 12px;
+}
+
+.magic-category-tabs {
+    display: grid;
+    grid-template-columns:
+        repeat(3,
+            minmax(0, 1fr));
+
+    gap: 8px;
+    margin: -3px 0 14px;
+    padding: 7px;
+
+    border: 1px solid #302716;
+    border-radius: 12px;
+
+    background:
+        linear-gradient(145deg,
+            #131313,
+            #10100f);
+}
+
+.magic-category-tabs[hidden] {
+    display: none;
+}
+
+.magic-category-tabs button {
+    min-width: 0;
+    padding: 8px 9px;
+
+    border: 1px solid #3e3522;
+    border-radius: 9px;
+
+    background: #181715;
+    color: #aaa07f;
+
+    font-size: 11px;
+}
+
+.magic-category-tabs button:hover {
+    border-color: #7d6935;
+    color: #ead89d;
+}
+
+.magic-category-tabs button.active {
+    border-color: #9a7934;
+
+    background:
+        linear-gradient(180deg,
+            #302717,
+            #1c1913);
+
+    color: #f1d98a;
+
+    box-shadow:
+        inset 0 -2px 0 rgba(211, 169, 70, 0.2);
+}
+
+.skill-card[data-branch="general"] {
+    border-left: 3px solid #7d65a8;
+}
+
+.skill-card[data-branch="offensive_spells"] {
+    border-left: 3px solid #a94f3d;
+}
+
+.skill-card[data-branch="defensive_spells"] {
+    border-left: 3px solid #426f9c;
+}
+
+.skills-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 12px;
+}
+
+.skill-card {
+    display: flex;
+    flex-direction: column;
+
+    padding: 12px;
+    border-radius: 13px;
+
+    background: #151515;
+    border: 1px solid #4a3f25;
+
+    box-sizing: border-box;
+}
+
+.skill-card[data-branch="warrior_core"] {
+    border-left: 3px solid #c59c3e;
+}
+
+.skill-card[data-branch="warrior_fury"] {
+    border-left: 3px solid #b94a3f;
+}
+
+.skill-card[data-branch="warrior_bleeding"] {
+    border-left: 3px solid #7f2630;
+}
+
+.skill-card[data-branch="warrior_defense"] {
+    border-left: 3px solid #53758d;
+}
+
+.skill-card[data-branch="hunter_core"] {
+    border-left: 3px solid #79a85c;
+}
+
+.skill-card[data-branch="hunter_precision"] {
+    border-left: 3px solid #c49a4f;
+}
+
+.skill-card[data-branch="hunter_volley"] {
+    border-left: 3px solid #4e8e72;
+}
+
+.skill-card[data-branch="hunter_survival"] {
+    border-left: 3px solid #587f9b;
+}
+
+.skill-card[data-branch="mage_core"] {
+    border-left: 3px solid #8a6dc2;
+}
+
+.skill-card[data-branch="mage_destruction"] {
+    border-left: 3px solid #b54f72;
+}
+
+.skill-card[data-branch="mage_arcana"] {
+    border-left: 3px solid #725bb3;
+}
+
+.skill-card[data-branch="mage_protection"] {
+    border-left: 3px solid #4f7ba5;
+}
+
+.skill-card[data-branch="guardian_core"] {
+    border-left: 3px solid #7893a8;
+}
+
+.skill-card[data-branch="guardian_bastion"] {
+    border-left: 3px solid #52758d;
+}
+
+.skill-card[data-branch="guardian_retribution"] {
+    border-left: 3px solid #a16f45;
+}
+
+.skill-card[data-branch="guardian_resolve"] {
+    border-left: 3px solid #56846b;
+}
+
+.skill-card[data-branch="rogue_core"] {
+    border-left: 3px solid #71658d;
+}
+
+.skill-card[data-branch="rogue_assassination"] {
+    border-left: 3px solid #9b4555;
+}
+
+.skill-card[data-branch="rogue_agility"] {
+    border-left: 3px solid #497c78;
+}
+
+.skill-card[data-branch="rogue_poison"] {
+    border-left: 3px solid #658447;
+}
+
+.skill-card.skill-capstone {
+    background:
+        linear-gradient(145deg,
+            #201b14,
+            #151515);
+
+    box-shadow:
+        inset 0 0 18px rgba(197, 156, 62, 0.06);
+}
+
+.skills-list.warrior-tree-mode {
+    display: block;
+}
+
+.skill-card[data-branch="exploration_core"] {
+    border-left:
+        3px solid #b28a43;
+}
+
+.skill-card[data-branch="loot"] {
+    border-left:
+        3px solid #aa8440;
+}
+
+.skill-card[data-branch="gathering"] {
+    border-left:
+        3px solid #4f8a63;
+}
+
+.skill-card[data-branch="survival"] {
+    border-left:
+        3px solid #557b8c;
+}
+
+.warrior-tree-layout {
+    --warrior-tree-line:
+        rgba(184, 134, 43, 0.58);
+
+    width: 100%;
+    padding: 6px 4px 18px;
+
+    box-sizing: border-box;
+}
+/* =========================================================
+   DRZEWKO MAGII
+   ========================================================= */
+
+.warrior-tree-layout[data-tree="magic"] {
+    --warrior-tree-line:
+        rgba(
+            126,
+            94,
+            190,
+            0.72
+        );
+}
+
+.warrior-tree-layout[data-tree="magic"]
+.magic-tree-root {
+    gap: 0;
+    padding-bottom: 0;
+}
+
+.warrior-tree-layout[data-tree="magic"]
+.magic-tree-root::after {
+    display: none;
+}
+
+.warrior-tree-layout[data-tree="magic"]
+.warrior-tree-root-heading {
+    position: relative;
+    z-index: 3;
+
+    border-color: #684f96;
+
+    background:
+        linear-gradient(
+            180deg,
+            #2b2140,
+            #17131f
+        );
+
+    color: #dfcaff;
+
+    box-shadow:
+        0 0 16px
+        rgba(
+            139,
+            98,
+            210,
+            0.18
+        );
+}
+
+/*
+ * Oba łączniki mają dokładnie
+ * tę samą szerokość co Adeptowie
+ * i dolne gałęzie.
+ */
+.warrior-tree-layout[data-tree="magic"]
+.magic-tree-connector {
+    position: relative;
+
+    width: min(
+        100%,
+        920px
+    );
+
+    height: 38px;
+    margin: 0 auto;
+
+    box-sizing: border-box;
+}
+
+/*
+ * Górny łącznik:
+ *
+ * środek z nagłówka
+ * → pozioma linia
+ * → dwie pionowe linie do Adeptów
+ */
+.warrior-tree-layout[data-tree="magic"]
+.magic-tree-upper-connector::before {
+    content: "";
+
+    position: absolute;
+    top: 18px;
+    left: 25%;
+    right: 25%;
+
+    height: 2px;
+
+    background:
+        var(--warrior-tree-line);
+}
+
+.warrior-tree-layout[data-tree="magic"]
+.magic-tree-upper-connector::after {
+    content: "";
+
+    position: absolute;
+    top: 0;
+    left: 50%;
+
+    width: 2px;
+    height: 20px;
+
+    background:
+        var(--warrior-tree-line);
+
+    transform:
+        translateX(-50%);
+}
+
+.warrior-tree-layout[data-tree="magic"]
+.magic-tree-upper-connector
+.magic-tree-connector-leg {
+    position: absolute;
+    top: 18px;
+
+    width: 2px;
+    height: 20px;
+
+    background:
+        var(--warrior-tree-line);
+
+    transform:
+        translateX(-50%);
+}
+
+.warrior-tree-layout[data-tree="magic"]
+.magic-tree-upper-connector
+.magic-tree-connector-left {
+    left: 25%;
+}
+
+.warrior-tree-layout[data-tree="magic"]
+.magic-tree-upper-connector
+.magic-tree-connector-right {
+    left: 75%;
+}
+
+/*
+ * Dwa równe kafelki Adeptów.
+ */
+.warrior-tree-layout[data-tree="magic"]
+.magic-tree-root-cards {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0, 1fr)
+        );
+
+    align-items: stretch;
+    gap: 18px;
+
+    width: min(
+        100%,
+        920px
+    );
+}
+
+.warrior-tree-layout[data-tree="magic"]
+.magic-tree-root-cards
+.warrior-tree-node {
+    height: 100%;
+}
+
+.warrior-tree-layout[data-tree="magic"]
+.magic-tree-root-cards
+.warrior-tree-node:first-child {
+    border-left:
+        3px solid #a45245;
+}
+
+.warrior-tree-layout[data-tree="magic"]
+.magic-tree-root-cards
+.warrior-tree-node:last-child {
+    border-left:
+        3px solid #4d72a1;
+}
+
+/*
+ * Dolny łącznik:
+ *
+ * linie od dwóch Adeptów
+ * → połączenie w poziomie
+ * → jedna linia w dół
+ */
+.warrior-tree-layout[data-tree="magic"]
+.magic-tree-lower-connector::before {
+    content: "";
+
+    position: absolute;
+    top: 18px;
+    left: 25%;
+    right: 25%;
+
+    height: 2px;
+
+    background:
+        var(--warrior-tree-line);
+}
+
+.warrior-tree-layout[data-tree="magic"]
+.magic-tree-lower-connector
+.magic-tree-connector-leg {
+    position: absolute;
+    top: 0;
+
+    width: 2px;
+    height: 20px;
+
+    background:
+        var(--warrior-tree-line);
+
+    transform:
+        translateX(-50%);
+}
+
+.warrior-tree-layout[data-tree="magic"]
+.magic-tree-lower-connector
+.magic-tree-connector-left {
+    left: 25%;
+}
+
+.warrior-tree-layout[data-tree="magic"]
+.magic-tree-lower-connector
+.magic-tree-connector-right {
+    left: 75%;
+}
+
+.warrior-tree-layout[data-tree="magic"]
+.magic-tree-lower-connector
+.magic-tree-connector-center {
+    position: absolute;
+    top: 18px;
+    bottom: 0;
+    left: 50%;
+
+    width: 2px;
+
+    background:
+        var(--warrior-tree-line);
+
+    transform:
+        translateX(-50%);
+}
+
+/*
+ * Dolny podział na czary ofensywne
+ * i czary ochronne.
+ */
+.warrior-tree-layout[data-tree="magic"]
+.magic-tree-branches {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0, 1fr)
+        );
+
+    gap: 18px;
+
+    width: min(
+        100%,
+        920px
+    );
+
+    margin: 0 auto;
+    padding-top: 32px;
+}
+
+.warrior-tree-layout[data-tree="magic"]
+.magic-tree-branches::before {
+    top: 0;
+    left: 25%;
+    right: 25%;
+
+    width: auto;
+    height: 2px;
+
+    background:
+        var(--warrior-tree-line);
+}
+
+.warrior-tree-layout[data-tree="magic"]
+.magic-tree-branches::after {
+    display: none;
+}
+
+.warrior-tree-layout[data-tree="magic"]
+.magic-tree-branches
+.warrior-tree-branch {
+    padding-top: 16px;
+}
+
+.warrior-tree-layout[data-tree="magic"]
+.magic-tree-branches
+.warrior-tree-branch::before {
+    top: -32px;
+    left: 50%;
+
+    width: 2px;
+    height: 32px;
+
+    transform:
+        translateX(-50%);
+}
+
+.warrior-tree-layout[data-tree="magic"]
+.warrior-tree-branch[data-branch="offensive_spells"]
+.warrior-tree-branch-heading {
+    border-color: #84493e;
+}
+
+.warrior-tree-layout[data-tree="magic"]
+.warrior-tree-branch[data-branch="defensive_spells"]
+.warrior-tree-branch-heading {
+    border-color: #466d94;
+}
+
+/*
+ * Czary zawsze pozostają w pionowym
+ * łańcuchu, również poniżej 900 px.
+ */
+.warrior-tree-layout[data-tree="magic"]
+.warrior-tree-chain {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    padding-top: 30px;
+}
+
+.warrior-tree-layout[data-tree="magic"]
+.warrior-tree-chain::before {
+    top: 0;
+    right: auto;
+    bottom: 0;
+    left: 50%;
+
+    width: 2px;
+    height: auto;
+
+    transform:
+        translateX(-50%);
+}
+
+.warrior-tree-layout[data-tree="magic"]
+.warrior-tree-chain
+.warrior-tree-node::before {
+    top: -18px;
+}
+
+.warrior-tree-layout[data-tree="hunter"] {
+    --warrior-tree-line:
+        rgba(93, 150, 91, 0.62);
+}
+
+.warrior-tree-layout[data-tree="mage"] {
+    --warrior-tree-line:
+        rgba(123, 94, 190, 0.64);
+}
+
+.warrior-tree-layout[data-tree="guardian"] {
+    --warrior-tree-line:
+        rgba(91, 130, 157, 0.66);
+}
+
+.warrior-tree-layout[data-tree="guardian"] .warrior-tree-root-heading {
+    border-color: #526f84;
+
+    background:
+        linear-gradient(180deg,
+            #22313c,
+            #141a1e);
+
+    color: #d1e5f2;
+
+    box-shadow:
+        0 0 16px rgba(90, 139, 173, 0.17);
+}
+
+.warrior-tree-layout[data-tree="guardian"] .warrior-specialization-status.has-specialization {
+    border-color: #64859b;
+
+    background:
+        linear-gradient(145deg,
+            #202e37,
+            #12171a);
+
+    box-shadow:
+        0 0 13px rgba(99, 145, 176, 0.15);
+}
+
+.warrior-tree-layout[data-tree="guardian"] .warrior-specialization-status.has-specialization strong {
+    color: #c8e1ef;
+}
+
+.warrior-tree-layout[data-tree="rogue"] {
+    --warrior-tree-line:
+        rgba(104, 84, 140, 0.66);
+}
+
+.warrior-tree-layout[data-tree="rogue"] .warrior-tree-root-heading {
+    border-color: #625278;
+
+    background:
+        linear-gradient(180deg,
+            #292235,
+            #17141c);
+
+    color: #ddd0ef;
+
+    box-shadow:
+        0 0 16px rgba(124, 91, 165, 0.17);
+}
+
+.warrior-tree-layout[data-tree="rogue"] .warrior-specialization-status.has-specialization {
+    border-color: #755f91;
+
+    background:
+        linear-gradient(145deg,
+            #292235,
+            #151219);
+
+    box-shadow:
+        0 0 13px rgba(125, 91, 166, 0.15);
+}
+
+.warrior-tree-layout[data-tree="rogue"] .warrior-specialization-status.has-specialization strong {
+    color: #decdf1;
+}
+
+.warrior-tree-layout[data-tree="mage"] .warrior-tree-root-heading {
+    border-color: #654e91;
+
+    background:
+        linear-gradient(180deg,
+            #29203b,
+            #17131e);
+
+    color: #ddc8ff;
+
+    box-shadow:
+        0 0 16px rgba(139, 98, 210, 0.16);
+}
+
+.warrior-tree-layout[data-tree="mage"] .warrior-specialization-status.has-specialization {
+    border-color: #7358a4;
+
+    background:
+        linear-gradient(145deg,
+            #281f38,
+            #15121b);
+
+    box-shadow:
+        0 0 13px rgba(129, 91, 193, 0.15);
+}
+
+.warrior-tree-layout[data-tree="mage"] .warrior-specialization-status.has-specialization strong {
+    color: #d9c0ff;
+}
+
+.warrior-tree-layout[data-tree="hunter"] .warrior-tree-root-heading {
+    border-color: #4e7041;
+
+    background:
+        linear-gradient(180deg,
+            #20301d,
+            #141a13);
+
+    color: #c7e8a9;
+
+    box-shadow:
+        0 0 16px rgba(100, 170, 88, 0.14);
+}
+
+.warrior-tree-layout[data-tree="hunter"] .warrior-specialization-status.has-specialization {
+    border-color: #5d8f51;
+
+    background:
+        linear-gradient(145deg,
+            #1d2b1b,
+            #121612);
+
+    box-shadow:
+        0 0 13px rgba(103, 171, 89, 0.13);
+}
+
+.warrior-tree-layout[data-tree="hunter"] .warrior-specialization-status.has-specialization strong {
+    color: #bfe49f;
+}
+
+.warrior-tree-root {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+    padding-bottom: 48px;
+}
+
+.warrior-tree-root::after {
+    content: "";
+
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+
+    width: 2px;
+    height: 40px;
+
+    background:
+        linear-gradient(var(--warrior-tree-line),
+            #b8862b);
+
+    transform:
+        translateX(-50%);
+}
+
+.warrior-tree-root-heading {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    padding: 7px 12px;
+
+    border: 1px solid #69572d;
+    border-radius: 999px;
+
+    background:
+        linear-gradient(180deg,
+            #2b2518,
+            #181611);
+
+    color: #f2d98d;
+
+    box-shadow:
+        0 0 16px rgba(184, 134, 43, 0.13);
+}
+
+.warrior-tree-root-heading>span {
+    font-size: 20px;
+}
+
+.warrior-tree-root-heading>div {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.warrior-tree-root-heading small {
+    color: #94845b;
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+}
+
+.warrior-tree-root-heading strong {
+    font-size: 13px;
+}
+
+.warrior-tree-root-cards {
+    width: min(100%,
+            360px);
+}
+
+.warrior-specialization-status {
+    display: grid;
+    grid-template-columns:
+        auto auto;
+    align-items: center;
+    gap: 2px 8px;
+
+    padding: 7px 10px;
+
+    border: 1px dashed #4e4530;
+    border-radius: 10px;
+
+    background: #121211;
+}
+
+.warrior-specialization-status span {
+    color: #8e8365;
+    font-size: 9px;
+    text-transform: uppercase;
+}
+
+.warrior-specialization-status strong {
+    color: #b5aa88;
+    font-size: 11px;
+}
+
+.warrior-specialization-status small {
+    grid-column: 1 / -1;
+
+    color: #6f6959;
+    font-size: 8px;
+}
+
+.warrior-specialization-status.has-specialization {
+    border-style: solid;
+    border-color: #8f7131;
+
+    background:
+        linear-gradient(145deg,
+            #282114,
+            #141311);
+
+    box-shadow:
+        0 0 13px rgba(197, 156, 62, 0.12);
+}
+
+.warrior-specialization-status.has-specialization strong {
+    color: #f0cf70;
+}
+
+.warrior-tree-branches {
+    position: relative;
+
+    display: grid;
+    grid-template-columns:
+        repeat(3,
+            minmax(0, 1fr));
+
+    gap: 18px;
+    padding-top: 32px;
+}
+
+.warrior-tree-branches::before {
+    content: "";
+
+    position: absolute;
+    top: 0;
+    left: 16.666%;
+    right: 16.666%;
+
+    height: 2px;
+
+    background:
+        var(--warrior-tree-line);
+}
+
+.warrior-tree-branch {
+    position: relative;
+
+    min-width: 0;
+    padding-top: 16px;
+}
+
+.warrior-tree-branch::before {
+    content: "";
+
+    position: absolute;
+    top: -32px;
+    left: 50%;
+
+    width: 2px;
+    height: 32px;
+
+    background:
+        var(--warrior-tree-line);
+
+    transform:
+        translateX(-50%);
+}
+
+.warrior-tree-branch-heading {
+    position: relative;
+    z-index: 2;
+
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    min-height: 56px;
+    padding: 9px 10px;
+
+    border: 1px solid #4c422b;
+    border-radius: 12px;
+
+    background:
+        linear-gradient(145deg,
+            #211e17,
+            #131313);
+
+    box-sizing: border-box;
+}
+
+.warrior-tree-branch-heading>div {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+
+    min-width: 0;
+}
+
+.warrior-tree-branch-heading strong {
+    color: #ead493;
+    font-size: 13px;
+}
+
+.warrior-tree-branch-heading small {
+    color: #968b6e;
+    font-size: 9px;
+    line-height: 1.3;
+}
+
+.warrior-tree-branch-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 32px;
+    height: 32px;
+    flex: 0 0 32px;
+
+    border: 1px solid #544727;
+    border-radius: 9px;
+
+    background: #171612;
+}
+
+.warrior-tree-branch[data-branch="loot"] .warrior-tree-branch-heading {
+    border-color: #80683a;
+}
+
+.warrior-tree-branch[data-branch="gathering"] .warrior-tree-branch-heading {
+    border-color: #3f7052;
+}
+
+.warrior-tree-branch[data-branch="survival"] .warrior-tree-branch-heading {
+    border-color: #426879;
+}
+
+.warrior-tree-branch[data-branch="warrior_fury"] .warrior-tree-branch-heading {
+    border-color: #7c3b32;
+}
+
+.warrior-tree-branch[data-branch="warrior_bleeding"] .warrior-tree-branch-heading {
+    border-color: #692c35;
+}
+
+.warrior-tree-branch[data-branch="warrior_defense"] .warrior-tree-branch-heading {
+    border-color: #405f73;
+}
+
+.warrior-tree-branch[data-branch="hunter_precision"] .warrior-tree-branch-heading {
+    border-color: #806a36;
+}
+
+.warrior-tree-branch[data-branch="hunter_volley"] .warrior-tree-branch-heading {
+    border-color: #376b54;
+}
+
+.warrior-tree-branch[data-branch="hunter_survival"] .warrior-tree-branch-heading {
+    border-color: #3e647c;
+}
+
+.warrior-tree-branch[data-branch="mage_destruction"] .warrior-tree-branch-heading {
+    border-color: #813b57;
+}
+
+.warrior-tree-branch[data-branch="mage_arcana"] .warrior-tree-branch-heading {
+    border-color: #554184;
+}
+
+.warrior-tree-branch[data-branch="mage_protection"] .warrior-tree-branch-heading {
+    border-color: #3d6282;
+}
+
+.warrior-tree-branch[data-branch="guardian_bastion"] .warrior-tree-branch-heading {
+    border-color: #43677d;
+}
+
+.warrior-tree-branch[data-branch="guardian_retribution"] .warrior-tree-branch-heading {
+    border-color: #775333;
+}
+
+.warrior-tree-branch[data-branch="guardian_resolve"] .warrior-tree-branch-heading {
+    border-color: #3f6952;
+}
+
+.warrior-tree-branch[data-branch="rogue_assassination"] .warrior-tree-branch-heading {
+    border-color: #743543;
+}
+
+.warrior-tree-branch[data-branch="rogue_agility"] .warrior-tree-branch-heading {
+    border-color: #38645f;
+}
+
+.warrior-tree-branch[data-branch="rogue_poison"] .warrior-tree-branch-heading {
+    border-color: #506b38;
+}
+
+.warrior-tree-layout[data-tree="hunter"] .warrior-tree-node.warrior-capstone-selected {
+    border-color: #76aa62;
+
+    background:
+        linear-gradient(145deg,
+            #23371f,
+            #141a13);
+
+    box-shadow:
+        0 0 18px rgba(118, 170, 98, 0.22);
+}
+
+.warrior-tree-layout[data-tree="hunter"] .warrior-capstone-button.selected {
+    border-color: #76aa62;
+
+    background:
+        linear-gradient(180deg,
+            #3c6233,
+            #22391e);
+
+    color: #dff7cb;
+}
+
+.warrior-tree-layout[data-tree="mage"] .warrior-tree-node.warrior-capstone-selected {
+    border-color: #9773d3;
+
+    background:
+        linear-gradient(145deg,
+            #2e2342,
+            #17131e);
+
+    box-shadow:
+        0 0 18px rgba(151, 115, 211, 0.24);
+}
+
+.warrior-tree-layout[data-tree="mage"] .warrior-capstone-button.selected {
+    border-color: #9773d3;
+
+    background:
+        linear-gradient(180deg,
+            #5b4382,
+            #302342);
+
+    color: #eadcff;
+}
+
+.warrior-tree-layout[data-tree="guardian"] .warrior-tree-node.warrior-capstone-selected {
+    border-color: #78a5c0;
+
+    background:
+        linear-gradient(145deg,
+            #233640,
+            #141a1e);
+
+    box-shadow:
+        0 0 18px rgba(111, 163, 194, 0.24);
+}
+
+.warrior-tree-layout[data-tree="guardian"] .warrior-capstone-button.selected {
+    border-color: #78a5c0;
+
+    background:
+        linear-gradient(180deg,
+            #456f88,
+            #263f4e);
+
+    color: #e1f3fc;
+}
+
+.warrior-tree-layout[data-tree="rogue"] .warrior-tree-node.warrior-capstone-selected {
+    border-color: #9576ba;
+
+    background:
+        linear-gradient(145deg,
+            #30263d,
+            #17131d);
+
+    box-shadow:
+        0 0 18px rgba(145, 106, 187, 0.24);
+}
+
+.warrior-tree-layout[data-tree="rogue"] .warrior-capstone-button.selected {
+    border-color: #9576ba;
+
+    background:
+        linear-gradient(180deg,
+            #654b84,
+            #38284c);
+
+    color: #efe1ff;
+}
+
+.warrior-tree-layout[data-tree="exploration"] {
+    --warrior-tree-line:
+        rgba(82,
+            139,
+            99,
+            0.65);
+}
+
+.warrior-tree-layout[data-tree="exploration"] .warrior-tree-root-heading {
+    border-color: #657443;
+
+    background:
+        linear-gradient(180deg,
+            #27301d,
+            #151913);
+
+    color: #d4e5a9;
+
+    box-shadow:
+        0 0 16px rgba(113,
+            158,
+            82,
+            0.16);
+}
+
+.warrior-tree-layout[data-tree="exploration"] .warrior-tree-root::after {
+    background:
+        linear-gradient(var(--warrior-tree-line),
+            rgba(82,
+                139,
+                99,
+                0.35));
+}
+
+.warrior-tree-chain {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    padding-top: 30px;
+}
+
+.warrior-tree-chain::before {
+    content: "";
+
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+
+    width: 2px;
+
+    background:
+        linear-gradient(180deg,
+            var(--warrior-tree-line),
+            rgba(184, 134, 43, 0.12));
+
+    transform:
+        translateX(-50%);
+}
+
+.warrior-tree-node {
+    position: relative;
+    z-index: 1;
+
+    width: 100%;
+    min-width: 0;
+
+    box-shadow:
+        0 7px 18px rgba(0, 0, 0, 0.24);
+}
+
+.warrior-tree-node::before {
+    content: "";
+
+    position: absolute;
+    top: -18px;
+    left: 50%;
+
+    width: 10px;
+    height: 10px;
+
+    border: 2px solid #9d8039;
+    border-radius: 50%;
+
+    background: #171512;
+
+    transform:
+        translateX(-50%);
+}
+
+.warrior-tree-root-cards .warrior-tree-node::before {
+    display: none;
+}
+
+.warrior-tree-node.skill-max-level::before {
+    border-color: #e4bd58;
+    background: #8b6a20;
+
+    box-shadow:
+        0 0 10px rgba(228, 189, 88, 0.55);
+}
+
+.warrior-tree-node.skill-locked::before {
+    border-color: #514b3d;
+    background: #1b1a17;
+}
+
+.warrior-tree-node.warrior-capstone-selected {
+    border-color: #d4a73e;
+
+    background:
+        linear-gradient(145deg,
+            #352915,
+            #171511);
+
+    box-shadow:
+        0 0 18px rgba(212, 167, 62, 0.22);
+}
+
+.warrior-capstone-button {
+    width: 100%;
+    margin-top: 7px;
+    padding: 8px 9px;
+
+    border: 1px solid #66542b;
+    border-radius: 9px;
+
+    background: #201c14;
+    color: #c5b37d;
+
+    font-size: 11px;
+}
+
+.warrior-capstone-button:hover:not(:disabled) {
+    border-color: #b58b32;
+    color: #f5d783;
+}
+
+.warrior-capstone-button.selected {
+    border-color: #d4a73e;
+
+    background:
+        linear-gradient(180deg,
+            #60491f,
+            #322713);
+
+    color: #ffe49a;
+
+    box-shadow:
+        inset 0 -2px 0 rgba(255, 220, 126, 0.28);
+}
+
+.warrior-capstone-button:disabled {
+    opacity: 0.52;
+    cursor: not-allowed;
+}
+
+@media (max-width: 900px) {
+    .warrior-tree-layout {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    .warrior-tree-root {
+        padding-bottom: 28px;
+    }
+
+    .warrior-tree-root::after {
+        height: 28px;
+    }
+
+    .warrior-tree-branches {
+        display: flex;
+        flex-direction: column;
+        gap: 38px;
+
+        padding:
+            28px 0 0 32px;
+    }
+
+    .warrior-tree-branches::before {
+        top: 0;
+        right: auto;
+        bottom: 0;
+        left: 14px;
+
+        width: 2px;
+        height: auto;
+    }
+
+    .warrior-tree-branches::after {
+        content: "";
+
+        position: absolute;
+        top: 0;
+        left: 14px;
+
+        width:
+            calc(50% - 14px);
+
+        height: 2px;
+
+        background:
+            var(--warrior-tree-line);
+    }
+
+    .warrior-tree-branch {
+        padding-top: 0;
+    }
+
+    .warrior-tree-branch::before {
+        top: 28px;
+        left: -18px;
+
+        width: 18px;
+        height: 2px;
+
+        transform: none;
+    }
+
+    .warrior-tree-branch-heading {
+        min-height: 58px;
+    }
+
+    .warrior-tree-chain {
+        display: grid;
+        grid-template-columns:
+            repeat(3,
+                minmax(0, 1fr));
+
+        align-items: stretch;
+        gap: 22px;
+
+        padding-top: 28px;
+    }
+
+    .warrior-tree-chain::before {
+        top: 13px;
+        right: 16.666%;
+        bottom: auto;
+        left: 16.666%;
+
+        width: auto;
+        height: 2px;
+
+        transform: none;
+    }
+
+    .warrior-tree-chain .warrior-tree-node::before {
+        top: -20px;
+    }
+}
+
+.skill-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.skill-card h4 {
+    margin: 4px 0 0;
+    color: #f1d98a;
+    font-size: 15px;
+}
+
+.skill-type {
+    color: #a89b70;
+    font-size: 10px;
+    text-transform: uppercase;
+}
+
+.skill-level {
+    padding: 4px 7px;
+
+    border-radius: 999px;
+    background: #101010;
+    border: 1px solid #3f3722;
+
+    color: #ffcc66;
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.skill-description {
+    margin: 10px 0;
+
+    color: #c8bc8e;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.skill-requirements {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+
+    margin-bottom: 10px;
+
+    color: #8f8565;
+    font-size: 10px;
+}
+
+.skill-gold-cost {
+    color: #d8b45f;
+}
+
+.skill-gold-cost-missing {
+    color: #d96a6a;
+}
+
+.skill-upgrade-button {
+    width: 100%;
+    margin-top: auto;
+
+    padding: 7px 9px;
+    font-size: 12px;
+}
+
+.skill-locked {
+    opacity: 0.55;
+}
+
+.skill-max-level {
+    border-color: #b8862b;
+    box-shadow: 0 0 14px rgba(184, 134, 43, 0.12);
+}
+
+.skills-empty {
+    color: #a89b70;
+    font-size: 13px;
+}
+
+.spell-details {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    margin-bottom: 10px;
+    padding: 9px;
+
+    border-radius: 9px;
+    border: 1px solid #302716;
+    background: #101010;
+
+    color: #b9ad83;
+    font-size: 11px;
+}
+
+.spell-select-button {
+    width: 100%;
+    margin-top: 7px;
+    padding: 8px 10px;
+
+    border: 1px solid #4a3f25;
+    border-radius: 9px;
+
+    background: #191919;
+    color: #c8bc8e;
+}
+
+.spell-select-button:hover:not(:disabled) {
+    border-color: #8a7438;
+    color: #f1d98a;
+}
+
+.spell-select-button.selected {
+    border-color: #4f87c7;
+    background: #17283b;
+    color: #a9d4ff;
+}
+
+.spell-select-button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.combat-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    margin-top: 14px;
+}
+
+.combat-spell-slots {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.combat-spell-slot {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+
+    min-width: 0;
+    padding: 11px;
+
+    border: 1px solid #403821;
+    border-radius: 12px;
+
+    background: #121212;
+
+    box-sizing: border-box;
+    transition:
+        border-color 0.2s ease,
+        opacity 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.combat-spell-slot-header {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.combat-spell-slot-header>div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    min-width: 0;
+}
+
+.combat-spell-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+
+    border-radius: 10px;
+    background: #1c1c1c;
+
+    font-size: 18px;
+}
+
+.combat-spell-type {
+    color: #8f8565;
+    font-size: 10px;
+    text-transform: uppercase;
+}
+
+.combat-spell-slot strong {
+    overflow: hidden;
+
+    color: #e7d69a;
+    font-size: 13px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.combat-spell-select {
+    width: 100%;
+    min-width: 0;
+    padding: 7px 8px;
+
+    border: 1px solid #403821;
+    border-radius: 8px;
+
+    background: #191919;
+    color: #d0c28f;
+
+    font-size: 11px;
+}
+
+.combat-spell-select:focus {
+    outline: none;
+    border-color: #987d36;
+}
+
+.combat-spell-status {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+
+    color: #918666;
+    font-size: 10px;
+}
+
+.offensive-spell-slot {
+    border-left: 3px solid #9d4938;
+}
+
+.defensive-spell-slot {
+    border-left: 3px solid #3e6c9a;
+}
+
+.combat-spell-slot.spell-ready {
+    border-color: #7e6a32;
+    box-shadow: 0 0 12px rgba(184, 134, 43, 0.12);
+}
+
+.combat-spell-slot.spell-cooldown {
+    opacity: 0.72;
+}
+
+.combat-spell-slot.spell-no-mana {
+    border-color: #355f88;
+    opacity: 0.72;
+}
+
+.combat-spell-slot.spell-empty {
+    opacity: 0.55;
+}
+
+.combat-fight-button {
+    width: 100%;
+}
+
+@media (max-width: 650px) {
+    .skills-points-info {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .skills-reset-button {
+        width: 100%;
+    }
+
+    .magic-category-tabs {
+        display: flex;
+        overflow-x: auto;
+    }
+
+    .magic-category-tabs[hidden] {
+        display: none;
+    }
+
+    .magic-category-tabs button {
+        min-width: 128px;
+        flex: 1 0 auto;
+    }
+
+    .warrior-tree-root-heading {
+        width: 100%;
+        justify-content: center;
+
+        box-sizing: border-box;
+    }
+
+    .warrior-tree-branches {
+        padding-left: 26px;
+    }
+
+    .warrior-tree-branches::before {
+        left: 10px;
+    }
+
+    .warrior-tree-branches::after {
+        left: 10px;
+
+        width:
+            calc(50% - 10px);
+    }
+
+    .warrior-tree-branch::before {
+        left: -16px;
+        width: 16px;
+    }
+
+    .warrior-tree-chain {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .warrior-tree-chain::before {
+        top: 0;
+        right: auto;
+        bottom: 0;
+        left: 50%;
+
+        width: 2px;
+        height: auto;
+
+        transform:
+            translateX(-50%);
+    }
+
+    .warrior-tree-chain .warrior-tree-node::before {
+        top: -18px;
+    }
+
+    .combat-spell-slots {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* PRZYCISKI WALKI I POWROTU */
+
+.combat-action-buttons {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2,
+            minmax(0, 1fr));
+
+    gap: 8px;
+
+    width: 100%;
+}
+
+.combat-action-buttons button {
+    width: 100%;
+    min-width: 0;
+    min-height: 38px;
+
+    padding: 7px 9px;
+
+    font-size: 11px;
+    line-height: 1.2;
+}
+
+.combat-location-button {
+    border-color: #476c82;
+
+    background:
+        linear-gradient(#29404d,
+            #182832);
+
+    color: #c9e3ef;
+
+    box-shadow:
+        0 4px 10px rgba(20, 65, 90, 0.24);
+}
+
+.combat-location-button:hover {
+    border-color: #6fa4bf;
+
+    background:
+        linear-gradient(#345365,
+            #203744);
+
+    color: #ffffff;
+}
+
+.combat-fight-button.fight-active {
+    border-color: #a94b4b;
+
+    background:
+        linear-gradient(#572929,
+            #301717);
+
+    color: #ffd4d4;
+
+    box-shadow:
+        0 4px 10px rgba(120, 25, 25, 0.28);
+}
+
+.combat-fight-button.fight-active:hover {
+    border-color: #e06a6a;
+
+    background:
+        linear-gradient(#6a3030,
+            #3b1919);
+
+    color: #ffffff;
+}
+
+
+
+/* =========================================================
+   DRZEWKO MAGII — OSOBNE ŚCIEŻKI I POPRAWNY MOBILE
+   ========================================================= */
+
+.warrior-tree-layout[data-tree="magic"]
+.magic-tree-root {
+    gap: 0;
+    padding-bottom: 0;
+}
+
+.warrior-tree-layout[data-tree="magic"]
+.magic-tree-root::after {
+    display: none;
+}
+
+/*
+ * Linia wychodząca z nagłówka
+ * "Podstawy magii".
+ */
+.warrior-tree-layout[data-tree="magic"]
+.magic-tree-root-heading {
+    position: relative;
+    z-index: 3;
+}
+
+.warrior-tree-layout[data-tree="magic"]
+.magic-tree-root-heading::after {
+    content: "";
+
+    position: absolute;
+    top: 100%;
+    left: 50%;
+
+    width: 2px;
+    height: 32px;
+
+    background:
+        var(--warrior-tree-line);
+
+    transform:
+        translateX(-50%);
+}
+
+/*
+ * Dwie równe kolumny.
+ *
+ * Obie mają taką samą szerokość
+ * jak dalsze gałęzie.
+ */
+.warrior-tree-layout[data-tree="magic"]
+.magic-tree-paths {
+    position: relative;
+
+    display: grid;
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0, 1fr)
+        );
+
+    gap: 18px;
+
+    width: min(
+        100%,
+        920px
+    );
+
+    margin: 0 auto;
+    padding-top: 32px;
+
+    box-sizing: border-box;
+}
+
+/*
+ * Pozioma linia rozdzielająca
+ * Podstawy magii na dwie ścieżki.
+ */
+.warrior-tree-layout[data-tree="magic"]
+.magic-tree-paths::before {
+    content: "";
+
+    position: absolute;
+    top: 0;
+    left: 25%;
+    right: 25%;
+
+    height: 2px;
+
+    background:
+        var(--warrior-tree-line);
+}
+
+.warrior-tree-layout[data-tree="magic"]
+.magic-tree-path {
+    position: relative;
+    min-width: 0;
+}
+
+/*
+ * Pionowa linia od rozgałęzienia
+ * do każdego Adepta.
+ */
+.warrior-tree-layout[data-tree="magic"]
+.magic-tree-path::before {
+    content: "";
+
+    position: absolute;
+    top: -32px;
+    left: 50%;
+
+    width: 2px;
+    height: 32px;
+
+    background:
+        var(--warrior-tree-line);
+
+    transform:
+        translateX(-50%);
+}
+
+/*
+ * Adept zajmuje całą szerokość
+ * swojej kolumny.
+ */
+.warrior-tree-layout[data-tree="magic"]
+.magic-tree-adept-cards {
+    position: relative;
+
+    width: 100%;
+    margin-bottom: 46px;
+}
+
+/*
+ * Linia łącząca Adepta
+ * z nagłówkiem jego gałęzi.
+ */
+.warrior-tree-layout[data-tree="magic"]
+.magic-tree-adept-cards::after {
+    content: "";
+
+    position: absolute;
+    top: 100%;
+    left: 50%;
+
+    width: 2px;
+    height: 46px;
+
+    background:
+        var(--warrior-tree-line);
+
+    transform:
+        translateX(-50%);
+}
+
+.warrior-tree-layout[data-tree="magic"]
+.magic-tree-adept-cards
+.warrior-tree-node {
+    height: 100%;
+}
+
+/*
+ * Kolory nagłówków gałęzi.
+ */
+.warrior-tree-layout[data-tree="magic"]
+.magic-tree-path[data-branch="offensive_spells"]
+.warrior-tree-branch-heading {
+    border-color: #84493e;
+}
+
+.warrior-tree-layout[data-tree="magic"]
+.magic-tree-path[data-branch="defensive_spells"]
+.warrior-tree-branch-heading {
+    border-color: #466d94;
+}
+
+/*
+ * Czary Magii zawsze pozostają
+ * w pionowym łańcuchu.
+ *
+ * Ogólny styl drzewek przy 900px
+ * próbuje układać je poziomo.
+ */
+.warrior-tree-layout[data-tree="magic"]
+.warrior-tree-chain {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    padding-top: 30px;
+}
+
+.warrior-tree-layout[data-tree="magic"]
+.warrior-tree-chain::before {
+    top: 0;
+    right: auto;
+    bottom: 0;
+    left: 50%;
+
+    width: 2px;
+    height: auto;
+
+    transform:
+        translateX(-50%);
+}
+
+.warrior-tree-layout[data-tree="magic"]
+.warrior-tree-chain
+.warrior-tree-node::before {
+    top: -18px;
+}
+
+/*
+ * Telefon:
+ *
+ * każda pełna ścieżka znajduje się
+ * pod poprzednią:
+ *
+ * Adept zniszczenia
+ * Ofensywa
+ * czary ofensywne
+ *
+ * Adept ochrony
+ * Obrona
+ * czary ochronne
+ */
+@media (max-width: 700px) {
+    .warrior-tree-layout[data-tree="magic"]
+    .magic-tree-paths {
+        grid-template-columns: 1fr;
+        gap: 46px;
+
+        width: 100%;
+    }
+
+    /*
+     * Zamiast łamanej linii po lewej
+     * używamy jednej linii na środku.
+     */
+    .warrior-tree-layout[data-tree="magic"]
+    .magic-tree-paths::before {
+        top: 0;
+        right: auto;
+        bottom: 0;
+        left: 50%;
+
+        width: 2px;
+        height: auto;
+
+        transform:
+            translateX(-50%);
+    }
+
+    .warrior-tree-layout[data-tree="magic"]
+    .magic-tree-path::before {
+        display: none;
+    }
+
+    .warrior-tree-layout[data-tree="magic"]
+    .magic-tree-adept-cards {
+        margin-bottom: 40px;
+    }
+
+    .warrior-tree-layout[data-tree="magic"]
+    .magic-tree-adept-cards::after {
+        height: 40px;
+    }
+}
+
+/*
+ * Do 900 px zachowujemy dwie kolumny,
+ * ale nadpisujemy ogólny mobilny układ
+ * drzewek klasowych.
+ */
+@media (max-width: 900px) {
+    .warrior-tree-layout[data-tree="magic"]
+    .magic-tree-branches {
+        display: grid;
+
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(0, 1fr)
+            );
+
+        gap: 14px;
+        padding:
+            32px 0 0;
+    }
+
+    .warrior-tree-layout[data-tree="magic"]
+    .magic-tree-branches::before {
+        top: 0;
+        right: 25%;
+        bottom: auto;
+        left: 25%;
+
+        width: auto;
+        height: 2px;
+    }
+
+    .warrior-tree-layout[data-tree="magic"]
+    .magic-tree-branches::after {
+        display: none;
+    }
+
+    .warrior-tree-layout[data-tree="magic"]
+    .magic-tree-branches
+    .warrior-tree-branch {
+        padding-top: 16px;
+    }
+
+    .warrior-tree-layout[data-tree="magic"]
+    .magic-tree-branches
+    .warrior-tree-branch::before {
+        top: -32px;
+        left: 50%;
+
+        width: 2px;
+        height: 32px;
+
+        transform:
+            translateX(-50%);
+    }
+
+    .warrior-tree-layout[data-tree="magic"]
+    .warrior-tree-chain {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+/*
+ * Na bardzo wąskim telefonie przechodzimy
+ * na jedną prostą, pionową linię.
+ *
+ * Układ jest uproszczony, ale nie ma
+ * wystających ani pourywanych połączeń.
+ */
+@media (max-width: 430px) {
+    .warrior-tree-layout[data-tree="magic"]
+    .magic-tree-upper-connector,
+    .warrior-tree-layout[data-tree="magic"]
+    .magic-tree-lower-connector {
+        height: 26px;
+    }
+
+    .warrior-tree-layout[data-tree="magic"]
+    .magic-tree-upper-connector::before,
+    .warrior-tree-layout[data-tree="magic"]
+    .magic-tree-lower-connector::before,
+    .warrior-tree-layout[data-tree="magic"]
+    .magic-tree-connector-leg {
+        display: none;
+    }
+
+    .warrior-tree-layout[data-tree="magic"]
+    .magic-tree-upper-connector::after {
+        top: 0;
+        bottom: 0;
+        left: 50%;
+
+        width: 2px;
+        height: auto;
+    }
+
+    .warrior-tree-layout[data-tree="magic"]
+    .magic-tree-lower-connector
+    .magic-tree-connector-center {
+        top: 0;
+        bottom: 0;
+    }
+
+    .warrior-tree-layout[data-tree="magic"]
+    .magic-tree-root-cards {
+        grid-template-columns: 1fr;
+        gap: 26px;
+
+        width: 100%;
+    }
+
+    .warrior-tree-layout[data-tree="magic"]
+    .magic-tree-root-cards {
+        position: relative;
+    }
+
+    .warrior-tree-layout[data-tree="magic"]
+    .magic-tree-root-cards::before {
+        content: "";
+
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 50%;
+
+        width: 2px;
+
+        background:
+            var(--warrior-tree-line);
+
+        transform:
+            translateX(-50%);
+    }
+
+    .warrior-tree-layout[data-tree="magic"]
+    .magic-tree-root-cards
+    .warrior-tree-node {
+        position: relative;
+        z-index: 2;
+    }
+
+    .warrior-tree-layout[data-tree="magic"]
+    .magic-tree-branches {
+        grid-template-columns: 1fr;
+        gap: 44px;
+
+        width: 100%;
+        padding-top: 26px;
+    }
+
+    .warrior-tree-layout[data-tree="magic"]
+    .magic-tree-branches::before {
+        top: 0;
+        right: auto;
+        bottom: 0;
+        left: 50%;
+
+        width: 2px;
+        height: auto;
+
+        transform:
+            translateX(-50%);
+    }
+
+    .warrior-tree-layout[data-tree="magic"]
+    .magic-tree-branches
+    .warrior-tree-branch {
+        padding-top: 0;
+    }
+
+    .warrior-tree-layout[data-tree="magic"]
+    .magic-tree-branches
+    .warrior-tree-branch::before {
+        display: none;
+    }
+}
+
+/* =========================================================
+   DRZEWKO WALKI
+   ========================================================= */
+
+.warrior-tree-layout[data-tree="combat"] {
+    --warrior-tree-line:
+        rgba(
+            167,
+            106,
+            63,
+            0.68
+        );
+}
+
+.warrior-tree-layout[data-tree="combat"]
+.warrior-tree-root-heading {
+    border-color: #805133;
+
+    background:
+        linear-gradient(
+            180deg,
+            #302018,
+            #191411
+        );
+
+    color: #f0c69e;
+
+    box-shadow:
+        0 0 16px
+        rgba(
+            171,
+            103,
+            59,
+            0.16
+        );
+}
+
+/*
+ * Kolory nagłówków trzech gałęzi.
+ */
+
+.warrior-tree-layout[data-tree="combat"]
+.warrior-tree-branch[data-branch="melee"]
+.warrior-tree-branch-heading {
+    border-color: #865044;
+}
+
+.warrior-tree-layout[data-tree="combat"]
+.warrior-tree-branch[data-branch="ranged"]
+.warrior-tree-branch-heading {
+    border-color: #55764a;
+}
+
+.warrior-tree-layout[data-tree="combat"]
+.warrior-tree-branch[data-branch="staff"]
+.warrior-tree-branch-heading {
+    border-color: #62518c;
+}
+
+/*
+ * Kolory samych kafelków.
+ */
+
+.skill-card[data-branch="melee"] {
+    border-left:
+        3px solid #a95c4e;
+}
+
+.skill-card[data-branch="ranged"] {
+    border-left:
+        3px solid #678b58;
+}
+
+.skill-card[data-branch="staff"] {
+    border-left:
+        3px solid #7760a8;
+}
+
+@media (max-width: 700px) {
+    .warrior-tree-layout[data-tree="combat"]
+    .warrior-tree-chain {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+
+        padding-top: 30px;
+    }
+
+    .warrior-tree-layout[data-tree="combat"]
+    .warrior-tree-chain::before {
+        top: 0;
+        right: auto;
+        bottom: 0;
+        left: 50%;
+
+        width: 2px;
+        height: auto;
+
+        transform:
+            translateX(-50%);
+    }
+
+    .warrior-tree-layout[data-tree="combat"]
+    .warrior-tree-chain
+    .warrior-tree-node::before {
+        top: -18px;
+    }
+}
+
+@media (max-width: 650px) {
+    /*
+     * Na telefonie specjalizacje ustawiamy
+     * jedna pod drugą, aby kafelki nie były
+     * zbyt wąskie.
+     */
+    .warrior-tree-layout[data-tree="combat"]
+    .combat-melee-specializations {
+        grid-template-columns: 1fr;
+        gap: 36px;
+
+        padding-top: 26px;
+    }
+
+    /*
+     * Jedna prosta pionowa linia zamiast
+     * małego poziomego rozgałęzienia.
+     */
+    .warrior-tree-layout[data-tree="combat"]
+    .combat-melee-specializations::before {
+        top: 0;
+        right: auto;
+        bottom: 0;
+        left: 50%;
+
+        width: 2px;
+        height: auto;
+
+        transform:
+            translateX(-50%);
+    }
+
+    .warrior-tree-layout[data-tree="combat"]
+    .combat-melee-specializations::after {
+        display: none;
+    }
+
+    .warrior-tree-layout[data-tree="combat"]
+    .combat-melee-specialization::before {
+        display: none;
+    }
+
+    .warrior-tree-layout[data-tree="combat"]
+    .combat-melee-specialization {
+        position: relative;
+        z-index: 1;
+    }
+
+    .warrior-tree-layout[data-tree="combat"]
+    .combat-melee-specialization-heading {
+        min-height: 58px;
+    }
+}
+
+/* =========================================================
+   DRZEWKO WALKI — SPECJALIZACJE BRONI
+   ========================================================= */
+
+.warrior-tree-layout[data-tree="combat"]
+.combat-weapon-specializations {
+    position: relative;
+
+    display: grid;
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0, 1fr)
+        );
+
+    gap: 10px;
+
+    margin-top: 28px;
+    padding-top: 34px;
+}
+
+/*
+ * Pionowa linia od wspólnej
+ * umiejętności do rozwidlenia.
+ */
+.warrior-tree-layout[data-tree="combat"]
+.combat-weapon-specializations::after {
+    content: "";
+
+    position: absolute;
+    top: 0;
+    left: 50%;
+
+    width: 2px;
+    height: 18px;
+
+    background:
+        var(--warrior-tree-line);
+
+    transform:
+        translateX(-50%);
+}
+
+/*
+ * Pozioma linia pomiędzy
+ * dwiema specjalizacjami.
+ */
+.warrior-tree-layout[data-tree="combat"]
+.combat-weapon-specializations::before {
+    content: "";
+
+    position: absolute;
+    top: 17px;
+    left: 25%;
+    right: 25%;
+
+    height: 2px;
+
+    background:
+        var(--warrior-tree-line);
+}
+
+.warrior-tree-layout[data-tree="combat"]
+.combat-weapon-specialization {
+    position: relative;
+    min-width: 0;
+}
+
+.warrior-tree-layout[data-tree="combat"]
+.combat-weapon-specialization::before {
+    content: "";
+
+    position: absolute;
+    top: -17px;
+    left: 50%;
+
+    width: 2px;
+    height: 17px;
+
+    background:
+        var(--warrior-tree-line);
+
+    transform:
+        translateX(-50%);
+}
+
+.warrior-tree-layout[data-tree="combat"]
+.combat-weapon-specialization-heading {
+    min-height: 76px;
+    padding: 7px;
+    gap: 6px;
+}
+
+.warrior-tree-layout[data-tree="combat"]
+.combat-weapon-specialization-heading
+.warrior-tree-branch-icon {
+    width: 27px;
+    height: 27px;
+    flex-basis: 27px;
+
+    font-size: 14px;
+}
+
+.warrior-tree-layout[data-tree="combat"]
+.combat-weapon-specialization-heading strong {
+    font-size: 11px;
+}
+
+.warrior-tree-layout[data-tree="combat"]
+.combat-weapon-specialization-heading small {
+    font-size: 8px;
+}
+
+.warrior-tree-layout[data-tree="combat"]
+.combat-weapon-specialization-chain {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    padding-top: 30px;
+}
+
+.warrior-tree-layout[data-tree="combat"]
+.combat-weapon-specialization-chain::before {
+    top: 0;
+    right: auto;
+    bottom: 0;
+    left: 50%;
+
+    width: 2px;
+    height: auto;
+
+    transform:
+        translateX(-50%);
+}
+
+.warrior-tree-layout[data-tree="combat"]
+.combat-weapon-specialization[data-branch="slashing"]
+.combat-weapon-specialization-heading {
+    border-color: #8c4d46;
+}
+
+.warrior-tree-layout[data-tree="combat"]
+.combat-weapon-specialization[data-branch="blunt"]
+.combat-weapon-specialization-heading {
+    border-color: #80663d;
+}
+
+.warrior-tree-layout[data-tree="combat"]
+.combat-weapon-specialization[data-branch="bow"]
+.combat-weapon-specialization-heading {
+    border-color: #4f7548;
+}
+
+.warrior-tree-layout[data-tree="combat"]
+.combat-weapon-specialization[data-branch="crossbow"]
+.combat-weapon-specialization-heading {
+    border-color: #7d673e;
+}
+
+.warrior-tree-layout[data-tree="combat"]
+.combat-weapon-specialization[data-branch="wand"]
+.combat-weapon-specialization-heading {
+    border-color: #556f9b;
+}
+
+.warrior-tree-layout[data-tree="combat"]
+.combat-weapon-specialization[data-branch="staff"]
+.combat-weapon-specialization-heading {
+    border-color: #71558f;
+}
+
+.skill-card[data-branch="slashing"] {
+    border-left: 3px solid #aa4f49;
+}
+
+.skill-card[data-branch="blunt"] {
+    border-left: 3px solid #a27a3f;
+}
+
+.skill-card[data-branch="bow"] {
+    border-left: 3px solid #5f8a56;
+}
+
+.skill-card[data-branch="crossbow"] {
+    border-left: 3px solid #967641;
+}
+
+.skill-card[data-branch="wand"] {
+    border-left: 3px solid #5d7eaf;
+}
+
+.skill-card[data-branch="staff"] {
+    border-left: 3px solid #8060a5;
+}
+
+/* =========================================================
+   DRZEWKO RZEMIOSŁA
+   ========================================================= */
+
+.warrior-tree-layout[data-tree="crafting"] {
+    --warrior-tree-line:
+        rgba(177, 119, 57, 0.68);
+}
+
+.warrior-tree-layout[data-tree="crafting"]
+.warrior-tree-root-heading {
+    border-color: #9b6737;
+
+    background:
+        linear-gradient(
+            180deg,
+            #352719,
+            #1b1611
+        );
+
+    color: #f0c98b;
+
+    box-shadow:
+        0 0 16px
+        rgba(184, 121, 57, 0.2);
+}
+
+.warrior-tree-layout[data-tree="crafting"]
+.warrior-tree-root::after {
+    background:
+        linear-gradient(
+            var(--warrior-tree-line),
+            rgba(177, 119, 57, 0.3)
+        );
+}
+
+.warrior-tree-layout[data-tree="crafting"]
+.warrior-tree-branch[
+    data-branch="crafting_efficiency"
+]
+.warrior-tree-branch-heading {
+    border-color: #88785f;
+}
+
+.warrior-tree-layout[data-tree="crafting"]
+.warrior-tree-branch[
+    data-branch="crafting_savings"
+]
+.warrior-tree-branch-heading {
+    border-color: #8c7040;
+}
+
+.warrior-tree-layout[data-tree="crafting"]
+.warrior-tree-branch[
+    data-branch="crafting_quality"
+]
+.warrior-tree-branch-heading {
+    border-color: #8c658d;
+}
+
+.skill-card[
+    data-branch="crafting_efficiency"
+] {
+    border-left:
+        3px solid #8f8068;
+}
+
+.skill-card[
+    data-branch="crafting_savings"
+] {
+    border-left:
+        3px solid #a18143;
+}
+
+.skill-card[
+    data-branch="crafting_quality"
+] {
+    border-left:
+        3px solid #96709a;
+}
+
+/* =========================================================
+   DRZEWKO HANDLU
+   ========================================================= */
+
+.warrior-tree-layout[data-tree="trade"] {
+    --warrior-tree-line:
+        rgba(191, 151, 55, 0.7);
+}
+
+.warrior-tree-layout[data-tree="trade"]
+.warrior-tree-root-heading {
+    border-color: #a78332;
+
+    background:
+        linear-gradient(
+            180deg,
+            #352d17,
+            #1c1810
+        );
+
+    color: #f0d27c;
+
+    box-shadow:
+        0 0 16px
+        rgba(196, 151, 45, 0.2);
+}
+
+.warrior-tree-layout[data-tree="trade"]
+.warrior-tree-root::after {
+    background:
+        linear-gradient(
+            var(--warrior-tree-line),
+            rgba(191, 151, 55, 0.3)
+        );
+}
+
+.warrior-tree-layout[data-tree="trade"]
+.warrior-tree-branch[
+    data-branch="trade_buying"
+]
+.warrior-tree-branch-heading {
+    border-color: #537d75;
+}
+
+.warrior-tree-layout[data-tree="trade"]
+.warrior-tree-branch[
+    data-branch="trade_selling"
+]
+.warrior-tree-branch-heading {
+    border-color: #a07a32;
+}
+
+.warrior-tree-layout[data-tree="trade"]
+.warrior-tree-branch[
+    data-branch="trade_orders"
+]
+.warrior-tree-branch-heading {
+    border-color: #80669b;
+}
+
+.skill-card[
+    data-branch="trade_buying"
+] {
+    border-left:
+        3px solid #5f9186;
+}
+
+.skill-card[
+    data-branch="trade_selling"
+] {
+    border-left:
+        3px solid #b58a35;
+}
+
+.skill-card[
+    data-branch="trade_orders"
+] {
+    border-left:
+        3px solid #8f72aa;
+}

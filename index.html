@@ -1,0 +1,1747 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Idler</title>
+    <link rel="stylesheet" href="css/style.css?v=20260817-menu-fixed">
+    <link rel="stylesheet" href="css/tablet.css?v=1">
+</head>
+
+
+<body>
+    <div id="layout">
+
+        <nav id="menu">
+            <div class="side-hero-card">
+                <div class="side-hero-header">
+                    <div class="side-hero-avatar">
+                        🐢
+                    </div>
+
+                    <div class="side-hero-identity">
+                        <div class="side-hero-title">
+                            Maciuś
+                        </div>
+
+                        <div class="side-hero-subtitle">
+                            Poziom
+                            <strong id="player-level">
+                                1
+                            </strong>
+                        </div>
+
+                        <div id="side-hero-class" class="side-hero-class">
+                            🔒 Klasa od 10. poziomu
+                        </div>
+                    </div>
+
+                    <button id="side-hero-class-button" type="button" class="side-hero-class-button" onclick="
+            openCharacterClassSelection()
+        " title="Przejdź do wyboru klasy" hidden>
+                        Wybierz klasę
+                    </button>
+                </div>
+
+                <div class="side-hero-gold">
+                    <span>Złoto</span>
+                    <strong><span id="player-gold">0</span> 💰</strong>
+                </div>
+
+                <div class="side-hero-points">
+                    <button type="button" class="side-hero-point side-hero-point-button"
+                        onclick="openHeroTab('attributes')" title="Przejdź do atrybutów bohatera">
+                        <span>💪 Atrybuty</span>
+
+                        <strong id="player-attribute-points">
+                            0
+                        </strong>
+
+                        <small>
+                            Otwórz
+                        </small>
+                    </button>
+
+                    <button type="button" class="side-hero-point side-hero-point-button" onclick="openHeroTab('skills')"
+                        title="Przejdź do umiejętności bohatera">
+                        <span>🌳 Umiejętności</span>
+
+                        <strong id="player-skill-points">
+                            0
+                        </strong>
+
+                        <small>
+                            Otwórz
+                        </small>
+                    </button>
+                </div>
+
+                <div class="side-hero-bar-group">
+                    <div class="side-hero-bar-label">
+                        <span>❤️ HP</span>
+                        <strong id="player-hp">100/100</strong>
+                    </div>
+                    <div class="side-hero-bar">
+                        <div id="hp-fill" class="side-hero-bar-fill hp-fill"></div>
+                    </div>
+
+                    <div id="commander-defense-indicator"
+                        class="equipment-set-combat-indicator commander-defense-indicator" hidden>
+                        <span class="equipment-set-combat-indicator-icon">
+                            🛡️
+                        </span>
+                        <div>
+                            <strong>Niezłomna obrona</strong>
+                            <span data-set-effect-status></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="side-hero-bar-group">
+                    <div class="side-hero-bar-label">
+                        <span>🔵 Mana</span>
+                        <strong id="player-mana">50/50</strong>
+                    </div>
+
+                    <div class="side-hero-bar">
+                        <div id="mana-fill" class="side-hero-bar-fill mana-fill"></div>
+                    </div>
+                </div>
+
+                <div class="side-hero-bar-group">
+                    <div class="side-hero-bar-label">
+                        <span>⭐ EXP</span>
+                        <strong>
+                            <span id="player-exp">0</span>/<span id="player-exp-needed">100</span>
+                        </strong>
+                    </div>
+                    <div class="side-hero-bar">
+                        <div id="exp-fill" class="side-hero-bar-fill exp-fill"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-categories">
+                <section class="menu-category" data-menu-category="activities">
+                    <button class="menu-category-toggle" type="button" aria-expanded="true"
+                        aria-controls="menu-category-activities" onclick="toggleMenuCategory('activities')">
+                        <span><span class="menu-category-icon">⚔️</span> Aktywności</span>
+                        <span class="menu-category-chevron" aria-hidden="true"></span>
+                    </button>
+
+                    <div id="menu-category-activities" class="menu-category-items">
+                        <button data-menu-section="hunting" onclick="openHuntingScreen()">⚔️ Polowanie</button>
+                        <button data-menu-section="dungeons" onclick="showScreen('screen-dungeons')">
+                            🗝️ Lochy
+                        </button>
+                        <button data-menu-section="mining" onclick="openMiningScreen()">⛏️ Kopalnia</button>
+                        <button data-menu-section="herbalism" onclick="openHerbalismScreen()">🌿 Zielarstwo</button>
+                        <button data-menu-section="fishing" onclick="openFishingScreen()">🎣 Łowienie</button>
+                    </div>
+                </section>
+
+                <section class="menu-category" data-menu-category="crafting">
+                    <button class="menu-category-toggle" type="button" aria-expanded="false"
+                        aria-controls="menu-category-crafting" onclick="toggleMenuCategory('crafting')">
+                        <span><span class="menu-category-icon">🛠️</span> Rzemiosło</span>
+                        <span class="menu-category-chevron" aria-hidden="true"></span>
+                    </button>
+
+                    <div id="menu-category-crafting" class="menu-category-items" hidden>
+                        <button data-menu-section="alchemy" onclick="openAlchemyScreen()">🧪 Alchemia</button>
+                        <button data-menu-section="cooking" onclick="openCookingScreen()">🍳 Gotowanie</button>
+                    </div>
+                </section>
+
+                <section class="menu-category" data-menu-category="town">
+                    <button class="menu-category-toggle" type="button" aria-expanded="false"
+                        aria-controls="menu-category-town" onclick="toggleMenuCategory('town')">
+                        <span><span class="menu-category-icon">🏘️</span> Miasto</span>
+                        <span class="menu-category-chevron" aria-hidden="true"></span>
+                    </button>
+
+                    <div id="menu-category-town" class="menu-category-items" hidden>
+                        <button data-menu-section="tavern" onclick="openTavernScreen()">
+                            🍺 Karczma
+                        </button>
+
+                        <button data-menu-section="shop" onclick="showScreen('screen-shop')">
+                            🛒 Kupiec
+                        </button>
+
+                        <button data-menu-section="crafting" onclick="showScreen('screen-crafting')">
+                            🛠️ Wytwarzanie
+                        </button>
+                    </div>
+                </section>
+                <section class="menu-category" data-menu-category="character">
+                    <button class="menu-category-toggle" type="button" aria-expanded="false"
+                        aria-controls="menu-category-character" onclick="toggleMenuCategory('character')">
+                        <span><span class="menu-category-icon">🧙</span> Postać</span>
+
+                        <span class="menu-category-chevron" aria-hidden="true"></span>
+                    </button>
+
+                    <div id="menu-category-character" class="menu-category-items" hidden>
+                        <section class="hero-menu-category" data-hero-menu-category>
+                            <button class="hero-menu-toggle" data-menu-section="hero" type="button"
+                                aria-expanded="false" aria-controls="hero-menu-subitems"
+                                onclick="toggleHeroMenuSubitems()">
+                                <span>🧙 Bohater</span>
+                                <span class="hero-menu-chevron" aria-hidden="true"></span>
+                            </button>
+
+                            <div id="hero-menu-subitems" class="hero-menu-subitems" hidden>
+                                <button type="button" onclick="openHeroTab('summary')">
+                                    📊 Podsumowanie
+                                </button>
+
+                                <button type="button" onclick="openHeroTab('attributes')">
+                                    💪 Atrybuty
+                                </button>
+
+                                <button type="button" onclick="openHeroTab('equipment')">
+                                    🛡️ Wyposażenie
+                                </button>
+
+                                <button type="button" onclick="openHeroTab('inventory')">
+                                    🎒 Plecak
+                                </button>
+
+                                <button type="button" onclick="openHeroTab('profession-tools')">
+                                    🧰 Narzędzia
+                                </button>
+
+                                <button type="button" onclick="openHeroTab('skills')">
+                                    🌳 Umiejętności
+                                </button>
+                            </div>
+                        </section>
+                        <button id="menu-quests-button" data-menu-section="quests"
+                            onclick="showScreen('screen-quests')">📜 Zadania</button>
+                        <button id="menu-journal-button" data-menu-section="journal" onclick="openJournal()">📖
+                            Dziennik</button>
+                    </div>
+                </section>
+            </div>
+
+            <div class="menu-footer">
+                <button data-menu-section="settings" onclick="showScreen('screen-settings')">⚙️ Ustawienia</button>
+            </div>
+        </nav>
+
+        <main id="content">
+
+            <section id="activity-hud" class="activity-hud">
+                <div class="activity-hud-main">
+                    <div class="activity-hud-icon" id="activity-hud-icon">
+                        💤
+                    </div>
+
+                    <div class="activity-hud-info">
+                        <span class="activity-hud-label">
+                            Aktualna aktywność
+                        </span>
+
+                        <strong id="activity-hud-name">
+                            Brak aktywności
+                        </strong>
+
+                        <span id="activity-hud-details">
+                            Bohater odpoczywa.
+                        </span>
+                    </div>
+                    <div class="activity-hud-progress">
+                        <div id="activity-hud-progress-fill" class="activity-hud-progress-fill"></div>
+                    </div>
+                    <div id="activity-hud-time" class="activity-hud-time">
+                        —
+                    </div>
+                </div>
+
+
+
+                <div id="potion-effects-container" class="potion-effects-container"></div>
+
+
+                <div id="timed-effects-container" class="timed-effects-container">
+                    <div class="timed-effects-empty">
+                        Brak aktywnych efektów czasowych.
+                    </div>
+                </div>
+            </section>
+
+            <section id="screen-hunting" class="screen">
+                <div class="screen-header">
+                    <div>
+                        <h2>🗺️ Lokacje</h2>
+                        <p>Wybierz miejsce, w którym chcesz walczyć.</p>
+                    </div>
+                </div>
+
+                <div id="locations-list" class="locations-grid"></div>
+            </section>
+            <section id="screen-dungeons" class="screen">
+                <div class="screen-header">
+                    <div>
+                        <h2>🗝️ Lochy</h2>
+
+                        <p>
+                            Wyruszaj na ograniczone wyprawy,
+                            pokonuj kolejne pomieszczenia
+                            i zdobywaj specjalne nagrody.
+                        </p>
+                    </div>
+                </div>
+
+                <div id="dungeons-list" class="locations-grid"></div>
+            </section>
+            <section id="screen-combat" class="screen">
+
+                <h2 id="current-location-name"></h2>
+
+                <div class="combat-layout">
+
+                    <!-- LEWA KOLUMNA — PRZECIWNIK -->
+
+                    <div class="game-card enemy-card" id="enemy-card">
+                        <div class="enemy-card-top">
+                            <div id="enemy-icon" class="enemy-icon">
+                                👹
+                            </div>
+
+                            <div class="enemy-title-box">
+                                <div id="boss-label" class="boss-label"></div>
+
+                                <h3 id="enemy-name">
+                                    Przeciwnik
+                                </h3>
+                            </div>
+
+                        </div>
+                        <div id="enemy-modifier-description" class="enemy-modifier-description" hidden></div>
+                        <div class="enemy-hp-section">
+                            <div class="enemy-hp-label">
+                                <span>❤️ HP</span>
+
+                                <strong id="enemy-hp">
+                                    0/0
+                                </strong>
+                            </div>
+
+                            <div class="enemy-hp-bar">
+                                <div id="enemy-fill" class="enemy-hp-fill"></div>
+                            </div>
+
+                            <div id="dragon-wrath-indicator"
+                                class="equipment-set-combat-indicator dragon-wrath-indicator" hidden>
+                                <span class="equipment-set-combat-indicator-icon">
+                                    🔥
+                                </span>
+                                <div>
+                                    <strong>Smoczy gniew</strong>
+                                    <span data-set-effect-status></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="enemy-stats-row">
+                            <div class="enemy-stat-box">
+                                <span>Atak</span>
+
+                                <strong id="enemy-attack">
+                                    0
+                                </strong>
+                            </div>
+
+                            <div class="enemy-stat-box">
+                                <span>Szansa bossa</span>
+
+                                <strong id="boss-chance">
+                                    0%
+                                </strong>
+                            </div>
+
+                            <div class="enemy-stat-box">
+                                <span>Zabici</span>
+
+                                <strong id="boss-kills-counter">
+                                    0
+                                </strong>
+                            </div>
+                        </div>
+                        <div class="boss-chance-panel">
+                            <div class="boss-chance-header">
+                                <span>
+                                    👑 Szansa na pojawienie się bossa
+                                </span>
+
+                                <strong id="boss-chance-progress">
+                                    0% / 20%
+                                </strong>
+                            </div>
+
+                            <div class="boss-chance-track">
+                                <div id="boss-chance-fill" class="boss-chance-fill"></div>
+                            </div>
+
+                            <div id="boss-chance-message" class="boss-chance-message">
+                                Pierwszy wzrost nastąpi przy 26. zwycięstwie.
+                            </div>
+                        </div>
+                        <p id="respawn-timer" class="respawn-timer"></p>
+
+                        <div class="combat-controls">
+                            <div class="combat-spell-slots">
+
+                                <div id="offensive-spell-slot" class="
+                            combat-spell-slot
+                            offensive-spell-slot
+                        ">
+                                    <div class="combat-spell-slot-header">
+                                        <span class="combat-spell-icon">
+                                            🔥
+                                        </span>
+
+                                        <div>
+                                            <span class="combat-spell-type">
+                                                Czar ofensywny
+                                            </span>
+
+                                            <strong id="offensive-spell-name">
+                                                Brak czaru
+                                            </strong>
+                                        </div>
+                                    </div>
+
+                                    <select id="offensive-spell-select" class="combat-spell-select" onchange="changeCombatSpell(
+                                'offensive',
+                                this.value
+                            )">
+                                        <option value="">
+                                            Brak czaru
+                                        </option>
+                                    </select>
+
+                                    <div class="combat-spell-status">
+                                        <span id="offensive-spell-mana">
+                                            Mana: —
+                                        </span>
+
+                                        <span id="offensive-spell-cooldown">
+                                            Gotowy
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div id="defensive-spell-slot" class="
+                            combat-spell-slot
+                            defensive-spell-slot
+                        ">
+                                    <div class="combat-spell-slot-header">
+                                        <span class="combat-spell-icon">
+                                            🛡️
+                                        </span>
+
+                                        <div>
+                                            <span class="combat-spell-type">
+                                                Czar defensywny
+                                            </span>
+
+                                            <strong id="defensive-spell-name">
+                                                Brak czaru
+                                            </strong>
+                                        </div>
+                                    </div>
+
+                                    <select id="defensive-spell-select" class="combat-spell-select" onchange="changeCombatSpell(
+                                'defensive',
+                                this.value
+                            )">
+                                        <option value="">
+                                            Brak czaru
+                                        </option>
+                                    </select>
+
+                                    <div class="combat-spell-status">
+                                        <span id="defensive-spell-mana">
+                                            Mana: —
+                                        </span>
+
+                                        <span id="defensive-spell-cooldown">
+                                            Gotowy
+                                        </span>
+                                    </div>
+                                </div>
+                                <div id="auto-healing-slot" class="
+        combat-spell-slot
+        healing-potion-slot
+    ">
+                                    <div class="combat-spell-slot-header">
+                                        <span class="combat-spell-icon">
+                                            ❤️
+                                        </span>
+
+                                        <div>
+                                            <span class="combat-spell-type">
+                                                Automatyczne leczenie
+                                            </span>
+
+                                            <strong id="auto-healing-potion-name">
+                                                Brak mikstury
+                                            </strong>
+                                        </div>
+                                    </div>
+
+                                    <select id="auto-healing-potion-select" class="combat-spell-select" onchange="
+            setAutoHealingPotion(
+                this.value
+            )
+        ">
+                                        <option value="">
+                                            Brak mikstury
+                                        </option>
+                                    </select>
+
+                                    <select id="auto-healing-threshold-select" class="combat-spell-select" onchange="
+            setAutoHealingThreshold(
+                this.value
+            )
+        ">
+                                        <option value="30">
+                                            Użyj poniżej 30% HP
+                                        </option>
+
+                                        <option value="40">
+                                            Użyj poniżej 40% HP
+                                        </option>
+
+                                        <option value="50">
+                                            Użyj poniżej 50% HP
+                                        </option>
+                                    </select>
+
+                                    <div class="combat-spell-status">
+                                        <span id="auto-healing-quantity">
+                                            W plecaku: 0
+                                        </span>
+
+                                        <span id="auto-healing-status">
+                                            Wyłączone
+                                        </span>
+                                    </div>
+                                </div>
+                                <div id="combat-food-slot" class="
+        combat-spell-slot
+        combat-food-slot
+    ">
+                                    <div class="combat-spell-slot-header">
+                                        <span class="combat-spell-icon">
+                                            🍲
+                                        </span>
+
+                                        <div>
+                                            <span class="combat-spell-type">
+                                                Potrawa
+                                            </span>
+
+                                            <strong id="combat-food-name">
+                                                Brak wybranej potrawy
+                                            </strong>
+                                        </div>
+                                    </div>
+
+                                    <select id="combat-food-select" class="combat-spell-select" onchange="
+            setCombatFood(
+                this.value
+            )
+        ">
+                                        <option value="">
+                                            Brak potrawy
+                                        </option>
+                                    </select>
+
+                                    <div class="combat-food-active-effect">
+                                        <span>
+                                            Aktywny posiłek
+                                        </span>
+
+                                        <strong id="combat-food-active-name">
+                                            Brak
+                                        </strong>
+
+                                        <small id="combat-food-active-time">
+                                            Czas: —
+                                        </small>
+                                    </div>
+
+                                    <div class="combat-spell-status">
+                                        <span id="combat-food-quantity">
+                                            W plecaku: 0
+                                        </span>
+
+                                        <span id="combat-food-status">
+                                            Nie wybrano
+                                        </span>
+                                    </div>
+
+                                    <button id="combat-food-use-button" type="button" class="combat-food-use-button"
+                                        onclick="
+            useSelectedCombatFood()
+        ">
+                                        🍴 Zjedz
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="combat-action-buttons">
+                                <button id="fight-btn" type="button" class="combat-fight-button"
+                                    onclick="toggleFight()">
+                                    START WALKI ▶️
+                                </button>
+
+                                <button type="button" class="combat-location-button" onclick="
+            showHuntingLocationsScreen()
+        ">
+                                    ⬅️ Wróć do lokacji
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PRAWA KOLUMNA — LOG WALKI -->
+
+                    <div class="game-card combat-log-card">
+                        <div class="combat-log-header">
+                            <span>
+                                📜 Log walki
+                            </span>
+
+                            <button onclick="clearCombatLog()">
+                                Wyczyść
+                            </button>
+                        </div>
+
+                        <div id="combat-log" class="combat-log"></div>
+                    </div>
+
+                </div>
+            </section>
+
+            <section id="screen-mining-locations" class="screen">
+                <div class="screen-header">
+                    <div>
+                        <h2>⛏️ Kopalnia</h2>
+
+                        <p>
+                            Wybierz szyb i zacznij kopanie.
+                        </p>
+                    </div>
+                </div>
+
+                <div id="mining-activity" class="mining-activity-card"></div>
+
+                <div id="mining-areas-list" class="mining-areas-list"></div>
+            </section>
+
+            <section id="screen-mining-area" class="screen">
+                <button onclick="leaveMiningArea()">
+                    ⬅️ Wróć do kopalni
+                </button>
+
+                <div id="mining-activity" class="mining-activity-card"></div>
+            </section>
+
+            <section id="screen-herbalism-locations" class="screen">
+                <div class="screen-header">
+                    <div>
+                        <h2>🌿 Zielarstwo</h2>
+
+                        <p>
+                            Wybierz miejsce i Zacznij zbierać.
+                        </p>
+                    </div>
+                </div>
+
+                <div id="herbalism-activity" class="herbalism-activity-card"></div>
+
+                <div id="herbalism-areas-list" class="herbalism-areas-list"></div>
+            </section>
+
+            <section id="screen-fishing-locations" class="screen">
+                <div class="screen-header">
+                    <div>
+                        <h2>🎣 Łowienie</h2>
+
+                        <p>
+                            Wybierz łowisko, zarzuć wędkę i wypatruj skarbów.
+                        </p>
+                    </div>
+                </div>
+
+                <div id="fishing-activity" class="fishing-activity-card"></div>
+
+            </section>
+
+            <section id="screen-alchemy" class="screen">
+
+
+                <div class="screen-header">
+                    <div>
+                        <h2>🧪 Alchemia</h2>
+
+                        <p>
+                            Warz mikstury ze składników zdobytych podczas zielarstwa,
+                            polowania i kopania.
+                        </p>
+                    </div>
+                </div>
+
+                <div id="alchemy-progress-panel" class="alchemy-progress-panel"></div>
+
+                <div id="alchemy-recipes-list" class="alchemy-recipes-list"></div>
+
+            </section>
+
+            <section id="screen-cooking" class="screen">
+                <div class="screen-header">
+                    <div>
+                        <h2>🍳 Gotowanie</h2>
+                        <p>
+                            Łącz ryby ze złowisk z ziołami ze zbieractwa i przygotowuj
+                            potrawy dające czasowe premie. Kolejne porcje tej samej
+                            potrawy wydłużają jej działanie maksymalnie do 8 godzin.
+                        </p>
+                    </div>
+                </div>
+
+                <div id="cooking-overview" class="cooking-overview"></div>
+                <div id="tavern-panel" class="tavern-panel"></div>
+
+                <div class="cooking-section-heading">
+                    <div>
+                        <h3>📖 Przepisy</h3>
+                        <p>Przygotuj potrawy dla bohatera albo na zamówienia Karczmy.</p>
+                    </div>
+                </div>
+                <div id="cooking-recipes-list" class="cooking-recipes-list"></div>
+            </section>
+
+            <section id="screen-quests" class="screen">
+                <div class="screen-header">
+                    <div>
+                        <h2>📜 Zadania</h2>
+                        <p>
+                            Wybierz rodzaj aktywności, realizuj kolejne etapy i odbieraj nagrody.
+                        </p>
+                    </div>
+                </div>
+                <div id="quests"></div>
+            </section>
+
+<section id="screen-tavern" class="screen">
+    <div class="screen-header">
+        <div>
+            <h2>🍺 Karczma</h2>
+            <p>
+                Wynajmuj śmiałków, którzy za opłatą wykonują proste aktywności
+                z częścią skuteczności bohatera.
+            </p>
+        </div>
+    </div>
+
+    <div id="tavern-adventurers-panel"></div>
+</section>
+            <section id="screen-shop" class="screen">
+
+
+                <div class="game-card">
+                    <div class="card-header">Towary kupca</div>
+                    <div id="shop-list"></div>
+                </div>
+            </section>
+
+            <section id="screen-crafting" class="screen">
+                <div class="game-card">
+                    <div class="card-header">🛠️ Wytwarzanie</div>
+                    <div id="crafting-list"></div>
+                </div>
+            </section>
+
+
+
+            <section id="screen-hero" class="screen">
+                <h2>🧙 Bohater</h2>
+
+                <div class="hero-tabs">
+                    <button class="hero-tab-button active" data-hero-tab="summary" onclick="showHeroTab('summary')">
+                        📊 Podsumowanie
+                    </button>
+
+                    <button class="hero-tab-button" data-hero-tab="attributes" onclick="showHeroTab('attributes')">
+                        💪 Atrybuty
+                    </button>
+
+                    <button class="hero-tab-button" data-hero-tab="equipment" onclick="showHeroTab('equipment')">
+                        🛡️ Wyposażenie
+                    </button>
+
+                    <button class="hero-tab-button" data-hero-tab="inventory" onclick="showHeroTab('inventory')">
+                        🎒 Plecak
+                    </button>
+                    <button class="hero-tab-button" data-hero-tab="profession-tools"
+                        onclick="showHeroTab('profession-tools')">
+                        🧰 Narzędzia
+                    </button>
+                    <button class="hero-tab-button" data-hero-tab="skills" onclick="showHeroTab('skills')">
+                        🌳 Umiejętności
+                    </button>
+                </div>
+
+                <div class="hero-tab-panel active" data-hero-panel="summary">
+                    <div class="game-card hero-stats-card">
+                        <div class="card-header">
+                            📊 Podsumowanie bohatera
+                        </div>
+
+                        <div class="hero-summary-groups">
+                            <section class="hero-summary-group hero-summary-group-development">
+                                <div class="hero-summary-group-header">
+                                    <div class="hero-summary-group-icon">🌟</div>
+                                    <div>
+                                        <strong>Rozwój bohatera</strong>
+                                        <span>Poziom, klasa i dostępne punkty rozwoju</span>
+                                    </div>
+                                </div>
+
+                                <div class="hero-summary-grid">
+                                    <div class="hero-summary-card summary-level">
+                                        <div class="hero-summary-icon">⭐</div>
+                                        <div class="hero-summary-content">
+                                            <span>Poziom</span>
+                                            <strong id="hero-level"></strong>
+                                        </div>
+                                    </div>
+
+                                    <div id="hero-class-summary-card" class="hero-summary-card summary-class"></div>
+
+                                    <div class="hero-summary-card summary-exp">
+                                        <div class="hero-summary-icon">✨</div>
+                                        <div class="hero-summary-content">
+                                            <span>Doświadczenie</span>
+                                            <strong id="hero-exp"></strong>
+                                        </div>
+                                    </div>
+
+                                    <div class="hero-summary-card summary-points">
+                                        <div class="hero-summary-icon">📌</div>
+                                        <div class="hero-summary-content">
+                                            <span>Punkty atrybutów</span>
+                                            <strong id="hero-attribute-points"></strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <section class="hero-summary-group hero-summary-group-resources">
+                                <div class="hero-summary-group-header">
+                                    <div class="hero-summary-group-icon">💠</div>
+                                    <div>
+                                        <strong>Zasoby</strong>
+                                        <span>Stan bohatera podczas walki</span>
+                                    </div>
+                                </div>
+
+                                <div class="hero-summary-grid">
+                                    <div class="hero-summary-card summary-hp">
+                                        <div class="hero-summary-icon">❤️</div>
+                                        <div class="hero-summary-content">
+                                            <span>Punkty życia</span>
+                                            <strong id="hero-hp"></strong>
+                                        </div>
+                                    </div>
+
+                                    <div class="hero-summary-card summary-mana">
+                                        <div class="hero-summary-icon">🔵</div>
+                                        <div class="hero-summary-content">
+                                            <span>Mana</span>
+                                            <strong id="hero-mana"></strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <section class="hero-summary-group hero-summary-group-rewards">
+                                <div class="hero-summary-group-header">
+                                    <div class="hero-summary-group-icon">🎒</div>
+                                    <div>
+                                        <strong>Nagrody</strong>
+                                        <span>Majątek i jakość zdobywanego łupu</span>
+                                    </div>
+                                </div>
+
+                                <div class="hero-summary-grid">
+                                    <div class="hero-summary-card summary-gold">
+                                        <div class="hero-summary-icon">💰</div>
+                                        <div class="hero-summary-content">
+                                            <span>Złoto</span>
+                                            <strong id="hero-gold"></strong>
+                                        </div>
+                                    </div>
+
+                                    <div class="hero-summary-card summary-loot">
+                                        <div class="hero-summary-icon">🎁</div>
+                                        <div class="hero-summary-content">
+                                            <span>Bonus do łupu</span>
+                                            <strong id="hero-loot-bonus"></strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <section class="hero-summary-group hero-summary-group-offense">
+                                <div class="hero-summary-group-header">
+                                    <div class="hero-summary-group-icon">⚔️</div>
+                                    <div>
+                                        <strong>Ofensywa</strong>
+                                        <span>Obrażenia i trafienia krytyczne</span>
+                                    </div>
+                                </div>
+
+                                <div class="hero-summary-grid">
+                                    <div class="hero-summary-card summary-melee">
+                                        <div class="hero-summary-icon">⚔️</div>
+                                        <div class="hero-summary-content">
+                                            <span>Atak wręcz</span>
+                                            <strong id="hero-melee-damage"></strong>
+                                        </div>
+                                    </div>
+
+                                    <div class="hero-summary-card summary-ranged">
+                                        <div class="hero-summary-icon">🏹</div>
+                                        <div class="hero-summary-content">
+                                            <span>Atak dystansowy</span>
+                                            <strong id="hero-ranged-damage"></strong>
+                                        </div>
+                                    </div>
+
+                                    <div class="hero-summary-card summary-magic">
+                                        <div class="hero-summary-icon">🔮</div>
+                                        <div class="hero-summary-content">
+                                            <span>Magia</span>
+                                            <strong id="hero-magic-damage"></strong>
+                                        </div>
+                                    </div>
+
+                                    <div class="hero-summary-card summary-crit">
+                                        <div class="hero-summary-icon">💥</div>
+                                        <div class="hero-summary-content">
+                                            <span>Szansa krytyczna</span>
+                                            <strong id="hero-crit-chance"></strong>
+                                        </div>
+                                    </div>
+
+                                    <div class="hero-summary-card summary-crit-damage">
+                                        <div class="hero-summary-icon">🔥</div>
+                                        <div class="hero-summary-content">
+                                            <span>Obrażenia krytyczne</span>
+                                            <strong id="hero-crit-damage"></strong>
+                                        </div>
+                                    </div>
+
+                                    <div class="hero-summary-card summary-strength">
+                                        <div class="hero-summary-icon">💪</div>
+                                        <div class="hero-summary-content">
+                                            <span>Bonus z siły</span>
+                                            <strong id="hero-general-damage"></strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <section class="hero-summary-group hero-summary-group-defense">
+                                <div class="hero-summary-group-header">
+                                    <div class="hero-summary-group-icon">🛡️</div>
+                                    <div>
+                                        <strong>Obrona</strong>
+                                        <span>Odporność i szansa uniknięcia ataku</span>
+                                    </div>
+                                </div>
+
+                                <div class="hero-summary-grid">
+                                    <div class="hero-summary-card summary-armor">
+                                        <div class="hero-summary-icon">🧱</div>
+                                        <div class="hero-summary-content">
+                                            <span>Pancerz</span>
+                                            <strong id="hero-armor"></strong>
+                                        </div>
+                                    </div>
+
+                                    <div class="hero-summary-card summary-defense">
+                                        <div class="hero-summary-icon">🛡️</div>
+                                        <div class="hero-summary-content">
+                                            <span>Redukcja obrażeń</span>
+                                            <strong id="hero-defense"></strong>
+                                        </div>
+                                    </div>
+
+                                    <div class="hero-summary-card summary-dodge">
+                                        <div class="hero-summary-icon">💨</div>
+                                        <div class="hero-summary-content">
+                                            <span>Unik</span>
+                                            <strong id="hero-dodge-chance"></strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+
+                        <div class="hero-active-bonuses-section">
+                            <div class="hero-active-bonuses-header">
+                                <div>
+                                    <strong>✨ Aktywne premie</strong>
+
+                                    <span>
+                                        Efekty czasowe i aktywne premie zestawów
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div id="hero-active-bonuses-list" class="hero-active-bonuses-list"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-tab-panel" data-hero-panel="attributes">
+                    <div class="game-card hero-stats-card">
+                        <div class="card-header">
+                            💪 Atrybuty
+                        </div>
+
+                        <div class="hero-attribute-confirmation">
+                            <div class="hero-attribute-points-summary">
+                                <span>
+                                    Dostępne punkty atrybutów
+                                </span>
+
+                                <strong id="hero-pending-attribute-points">
+                                    0
+                                </strong>
+                            </div>
+
+                            <div class="hero-attribute-confirmation-buttons">
+                                <button onclick="resetPendingAttributeChanges()">
+                                    Anuluj zmiany
+                                </button>
+
+                                <button class="hero-attribute-confirm-button"
+                                    onclick="confirmPendingAttributeChanges()">
+                                    Zatwierdź atrybuty
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="hero-attributes-grid">
+
+                            <div class="hero-attribute-card">
+                                <div class="hero-attribute-main">
+                                    <div>
+                                        <span>Siła</span>
+                                        <strong id="hero-strength"></strong>
+                                    </div>
+
+                                    <div class="hero-attribute-buttons">
+                                        <button onclick="removePendingAttributePoint('strength', 5)">−5</button>
+                                        <button onclick="removePendingAttributePoint('strength', 1)">−</button>
+                                        <button onclick="addPendingAttributePoint('strength', 1)">+</button>
+                                        <button onclick="addPendingAttributePoint('strength', 5)">+5</button>
+                                        <button class="hero-attribute-max-button"
+                                            onclick="addMaximumPendingAttributePoints('strength')">
+                                            MAX
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="hero-attribute-card">
+                                <div class="hero-attribute-main">
+                                    <div>
+                                        <span>Zręczność</span>
+                                        <strong id="hero-dexterity"></strong>
+                                    </div>
+
+                                    <div class="hero-attribute-buttons">
+                                        <button onclick="removePendingAttributePoint('dexterity', 5)">−5</button>
+                                        <button onclick="removePendingAttributePoint('dexterity', 1)">−</button>
+                                        <button onclick="addPendingAttributePoint('dexterity', 1)">+</button>
+                                        <button onclick="addPendingAttributePoint('dexterity', 5)">+5</button>
+                                        <button class="hero-attribute-max-button"
+                                            onclick="addMaximumPendingAttributePoints('dexterity')">
+                                            MAX
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="hero-attribute-card">
+                                <div class="hero-attribute-main">
+                                    <div>
+                                        <span>Inteligencja</span>
+                                        <strong id="hero-intelligence"></strong>
+                                    </div>
+
+                                    <div class="hero-attribute-buttons">
+                                        <button onclick="removePendingAttributePoint('intelligence', 5)">−5</button>
+                                        <button onclick="removePendingAttributePoint('intelligence', 1)">−</button>
+                                        <button onclick="addPendingAttributePoint('intelligence', 1)">+</button>
+                                        <button onclick="addPendingAttributePoint('intelligence', 5)">+5</button>
+                                        <button class="hero-attribute-max-button"
+                                            onclick="addMaximumPendingAttributePoints('intelligence')">
+                                            MAX
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="hero-attribute-card">
+                                <div class="hero-attribute-main">
+                                    <div>
+                                        <span>Wytrzymałość</span>
+                                        <strong id="hero-endurance"></strong>
+                                    </div>
+
+                                    <div class="hero-attribute-buttons">
+                                        <button onclick="removePendingAttributePoint('endurance', 5)">−5</button>
+                                        <button onclick="removePendingAttributePoint('endurance', 1)">−</button>
+                                        <button onclick="addPendingAttributePoint('endurance', 1)">+</button>
+                                        <button onclick="addPendingAttributePoint('endurance', 5)">+5</button>
+                                        <button class="hero-attribute-max-button"
+                                            onclick="addMaximumPendingAttributePoints('endurance')">
+                                            MAX
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="hero-attribute-card">
+                                <div class="hero-attribute-main">
+                                    <div>
+                                        <span>Szczęście</span>
+                                        <strong id="hero-luck"></strong>
+                                    </div>
+
+                                    <div class="hero-attribute-buttons">
+                                        <button onclick="removePendingAttributePoint('luck', 5)">−5</button>
+                                        <button onclick="removePendingAttributePoint('luck', 1)">−</button>
+                                        <button onclick="addPendingAttributePoint('luck', 1)">+</button>
+                                        <button onclick="addPendingAttributePoint('luck', 5)">+5</button>
+                                        <button class="hero-attribute-max-button"
+                                            onclick="addMaximumPendingAttributePoints('luck')">
+                                            MAX
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="hero-tab-panel" data-hero-panel="equipment">
+                    <div class="game-card equipment-panel">
+                        <div class="card-header">
+                            🛡️ Wyposażenie
+                        </div>
+
+                        <section class="equipment-loadouts-panel">
+                            <header class="equipment-loadouts-header">
+                                <div>
+                                    <strong>🧰 Zapisane komplety</strong>
+                                    <span>Zmieniaj całe wyposażenie jednym kliknięciem</span>
+                                </div>
+
+                                <small>
+                                    Zapis obejmuje broń, pancerz i biżuterię
+                                </small>
+                            </header>
+
+                            <div id="equipment-loadout-list" class="equipment-loadout-list"></div>
+                        </section>
+
+                        <div class="equipment-layout">
+
+                            <!-- LEWA STRONA — ZAŁOŻONE PRZEDMIOTY -->
+                            <section class="equipment-equipped-section">
+                                <div class="equipment-section-header">
+                                    <div>
+                                        <strong>
+                                            Założone przedmioty
+                                        </strong>
+
+                                        <span>
+                                            Aktualne wyposażenie bohatera
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="equipment-grid">
+                                    <div class="equipment-slot slot-talisman">
+                                        <span>🔮 Talizman</span>
+                                        <strong id="slot-talisman">
+                                            Pusty
+                                        </strong>
+                                    </div>
+
+                                    <div class="equipment-slot slot-helmet">
+                                        <span>⛑️ Hełm</span>
+                                        <strong id="slot-helmet">
+                                            Pusty
+                                        </strong>
+                                    </div>
+
+                                    <div class="equipment-slot slot-amulet">
+                                        <span>📿 Amulet</span>
+                                        <strong id="slot-amulet">
+                                            Pusty
+                                        </strong>
+                                    </div>
+
+                                    <div class="equipment-slot slot-weapon">
+                                        <span>⚔️ Broń</span>
+                                        <strong id="slot-weapon">
+                                            Pusty
+                                        </strong>
+                                    </div>
+
+                                    <div class="equipment-slot slot-armor">
+                                        <span>🛡️ Pancerz</span>
+                                        <strong id="slot-armor">
+                                            Pusty
+                                        </strong>
+                                    </div>
+
+                                    <div class="equipment-slot slot-shield">
+                                        <span>🔰 Tarcza</span>
+                                        <strong id="slot-shield">
+                                            Pusty
+                                        </strong>
+                                    </div>
+
+                                    <div class="equipment-slot slot-ring1">
+                                        <span>💍 Pierścień 1</span>
+                                        <strong id="slot-ring1">
+                                            Pusty
+                                        </strong>
+                                    </div>
+
+                                    <div class="equipment-slot slot-pants">
+                                        <span>👖 Spodnie</span>
+                                        <strong id="slot-pants">
+                                            Pusty
+                                        </strong>
+                                    </div>
+
+                                    <div class="equipment-slot slot-ring2">
+                                        <span>💍 Pierścień 2</span>
+                                        <strong id="slot-ring2">
+                                            Pusty
+                                        </strong>
+                                    </div>
+
+                                    <div class="equipment-slot slot-gloves">
+                                        <span>🧤 Rękawice</span>
+                                        <strong id="slot-gloves">
+                                            Pusty
+                                        </strong>
+                                    </div>
+
+                                    <div class="equipment-slot slot-boots">
+                                        <span>🥾 Buty</span>
+                                        <strong id="slot-boots">
+                                            Pusty
+                                        </strong>
+                                    </div>
+                                </div>
+
+                                <div id="equipment-set-summary" class="equipment-set-summary"></div>
+                            </section>
+
+                            <!-- PRAWA STRONA — PRZEDMIOTY Z PLECAKA -->
+                            <section class="equipment-backpack-section">
+                                <div class="equipment-section-header">
+                                    <div>
+                                        <strong>
+                                            🎒 Przedmioty z plecaka
+                                        </strong>
+
+                                        <span id="equipment-backpack-description">
+                                            Wyłącznie przedmioty możliwe do założenia
+                                        </span>
+                                    </div>
+
+                                    <span id="equipment-backpack-count" class="equipment-backpack-count">
+                                        0
+                                    </span>
+                                </div>
+
+                                <div class="equipment-backpack-filters">
+                                    <button class="equipment-backpack-filter active" data-equipment-filter="all"
+                                        onclick="setEquipmentBackpackFilter('all')">
+                                        Wszystko
+                                    </button>
+
+                                    <button class="equipment-backpack-filter" data-equipment-filter="weapon"
+                                        onclick="setEquipmentBackpackFilter('weapon')">
+                                        ⚔️ Broń
+                                    </button>
+
+                                    <button class="equipment-backpack-filter" data-equipment-filter="armor"
+                                        onclick="setEquipmentBackpackFilter('armor')">
+                                        🛡️ Pancerz
+                                    </button>
+
+                                    <button class="equipment-backpack-filter" data-equipment-filter="jewelry"
+                                        onclick="setEquipmentBackpackFilter('jewelry')">
+                                        💍 Biżuteria
+                                    </button>
+                                </div>
+                                <div id="equipment-backpack-subfilters" class="equipment-backpack-subfilters" hidden>
+                                </div>
+                                <div id="equipment-backpack-list" class="equipment-backpack-list"></div>
+
+                            </section>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-tab-panel" data-hero-panel="inventory">
+                    <div class="game-card inventory-panel">
+                        <div class="card-header inventory-panel-header">
+                            <span>🎒 Plecak</span>
+
+                            <button id="inventory-sell-trash-button" type="button" class="inventory-sell-all-button"
+                                onclick="sellAllUnusedMonsterLoot()">
+                                💰 Sprzedaj śmieci (0 💰)
+                            </button>
+                        </div>
+
+                        <div id="inventory-list"></div>
+                    </div>
+                </div>
+                <div class="hero-tab-panel" data-hero-panel="profession-tools">
+                    <div class="game-card profession-tools-panel">
+                        <div class="card-header">
+                            🧰 Narzędzia profesji
+                        </div>
+
+                        <div class="profession-tools-introduction">
+                            <strong>
+                                Narzędzia używane podczas pracy
+                            </strong>
+
+                            <p>
+                                Każda profesja może korzystać
+                                z jednego aktywnego narzędzia.
+                                Narzędzia nie zajmują miejsca
+                                w wyposażeniu bojowym bohatera.
+                            </p>
+                        </div>
+
+                        <div id="profession-tools-list" class="profession-tools-grid">
+                            Wczytywanie narzędzi...
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-tab-panel" data-hero-panel="skills">
+                    <div class="game-card skills-panel">
+                        <div class="card-header">
+                            🌳 Drzewka umiejętności
+                        </div>
+
+                        <div class="skills-points-info">
+                            <div class="skills-points-summary">
+                                <span>Dostępne punkty</span>
+                                <strong id="skills-points-value">0</strong>
+                            </div>
+
+                            <button id="skills-reset-button" class="skills-reset-button" type="button"
+                                onclick="resetAllSkills()">
+                                Pierwszy reset za darmo
+                            </button>
+                        </div>
+
+                        <div id="skill-tree-tabs" class="skill-tree-tabs"></div>
+
+                        <div id="skill-tree-description" class="skill-tree-description"></div>
+
+                        <div id="magic-category-tabs" class="magic-category-tabs" hidden></div>
+
+                        <div id="skills-list" class="skills-list"></div>
+                    </div>
+                </div>
+            </section>
+            <section id="screen-journal" class="screen journal-screen">
+                <div class="screen-header">
+                    <div>
+                        <h2>📖 Dziennik</h2>
+
+                        <p>
+                            Zebrane informacje o świecie,
+                            przeciwnikach, profesjach i osiągnięciach bohatera.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="journal-tabs">
+                    <button type="button" class="active" data-journal-tab="bestiary" onclick="
+                openJournalTab(
+                    'bestiary'
+                )
+            ">
+                        🐾 Bestiariusz
+                    </button>
+
+                    <button type="button" data-journal-tab="locations" onclick="
+                openJournalTab(
+                    'locations'
+                )
+            ">
+                        🗺️ Lokacje
+                    </button>
+
+                    <button type="button" data-journal-tab="bosses" onclick="
+                openJournalTab(
+                    'bosses'
+                )
+            ">
+                        👑 Bossowie
+                    </button>
+
+                    <button type="button" data-journal-tab="professions" onclick="
+                openJournalTab(
+                    'professions'
+                )
+            ">
+                        🧰 Profesje
+                    </button>
+
+                    <button id="journal-achievements-tab-button" type="button" data-journal-tab="achievements" onclick="
+                openJournalTab(
+                    'achievements'
+                )
+            ">
+                        🏆 Osiągnięcia
+                    </button>
+                </div>
+
+                <div class="journal-panel" data-journal-panel="bestiary">
+                    <div class="journal-panel-header">
+                        <div>
+                            <strong>
+                                🐾 Bestiariusz
+                            </strong>
+
+                            <span>
+                                Informacje o napotkanych przeciwnikach.
+                            </span>
+                        </div>
+                    </div>
+
+                    <div id="journal-bestiary-list" class="journal-empty-card">
+                        <span class="journal-empty-icon">
+                            📕
+                        </span>
+
+                        <strong>
+                            Bestiariusz jest pusty
+                        </strong>
+
+                        <p>
+                            Pokonuj przeciwników podczas polowania,
+                            aby zbierać informacje.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="journal-panel" data-journal-panel="locations" hidden>
+                    <div id="journal-location-list" class="journal-empty-card">
+                        <span class="journal-empty-icon">
+                            🗺️
+                        </span>
+
+                        <strong>
+                            Dziennik lokacji
+                        </strong>
+
+                        <p>
+                            Tutaj pokażemy opanowanie oraz odkrycia
+                            z poszczególnych lokacji.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="journal-panel" data-journal-panel="bosses" hidden>
+                    <div id="journal-boss-list" class="journal-empty-card">
+                        <span class="journal-empty-icon">
+                            👑
+                        </span>
+
+                        <strong>
+                            Dziennik bossów
+                        </strong>
+
+                        <p>
+                            Tutaj znajdą się informacje o spotkanych
+                            i pokonanych bossach.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="journal-panel" data-journal-panel="professions" hidden>
+                    <div class="journal-panel-header">
+                        <div>
+                            <strong>🧰 Dziennik profesji</strong>
+                            <span>
+                                Poziomy, statystyki, odkrycia i rekordy wszystkich profesji.
+                            </span>
+                        </div>
+                    </div>
+
+                    <div id="journal-professions-list"></div>
+                </div>
+
+                <div class="journal-panel" data-journal-panel="achievements" hidden>
+                    <div id="journal-achievement-list" class="journal-empty-card">
+                        <span class="journal-empty-icon">
+                            🏆
+                        </span>
+
+                        <strong>
+                            Osiągnięcia
+                        </strong>
+
+                        <p>
+                            Wczytywanie osiągnięć...
+                        </p>
+                    </div>
+                </div>
+            </section>
+            <section id="screen-settings" class="screen">
+                <h2>⚙️ Ustawienia</h2>
+
+                <div class="game-card">
+                    <div class="card-header">Zarządzanie zapisem</div>
+
+                    <button onclick="resetGame()">Resetuj postać</button>
+                </div>
+            </section>
+
+        </main>
+
+        <aside id="system-log-panel">
+            <div class="system-log-header" onclick="toggleMobileSystemLog()">
+                <div>
+                    <strong>📋 Log postaci</strong>
+                    <span>Najważniejsze wydarzenia</span>
+                </div>
+
+                <div class="system-log-header-actions">
+                    <button id="system-log-toggle-button" class="system-log-toggle-button" type="button"
+                        onclick="event.stopPropagation(); toggleMobileSystemLog();" title="Rozwiń lub zwiń log">
+                        ▲
+                    </button>
+
+                    <button class="system-log-clear-button" type="button"
+                        onclick="event.stopPropagation(); clearSystemLog();" title="Wyczyść log">
+                        🗑️
+                    </button>
+                </div>
+            </div>
+
+            <div class="system-log-filters" role="group" aria-label="Kategorie logu">
+                <button class="system-log-filter active" type="button" data-system-log-filter="all"
+                    onclick="setSystemLogFilter('all')">
+                    <span>📋 Wszystko</span>
+                    <strong data-system-log-count="all">0</strong>
+                </button>
+
+                <button class="system-log-filter" type="button" data-system-log-filter="activities"
+                    onclick="setSystemLogFilter('activities')">
+                    <span>⛏️ Aktywności</span>
+                    <strong data-system-log-count="activities">0</strong>
+                </button>
+
+                <button class="system-log-filter" type="button" data-system-log-filter="crafting"
+                    onclick="setSystemLogFilter('crafting')">
+                    <span>🛠️ Wytwarzanie</span>
+                    <strong data-system-log-count="crafting">0</strong>
+                </button>
+
+                <button class="system-log-filter" type="button" data-system-log-filter="character"
+                    onclick="setSystemLogFilter('character')">
+                    <span>🧙 Postać</span>
+                    <strong data-system-log-count="character">0</strong>
+                </button>
+            </div>
+
+            <div id="system-log" class="system-log"></div>
+        </aside>
+
+    </div>
+    <div id="offline-summary-overlay" class="offline-summary-overlay" hidden aria-hidden="true">
+        <section id="offline-summary-modal" class="offline-summary-modal" role="dialog" aria-modal="true"
+            aria-labelledby="offline-summary-title">
+            <header class="offline-summary-header">
+                <div class="offline-summary-icon" aria-hidden="true">
+                    🌙
+                </div>
+
+                <div>
+                    <span class="offline-summary-eyebrow">
+                        Powrót do gry
+                    </span>
+
+                    <h2 id="offline-summary-title">
+                        Podsumowanie nieobecności
+                    </h2>
+                </div>
+            </header>
+
+            <p id="offline-summary-duration" class="offline-summary-duration">
+                Nieobecność: —
+            </p>
+
+            <div id="offline-summary-content" class="offline-summary-content"></div>
+
+            <button id="offline-summary-continue-button" class="offline-summary-continue-button" type="button">
+                Kontynuuj
+            </button>
+        </section>
+    </div>
+    <script src="js/data/forest.js"></script>
+    <script src="js/data/cave.js"></script>
+    <script src="js/data/ruins.js"></script>
+    <script src="js/data/ice.js"></script>
+    <script src="js/data/volcano.js"></script>
+    <script src="js/data/professionTools.js?v=20260802-late-areas"></script>
+    <script src="js/data/items.js?v=20260808-kobold-tunnels"></script>
+    <script src="js/data/equipmentSets.js?v=20260802-set-activity-bonuses"></script>
+    <script src="js/data/mining.js?v=20260802-late-areas"></script>
+    <script src="js/data/herbalism.js?v=20260802-late-areas"></script>
+    <script src="js/data/fishing.js"></script>
+    <script src="js/data/alchemy.js?v=20260802-late-recipes"></script>
+    <script src="js/data/tavernAdventurers.js"></script>
+    <script src="js/data/cooking.js?v=20260802-late-recipes"></script>
+
+    <script src="js/data/equipmentCraftRecipes.js"></script>
+    <script src="js/data/recipes.js?v=20260802-processed-equipment-materials"></script>
+    <script src="js/data/skills.js"></script>
+    <script src="js/data/locations.js"></script>
+    <script src="js/data/dungeons.js?v=20260808-kobold-tunnels"></script>
+
+    <script src="js/data/quests/questFactory.js"></script>
+    <script src="js/data/quests/combatQuests.js"></script>
+    <script src="js/data/quests/miningQuests.js"></script>
+    <script src="js/data/quests/herbalismQuests.js"></script>
+    <script src="js/data/quests/alchemyQuests.js"></script>
+    <script src="js/data/quests/craftingQuests.js"></script>
+    <script src="js/data/quests/fishingQuests.js"></script>
+    <script src="js/data/quests/cookingQuests.js"></script>
+    <script src="js/data/questsData.js"></script>
+
+    <script src="js/data/classes.js"></script>
+    <script src="js/data/locationMasteryData.js"></script>
+
+    <script src="js/player.js?v=20260802-equipment-loadouts"></script>
+    <script src="js/characterClasses.js"></script>
+    <script src="js/combatStats.js?v=20260802-set-activity-bonuses"></script>
+    <script src="js/locationMastery.js"></script>
+    <script src="js/attributes.js"></script>
+    <script src="js/skills.js"></script>
+    <script src="js/equipmentSetCombat.js?v=20260802-set-unique-effects"></script>
+    <script src="js/enemy.js"></script>
+    <script src="js/quests.js"></script>
+    <script src="js/shop.js?v=20260802-tool-tiers"></script>
+    <script src="js/ui/notificationsUI.js"></script>
+    <script src="js/systemLog.js"></script>
+    <script src="js/timedEffects.js"></script>
+    <script src="js/potions.js"></script>
+    <script src="js/food.js"></script>
+    <script src="js/activityHud.js"></script>
+    <script src="js/inventory.js?v=20260802-set-bulk-equip"></script>
+    <script src="js/crafting.js?v=20260802-profession-level-lock"></script>
+    <script src="js/loot.js"></script>
+    <script src="js/journal.js?v=20260731-achievements"></script>
+    <script src="js/achievements.js?v=20260731-achievements-fix1"></script>
+    <script src="js/activityManager.js"></script>
+    <script src="js/dungeons.js?v=20260808-kobold-tunnels"></script>
+    <script src="js/battle.js?v=20260808-kobold-tunnels"></script>
+    <script src="js/mining.js?v=20260802-set-activity-bonuses"></script>
+    <script src="js/herbalism.js?v=20260802-set-activity-bonuses"></script>
+    <script src="js/fishing.js?v=20260802-profession-balance"></script>
+    <script src="js/alchemy.js?v=20260802-profession-balance"></script>
+    <script src="js/cooking.js?v=20260802-profession-balance"></script>
+    <script src="js/tavern.js"></script>
+
+    <script src="js/offlineProgress.js?v=20260802-set-activity-bonuses"></script>
+    <script src="js/offline/offlineMining.js?v=20260802-set-activity-bonuses"></script>
+    <script src="js/offline/offlineHerbalism.js?v=20260802-set-activity-bonuses"></script>
+    <script src="js/offline/offlineFishing.js"></script>
+    <script src="js/offline/offlineAlchemy.js"></script>
+    <script src="js/offline/offlineCrafting.js?v=20260802-offline-summary"></script>
+    <script src="js/offline/offlineCombat.js?v=20260808-goblin-hideout"></script>
+    <script src="js/offline/offlineManager.js?v=20260802-summary-delay"></script>
+
+    <script src="js/ui/hudUI.js"></script>
+    <script src="js/ui/activityHudUI.js"></script>
+    <script src="js/ui/systemLogUI.js"></script>
+    <script src="js/ui/combatUI.js?v=20260808-goblin-hideout"></script>
+    <script src="js/ui/locationUI.js"></script>
+    <script src="js/ui/heroBonusesUI.js?v=20260802-set-unique-effects"></script>
+    <script src="js/ui/heroAttributesUI.js"></script>
+    <script src="js/ui/heroClassUI.js"></script>
+    <script src="js/ui/heroUI.js"></script>
+    <script src="js/ui/equipmentFiltersUI.js"></script>
+    <script src="js/ui/equipmentComparisonUI.js?v=20260802-equipment-comparison"></script>
+    <script src="js/ui/equipmentUI.js?v=20260802-equipment-loadouts"></script>
+    <script src="js/ui/inventoryFiltersUI.js"></script>
+    <script src="js/ui/inventoryUI.js?v=20260802-equipment-comparison"></script>
+    <script src="js/ui/professionToolsUI.js?v=20260802-tool-tiers"></script>
+    <script src="js/ui/professionToolContextUI.js?v=20260802-direct-tool-upgrade"></script>
+    <script src="js/ui/shopItemComparisonUI.js?v=20260802-tool-tiers"></script>
+    <script src="js/ui/shopUI.js?v=20260802-tool-tiers"></script>
+    <script src="js/ui/craftingFiltersUI.js?v=20260802-tool-tiers"></script>
+    <script src="js/ui/craftingUI.js?v=20260802-set-unique-effects"></script>
+    <script src="js/ui/craftingBatchUI.js"></script>
+    <script src="js/ui/craftingQueueUI.js?v=20260802-tool-upgrade"></script>
+    <script src="js/ui/skillsUI.js"></script>
+    <script src="js/ui/miningUI.js?v=20260802-embedded-tools"></script>
+    <script src="js/ui/herbalismUI.js?v=20260802-embedded-tools"></script>
+    <script src="js/ui/fishingUI.js?v=20260802-unified-fishing"></script>
+    <script src="js/ui/alchemyUI.js?v=20260802-embedded-tools"></script>
+    <script src="js/ui/cookingUI.js?v=20260802-embedded-tools"></script>
+    <script src="js/ui/tavernUI.js"></script>
+    <script src="js/ui/offlineSummaryUI.js"></script>
+    <script src="js/ui/journalBestiaryUI.js"></script>
+    <script src="js/ui/journalAchievementsUI.js?v=20260731-achievements"></script>
+    <script src="js/ui/journalLocationsUI.js"></script>
+    <script src="js/ui/journalBossesUI.js"></script>
+    <script src="js/ui/journalProfessionsUI.js"></script>
+    <script src="js/ui/journalMaterialsUI.js"></script>
+    <script src="js/ui/journalUI.js?v=20260731-achievements"></script>
+    <script src="js/ui/questsUI.js"></script>
+    <script src="js/ui/dungeonsUI.js?v=20260808-kobold-tunnels"></script>
+    <script src="js/ui/ui.js?v=20260802-profession-panels"></script>
+
+    <script src="js/saveState.js"></script>
+    <script src="js/save.js?v=20260808-goblin-hideout"></script>
+    <script src="js/pageLifecycle.js"></script>
+    <script src="js/script.js"></script>
+
+    <div id="notification-container" class="notification-container"></div>
+
+</body>
+
+</html>
