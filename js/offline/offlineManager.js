@@ -106,10 +106,20 @@ function simulateOfflineProgress(
             )
             : null;
 
+    const tavernSummary =
+        typeof processOfflineTavernProgress ===
+            "function"
+            ? processOfflineTavernProgress(
+                offlineStartedAt,
+                offlineFinishedAt
+            )
+            : null;
+
     const summaries = [
         activitySummary,
         alchemySummary,
-        craftingSummary
+        craftingSummary,
+        tavernSummary
     ].filter(summary => {
         return (
             summary &&

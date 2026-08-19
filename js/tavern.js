@@ -745,14 +745,32 @@ function applyTavernJobProfessionProgress(
     }
 }
 
-function completeTavernJob() {
+
+
+function processOfflineTavernProgress(
+    offlineStartedAt,
+    offlineFinishedAt
+) {
     ensureTavernState();
 
     const job =
         player.tavern.activeJob;
 
     if (!job) {
-        return false;
+        return null;
+    }
+
+    const finishesAt =
+        Math.max(
+            0,
+            Number(job.finishesAt) || 0
+        );
+
+    if (
+        !finishesAt ||
+        finishesAt > offlineFinishedAt
+    ) {
+        return null;
     }
 
     const adventurer =
@@ -761,116 +779,64 @@ function completeTavernJob() {
         );
 
     const area =
-        getTavernAreaByJob(job);
+        getTavernJobAreaDefinition(job);
 
-    if (!adventurer || !area) {
-        player.tavern.activeJob = null;
-        saveGame();
+    const completed =
+        completeTavernJob({
+            render: false,
+            silent: true
+        });
 
-        if (typeof renderAdventurersTavern === "function") {
-            renderAdventurersTavern();
-        }
-
-        return false;
+    if (!completed) {
+        return null;
     }
 
-    const result =
-        generateTavernJobRewards(
-            job,
-            area
-        );
+    const lastJob =
+        player.tavern.lastCompletedJob || null;
 
-    result.rewards.forEach(reward => {
-        addItemToInventory(
-            reward.itemId,
-            reward.quantity
-        );
-    });
+    const rewards =
+        Array.isArray(lastJob?.rewards)
+            ? lastJob.rewards
+            : [];
 
-    applyTavernJobProfessionProgress(
-        job,
-        area,
-        result.rewards,
-        result.completedCycles,
-        result.totalExp
-    );
+    const rewardsText =
+        typeof getTavernRewardsText === "function"
+            ? getTavernRewardsText(rewards)
+            : "łupy do odebrania";
 
-    player.tavern.completedJobs++;
-    player.tavern.statistics.totalJobsCompleted++;
-
-    player.tavern.lastResult = {
-        time: Date.now(),
-        adventurerId: adventurer.id,
-        activityType: job.activityType,
-        areaId: area.id,
-        completedCycles: result.completedCycles,
-        totalExp: result.totalExp,
-        rewards: result.rewards
+    return {
+        durationMilliseconds:
+            Math.max(
+                0,
+                finishesAt -
+                Math.max(
+                    0,
+                    Number(job.startedAt) ||
+                    offlineStartedAt ||
+                    0
+                )
+            ),
+        sections: [
+            {
+                title: "🍺 Karczma",
+                lines: [
+                    "Śmiałek wrócił podczas nieobecności.",
+                    "Śmiałek: " +
+                    (
+                        adventurer?.name ||
+                        "Nieznany śmiałek"
+                    ),
+                    "Obszar: " +
+                    (
+                        area?.name ||
+                        job.areaId ||
+                        "Nieznany obszar"
+                    ),
+                    "Łupy: " + rewardsText
+                ]
+            }
+        ]
     };
-
-    player.tavern.activeJob = null;
-
-    const totalItems =
-        result.rewards.reduce((total, reward) => {
-            return total + reward.quantity;
-        }, 0);
-
-    if (typeof addSystemLog === "function") {
-        addSystemLog(
-            adventurer.icon +
-            " " +
-            adventurer.name +
-            " wrócił z obszaru " +
-            area.name +
-            ". Przyniósł " +
-            totalItems +
-            " przedmiotów i +" +
-            result.totalExp +
-            " EXP.",
-            "tavern"
-        );
-    }
-
-    if (typeof showNotification === "function") {
-        showNotification(
-            adventurer.name +
-            " zakończył zlecenie.",
-            "success"
-        );
-    }
-
-    saveGame();
-
-    if (typeof renderInventory === "function") {
-        renderInventory();
-    }
-
-    if (typeof renderAdventurersTavern === "function") {
-        renderAdventurersTavern();
-    }
-
-    if (typeof render === "function") {
-        render();
-    }
-
-    return true;
-}
-
-function checkTavernJobCompletion() {
-    ensureTavernState();
-
-    if (!player.tavern.activeJob) {
-        return false;
-    }
-
-    if (
-        player.tavern.activeJob.finishesAt >
-        Date.now()
-    ) {
-        return false;
-    }
-
-    return completeTavernJob();
 }
 
 function setTavernMenuActive() {
@@ -1501,7 +1467,10 @@ function completeTavernJob(options = {}) {
         );
     }
 
-    if (typeof showNotification === "function") {
+    if (
+        options.silent !== true &&
+        typeof showNotification === "function"
+    ) {
         showNotification(
             "Śmiałek wrócił z łupami!",
             "success"
@@ -1529,6 +1498,151 @@ function completeTavernJob(options = {}) {
 
 function checkTavernJobCompletion(options = {}) {
     return completeTavernJob(options);
+}
+
+function processOfflineTavernProgress(
+    savedAt,
+    currentTime = Date.now()
+) {
+    if (
+        typeof ensureTavernState !== "function" ||
+        typeof completeTavernJob !== "function"
+    ) {
+        return null;
+    }
+
+    ensureTavernState();
+
+    const job =
+        player.tavern.activeJob;
+
+    if (!job) {
+        return null;
+    }
+
+    const jobFinishedAt =
+        Math.max(
+            0,
+            Number(job.finishesAt) || 0
+        );
+
+    if (
+        jobFinishedAt <= 0 ||
+        jobFinishedAt > currentTime
+    ) {
+        return null;
+    }
+
+    const adventurer =
+        typeof getTavernAdventurer === "function"
+            ? getTavernAdventurer(job.adventurerId)
+            : null;
+
+    const area =
+        typeof getTavernJobAreaDefinition === "function"
+            ? getTavernJobAreaDefinition(job)
+            : null;
+
+    const completed =
+        completeTavernJob({
+            render: false
+        });
+
+    if (!completed) {
+        return null;
+    }
+
+    const lastJob =
+        player.tavern.lastCompletedJob;
+
+    if (!lastJob) {
+        return null;
+    }
+
+    const rewards =
+        Array.isArray(lastJob.rewards)
+            ? lastJob.rewards
+            : [];
+
+    let totalItems = 0;
+    let goldReward = 0;
+
+    const summaryItems = [];
+
+    rewards.forEach(reward => {
+        const quantity =
+            Math.max(
+                0,
+                Math.floor(
+                    Number(reward.quantity) || 0
+                )
+            );
+
+        if (quantity <= 0) {
+            return;
+        }
+
+        if (reward.type === "gold") {
+            goldReward += quantity;
+            return;
+        }
+
+        if (reward.itemId) {
+            totalItems += quantity;
+
+            summaryItems.push({
+                itemId: reward.itemId,
+                quantity: quantity
+            });
+        }
+    });
+
+    const stats = [
+        {
+            label: "Śmiałek",
+            value: adventurer?.name || "Śmiałek"
+        },
+        {
+            label: "Obszar",
+            value: area?.name || lastJob.areaId
+        },
+        {
+            label: "Łupy do odebrania",
+            value: totalItems,
+            prefix: "+"
+        }
+    ];
+
+    if (goldReward > 0) {
+        stats.push({
+            label: "Złoto do odebrania",
+            value: goldReward,
+            prefix: "+"
+        });
+    }
+
+    return {
+        durationMilliseconds:
+            Math.max(
+                0,
+                Math.min(
+                    currentTime,
+                    jobFinishedAt
+                ) -
+                Math.max(
+                    Number(savedAt) || 0,
+                    Number(job.startedAt) || 0
+                )
+            ),
+        sections: [
+            {
+                icon: "🍺",
+                title: "Karczma",
+                stats: stats,
+                items: summaryItems
+            }
+        ]
+    };
 }
 
 setInterval(() => {
