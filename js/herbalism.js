@@ -215,6 +215,11 @@ function ensureHerbalismState() {
     ) {
         statistics.cyclesByArea = {};
     }
+    if (typeof initializeHerbalismSeedItems === "function") {
+        initializeHerbalismSeedItems();
+    }
+    ``
+
 }
 
 function recordHerbalismProgress(
@@ -848,6 +853,123 @@ function updateHerbalism() {
     }
 }
 
+const HERBALISM_SEED_DROP_CHANCES = {
+    basic: 50,
+    rare: 25,
+    exceptional: 10
+};
+
+function getHerbalismSeedItemId(itemId) {
+    if (!itemId) {
+        return null;
+    }
+
+    return itemId + "_seed";
+}
+
+function createHerbalismSeedItem(itemId) {
+    if (!itemId || typeof items === "undefined") {
+        return null;
+    }
+
+    const sourceItem = items[itemId];
+
+    if (!sourceItem) {
+        return null;
+    }
+
+    const seedItemId = getHerbalismSeedItemId(itemId);
+
+    if (items[seedItemId]) {
+        return seedItemId;
+    }
+
+    items[seedItemId] = {
+        id: seedItemId,
+        name: "Nasiono: " + sourceItem.name,
+        rarity: sourceItem.rarity || "common",
+        type: "seed",
+        value: Math.max(
+            1,
+            Math.floor((Number(sourceItem.value) || 1) / 2)
+        ),
+        sourceItemId: itemId,
+        description: "Nasiono pozyskane podczas zielarstwa. Używane w systemie sadzenia."
+    };
+
+    return seedItemId;
+}
+
+function initializeHerbalismSeedItems() {
+    if (
+        typeof herbalismAreas === "undefined" ||
+        !Array.isArray(herbalismAreas)
+    ) {
+        return;
+    }
+
+    herbalismAreas.forEach(area => {
+        [
+            "basicDrops",
+            "rareDrops",
+            "exceptionalDrops"
+        ].forEach(groupName => {
+            const drops = Array.isArray(area[groupName])
+                ? area[groupName]
+                : [];
+
+            drops.forEach(drop => {
+                createHerbalismSeedItem(drop.itemId);
+            });
+        });
+    });
+}
+
+function rollHerbalismSeedDrop(ingredient) {
+    if (!ingredient || !ingredient.itemId) {
+        return null;
+    }
+
+    const rarityGroup = ingredient.rarityGroup || "basic";
+    const chance = HERBALISM_SEED_DROP_CHANCES[rarityGroup] || 0;
+
+    if (chance <= 0) {
+        return null;
+    }
+
+    const seedItemId = createHerbalismSeedItem(ingredient.itemId);
+
+    if (!seedItemId) {
+        return null;
+    }
+
+    const quantity = Math.max(
+        1,
+        Math.floor(Number(ingredient.quantity) || 1)
+    );
+
+    let seedQuantity = 0;
+
+    for (let index = 0; index < quantity; index++) {
+        if (Math.random() * 100 < chance) {
+            seedQuantity++;
+        }
+    }
+
+    if (seedQuantity <= 0) {
+        return null;
+    }
+
+    return {
+        itemId: seedItemId,
+        quantity: seedQuantity,
+        rarityGroup: "seed",
+        herbalismExp: 0,
+        isSeed: true
+    };
+}
+
+
 function completeHerbalismCycle(
     area
 ) {
@@ -932,6 +1054,7 @@ function completeHerbalismCycle(
     }
 
     let totalHerbalismExp = 0;
+    const foundSeeds = [];
 
     foundIngredients.forEach(
         ingredient => {
@@ -956,6 +1079,18 @@ function completeHerbalismCycle(
                 ingredient.itemId,
                 ingredientQuantity
             );
+
+            const seedDrop =
+                rollHerbalismSeedDrop(ingredient);
+
+            if (seedDrop) {
+                addItemToInventory(
+                    seedDrop.itemId,
+                    seedDrop.quantity
+                );
+
+                foundSeeds.push(seedDrop);
+            }
 
             /*
              * Dodatkowa sztuka nie daje
@@ -991,7 +1126,7 @@ function completeHerbalismCycle(
             totalHerbalismExp,
 
         resources:
-            foundIngredients.map(
+            foundIngredients.concat(foundSeeds).map(
                 ingredient => {
                     return {
                         itemId:

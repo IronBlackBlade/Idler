@@ -1,0 +1,127 @@
+/* ========================================
+   PLECAK — ZAKŁADKA NASIONA
+======================================== */
+
+.inventory-filters button[data-filter="seeds"] {
+    border-color: #3f5f38;
+    background: #141b12;
+    color: #b9dca7;
+}
+
+.inventory-filters button[data-filter="seeds"]:hover {
+    border-color: #6b9b58;
+    background: #192617;
+    color: #d6f3c8;
+}
+
+.inventory-filters button[data-filter="seeds"].active {
+    border-color: #7fbf63;
+    background: #1f321b;
+    color: #d9f7c9;
+    box-shadow: 0 0 12px rgba(127, 191, 99, 0.16);
+}
+
+.inventory-item-seed {
+    border-color: #4f7a43;
+    background:
+        linear-gradient(
+            145deg,
+            #172014,
+            #121712
+        );
+}
+
+.inventory-item-seed:hover {
+    border-color: #78a964;
+    box-shadow: 0 0 14px rgba(120, 169, 100, 0.16);
+}
+
+.inventory-item-seed .inventory-item-header strong {
+    color: #d9f7c9;
+}
+
+.inventory-item-seed .inventory-quantity {
+    border-color: #3f5f38;
+    background: #10170f;
+    color: #c9efb8;
+}
+
+.inventory-item-seed .inventory-item-tags span,
+.inventory-item-seed .inventory-item-tags .inventory-rarity-tag,
+.inventory-item-seed .inventory-item-tags .inventory-purpose-tag,
+.inventory-item-seed .inventory-item-tags .inventory-value-tag {
+    border-color: #31482c;
+    background: #10170f;
+    color: #b9dca7;
+}
+
+.inventory-item-seed .inventory-item-tags .inventory-purpose-tag {
+    color: #c7e9b8;
+}
+
+.inventory-item-seed .inventory-item-tags .inventory-value-tag {
+    color: #e0d08f;
+}
+
+.inventory-item-seed .inventory-actions button {
+    border-color: #405a37;
+    background: #172114;
+    color: #cce9bd;
+}
+
+.inventory-item-seed .inventory-actions button:hover {
+    border-color: #6b9b58;
+    background: #1f321b;
+    color: #e2fad7;
+}
+
+/* Kompaktowy wygląd nasion */
+.inventory-item-seed.inventory-item-compact {
+    min-height: 115px;
+    padding: 9px;
+}
+
+.inventory-item-seed.inventory-item-compact .inventory-item-header {
+    margin-bottom: 6px;
+}
+
+.inventory-item-seed.inventory-item-compact .inventory-item-header strong {
+    font-size: 13px;
+}
+
+.inventory-item-seed.inventory-item-compact .inventory-item-tags {
+    gap: 5px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+
+.inventory-item-seed.inventory-item-compact .inventory-item-tags span,
+.inventory-item-seed.inventory-item-compact .inventory-item-tags .inventory-rarity-tag,
+.inventory-item-seed.inventory-item-compact .inventory-item-tags .inventory-purpose-tag,
+.inventory-item-seed.inventory-item-compact .inventory-item-tags .inventory-value-tag {
+    padding: 3px 6px;
+    font-size: 10px;
+}
+
+.inventory-item-seed.inventory-item-compact .inventory-actions {
+    margin-top: 7px;
+    gap: 5px;
+}
+
+.inventory-item-seed.inventory-item-compact .inventory-actions button {
+    min-height: 26px;
+    padding: 4px 7px;
+    font-size: 11px;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .inventory-filters button[data-filter="seeds"] {
+        padding: 6px 9px;
+        font-size: 11px;
+    }
+
+    .inventory-item-seed.inventory-item-compact {
+        min-height: auto;
+    }
+}

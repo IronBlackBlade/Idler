@@ -665,7 +665,9 @@
                 </div>
 
                 <div id="herbalism-activity" class="herbalism-activity-card"></div>
-
+                <button onclick="openGardenScreen()">
+    🌱 Ogród
+</button>
                 <div id="herbalism-areas-list" class="herbalism-areas-list"></div>
             </section>
 
@@ -740,19 +742,24 @@
                 <div id="quests"></div>
             </section>
 
-<section id="screen-tavern" class="screen">
-    <div class="screen-header">
-        <div>
-            <h2>🍺 Karczma</h2>
-            <p>
-                Wynajmuj śmiałków, którzy za opłatą wykonują proste aktywności
-                z częścią skuteczności bohatera.
-            </p>
-        </div>
-    </div>
+            <section id="screen-tavern" class="screen">
+                <div class="screen-header">
+                    <div>
+                        <h2>🍺 Karczma</h2>
+                        <p>
+                            Wynajmuj śmiałków, którzy za opłatą wykonują proste aktywności
+                            z częścią skuteczności bohatera.
+                        </p>
+                    </div>
+                </div>
 
-    <div id="tavern-adventurers-panel"></div>
-</section>
+                <div id="tavern-adventurers-panel"></div>
+            </section>
+            
+            <section id="screen-garden" class="screen">
+                <div id="garden-panel"></div>
+                
+            </section>
             <section id="screen-shop" class="screen">
 
 
@@ -1684,6 +1691,7 @@
     <script src="js/alchemy.js?v=20260802-profession-balance"></script>
     <script src="js/cooking.js?v=20260802-profession-balance"></script>
     <script src="js/tavern.js"></script>
+    <script src="js/garden.js"></script>
 
     <script src="js/offlineProgress.js?v=20260802-set-activity-bonuses"></script>
     <script src="js/offline/offlineMining.js?v=20260802-set-activity-bonuses"></script>
@@ -1723,6 +1731,7 @@
     <script src="js/ui/alchemyUI.js?v=20260802-embedded-tools"></script>
     <script src="js/ui/cookingUI.js?v=20260802-embedded-tools"></script>
     <script src="js/ui/tavernUI.js"></script>
+    <script src="js/ui/gardenUI.js"></script>
     <script src="js/ui/offlineSummaryUI.js"></script>
     <script src="js/ui/journalBestiaryUI.js"></script>
     <script src="js/ui/journalAchievementsUI.js?v=20260731-achievements"></script>

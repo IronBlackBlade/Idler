@@ -241,6 +241,10 @@ function renderInventory() {
             name: "🌿 Zielarstwo"
         },
         {
+            id: "seeds",
+            name: "🫘Nasiona"
+        },
+        {
             id: "fishing",
             name: "🎣 Łowienie"
         },
@@ -536,7 +540,9 @@ function renderInventory() {
             purposeLabel =
                 "Materiał rzemieślniczy";
         }
-
+        if (itemCategory === "seeds") {
+            purposeLabel = "Nasiono — można zasadzić w ogrodzie";
+        }
 
         if (
             itemCategory ===
@@ -614,6 +620,7 @@ function renderInventory() {
             "recipe",
             "mining",
             "herbalism",
+            "seeds",
             "fishing"
         ];
 

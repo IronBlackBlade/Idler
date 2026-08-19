@@ -5,6 +5,7 @@ const allowedInventoryFilters = [
     "processed_material",
     "mining",
     "herbalism",
+    "seeds",
     "fishing",
     "potion",
     "food",
@@ -381,7 +382,9 @@ function getInventoryItemCategory(
     if (!item) {
         return "other";
     }
-
+    if (item.type === "seed") {
+        return "seeds";
+    }
     if (item.type === "potion") {
         return "potion";
     }
