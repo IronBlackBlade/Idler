@@ -867,7 +867,10 @@ function getHerbalismSeedItemId(itemId) {
     return itemId + "_seed";
 }
 
-function createHerbalismSeedItem(itemId) {
+function createHerbalismSeedItem(
+    itemId,
+    seedGroup = "basic"
+) {
     if (!itemId || typeof items === "undefined") {
         return null;
     }
@@ -889,12 +892,16 @@ function createHerbalismSeedItem(itemId) {
         name: "Nasiono: " + sourceItem.name,
         rarity: sourceItem.rarity || "common",
         type: "seed",
+        sourceItemId: itemId,
+        seedGroup: seedGroup,
         value: Math.max(
             1,
-            Math.floor((Number(sourceItem.value) || 1) / 2)
+            Math.floor(
+                (Number(sourceItem.value) || 1) / 2
+            )
         ),
-        sourceItemId: itemId,
-        description: "Nasiono pozyskane podczas zielarstwa. Używane w systemie sadzenia."
+        description:
+            "Nasiono używane do sadzenia."
     };
 
     return seedItemId;
@@ -907,19 +914,33 @@ function initializeHerbalismSeedItems() {
     ) {
         return;
     }
+    const groups = [
+        {
+            dropsKey: "basicDrops",
+            seedGroup: "basic"
+        },
+        {
+            dropsKey: "rareDrops",
+            seedGroup: "rare"
+        },
+        {
+            dropsKey: "exceptionalDrops",
+            seedGroup: "exceptional"
+        }
+    ];
 
     herbalismAreas.forEach(area => {
-        [
-            "basicDrops",
-            "rareDrops",
-            "exceptionalDrops"
-        ].forEach(groupName => {
-            const drops = Array.isArray(area[groupName])
-                ? area[groupName]
-                : [];
+        groups.forEach(group => {
+            const drops =
+                Array.isArray(area[group.dropsKey])
+                    ? area[group.dropsKey]
+                    : [];
 
             drops.forEach(drop => {
-                createHerbalismSeedItem(drop.itemId);
+                createHerbalismSeedItem(
+                    drop.itemId,
+                    group.seedGroup
+                );
             });
         });
     });

@@ -137,6 +137,7 @@
                         </button>
                         <button data-menu-section="mining" onclick="openMiningScreen()">⛏️ Kopalnia</button>
                         <button data-menu-section="herbalism" onclick="openHerbalismScreen()">🌿 Zielarstwo</button>
+                        <button data-menu-section="garden" onclick="openGardenScreen()">🌱 Ogród</button>
                         <button data-menu-section="fishing" onclick="openFishingScreen()">🎣 Łowienie</button>
                     </div>
                 </section>
@@ -665,12 +666,21 @@
                 </div>
 
                 <div id="herbalism-activity" class="herbalism-activity-card"></div>
-                <button onclick="openGardenScreen()">
-    🌱 Ogród
-</button>
                 <div id="herbalism-areas-list" class="herbalism-areas-list"></div>
             </section>
+            <section id="screen-garden" class="screen">
+                <div class="screen-header">
+                    <div>
+                        <h2>🌱 Ogród</h2>
+                        <p>
+                            Sadź nasiona zdobyte podczas zielarstwa
+                            i zbieraj dojrzałe rośliny.
+                        </p>
+                    </div>
+                </div>
 
+                <div id="garden-panel"></div>
+            </section>
             <section id="screen-fishing-locations" class="screen">
                 <div class="screen-header">
                     <div>
@@ -755,11 +765,7 @@
 
                 <div id="tavern-adventurers-panel"></div>
             </section>
-            
-            <section id="screen-garden" class="screen">
-                <div id="garden-panel"></div>
-                
-            </section>
+
             <section id="screen-shop" class="screen">
 
 

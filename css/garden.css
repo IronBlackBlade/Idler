@@ -1,127 +1,606 @@
 /* ========================================
-   PLECAK — ZAKŁADKA NASIONA
+   OGRÓD
 ======================================== */
 
-.inventory-filters button[data-filter="seeds"] {
-    border-color: #3f5f38;
-    background: #141b12;
-    color: #b9dca7;
+#screen-garden {
+    color: #26351f;
 }
 
-.inventory-filters button[data-filter="seeds"]:hover {
-    border-color: #6b9b58;
-    background: #192617;
-    color: #d6f3c8;
+#screen-garden .screen-header {
+    margin-bottom: 18px;
+    padding: 18px 20px;
+
+    border: 1px solid #91ad70;
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #e5efc8,
+            #bed99a
+        );
+
+    box-shadow:
+        0 8px 24px rgba(32, 62, 24, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.65);
 }
 
-.inventory-filters button[data-filter="seeds"].active {
-    border-color: #7fbf63;
-    background: #1f321b;
-    color: #d9f7c9;
-    box-shadow: 0 0 12px rgba(127, 191, 99, 0.16);
+#screen-garden .screen-header h2 {
+    margin: 0 0 5px;
+    color: #294520;
+    font-size: 24px;
 }
 
-.inventory-item-seed {
-    border-color: #4f7a43;
+#screen-garden .screen-header p {
+    margin: 0;
+    color: #4c6340;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* Główna karta */
+
+.garden-card {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+
+    padding: 20px;
+
+    border: 1px solid #9db77c;
+    border-radius: 20px;
+
     background:
         linear-gradient(
             145deg,
-            #172014,
-            #121712
+            #f1f2d8,
+            #d8e5b9
+        );
+
+    box-shadow:
+        0 10px 30px rgba(29, 55, 21, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.75);
+}
+
+/* Nagłówek wewnętrzny */
+
+.garden-header span {
+    display: block;
+
+    color: #719050;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.garden-header strong {
+    display: block;
+    margin-top: 3px;
+
+    color: #2f4b26;
+    font-size: 21px;
+}
+
+.garden-header p {
+    margin: 6px 0 0;
+
+    color: #596e4b;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+
+.garden-plot::before {
+    content: "";
+    position: absolute;
+    inset: 7px;
+
+    pointer-events: none;
+
+    border: 1px dashed rgba(77, 58, 31, 0.35);
+    border-radius: 13px;
+}
+
+.garden-plot:hover {
+    transform: translateY(-3px);
+
+    border-color: #6e873f;
+
+    box-shadow:
+        0 12px 24px rgba(46, 66, 28, 0.24),
+        inset 0 2px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* Treść nad dekoracją */
+
+.garden-plot > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Nagłówek grządki */
+
+.garden-plot-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.garden-plot-header strong {
+    color: #352914;
+    font-size: 15px;
+}
+
+.garden-plot-header span {
+    padding: 4px 8px;
+
+    border: 1px solid rgba(54, 79, 34, 0.35);
+    border-radius: 999px;
+
+    background: rgba(225, 239, 190, 0.78);
+
+    color: #38502b;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+/* Informacje o roślinie */
+
+.garden-growing-info {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    gap: 7px;
+
+    padding: 10px;
+
+    border: 1px solid rgba(88, 68, 38, 0.3);
+    border-radius: 12px;
+
+    background: rgba(255, 248, 213, 0.58);
+
+    color: #4c3b25;
+    font-size: 12px;
+    text-align: center;
+}
+
+.garden-growing-info strong {
+    color: #2f5126;
+    font-size: 14px;
+}
+
+.garden-growing-info span {
+    color: #5e553d;
+}
+
+/* Lista nasion */
+
+.garden-seed-select {
+    width: 100%;
+    min-height: 39px;
+    padding: 7px 9px;
+
+    border: 1px solid #748d50;
+    border-radius: 10px;
+    outline: none;
+
+    background: #f4f1ce;
+    color: #334428;
+
+    font-size: 12px;
+}
+
+.garden-seed-select:hover,
+.garden-seed-select:focus {
+    border-color: #4f7138;
+
+    box-shadow:
+        0 0 0 3px rgba(96, 135, 63, 0.16);
+}
+
+/* Przyciski */
+
+.garden-action-button {
+    width: 100%;
+    min-height: 38px;
+    padding: 7px 12px;
+
+    border: 1px solid #436a35;
+    border-radius: 11px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #789f55,
+            #4f783d
+        );
+
+    color: #f5ffe9;
+
+    font-size: 12px;
+    font-weight: 800;
+
+    box-shadow:
+        0 4px 10px rgba(45, 72, 34, 0.22);
+
+    cursor: pointer;
+
+    transition:
+        transform 0.15s ease,
+        background 0.15s ease,
+        border-color 0.15s ease;
+}
+
+.garden-action-button:hover:not(:disabled) {
+    transform: translateY(-1px);
+
+    border-color: #345c28;
+
+    background:
+        linear-gradient(
+            180deg,
+            #8bb666,
+            #5e8848
         );
 }
 
-.inventory-item-seed:hover {
-    border-color: #78a964;
-    box-shadow: 0 0 14px rgba(120, 169, 100, 0.16);
+.garden-action-button:active:not(:disabled) {
+    transform: translateY(1px);
 }
 
-.inventory-item-seed .inventory-item-header strong {
-    color: #d9f7c9;
+.garden-action-button:disabled {
+    border-color: #9a9c79;
+    background: #b9b99a;
+    color: #73745e;
+
+    box-shadow: none;
+    cursor: not-allowed;
+    opacity: 0.85;
 }
 
-.inventory-item-seed .inventory-quantity {
-    border-color: #3f5f38;
-    background: #10170f;
-    color: #c9efb8;
+/* Responsywność */
+
+@media (max-width: 760px) {
+    .garden-card {
+        padding: 14px;
+    }
+
+    .garden-plots {
+        grid-template-columns: repeat(
+            2,
+            minmax(0, 1fr)
+        );
+        gap: 11px;
+    }
+
+    .garden-plot {
+        min-width: 0;
+        padding: 11px;
+        border-radius: 14px;
+    }
+
+    .garden-growing-info {
+        padding: 7px;
+    }
 }
 
-.inventory-item-seed .inventory-item-tags span,
-.inventory-item-seed .inventory-item-tags .inventory-rarity-tag,
-.inventory-item-seed .inventory-item-tags .inventory-purpose-tag,
-.inventory-item-seed .inventory-item-tags .inventory-value-tag {
-    border-color: #31482c;
-    background: #10170f;
-    color: #b9dca7;
+@media (max-width: 430px) {
+    .garden-plots {
+        grid-template-columns: 1fr;
+    }
+
+    .garden-plot {
+        width: min(100%, 260px);
+        justify-self: center;
+    }
 }
 
-.inventory-item-seed .inventory-item-tags .inventory-purpose-tag {
-    color: #c7e9b8;
+/* Ciemniejszy, zielony motyw ogrodu */
+
+.garden-plot {
+    border-color: #2f4930;
+    background: #0c120d;
+    box-shadow: inset 0 0 18px rgba(25, 65, 32, 0.12);
 }
 
-.inventory-item-seed .inventory-item-tags .inventory-value-tag {
-    color: #e0d08f;
+.garden-plot:hover {
+    border-color: #466b45;
+    background: #0f1710;
 }
 
-.inventory-item-seed .inventory-actions button {
-    border-color: #405a37;
-    background: #172114;
-    color: #cce9bd;
+.garden-plot-ready {
+    border-color: #4f814d;
+    background: #102014;
+    box-shadow: inset 0 0 18px rgba(55, 120, 58, 0.14);
 }
 
-.inventory-item-seed .inventory-actions button:hover {
-    border-color: #6b9b58;
-    background: #1f321b;
-    color: #e2fad7;
+.garden-plant-main strong,
+.garden-plot-empty > strong {
+    color: #9dcc91;
 }
 
-/* Kompaktowy wygląd nasion */
-.inventory-item-seed.inventory-item-compact {
-    min-height: 115px;
+.garden-plant-time {
+    color: #648f64;
+}
+
+.garden-plot-ready .garden-plant-time {
+    color: #7fcf78;
+}
+
+.garden-seed-select {
+    border-color: #334e34;
+    background: #090e0a;
+    color: #91bd88;
+}
+
+.garden-seed-select:focus {
+    border-color: #578657;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(70, 120, 70, 0.18);
+}
+
+.garden-action-button {
+    border-color: #426d42;
+    background: #17301a;
+    color: #93ce8b;
+}
+
+.garden-action-button:hover:not(:disabled) {
+    border-color: #5c9659;
+    background: #204322;
+    color: #b3eba9;
+}
+
+.garden-action-button:disabled {
+    border-color: #263b28;
+    background: #101a12;
+    color: #456448;
+    opacity: 0.75;
+}
+
+/* ========================================
+   OGRÓD — CIEMNY ZIELONY MOTYW
+======================================== */
+
+#screen-garden {
+    background: #090d0a;
+    color: #9ab394;
+}
+
+/* Górny nagłówek ekranu */
+#screen-garden .screen-header {
+    border: 1px solid #263d29;
+    border-radius: 16px;
+    background: #101812;
+}
+
+#screen-garden .screen-header h2 {
+    color: #8fbd85;
+}
+
+#screen-garden .screen-header p {
+    color: #668064;
+}
+
+/* Główna karta ogrodu */
+#screen-garden .garden-card,
+#screen-garden .game-card {
+    border: 1px solid #263d29;
+    background: #0d140f;
+    box-shadow: none;
+}
+
+#screen-garden .garden-header span {
+    color: #577a55;
+}
+
+#screen-garden .garden-header strong {
+    color: #86ad7d;
+}
+
+#screen-garden .garden-header p {
+    color: #60785e;
+}
+
+/* Grządki */
+#screen-garden .garden-plot {
+    border: 1px solid #29452f;
+    background: #080e09;
+    box-shadow: inset 0 0 14px rgba(18, 59, 26, 0.12);
+}
+
+#screen-garden .garden-plot:hover {
+    border-color: #355d3d;
+    background: #0a120c;
+}
+
+#screen-garden .garden-plot-ready {
+    border-color: #3d7046;
+    background: #0b160e;
+}
+
+/* Teksty */
+#screen-garden .garden-plant-main strong,
+#screen-garden .garden-plot-empty > strong {
+    color: #78a873;
+}
+
+#screen-garden .garden-plant-time {
+    color: #527652;
+}
+
+#screen-garden .garden-plot-ready .garden-plant-time {
+    color: #68a568;
+}
+
+/* Lista nasion */
+#screen-garden .garden-seed-select {
+    border: 1px solid #29482f;
+    background: #070c08;
+    color: #78a173;
+}
+
+#screen-garden .garden-seed-select:focus {
+    border-color: #47774d;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(52, 105, 60, 0.16);
+}
+
+#screen-garden .garden-seed-select option {
+    background: #090f0a;
+    color: #82aa7c;
+}
+
+/* Przyciski */
+#screen-garden .garden-action-button {
+    border: 1px solid #315b38;
+    background: #102515;
+    color: #76a871;
+}
+
+#screen-garden .garden-action-button:hover:not(:disabled) {
+    border-color: #477b4e;
+    background: #17351d;
+    color: #91c68a;
+}
+
+#screen-garden .garden-action-button:disabled {
+    border-color: #1d3322;
+    background: #0b160e;
+    color: #344e37;
+    opacity: 1;
+}
+
+#content:has(#screen-garden:not([hidden])) {
+    background: #090d0a;
+}
+
+.garden-plots {
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fill,
+        minmax(260px, 320px)
+    );
+    gap: 14px;
+    justify-content: start;
+}
+
+.garden-plot {
+    position: relative;
+    overflow: hidden;
+
+    width: 100%;
+    min-height: 190px;
+    aspect-ratio: auto;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    padding: 14px;
+
+    border: 2px solid #8a744d;
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #d9bd83,
+            #ad8755
+        );
+
+    box-shadow:
+        0 8px 18px rgba(70, 50, 26, 0.22),
+        inset 0 2px 0 rgba(255, 255, 255, 0.25);
+}
+
+.garden-growing-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+
+    min-height: 62px;
     padding: 9px;
+
+    border: 1px solid rgba(88, 68, 38, 0.3);
+    border-radius: 11px;
+
+    background: rgba(255, 248, 213, 0.58);
+
+    color: #4c3b25;
+    font-size: 12px;
+    text-align: center;
 }
 
-.inventory-item-seed.inventory-item-compact .inventory-item-header {
-    margin-bottom: 6px;
+/* Kompaktowe grządki */
+
+#screen-garden .garden-plots {
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fill,
+        minmax(250px, 310px)
+    );
+    justify-content: start;
+    gap: 12px;
 }
 
-.inventory-item-seed.inventory-item-compact .inventory-item-header strong {
+#screen-garden .garden-plot {
+    width: 100%;
+    min-height: 0;
+    height: auto;
+    padding: 12px;
+    box-sizing: border-box;
+}
+
+#screen-garden .garden-plant-main {
+    width: 100%;
+}
+
+#screen-garden .garden-action-button {
+    width: 100%;
+    height: 34px;
+    margin-top: 6px;
+}
+
+@media (max-width: 600px) {
+    #screen-garden .garden-plots {
+        grid-template-columns: 1fr;
+    }
+}
+
+#screen-garden .garden-plot {
+    width: 260px;
+    min-height: 0;
+    height: auto;
+    padding: 12px;
+}
+
+#screen-garden .garden-plant-main {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 7px;
+    width: 100%;
+}
+
+#screen-garden .garden-plant-main strong {
+    display: block;
+    font-size: 15px;
+    line-height: 1.25;
+}
+
+#screen-garden .garden-plant-time {
+    display: block;
     font-size: 13px;
 }
 
-.inventory-item-seed.inventory-item-compact .inventory-item-tags {
-    gap: 5px;
-    margin-top: 6px;
-    margin-bottom: 6px;
-}
-
-.inventory-item-seed.inventory-item-compact .inventory-item-tags span,
-.inventory-item-seed.inventory-item-compact .inventory-item-tags .inventory-rarity-tag,
-.inventory-item-seed.inventory-item-compact .inventory-item-tags .inventory-purpose-tag,
-.inventory-item-seed.inventory-item-compact .inventory-item-tags .inventory-value-tag {
-    padding: 3px 6px;
-    font-size: 10px;
-}
-
-.inventory-item-seed.inventory-item-compact .inventory-actions {
-    margin-top: 7px;
-    gap: 5px;
-}
-
-.inventory-item-seed.inventory-item-compact .inventory-actions button {
-    min-height: 26px;
-    padding: 4px 7px;
-    font-size: 11px;
-}
-
-/* Mobile */
-@media (max-width: 600px) {
-    .inventory-filters button[data-filter="seeds"] {
-        padding: 6px 9px;
-        font-size: 11px;
-    }
-
-    .inventory-item-seed.inventory-item-compact {
-        min-height: auto;
-    }
+#screen-garden .garden-action-button {
+    width: 100%;
+    height: 32px;
+    margin: 0;
 }

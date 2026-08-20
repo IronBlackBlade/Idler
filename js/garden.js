@@ -1,11 +1,9 @@
 const GARDEN_PLOT_COUNT = 3;
 
-const GARDEN_GROWTH_SECONDS_BY_RARITY = {
-    common: 300,
-    uncommon: 600,
-    rare: 900,
-    epic: 1800,
-    legendary: 3600
+const GARDEN_GROWTH_SECONDS_BY_GROUP = {
+    basic: 60 * 60,
+    rare: 4 * 60 * 60,
+    exceptional: 8 * 60 * 60
 };
 
 const GARDEN_YIELD_BY_RARITY = {
@@ -96,12 +94,14 @@ function getGardenSeedInventoryItems() {
 }
 
 function getGardenGrowthSeconds(seedItem) {
-    const rarity =
-        seedItem?.rarity || "common";
+    const seedGroup =
+        seedItem?.seedGroup || "basic";
 
     return (
-        GARDEN_GROWTH_SECONDS_BY_RARITY[rarity] ||
-        GARDEN_GROWTH_SECONDS_BY_RARITY.common
+        GARDEN_GROWTH_SECONDS_BY_GROUP[
+        seedGroup
+        ] ||
+        GARDEN_GROWTH_SECONDS_BY_GROUP.basic
     );
 }
 

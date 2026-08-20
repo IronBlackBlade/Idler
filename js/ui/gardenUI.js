@@ -1,10 +1,7 @@
 function openGardenScreen() {
     ensureGardenState();
-
-    if (typeof showScreen === "function") {
-        showScreen("screen-garden");
-    }
-
+    showScreen("screen-garden");
+    setGardenMenuActive();
     renderGarden();
 }
 
@@ -62,11 +59,17 @@ function getGardenSeedOptionsHtml() {
             const item =
                 items[inventoryItem.itemId];
 
+            const growthSeconds =
+                getGardenGrowthSeconds(item);
+
+            const growthTime =
+                formatGardenTime(growthSeconds);
+
             return `
-                <option value="${inventoryItem.itemId}">
-                    ${item.name} x${inventoryItem.quantity}
-                </option>
-            `;
+    <option value="${inventoryItem.itemId}">
+        ${item.name} x${inventoryItem.quantity} (${growthTime})
+    </option>
+`;
         })
         .join("");
 }
@@ -74,75 +77,54 @@ function getGardenSeedOptionsHtml() {
 function getGardenPlotHtml(plot, index) {
     if (!plot.seedItemId) {
         return `
-            <div class="garden-plot">
-                <div class="garden-plot-header">
-                    <strong>
-                        Grządka ${index + 1}
-                    </strong>
-                    <span>
-                        Wolna
-                    </span>
+            <div class="garden-plot garden-plot-empty">
+                <strong>Grządka ${index + 1}</strong>
+
+                <div class="garden-plant-row">
+                    <select
+                        id="garden-seed-select-${index}"
+                        class="garden-seed-select"
+                    >
+                        ${getGardenSeedOptionsHtml()}
+                    </select>
+
+                    <button
+                        type="button"
+                        class="garden-action-button"
+                        onclick="plantGardenSeedFromUI(${index})"
+                    >
+                        Zasadź
+                    </button>
                 </div>
-
-                <select
-                    id="garden-seed-select-${index}"
-                    class="garden-seed-select"
-                >
-                    ${getGardenSeedOptionsHtml()}
-                </select>
-
-                <button
-                    type="button"
-                    class="garden-action-button"
-                    onclick="plantGardenSeedFromUI(${index})"
-                >
-                    Zasadź
-                </button>
             </div>
         `;
     }
 
-    const seedItem =
-        items[plot.seedItemId];
-
     const sourceItem =
         items[plot.sourceItemId];
-
-    const remainingSeconds =
-        getGardenPlotRemainingSeconds(plot);
 
     const isReady =
         isGardenPlotReady(plot);
 
+    const remainingSeconds =
+        getGardenPlotRemainingSeconds(plot);
+
     return `
-        <div class="garden-plot">
-            <div class="garden-plot-header">
-                <strong>
-                    Grządka ${index + 1}
-                </strong>
-                <span>
-                    ${isReady ? "Gotowe" : "Rośnie"}
-                </span>
-            </div>
+    <div class="garden-plot ${isReady ? "garden-plot-ready" : ""}">
+        <div class="garden-plant-main">
+            <strong>
+                🌿 ${sourceItem?.name || plot.sourceItemId}
+            </strong>
 
-            <div class="garden-growing-info">
-                <strong>
-                    ${seedItem?.name || plot.seedItemId}
-                </strong>
-
-                <span>
-                    Plon:
-                    ${sourceItem?.name || plot.sourceItemId}
-                </span>
-
-                <span>
-                    ${isReady
-                        ? "Można zebrać"
-                        : "Pozostało: " +
-                            formatGardenTime(remainingSeconds)
-                    }
-                </span>
-            </div>
+            <span
+                class="garden-plant-time"
+                data-garden-timer="${index}"
+            >
+                ${isReady
+            ? "Gotowe do zebrania"
+            : formatGardenTime(remainingSeconds)
+        }
+            </span>
 
             <button
                 type="button"
@@ -153,9 +135,9 @@ function getGardenPlotHtml(plot, index) {
                 Zbierz
             </button>
         </div>
-    `;
+    </div>
+`;
 }
-
 function plantGardenSeedFromUI(plotIndex) {
     const select =
         document.getElementById(
@@ -206,9 +188,6 @@ function renderGarden() {
                     <span>
                         Ogród
                     </span>
-                    <strong>
-                        Sadzenie składników
-                    </strong>
                     <p>
                         Sadź nasiona zdobyte podczas zielarstwa i odbieraj dodatkowe składniki po czasie.
                     </p>
@@ -222,7 +201,8 @@ function renderGarden() {
     `;
 }
 
-setInterval(() => {
+
+function updateGardenTimers() {
     const gardenScreen =
         document.getElementById("screen-garden");
 
@@ -233,5 +213,68 @@ setInterval(() => {
         return;
     }
 
-    renderGarden();
-}, 1000);
+    document
+        .querySelectorAll("[data-garden-timer]")
+        .forEach(timerElement => {
+            const plotIndex =
+                Number(timerElement.dataset.gardenTimer);
+
+            const plot =
+                player.garden?.plots?.[plotIndex];
+
+            if (!plot || !plot.seedItemId) {
+                return;
+            }
+
+            if (isGardenPlotReady(plot)) {
+                renderGarden();
+                return;
+            }
+
+            timerElement.textContent =
+                formatGardenTime(
+                    getGardenPlotRemainingSeconds(plot)
+                );
+        });
+}
+
+setInterval(
+    updateGardenTimers,
+    1000
+);
+
+function initializeGardenUI() {
+    if (typeof ensureGardenState === "function") {
+        ensureGardenState();
+    }
+
+    if (typeof renderGarden === "function") {
+        renderGarden();
+    }
+}
+
+if (document.readyState === "loading") {
+    document.addEventListener(
+        "DOMContentLoaded",
+        initializeGardenUI
+    );
+} else {
+    initializeGardenUI();
+}
+
+function setGardenMenuActive() {
+    document
+        .querySelectorAll("[data-menu-section]")
+        .forEach(button => {
+            button.classList.remove("active");
+        });
+
+    const gardenButton =
+        document.querySelector(
+            '[data-menu-section="garden"]'
+        );
+
+    if (gardenButton) {
+        gardenButton.classList.add("active");
+    }
+}

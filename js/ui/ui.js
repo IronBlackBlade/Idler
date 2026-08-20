@@ -476,6 +476,9 @@ function render() {
     ) {
         renderHerbalism();
     }
+    if (typeof renderGarden === "function") {
+        renderGarden();
+    }
 
     if (
         typeof renderFishing ===
@@ -497,6 +500,7 @@ function render() {
     ) {
         renderCooking();
     }
+
 
     if (
         typeof renderProfessionToolContextPanels ===
