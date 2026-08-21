@@ -106,6 +106,15 @@ function simulateOfflineProgress(
             )
             : null;
 
+            const gardenSummary =
+    typeof processOfflineGardenProgress ===
+        "function"
+        ? processOfflineGardenProgress(
+            offlineStartedAt,
+            offlineFinishedAt
+        )
+        : null;
+
     const tavernSummary =
         typeof processOfflineTavernProgress ===
             "function"
@@ -119,7 +128,9 @@ function simulateOfflineProgress(
         activitySummary,
         alchemySummary,
         craftingSummary,
+        gardenSummary,
         tavernSummary
+        
     ].filter(summary => {
         return (
             summary &&

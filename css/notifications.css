@@ -71,3 +71,24 @@
         padding: 11px 13px;
     }
 }
+
+#notification-container.notification-container {
+    position: fixed !important;
+    top: 18px !important;
+    right: 18px !important;
+    bottom: auto !important;
+    left: auto !important;
+
+    display: flex !important;
+    flex-direction: column;
+    gap: 10px;
+
+    width: min(340px, calc(100vw - 36px));
+    margin: 0 !important;
+    z-index: 99999;
+    pointer-events: none;
+}
+
+#notification-container .game-notification {
+    pointer-events: auto;
+}

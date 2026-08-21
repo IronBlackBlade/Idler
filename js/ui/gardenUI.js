@@ -5,12 +5,34 @@ function openGardenScreen() {
     renderGarden();
 }
 
-function formatGardenTime(totalSeconds) {
-    const safeSeconds =
-        Math.max(
-            0,
-            Math.ceil(Number(totalSeconds) || 0)
+function setGardenMenuActive() {
+    document
+        .querySelectorAll(
+            "#menu [data-menu-section]"
+        )
+        .forEach(button => {
+            button.classList.remove(
+                "menu-active"
+            );
+        });
+
+    const gardenButton =
+        document.querySelector(
+            '#menu [data-menu-section="garden"]'
         );
+
+    if (gardenButton) {
+        gardenButton.classList.add(
+            "menu-active"
+        );
+    }
+}
+
+function formatGardenTime(totalSeconds) {
+    const safeSeconds = Math.max(
+        0,
+        Math.ceil(Number(totalSeconds) || 0)
+    );
 
     const hours =
         Math.floor(safeSeconds / 3600);
@@ -22,21 +44,11 @@ function formatGardenTime(totalSeconds) {
         safeSeconds % 60;
 
     if (hours > 0) {
-        return (
-            hours +
-            " godz. " +
-            minutes +
-            " min"
-        );
+        return hours + " godz. " + minutes + " min";
     }
 
     if (minutes > 0) {
-        return (
-            minutes +
-            " min " +
-            seconds +
-            " s"
-        );
+        return minutes + " min " + seconds + " s";
     }
 
     return seconds + " s";
@@ -59,17 +71,17 @@ function getGardenSeedOptionsHtml() {
             const item =
                 items[inventoryItem.itemId];
 
-            const growthSeconds =
-                getGardenGrowthSeconds(item);
-
             const growthTime =
-                formatGardenTime(growthSeconds);
+                formatGardenTime(
+                    getGardenGrowthSeconds(item)
+                );
 
             return `
-    <option value="${inventoryItem.itemId}">
-        ${item.name} x${inventoryItem.quantity} (${growthTime})
-    </option>
-`;
+                <option value="${inventoryItem.itemId}">
+                    ${item.name} x${inventoryItem.quantity}
+                    (${growthTime})
+                </option>
+            `;
         })
         .join("");
 }
@@ -78,24 +90,24 @@ function getGardenPlotHtml(plot, index) {
     if (!plot.seedItemId) {
         return `
             <div class="garden-plot garden-plot-empty">
-                <strong>Grządka ${index + 1}</strong>
+                <strong>
+                    Grządka ${index + 1}
+                </strong>
 
-                <div class="garden-plant-row">
-                    <select
-                        id="garden-seed-select-${index}"
-                        class="garden-seed-select"
-                    >
-                        ${getGardenSeedOptionsHtml()}
-                    </select>
+                <select
+                    id="garden-seed-select-${index}"
+                    class="garden-seed-select"
+                >
+                    ${getGardenSeedOptionsHtml()}
+                </select>
 
-                    <button
-                        type="button"
-                        class="garden-action-button"
-                        onclick="plantGardenSeedFromUI(${index})"
-                    >
-                        Zasadź
-                    </button>
-                </div>
+                <button
+                    type="button"
+                    class="garden-action-button"
+                    onclick="plantGardenSeedFromUI(${index})"
+                >
+                    Zasadź
+                </button>
             </div>
         `;
     }
@@ -110,34 +122,39 @@ function getGardenPlotHtml(plot, index) {
         getGardenPlotRemainingSeconds(plot);
 
     return `
-    <div class="garden-plot ${isReady ? "garden-plot-ready" : ""}">
-        <div class="garden-plant-main">
-            <strong>
-                🌿 ${sourceItem?.name || plot.sourceItemId}
-            </strong>
+        <div class="garden-plot ${isReady ? "garden-plot-ready" : ""
+        }">
+            <div class="garden-plant-main">
+                <strong>
+                    🌿 ${sourceItem?.name || plot.sourceItemId}
+                </strong>
 
-            <span
-                class="garden-plant-time"
-                data-garden-timer="${index}"
-            >
-                ${isReady
+                <span
+                    class="garden-plant-time"
+                    data-garden-timer="${index}"
+                >
+                    ${isReady
             ? "Gotowe do zebrania"
-            : formatGardenTime(remainingSeconds)
+            : formatGardenTime(
+                remainingSeconds
+            )
         }
-            </span>
+                </span>
 
-            <button
-                type="button"
-                class="garden-action-button"
-                onclick="harvestGardenPlot(${index})"
-                ${isReady ? "" : "disabled"}
-            >
-                Zbierz
-            </button>
+<button
+    type="button"
+    class="garden-action-button"
+    data-garden-harvest="${index}"
+    onclick="harvestGardenPlot(${index})"
+    ${isReady ? "" : "disabled"}
+>
+    Zbierz
+</button>
+            </div>
         </div>
-    </div>
-`;
+    `;
 }
+
 function plantGardenSeedFromUI(plotIndex) {
     const select =
         document.getElementById(
@@ -171,8 +188,21 @@ function renderGarden() {
         return;
     }
 
+    const upgradeLevel =
+        player.garden.upgradeLevel;
+
+    const upgradeCost =
+        getGardenUpgradeCost();
+
+    const growthBonus =
+        (upgradeLevel - 1) * 5;
+
+    const unlockedPlotCount =
+        getGardenUnlockedPlotCount();
+
     const plotsHtml =
         player.garden.plots
+            .slice(0, unlockedPlotCount)
             .map((plot, index) => {
                 return getGardenPlotHtml(
                     plot,
@@ -181,26 +211,257 @@ function renderGarden() {
             })
             .join("");
 
+    const gardenLevel =
+        player.garden.level;
+
+    const gardenExp =
+        player.garden.exp;
+
+    const gardenExpNeeded =
+        player.garden.expToNextLevel;
+
+    const gardenProgress =
+        gardenExpNeeded > 0
+            ? Math.min(
+                100,
+                gardenExp /
+                gardenExpNeeded *
+                100
+            )
+            : 0;
+
+    const greenhouseLevel =
+        player.garden.upgrades
+            .greenhouseLevel;
+
+    const greenhouseCost =
+        getGardenGreenhouseCost();
+
+    const greenhouseMaxed =
+        greenhouseLevel >=
+        GARDEN_GREENHOUSE_MAX_LEVEL;
+
+    const greenhouseBonus =
+        greenhouseLevel *
+        GARDEN_GREENHOUSE_SPEED_PER_LEVEL;
+
+    const soilLevel =
+        player.garden.upgrades.fertileSoilLevel;
+
+    const soilCost =
+        getGardenSoilCost();
+
+    const soilMaxed =
+        soilLevel >= GARDEN_SOIL_MAX_LEVEL;
+
+    const soilBonus =
+        soilLevel *
+        GARDEN_SOIL_BONUS_CHANCE_PER_LEVEL;
+    const seedChestLevel =
+        player.garden.upgrades.seedChestLevel;
+
+    const seedChestCost =
+        getGardenSeedChestCost();
+
+    const seedChestMaxed =
+        seedChestLevel >=
+        GARDEN_SEED_CHEST_MAX_LEVEL;
+
+    const seedRecoveryChance =
+        getGardenSeedRecoveryChance();
+
+    const expansionLevel =
+        player.garden.expansionLevel;
+
+    const expansionCost =
+        getGardenExpansionCost();
+
+
     container.innerHTML = `
-        <div class="game-card garden-card">
-            <div class="garden-header">
-                <div>
-                    <span>
-                        Ogród
-                    </span>
-                    <p>
-                        Sadź nasiona zdobyte podczas zielarstwa i odbieraj dodatkowe składniki po czasie.
-                    </p>
-                </div>
+        <div class="garden-level-panel">
+            <div class="garden-level-label">
+                <span>
+                    Ogrodnictwo
+                </span>
+
+                <strong>
+                    Poziom ${gardenLevel}
+                    · ${gardenExp}/${gardenExpNeeded} EXP
+                </strong>
             </div>
 
+            <div class="garden-level-bar">
+                <div
+                    class="garden-level-fill"
+                    style="width: ${gardenProgress}%"
+                ></div>
+            </div>
+
+            <small>
+                Odblokowane grządki:
+                ${unlockedPlotCount}/${GARDEN_MAX_PLOT_COUNT}
+            </small>
+        </div>
+
+        <div class="game-card garden-card">
+            <div class="garden-header">
+                <span>Ogród</span>
+
+                <p>
+                    Sadź nasiona zdobyte podczas zielarstwa
+                    i zbieraj rośliny po czasie.
+                </p>
+            </div>
+<div class="garden-bulk-actions">
+    <div class="garden-bulk-plant">
+        <select
+            id="garden-bulk-seed-select"
+            class="garden-seed-select"
+        >
+            ${getGardenSeedOptionsHtml()}
+        </select>
+
+        <button
+            type="button"
+            class="garden-action-button"
+            onclick="plantAllGardenPlotsFromUI()"
+        >
+            Zasadź wszystko
+        </button>
+    </div>
+
+    <button
+        type="button"
+        class="garden-action-button garden-harvest-all-button"
+        onclick="harvestAllGardenPlots()"
+    >
+        Zbierz wszystko
+    </button>
+</div>
             <div class="garden-plots">
                 ${plotsHtml}
             </div>
         </div>
+</div>
+<div class="garden-upgrade-card">
+    <div>
+        <strong>🌾 Żyzna gleba</strong>
+
+        <span>
+            Poziom ${soilLevel}/${GARDEN_SOIL_MAX_LEVEL}
+        </span>
+
+        <small>
+            Szansa na +1 plonu: ${soilBonus}%
+        </small>
+    </div>
+
+    <button
+        type="button"
+        class="garden-upgrade-button"
+        onclick="buyGardenSoilUpgrade()"
+        ${soilMaxed ? "disabled" : ""}
+    >
+        ${soilMaxed
+            ? "Maksymalny poziom"
+            : "Ulepsz za " + soilCost + " 💰"
+        }
+    </button>
+</div>
+
+<div class="garden-upgrade-card">
+    <div>
+        <strong>🏡 Szklarnia</strong>
+
+        <span>
+            Poziom ${greenhouseLevel}/${GARDEN_GREENHOUSE_MAX_LEVEL}
+        </span>
+
+        <small>
+            Czas wzrostu: -${greenhouseBonus}%
+        </small>
+    </div>
+
+    <button
+        type="button"
+        class="garden-upgrade-button"
+        onclick="buyGardenGreenhouseUpgrade()"
+        ${greenhouseMaxed ? "disabled" : ""}
+    >
+        ${greenhouseMaxed
+            ? "Maksymalny poziom"
+            : "Ulepsz za " +
+            greenhouseCost +
+            " 💰"
+        }
+    </button>
+</div>
+
+<div class="garden-upgrade-card">
+    <div>
+        <strong>🧰 Skrzynia nasion</strong>
+
+        <span>
+            Poziom ${seedChestLevel}/
+            ${GARDEN_SEED_CHEST_MAX_LEVEL}
+        </span>
+
+        <small>
+            Szansa odzyskania nasiona:
+            ${seedRecoveryChance}%
+        </small>
+    </div>
+
+    <button
+        type="button"
+        class="garden-upgrade-button"
+        onclick="buyGardenSeedChestUpgrade()"
+        ${seedChestMaxed ? "disabled" : ""}
+    >
+        ${seedChestMaxed
+            ? "Maksymalny poziom"
+            : "Ulepsz za " +
+            seedChestCost +
+            " 💰"
+        }
+    </button>
+</div>
+<div class="garden-upgrade-panel">
+    <div>
+        <strong>
+            Rozbudowa ogrodu
+            ${expansionLevel}/${GARDEN_MAX_EXPANSION_LEVEL}
+        </strong>
+
+        <span>
+            Każdy poziom odblokowuje jedną dodatkową grządkę.
+        </span>
+
+        <span>
+            Dodatkowe grządki: +${expansionLevel}
+        </span>
+    </div>
+
+    <button
+        class="garden-upgrade-button"
+        onclick="purchaseGardenExpansion()"
+        ${expansionLevel >=
+            GARDEN_MAX_EXPANSION_LEVEL
+            ? "disabled"
+            : ""
+        }
+    >
+        ${expansionLevel >=
+            GARDEN_MAX_EXPANSION_LEVEL
+            ? "Maksymalny poziom"
+            : "Odblokuj grządkę za " +
+            expansionCost.toLocaleString("pl-PL") +
+            " złota"
+        }
+    </button>
+</div>
     `;
 }
-
 
 function updateGardenTimers() {
     const gardenScreen =
@@ -208,7 +469,8 @@ function updateGardenTimers() {
 
     if (
         !gardenScreen ||
-        window.getComputedStyle(gardenScreen).display === "none"
+        window.getComputedStyle(gardenScreen).display ===
+        "none"
     ) {
         return;
     }
@@ -217,7 +479,9 @@ function updateGardenTimers() {
         .querySelectorAll("[data-garden-timer]")
         .forEach(timerElement => {
             const plotIndex =
-                Number(timerElement.dataset.gardenTimer);
+                Number(
+                    timerElement.dataset.gardenTimer
+                );
 
             const plot =
                 player.garden?.plots?.[plotIndex];
@@ -226,8 +490,25 @@ function updateGardenTimers() {
                 return;
             }
 
+            const harvestButton =
+                document.querySelector(
+                    `[data-garden-harvest="${plotIndex}"]`
+                );
+
             if (isGardenPlotReady(plot)) {
-                renderGarden();
+                timerElement.textContent =
+                    "Gotowe do zebrania";
+
+                if (harvestButton) {
+                    harvestButton.disabled = false;
+                }
+
+                timerElement
+                    .closest(".garden-plot")
+                    ?.classList.add(
+                        "garden-plot-ready"
+                    );
+
                 return;
             }
 
@@ -244,13 +525,15 @@ setInterval(
 );
 
 function initializeGardenUI() {
-    if (typeof ensureGardenState === "function") {
-        ensureGardenState();
+    if (
+        typeof player === "undefined" ||
+        typeof ensureGardenState !== "function"
+    ) {
+        return;
     }
 
-    if (typeof renderGarden === "function") {
-        renderGarden();
-    }
+    ensureGardenState();
+    renderGarden();
 }
 
 if (document.readyState === "loading") {
@@ -262,19 +545,24 @@ if (document.readyState === "loading") {
     initializeGardenUI();
 }
 
-function setGardenMenuActive() {
-    document
-        .querySelectorAll("[data-menu-section]")
-        .forEach(button => {
-            button.classList.remove("active");
-        });
-
-    const gardenButton =
-        document.querySelector(
-            '[data-menu-section="garden"]'
+function plantAllGardenPlotsFromUI() {
+    const select =
+        document.getElementById(
+            "garden-bulk-seed-select"
         );
 
-    if (gardenButton) {
-        gardenButton.classList.add("active");
+    if (!select || !select.value) {
+        if (typeof showNotification === "function") {
+            showNotification(
+                "Wybierz nasiono.",
+                "error"
+            );
+        }
+
+        return;
     }
+
+    plantAllGardenPlots(
+        select.value
+    );
 }
