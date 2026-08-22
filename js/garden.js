@@ -32,6 +32,14 @@ const GARDEN_YIELD_RANGE_BY_GROUP = {
 
 const GARDEN_SEED_RECOVERY_CHANCE = 20;
 
+const GARDEN_MAX_UPGRADE_LEVEL = 5;
+
+const GARDEN_UPGRADE_COSTS = {
+    1: 2000,
+    2: 6000,
+    3: 16000,
+    4: 40000
+};
 
 const GARDEN_GREENHOUSE_MAX_LEVEL = 5;
 
@@ -73,8 +81,8 @@ const GARDEN_MAX_EXPANSION_LEVEL = 3;
 
 const GARDEN_EXPANSION_COSTS = [
     15000,
-    30000,
-    45000,
+    35000,
+    70000
 ];
 
 function getGardenExpToNextLevel(level) {
@@ -150,6 +158,7 @@ function getDefaultGardenState() {
     return {
         level: 1,
         exp: 0,
+        upgradeLevel: 1,
         upgrades: {
             greenhouseLevel: 0,
             fertileSoilLevel: 0,
@@ -158,12 +167,12 @@ function getDefaultGardenState() {
         expansionLevel: 0,
         expToNextLevel:
             getGardenExpToNextLevel(1),
+
         statistics: {
             totalPlanted: 0,
             totalHarvests: 0,
             totalHarvestedItems: 0
         },
-
 
         plots: Array.from(
             {
@@ -181,7 +190,6 @@ function getDefaultGardenState() {
                 };
             }
         )
-
     };
 }
 
@@ -264,6 +272,50 @@ function ensureGardenState() {
             getDefaultGardenState().plots;
     }
 
+    if (
+        !player.garden.statistics ||
+        typeof player.garden.statistics !== "object"
+    ) {
+        player.garden.statistics = {
+            totalPlanted: 0,
+            totalHarvests: 0,
+            totalHarvestedItems: 0
+        };
+    }
+
+    player.garden.statistics.totalPlanted =
+        Math.max(
+            0,
+            Math.floor(
+                Number(
+                    player.garden.statistics
+                        .totalPlanted
+                ) || 0
+            )
+        );
+
+    player.garden.statistics.totalHarvests =
+        Math.max(
+            0,
+            Math.floor(
+                Number(
+                    player.garden.statistics
+                        .totalHarvests
+                ) || 0
+            )
+        );
+
+    player.garden.statistics.totalHarvestedItems =
+        Math.max(
+            0,
+            Math.floor(
+                Number(
+                    player.garden.statistics
+                        .totalHarvestedItems
+                ) || 0
+            )
+        );
+
     player.garden.level = Math.max(
         1,
         Math.floor(
@@ -282,7 +334,15 @@ function ensureGardenState() {
         getGardenExpToNextLevel(
             player.garden.level
         );
-
+    player.garden.upgradeLevel = Math.max(
+        1,
+        Math.min(
+            GARDEN_MAX_UPGRADE_LEVEL,
+            Math.floor(
+                Number(player.garden.upgradeLevel) || 1
+            )
+        )
+    );
     while (
         player.garden.plots.length <
         GARDEN_MAX_PLOT_COUNT
@@ -315,41 +375,6 @@ function ensureGardenState() {
             plot.offlineNotified = false;
         }
     });
-    if (
-        !player.garden.statistics ||
-        typeof player.garden.statistics !== "object"
-    ) {
-        player.garden.statistics = {
-            totalPlanted: 0,
-            totalHarvests: 0,
-            totalHarvestedItems: 0
-        };
-    }
-
-
-    const gardenStatistics =
-        player.garden.statistics;
-
-    gardenStatistics.totalPlanted = Math.max(
-        0,
-        Math.floor(
-            Number(gardenStatistics.totalPlanted) || 0
-        )
-    );
-
-    gardenStatistics.totalHarvests = Math.max(
-        0,
-        Math.floor(
-            Number(gardenStatistics.totalHarvests) || 0
-        )
-    );
-
-    gardenStatistics.totalHarvestedItems = Math.max(
-        0,
-        Math.floor(
-            Number(gardenStatistics.totalHarvestedItems) || 0
-        )
-    );
 }
 
 function getGardenSeedInventoryItems() {
@@ -483,6 +508,64 @@ function rollGardenSeedRecovery() {
     return Math.random() * 100 < chance;
 }
 
+function getGardenUpgradeCost() {
+    ensureGardenState();
+
+    return (
+        GARDEN_UPGRADE_COSTS[
+        player.garden.upgradeLevel
+        ] || 0
+    );
+}
+
+function upgradeGarden() {
+    ensureGardenState();
+
+    if (
+        player.garden.upgradeLevel >=
+        GARDEN_MAX_UPGRADE_LEVEL
+    ) {
+        showNotification?.(
+            "Ogród ma już maksymalny poziom.",
+            "error"
+        );
+
+        return false;
+    }
+
+    const cost = getGardenUpgradeCost();
+
+    if (player.gold < cost) {
+        showNotification?.(
+            "Brakuje złota na ulepszenie Ogrodu.",
+            "error"
+        );
+
+        return false;
+    }
+
+    player.gold -= cost;
+    player.garden.upgradeLevel++;
+
+    addSystemLog?.(
+        "🌱 Ulepszono Ogród do poziomu " +
+        player.garden.upgradeLevel +
+        ".",
+        "garden"
+    );
+
+    showNotification?.(
+        "Ogród został ulepszony!",
+        "success"
+    );
+
+    saveGame();
+    renderGarden?.();
+    render?.();
+
+    return true;
+}
+
 
 function removeGardenSeedFromInventory(
     seedItemId,
@@ -601,9 +684,10 @@ function plantGardenSeed(
     plot.plantedAt = now;
     plot.finishesAt =
         now + growthSeconds * 1000;
-    player.garden.statistics.totalPlanted++;
 
     plot.offlineNotified = false;
+
+    player.garden.statistics.totalPlanted++;
 
 
     if (typeof showNotification === "function") {
@@ -691,12 +775,6 @@ function harvestGardenPlot(plotIndex) {
     const quantity =
         getGardenYieldQuantity(seedItem);
 
-    player.garden.statistics.totalHarvests++;
-    player.garden.statistics.totalHarvestedItems += quantity;
-
-    player.garden.statistics.totalHarvestedItems +=
-        quantity;
-
     const recoveredSeed =
         rollGardenSeedRecovery();
 
@@ -719,6 +797,10 @@ function harvestGardenPlot(plotIndex) {
         );
 
     addGardenExp(gardenExp);
+
+    player.garden.statistics.totalHarvests++;
+    player.garden.statistics.totalHarvestedItems +=
+        quantity;
 
     const sourceItem =
         items[sourceItemId];
@@ -774,15 +856,6 @@ function harvestGardenPlot(plotIndex) {
         );
     }
     plot.offlineNotified = false;
-
-
-    if (
-        typeof checkJournalAchievements ===
-        "function"
-    ) {
-        checkJournalAchievements();
-    }
-
     saveGame();
 
     if (
@@ -1148,13 +1221,6 @@ function buyGardenExpansionUpgrade() {
 
     player.gold -= cost;
     player.garden.expansionLevel++;
-
-    if (
-        typeof checkJournalAchievements ===
-        "function"
-    ) {
-        checkJournalAchievements();
-    }
 
     addSystemLog?.(
         "🧱 Rozbudowano ogród - odblokowano nową grządkę.",

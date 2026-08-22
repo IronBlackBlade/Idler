@@ -1547,8 +1547,14 @@ function autoEnemyAttack() {
         return;
     }
 
-    enemyAttackPlayer();
+    if (
+        typeof applyGuardianCombatRegeneration ===
+        "function"
+    ) {
+        applyGuardianCombatRegeneration();
+    }
 
+    enemyAttackPlayer();
     saveGame();
     refreshCombatInterface();
 }

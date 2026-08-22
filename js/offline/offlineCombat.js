@@ -1158,9 +1158,23 @@ function getOfflineDefensiveSpellData(
             ? getWandManaRegenerationSkillBonus()
             : 0;
 
+    const mageClassManaRegeneration =
+        player.classId === "mage" &&
+            typeof getClassProgressionBonuses ===
+            "function"
+            ? Math.max(
+                0,
+                Number(
+                    getClassProgressionBonuses()
+                        .combatManaRegenPerSecond
+                ) || 0
+            )
+            : 0;
+
     const totalBaseManaRegeneration =
         baseManaRegeneration +
-        wandManaRegenerationBonus;
+        wandManaRegenerationBonus +
+        mageClassManaRegeneration;
 
     const manaEffect =
         player.activeEffects
@@ -1184,9 +1198,12 @@ function getOfflineDefensiveSpellData(
         );
 
     const regeneratedMana =
-        baseManaRegeneration *
+        totalBaseManaRegeneration *
         offlineSeconds +
-        baseManaRegeneration *
+        (
+            baseManaRegeneration +
+            wandManaRegenerationBonus
+        ) *
         (
             manaEffectValue / 100
         ) *
@@ -1875,9 +1892,23 @@ function getOfflineOffensiveSpellData(
             ? getWandManaRegenerationSkillBonus()
             : 0;
 
+    const mageClassManaRegeneration =
+        player.classId === "mage" &&
+            typeof getClassProgressionBonuses ===
+            "function"
+            ? Math.max(
+                0,
+                Number(
+                    getClassProgressionBonuses()
+                        .combatManaRegenPerSecond
+                ) || 0
+            )
+            : 0;
+
     const totalBaseManaRegeneration =
         baseManaRegeneration +
-        wandManaRegenerationBonus;
+        wandManaRegenerationBonus +
+        mageClassManaRegeneration;
 
     const manaEffect =
         player.activeEffects

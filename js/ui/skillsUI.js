@@ -3850,3 +3850,25 @@ function renderCombatSpellSlots() {
     renderCombatSpellSlot("offensive");
     renderCombatSpellSlot("defensive");
 }
+
+function resetCombatSkillPathSelection() {
+    selectedCombatBranch = null;
+    selectedCombatSpecialization = null;
+
+    localStorage.removeItem(
+        "idler_combat_skill_branch"
+    );
+
+    localStorage.removeItem(
+        "idler_combat_skill_specialization"
+    );
+}
+
+function resetSkillsUiState() {
+    currentSkillTree = "magic";
+    currentMagicCategory = "offensive_spells";
+
+    if (typeof renderSkills === "function") {
+        renderSkills();
+    }
+}

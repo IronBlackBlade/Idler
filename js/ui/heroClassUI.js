@@ -1,37 +1,149 @@
-function getHeroClassBonusesHtml(
-    classDefinition
-) {
-    if (
-        !classDefinition ||
-        !classDefinition.bonuses
-    ) {
+function getHeroClassBonusesHtml(classDefinition) {
+    if (!classDefinition?.bonuses) {
         return "";
     }
 
-    return Object.entries(
-        classDefinition.bonuses
-    )
-        .map(([statName, value]) => {
-            const statNames = {
-                strength: "Siła",
-                dexterity: "Zręczność",
-                intelligence:
-                    "Inteligencja",
-                endurance:
-                    "Wytrzymałość",
-                luck: "Szczęście"
-            };
+    const statNames = {
+        strength: "Siła",
+        dexterity: "Zręczność",
+        intelligence: "Inteligencja",
+        endurance: "Wytrzymałość",
+        luck: "Szczęście"
+    };
 
+    return Object.entries(classDefinition.bonuses)
+        .map(([statName, value]) => {
             return `
-                <span>
+                <span class="hero-class-bonus-chip">
                     +${value}
-                    ${statNames[statName] ||
-                statName
-                }
+                    ${statNames[statName] || statName}
                 </span>
             `;
         })
         .join("");
+}
+
+
+function formatClassProgressionValue(value) {
+    return Number(value)
+        .toFixed(2)
+        .replace(/\.?0+$/, "")
+        .replace(".", ",");
+}
+
+function getHeroClassProgressionHtml() {
+    if (
+        typeof getClassProgressionBonuses !== "function" ||
+        typeof getClassProgressionTier !== "function"
+    ) {
+        return "";
+    }
+
+    const tier = getClassProgressionTier();
+    const bonuses = getClassProgressionBonuses();
+
+    const descriptions = {
+        warrior:
+            `+${bonuses.strength} Siły · ` +
+            `+${formatClassProgressionValue(
+                bonuses.meleeDamagePercent
+            )}% obrażeń wręcz`,
+
+        hunter:
+            `+${bonuses.dexterity} Zręczności · ` +
+            `+${formatClassProgressionValue(
+                bonuses.rangedDamagePercent
+            )}% obrażeń dystansowych`,
+
+        mage:
+            `+${bonuses.intelligence} Inteligencji · ` +
+            `+${formatClassProgressionValue(
+                bonuses.combatManaRegenPerSecond
+            )} many/s w walce`,
+
+        guardian:
+            `+${bonuses.endurance} Wytrzymałości · ` +
+            `+${formatClassProgressionValue(
+                bonuses.combatHpRegenPercentPerSecond
+            )}% HP/s w walce`,
+
+        rogue:
+            `+${bonuses.luck} Szczęścia · ` +
+            `+${formatClassProgressionValue(
+                bonuses.goldBonusPercent
+            )}% złota`
+    };
+
+    const nextLevel =
+        10 + (tier + 1) * 5;
+
+    return `
+        <span class="hero-class-progress-bonus">
+            ${descriptions[player.classId] || ""}
+        </span>
+
+        <small>
+            Następna premia: poziom ${nextLevel}
+        </small>
+    `;
+}
+
+function getClassProgressionPreviewHtml(classId) {
+    const progressionByClass = {
+        warrior: {
+            icon: "⚔️",
+            text:
+                "Co 5 poziomów: +1 Siły " +
+                "i +0,05% obrażeń wręcz"
+        },
+
+        hunter: {
+            icon: "🏹",
+            text:
+                "Co 5 poziomów: +1 Zręczności " +
+                "i +0,05% obrażeń dystansowych"
+        },
+
+        mage: {
+            icon: "🔵",
+            text:
+                "Co 5 poziomów: +1 Inteligencji " +
+                "i +0,1 many/s podczas walki"
+        },
+
+        guardian: {
+            icon: "❤️",
+            text:
+                "Co 5 poziomów: +1 Wytrzymałości " +
+                "i +0,05% maks. HP/s podczas walki"
+        },
+
+        rogue: {
+            icon: "💰",
+            text:
+                "Co 5 poziomów: +1 Szczęścia " +
+                "i +0,1% zdobywanego złota"
+        }
+    };
+
+    const progression =
+        progressionByClass[classId];
+
+    if (!progression) {
+        return "";
+    }
+
+    return `
+        <div class="hero-class-growth-preview">
+            <span class="hero-class-growth-icon">
+                ${progression.icon}
+            </span>
+
+            <span>
+                ${progression.text}
+            </span>
+        </div>
+    `;
 }
 
 function renderCharacterClassSection() {
@@ -60,22 +172,19 @@ function renderCharacterClassSection() {
 
     if (!section) {
         section =
-            document.createElement(
-                "section"
-            );
+            document.createElement("section");
 
         section.id =
             "hero-character-class-section";
 
         section.className =
             "hero-class-section";
-            
-        attributesGrid.parentElement
-            .insertBefore(
-                section,
-                attributeConfirmation ||
-                attributesGrid
-            );
+
+        attributesGrid.parentElement.insertBefore(
+            section,
+            attributeConfirmation ||
+            attributesGrid
+        );
     }
 
     const selectedClass =
@@ -84,37 +193,24 @@ function renderCharacterClassSection() {
             ? getPlayerClassDefinition()
             : null;
 
-    /*
-     * Gracz ma już wybraną klasę.
-     */
     if (selectedClass) {
+        const tier =
+            typeof getClassProgressionTier ===
+                "function"
+                ? getClassProgressionTier()
+                : 0;
+
         section.classList.add(
             "has-selected-class"
         );
 
         section.innerHTML = `
-            <div class="hero-class-header">
-                <div>
-                    <strong>
-                        Klasa postaci
-                    </strong>
-
-                    <span>
-                        Wybrana specjalizacja bohatera
-                    </span>
-                </div>
-
-                <span class="hero-class-selected-label">
-                    Wybrano
-                </span>
-            </div>
-
-            <div class="hero-selected-class">
-                <div class="hero-selected-class-icon">
+            <div class="hero-class-compact-card">
+                <div class="hero-class-compact-icon">
                     ${selectedClass.icon}
                 </div>
 
-                <div class="hero-selected-class-info">
+                <div class="hero-class-compact-info">
                     <strong>
                         ${selectedClass.name}
                     </strong>
@@ -123,11 +219,19 @@ function renderCharacterClassSection() {
                         ${selectedClass.description}
                     </p>
 
-                    <div class="hero-class-bonuses">
+                    <div class="hero-class-bonus-list">
                         ${getHeroClassBonusesHtml(
             selectedClass
         )}
                     </div>
+                </div>
+
+                <div class="hero-class-compact-progress">
+                    <strong>
+                        Rozwój klasy: stopień ${tier}
+                    </strong>
+
+                    ${getHeroClassProgressionHtml()}
                 </div>
             </div>
         `;
@@ -140,58 +244,54 @@ function renderCharacterClassSection() {
     );
 
     const definitions =
-        Object.values(
-            characterClasses
-        );
+        Object.values(characterClasses);
 
     const requiredLevel =
         definitions.length > 0
             ? Math.min(
                 ...definitions.map(
                     definition => {
-                        return (
-                            definition
-                                .unlockLevel
-                        );
+                        return Number(
+                            definition.unlockLevel
+                        ) || 10;
                     }
                 )
             )
             : 10;
 
     const selectionUnlocked =
-        player.level >=
+        Number(player.level) >=
         requiredLevel;
 
     const progressPercent =
         Math.min(
             100,
-            (
-                Math.max(
-                    0,
-                    player.level
-                ) /
-                requiredLevel
-            ) *
+            Math.max(
+                0,
+                Number(player.level) || 0
+            ) /
+            requiredLevel *
             100
         );
 
     const classCardsHtml =
         definitions
             .map(classDefinition => {
+                const unlockLevel =
+                    Number(
+                        classDefinition.unlockLevel
+                    ) || 10;
+
                 const isUnlocked =
-                    player.level >=
-                    classDefinition
-                        .unlockLevel;
+                    Number(player.level) >=
+                    unlockLevel;
 
                 return `
                     <article
-                        class="
-                            hero-class-card
-                            ${isUnlocked
+                        class="hero-class-card ${isUnlocked
                         ? ""
                         : "locked"
-                    }
-                        "
+                    }"
                     >
                         <div class="hero-class-card-icon">
                             ${classDefinition.icon}
@@ -210,14 +310,12 @@ function renderCharacterClassSection() {
                         classDefinition
                     )}
                         </div>
-
+${getClassProgressionPreviewHtml(
+                        classDefinition.id
+                    )}
                         <button
                             type="button"
-                            onclick="
-                                chooseCharacterClass(
-                                    '${classDefinition.id}'
-                                )
-                            "
+                            onclick="chooseCharacterClass('${classDefinition.id}')"
                             ${isUnlocked
                         ? ""
                         : "disabled"
@@ -226,14 +324,46 @@ function renderCharacterClassSection() {
                             ${isUnlocked
                         ? "Wybierz klasę"
                         : "Poziom " +
-                        classDefinition
-                            .unlockLevel
+                        unlockLevel
                     }
                         </button>
                     </article>
                 `;
             })
             .join("");
+
+    let availabilityHtml = "";
+
+    if (selectionUnlocked) {
+        availabilityHtml = `
+            <div class="hero-class-unlocked-message">
+                Wybór klasy został odblokowany.
+                Przeczytaj premie i wybierz
+                specjalizację bohatera.
+            </div>
+        `;
+    } else {
+        availabilityHtml = `
+            <div class="hero-class-progress">
+                <div class="hero-class-progress-info">
+                    <span>
+                        Postęp do odblokowania
+                    </span>
+
+                    <strong>
+                        ${player.level}/${requiredLevel}
+                    </strong>
+                </div>
+
+                <div class="hero-class-progress-track">
+                    <div
+                        class="hero-class-progress-fill"
+                        style="width: ${progressPercent}%"
+                    ></div>
+                </div>
+            </div>
+        `;
+    }
 
     section.innerHTML = `
         <div class="hero-class-header">
@@ -243,18 +373,16 @@ function renderCharacterClassSection() {
                 </strong>
 
                 <span>
-                    Klasa zapewnia stałe premie do wybranych atrybutów.
+                    Klasa zapewnia stałe premie
+                    do wybranych atrybutów.
                 </span>
             </div>
 
             <span
-                class="
-                    hero-class-status
-                    ${selectionUnlocked
+                class="hero-class-status ${selectionUnlocked
             ? "unlocked"
             : ""
-        }
-                "
+        }"
             >
                 ${selectionUnlocked
             ? "Dostępne"
@@ -266,44 +394,13 @@ function renderCharacterClassSection() {
             </span>
         </div>
 
-        ${selectionUnlocked
-            ? `
-                <div class="hero-class-unlocked-message">
-                    Wybór klasy został odblokowany.
-                    Przeczytaj premie i wybierz specjalizację bohatera.
-                </div>
-            `
-            : `
-                <div class="hero-class-progress">
-                    <div class="hero-class-progress-info">
-                        <span>
-                            Postęp do odblokowania
-                        </span>
-
-                        <strong>
-                            ${player.level}/${requiredLevel}
-                        </strong>
-                    </div>
-
-                    <div class="hero-class-progress-track">
-                        <div
-                            class="hero-class-progress-fill"
-                            style="
-                                width:
-                                ${progressPercent}%
-                            "
-                        ></div>
-                    </div>
-                </div>
-            `
-        }
+        ${availabilityHtml}
 
         <div class="hero-class-grid">
             ${classCardsHtml}
         </div>
     `;
 }
-
 function renderHeroClassSummaryCard() {
     const summaryGrid =
         document.querySelector(
@@ -514,3 +611,4 @@ function renderSideHeroClassHud() {
 
     classButton.hidden = true;
 }
+

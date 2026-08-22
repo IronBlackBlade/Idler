@@ -904,6 +904,10 @@ function resetGame() {
 
     resetPlayer();
 
+    if (typeof resetSkillsUiState === "function") {
+        resetSkillsUiState();
+    }
+
     player.skills = {};
     player.skillGoldSpent = 0;
     player.skillResetCount = 0;

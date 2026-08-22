@@ -272,6 +272,11 @@ const player = {
         },
         expansionLevel: 0,
         expToNextLevel: 80,
+        statistics: {
+            totalPlanted: 0,
+            totalHarvests: 0,
+            totalHarvestedItems: 0
+        },
         plots: [
             { id: "garden_plot_1", seedItemId: null, sourceItemId: null, plantedAt: 0, finishesAt: 0 },
             { id: "garden_plot_2", seedItemId: null, sourceItemId: null, plantedAt: 0, finishesAt: 0 },
@@ -281,8 +286,7 @@ const player = {
             { id: "garden_plot_6", seedItemId: null, sourceItemId: null, plantedAt: 0, finishesAt: 0 },
             { id: "garden_plot_7", seedItemId: null, sourceItemId: null, plantedAt: 0, finishesAt: 0 },
             { id: "garden_plot_8", seedItemId: null, sourceItemId: null, plantedAt: 0, finishesAt: 0 },
-            { id: "garden_plot_9", seedItemId: null, sourceItemId: null, plantedAt: 0, finishesAt: 0 },
-            { id: "garden_plot_10", seedItemId: null, sourceItemId: null, plantedAt: 0, finishesAt: 0 }
+            { id: "garden_plot_9", seedItemId: null, sourceItemId: null, plantedAt: 0, finishesAt: 0 }
         ]
     },
 
@@ -440,6 +444,11 @@ function resetPlayer() {
         },
         expansionLevel: 0,
         expToNextLevel: 80,
+        statistics: {
+            totalPlanted: 0,
+            totalHarvests: 0,
+            totalHarvestedItems: 0
+        },
         plots: [
             { id: "garden_plot_1", seedItemId: null, sourceItemId: null, plantedAt: 0, finishesAt: 0 },
             { id: "garden_plot_2", seedItemId: null, sourceItemId: null, plantedAt: 0, finishesAt: 0 },
@@ -449,8 +458,7 @@ function resetPlayer() {
             { id: "garden_plot_6", seedItemId: null, sourceItemId: null, plantedAt: 0, finishesAt: 0 },
             { id: "garden_plot_7", seedItemId: null, sourceItemId: null, plantedAt: 0, finishesAt: 0 },
             { id: "garden_plot_8", seedItemId: null, sourceItemId: null, plantedAt: 0, finishesAt: 0 },
-            { id: "garden_plot_9", seedItemId: null, sourceItemId: null, plantedAt: 0, finishesAt: 0 },
-            { id: "garden_plot_10", seedItemId: null, sourceItemId: null, plantedAt: 0, finishesAt: 0 }
+            { id: "garden_plot_9", seedItemId: null, sourceItemId: null, plantedAt: 0, finishesAt: 0 }
         ]
     };
 
@@ -540,6 +548,40 @@ function resetPlayer() {
     };
 
     player.skills = {};
+    player.selectedWarriorCapstone = null;
+    player.selectedHunterCapstone = null;
+    player.selectedMageCapstone = null;
+    player.selectedGuardianCapstone = null;
+    player.selectedRogueCapstone = null;
+
+    player.selectedSpells = {
+        offensive: null,
+        defensive: null
+    };
+
+    if (
+        typeof resetCombatSkillPathSelection ===
+        "function"
+    ) {
+        resetCombatSkillPathSelection();
+    }
+
+    localStorage.removeItem(
+        "idler_combat_skill_branch"
+    );
+
+    localStorage.removeItem(
+        "idler_combat_skill_specialization"
+    );
+    player.selectedCombatBranch = null;
+    player.selectedCombatSpecialization = null;
+    if (
+        typeof resetCombatSkillPathSelection ===
+        "function"
+    ) {
+        resetCombatSkillPathSelection();
+    }
+
     player.selectedWarriorCapstone =
         null;
     player.selectedHunterCapstone =
@@ -550,6 +592,8 @@ function resetPlayer() {
         null;
     player.selectedRogueCapstone =
         null;
+
+    renderSkills();
 
     player.selectedSpells = {
         offensive: null,
@@ -650,6 +694,10 @@ function resetPlayer() {
     player.mana = derived.maxMana;
 
     console.log("resetPlayer wykonany:", player);
+    
+    if (typeof renderSkills === "function") {
+        renderSkills();
+    }
 }
 
 

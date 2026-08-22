@@ -849,8 +849,14 @@ function getAttack() {
         );
     }
 
-    return applyWeaponDamagePotionBonus(
-        damage,
+    const damageAfterPotion =
+        applyWeaponDamagePotionBonus(
+            damage,
+            weapon
+        );
+
+    return applyClassProgressionDamageBonus(
+        damageAfterPotion,
         weapon
     );
 }
@@ -995,6 +1001,64 @@ function applyWeaponDamagePotionBonus(
     return Math.floor(
         safeDamage *
         damageMultiplier
+    );
+}
+
+function applyClassProgressionDamageBonus(
+    damage,
+    weapon
+) {
+    const safeDamage = Math.max(
+        0,
+        Number(damage) || 0
+    );
+
+    if (
+        typeof getClassProgressionBonuses !==
+        "function"
+    ) {
+        return Math.floor(safeDamage);
+    }
+
+    const progression =
+        getClassProgressionBonuses();
+
+    let bonusPercent = 0;
+
+    const isMeleeWeapon =
+        !weapon ||
+        weapon.weaponType === "melee";
+
+    const isRangedWeapon =
+        weapon?.weaponType === "ranged";
+
+    if (
+        player.classId === "warrior" &&
+        isMeleeWeapon
+    ) {
+        bonusPercent = Math.max(
+            0,
+            Number(
+                progression.meleeDamagePercent
+            ) || 0
+        );
+    }
+
+    if (
+        player.classId === "hunter" &&
+        isRangedWeapon
+    ) {
+        bonusPercent = Math.max(
+            0,
+            Number(
+                progression.rangedDamagePercent
+            ) || 0
+        );
+    }
+
+    return Math.floor(
+        safeDamage *
+        (1 + bonusPercent / 100)
     );
 }
 

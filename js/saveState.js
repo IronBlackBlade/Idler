@@ -220,5 +220,14 @@ function resumeLoadedActivity(
     }
 }
 
-// pierwsze wyświetlenie
-render();
+/*
+ * Pierwsze wyświetlenie - tylko gdy nie ma
+ * jeszcze zapisu gry. Jeśli zapis istnieje,
+ * loadGame() sam wywoła render() z prawdziwym
+ * stanem gracza, więc renderowanie tutaj
+ * pokazywałoby tylko na moment domyślną,
+ * świeżą postać.
+ */
+if (!localStorage.getItem("idler_save")) {
+    render();
+}

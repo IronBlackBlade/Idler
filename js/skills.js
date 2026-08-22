@@ -89,7 +89,47 @@ const craftingCapstoneSkillIds = [
     "crafting_masterpiece_capstone"
 ];
 
+function getMageClassCombatManaRegeneration() {
+    if (player.classId !== "mage") {
+        return 0;
+    }
+
+    const combatIsActive =
+        player.isFighting === true ||
+        (
+            typeof isFighting !== "undefined" &&
+            isFighting === true
+        );
+
+    if (!combatIsActive) {
+        return 0;
+    }
+
+    if (
+        typeof getClassProgressionBonuses !==
+        "function"
+    ) {
+        return 0;
+    }
+
+    const bonuses =
+        getClassProgressionBonuses();
+
+    return Math.max(
+        0,
+        Number(
+            bonuses.combatManaRegenPerSecond
+        ) || 0
+    );
+}
+
 function getManaRegenerationPerSecond() {
+    const wandBonus =
+        typeof getWandManaRegenerationSkillBonus ===
+            "function"
+            ? getWandManaRegenerationSkillBonus()
+            : 0;
+
     const potionBonus =
         typeof getActivePotionEffectValue ===
             "function"
@@ -98,31 +138,23 @@ function getManaRegenerationPerSecond() {
             )
             : 0;
 
-    const wandRegenerationBonus =
-        typeof getWandManaRegenerationSkillBonus ===
-            "function"
-            ? getWandManaRegenerationSkillBonus()
-            : 0;
+    const regularRegeneration =
+        (
+            baseManaRegenerationPerSecond +
+            wandBonus
+        ) *
+        (
+            1 +
+            potionBonus / 100
+        );
 
-    /*
-     * Najpierw dodajemy stałą regenerację
-     * z różdżki.
-     */
-    const baseRegeneration =
-        baseManaRegenerationPerSecond +
-        wandRegenerationBonus;
+    const mageClassRegeneration =
+        getMageClassCombatManaRegeneration();
 
-    /*
-     * Następnie mikstura zwiększa całą
-     * regenerację procentowo.
-     */
-    const regenerationMultiplier =
-        1 +
-        potionBonus / 100;
-
-    return (
-        baseRegeneration *
-        regenerationMultiplier
+    return Math.max(
+        0,
+        regularRegeneration +
+        mageClassRegeneration
     );
 }
 
@@ -3499,6 +3531,13 @@ function resetAllSkills() {
 
     player.skills = {};
 
+    player.selectedCombatBranch = null;
+    player.selectedCombatSpecialization = null;
+
+    if (typeof renderSkills === "function") {
+        renderSkills();
+    }
+
     player.skillGoldSpent = 0;
 
     player.selectedWarriorCapstone =
@@ -3665,6 +3704,12 @@ function resetAllSkills() {
             " złota.",
             "success"
         );
+    }
+    if (
+        typeof resetCombatSkillPathSelection ===
+        "function"
+    ) {
+        resetCombatSkillPathSelection();
     }
 
     saveGame();
