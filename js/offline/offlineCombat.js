@@ -878,9 +878,25 @@ function getOfflineCombatSurvivalData(
             guardianRecoveryInterval
             : 0;
 
-    const healingPerSecond =
-        defensiveSpellHealingPerSecond +
-        guardianHealingPerSecond;
+const guardianClassRegenPercent =
+    player.classId === "guardian" &&
+    typeof getGuardianCombatHpRegenPercent ===
+        "function"
+        ? getGuardianCombatHpRegenPercent()
+        : 0;
+
+const guardianClassHealingPerSecond =
+    (
+        Number(derived.maxHp) || 0
+    ) *
+    guardianClassRegenPercent /
+    100;
+
+const healingPerSecond =
+    defensiveSpellHealingPerSecond +
+    guardianHealingPerSecond +
+    guardianClassHealingPerSecond;
+
 
     const averageDamagePerSecond =
         Math.max(

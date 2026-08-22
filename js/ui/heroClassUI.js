@@ -94,21 +94,21 @@ function getClassProgressionPreviewHtml(classId) {
             icon: "⚔️",
             text:
                 "Co 5 poziomów: +1 Siły " +
-                "i +0,05% obrażeń wręcz"
+                "i +0,1% obrażeń wręcz"
         },
 
         hunter: {
             icon: "🏹",
             text:
                 "Co 5 poziomów: +1 Zręczności " +
-                "i +0,05% obrażeń dystansowych"
+                "i +0,1% obrażeń dystansowych"
         },
 
         mage: {
             icon: "🔵",
             text:
                 "Co 5 poziomów: +1 Inteligencji " +
-                "i +0,1 many/s podczas walki"
+                "i +0,2 many/s podczas walki"
         },
 
         guardian: {
@@ -122,7 +122,7 @@ function getClassProgressionPreviewHtml(classId) {
             icon: "💰",
             text:
                 "Co 5 poziomów: +1 Szczęścia " +
-                "i +0,1% zdobywanego złota"
+                "i +0,2% zdobywanego złota ze wszystkich żródeł"
         }
     };
 

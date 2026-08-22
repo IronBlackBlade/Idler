@@ -334,7 +334,12 @@ function completeTavernOrder(orderId) {
         removeItemFromInventory(requirement.itemId, requirement.quantity);
     });
 
-    player.gold += order.goldReward;
+    // cooking.js — zamówienie
+    const goldResult =
+        grantGoldReward(order.goldReward);
+
+    tavern.totalGoldEarned +=
+        goldResult.totalGold;
     tavern.completedOrders += 1;
     tavern.totalGoldEarned += order.goldReward;
 

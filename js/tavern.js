@@ -1704,13 +1704,13 @@ function claimTavernLastReturn() {
 
     rewards.forEach(reward => {
         if (reward.type === "gold") {
-            player.gold +=
-                Math.max(
-                    0,
-                    Math.floor(
-                        Number(reward.quantity) || 0
-                    )
-                );
+            grantGoldReward(reward.quantity);
+            Math.max(
+                0,
+                Math.floor(
+                    Number(reward.quantity) || 0
+                )
+            );
 
             return;
         }

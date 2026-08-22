@@ -410,7 +410,9 @@ function tryOpenAutomaticHuntingChest(
         }
     }
 
-    player.gold += gold;
+
+    const goldResult =
+        grantGoldReward(gold);
 
     const progress =
         ensureLocationProgress(
@@ -563,7 +565,9 @@ function grantFirstBossKillReward(
         }
     );
 
-    player.gold += gold;
+
+    const goldResult =
+        grantGoldReward(gold);
     player.exp += experience;
 
     progress.firstBossRewardClaimed =

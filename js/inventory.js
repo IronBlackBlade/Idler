@@ -764,8 +764,10 @@ function sellAllUnusedMonsterLoot() {
         }
     );
 
-    player.gold +=
-        finalTotalGold;
+
+const goldResult =
+    grantGoldReward(finalTotalGold);
+
 
     if (
         typeof addSystemLog ===

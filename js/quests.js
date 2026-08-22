@@ -1147,8 +1147,8 @@ function claimQuestReward(questId) {
         timelyCompletionResult
             .activityExperience;
 
-    player.gold +=
-        finalGoldReward;
+const goldResult =
+    grantGoldReward(quest.rewardGold);
 
     player.exp +=
         finalHeroExpReward;
@@ -1535,7 +1535,8 @@ function claimAllQuestRewards() {
 
     updateQuestMenuHighlight();
 
-    player.gold += totalGold;
+const goldResult =
+    grantGoldReward(totalGold);
     player.exp += totalExp;
 
     if (

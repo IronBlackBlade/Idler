@@ -1391,8 +1391,9 @@ function autoAttack() {
             "."
         );
 
-        player.gold +=
-            enemy.gold;
+const goldResult =
+    grantGoldReward(enemy.gold);
+
 
         player.exp +=
             enemy.exp;

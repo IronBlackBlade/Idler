@@ -54,19 +54,19 @@ function getClassProgressionBonuses() {
         case "warrior":
             bonuses.strength = tier;
             bonuses.meleeDamagePercent =
-                tier * 0.05;
+                tier * 0.1;
             break;
 
         case "hunter":
             bonuses.dexterity = tier;
             bonuses.rangedDamagePercent =
-                tier * 0.05;
+                tier * 0.1;
             break;
 
         case "mage":
             bonuses.intelligence = tier;
             bonuses.combatManaRegenPerSecond =
-                tier * 0.1;
+                tier * 0.2;
             break;
 
         case "guardian":
@@ -78,11 +78,67 @@ function getClassProgressionBonuses() {
         case "rogue":
             bonuses.luck = tier;
             bonuses.goldBonusPercent =
-                tier * 0.1;
+                tier * 0.2;
             break;
     }
 
     return bonuses;
+}
+
+function grantGoldReward(amount) {
+    const baseGold = Math.max(
+        0,
+        Math.floor(Number(amount) || 0)
+    );
+
+    if (baseGold <= 0) {
+        return {
+            baseGold: 0,
+            bonusGold: 0,
+            totalGold: 0
+        };
+    }
+
+    const progression =
+        typeof getClassProgressionBonuses === "function"
+            ? getClassProgressionBonuses()
+            : null;
+
+    const bonusPercent =
+        player.classId === "rogue"
+            ? Math.max(
+                0,
+                Number(
+                    progression?.goldBonusPercent
+                ) || 0
+            )
+            : 0;
+
+    const previousRemainder = Math.max(
+        0,
+        Number(player.rogueGoldBonusRemainder) || 0
+    );
+
+    const exactBonus =
+        baseGold * bonusPercent / 100 +
+        previousRemainder;
+
+    const bonusGold =
+        Math.floor(exactBonus);
+
+    player.rogueGoldBonusRemainder =
+        exactBonus - bonusGold;
+
+    const totalGold =
+        baseGold + bonusGold;
+
+    player.gold += totalGold;
+
+    return {
+        baseGold,
+        bonusGold,
+        totalGold
+    };
 }
 
 function getPlayerClassBonuses() {
@@ -318,64 +374,70 @@ function chooseCharacterClass(
 }
 
 function getGuardianCombatHpRegenPercent() {
-  if (player.classId !== "guardian") {
-    return 0;
-  }
+    if (
+        player.classId !== "guardian" ||
+        typeof getClassProgressionBonuses !==
+        "function"
+    ) {
+        return 0;
+    }
 
-  const level = Math.max(
-    1,
-    Math.floor(Number(player.level) || 1),
-  );
+    const bonuses =
+        getClassProgressionBonuses();
 
-  if (level < 10) {
-    return 0;
-  }
-
-  const classTier =
-    Math.floor((level - 10) / 5) + 1;
-
+    return Math.max(
+        0,
+        Number(
+            bonuses
+                .combatHpRegenPercentPerSecond
+        ) || 0
+    );
 }
 
 function applyGuardianCombatRegeneration() {
-  const combatIsActive =
-    player.isFighting === true ||
-    (
-      typeof isFighting !== "undefined" &&
-      isFighting === true
+    const combatIsActive =
+        player.isFighting === true ||
+        (
+            typeof isFighting !== "undefined" &&
+            isFighting === true
+        );
+
+    if (
+        !combatIsActive ||
+        player.classId !== "guardian" ||
+        Number(player.hp) <= 0
+    ) {
+        return 0;
+    }
+
+    const derived = getDerivedStats();
+    const maximumHp = Math.max(
+        1,
+        Number(derived.maxHp) || 1
     );
 
-  if (
-    !combatIsActive ||
-    player.classId !== "guardian" ||
-    player.hp <= 0
-  ) {
-    return 0;
-  }
+    if (player.hp >= maximumHp) {
+        return 0;
+    }
 
-  const derived = getDerivedStats();
+    const regenerationPercent =
+        getGuardianCombatHpRegenPercent();
 
-  if (player.hp >= derived.maxHp) {
-    return 0;
-  }
+    if (regenerationPercent <= 0) {
+        return 0;
+    }
 
-  const regenerationPercent =
-    getGuardianCombatHpRegenPercent();
+    const exactHealing =
+        maximumHp *
+        regenerationPercent /
+        100;
 
-  const healing = Math.max(
-    1,
-    Math.floor(
-      derived.maxHp *
-      regenerationPercent /
-      100,
-    ),
-  );
+    const previousHp = player.hp;
 
-  const previousHp = player.hp;
+    player.hp = Math.min(
+        maximumHp,
+        player.hp + exactHealing
+    );
 
-  player.hp = Math.min(
-    derived.maxHp,
-    player.hp + healing,
-  );
-
-  return player.hp - previousHp;
+    return player.hp - previousHp;
 }
