@@ -820,6 +820,49 @@ function getCookingQuestProgress(
     );
 }
 
+function getGardenQuestProgress(quest) {
+    if (
+        !quest ||
+        quest.activityId !== "garden"
+    ) {
+        return null;
+    }
+
+    if (
+        typeof ensureGardenState === "function"
+    ) {
+        ensureGardenState();
+    }
+
+    const statistics =
+        player.garden?.statistics || {};
+
+    const progressSources = {
+        totalPlanted:
+            statistics.totalPlanted,
+
+        totalHarvests:
+            statistics.totalHarvests,
+
+        totalHarvestedItems:
+            statistics.totalHarvestedItems,
+
+        gardenLevel:
+            player.garden?.level
+    };
+
+    return Math.max(
+        0,
+        Math.floor(
+            Number(
+                progressSources[
+                quest.progressSource
+                ]
+            ) || 0
+        )
+    );
+}
+
 function syncQuestProgressWithBestiary(
     quest
 ) {
@@ -842,6 +885,9 @@ function syncQuestProgressWithBestiary(
         getHerbalismQuestProgress(
             quest
         );
+
+    const gardenProgress =
+        getGardenQuestProgress(quest);
 
     const alchemyProgress =
         getAlchemyQuestProgress(
@@ -868,13 +914,17 @@ function syncQuestProgressWithBestiary(
             ? miningProgress
             : herbalismProgress !== null
                 ? herbalismProgress
+
                 : alchemyProgress !== null
                     ? alchemyProgress
                     : craftingProgress !== null
                         ? craftingProgress
                         : fishingProgress !== null
                             ? fishingProgress
-                            : cookingProgress;
+                            : cookingProgress !== null
+                                ? cookingProgress
+                                : gardenProgress;
+
 
     const totalRecordedProgress =
         activityProgress !== null
@@ -1062,6 +1112,7 @@ function claimQuestReward(questId) {
         );
         return;
     }
+
     const baseGoldReward =
         getQuestBaseGoldReward(
             quest
@@ -1126,6 +1177,13 @@ function claimQuestReward(questId) {
         addHerbalismExp(
             activityExpReward
         );
+    }
+    if (
+        quest.activityId === "garden" &&
+        activityExpReward > 0 &&
+        typeof addGardenExp === "function"
+    ) {
+        addGardenExp(activityExpReward);
     }
     if (
         quest.activityId ===
@@ -1340,6 +1398,7 @@ function claimAllQuestRewards() {
     let totalExp = 0;
     let totalMiningExp = 0;
     let totalHerbalismExp = 0;
+    let totalGardenExp = 0;
     let totalAlchemyExp = 0;
     let totalCraftingExp = 0;
     let totalFishingExp = 0;
@@ -1402,6 +1461,7 @@ function claimAllQuestRewards() {
                 timelyCompletionResult
                     .bonusGoldReward;
         }
+
         totalBaseGold +=
             baseGoldReward;
 
@@ -1428,6 +1488,15 @@ function claimAllQuestRewards() {
         ) {
             totalHerbalismExp +=
                 activityExpReward;
+        }
+
+        if (quest.activityId === "garden") {
+            totalGardenExp += Math.max(
+                0,
+                Math.floor(
+                    Number(quest.rewardActivityExp) || 0
+                )
+            );
         }
 
         if (
@@ -1637,6 +1706,13 @@ function claimAllQuestRewards() {
             ".",
             "quest"
         );
+    }
+
+    if (
+        totalGardenExp > 0 &&
+        typeof addGardenExp === "function"
+    ) {
+        addGardenExp(totalGardenExp);
     }
 
     saveGame();

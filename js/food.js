@@ -212,24 +212,7 @@ function useSelectedCombatFood() {
     const cooldownSeconds =
         getCombatFoodCooldownSecondsLeft();
 
-    if (
-        isCombatCurrentlyActive() &&
-        cooldownSeconds > 0
-    ) {
-        if (
-            typeof showNotification ===
-            "function"
-        ) {
-            showNotification(
-                "Możesz ponownie zjeść za " +
-                cooldownSeconds +
-                " s.",
-                "error"
-            );
-        }
 
-        return false;
-    }
 
     const foodItem =
         items[selectedFoodId];

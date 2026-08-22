@@ -6,7 +6,8 @@ const questCategoryIds = [
     "fishing",
     "alchemy",
     "cooking",
-    "crafting"
+    "crafting",
+    "garden"
 ];
 
 const legacyQuestFilter =
@@ -577,6 +578,11 @@ function renderQuests() {
             name: "Zielarstwo"
         },
         {
+            id: "garden",
+            icon: "🌱",
+            name: "Ogród"
+        },
+        {
             id: "fishing",
             icon: "🎣",
             name: "Łowienie"
@@ -731,6 +737,7 @@ function renderQuests() {
         hunting: "⚔️ Polowanie",
         mining: "⛏️ Kopalnia",
         herbalism: "🌿 Zielarstwo",
+        garden: "🌱 Ogród",
         fishing: "🎣 Łowienie",
         alchemy: "🧪 Alchemia",
         cooking: "🍳 Gotowanie",
@@ -965,6 +972,11 @@ function renderQuests() {
                 label: "EXP zielarstwa"
             },
 
+            garden: {
+                icon: "🌱",
+                label: "EXP Ogrodnictwa"
+            },
+
             alchemy: {
                 icon: "🧪",
                 label: "EXP alchemii"
@@ -1073,14 +1085,14 @@ function renderQuests() {
 </span>
 
 ${hasQuestExperienceBonus
-    ? `
+                ? `
         <span class="quest-experience-reward-bonus">
             📚 Doświadczony zleceniobiorca:
             +${getQuestExperienceBonus()}% EXP
         </span>
     `
-    : ""
-}
+                : ""
+            }
 
 ${hasTradeRewardBonus
                 ? `

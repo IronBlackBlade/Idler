@@ -758,20 +758,17 @@ function enableAlchemyQueueDragging(list) {
     let draggedRow = null;
     let dragHandle = null;
     let activePointerId = null;
+    let droppedOnActive = false;
 
     function resetAlchemyDrag() {
         if (draggedRow) {
-            draggedRow.classList.remove(
-                "is-dragging",
-            );
+            draggedRow.classList.remove("is-dragging");
         }
 
         if (
             dragHandle &&
             activePointerId !== null &&
-            dragHandle.hasPointerCapture(
-                activePointerId,
-            )
+            dragHandle.hasPointerCapture(activePointerId)
         ) {
             dragHandle.releasePointerCapture(
                 activePointerId,
@@ -781,151 +778,212 @@ function enableAlchemyQueueDragging(list) {
         draggedRow = null;
         dragHandle = null;
         activePointerId = null;
+        droppedOnActive = false;
     }
 
-    list.addEventListener(
-        "pointerdown",
-        (event) => {
-            if (event.button !== 0) {
-                return;
-            }
+    list.addEventListener("pointerdown", event => {
+        if (event.button !== 0) {
+            return;
+        }
 
-            const handle = event.target.closest(
-                "[data-alchemy-drag-handle]",
+        const handle = event.target.closest(
+            "[data-alchemy-drag-handle]",
+        );
+
+        if (!handle || !list.contains(handle)) {
+            return;
+        }
+
+        const row = handle.closest(
+            "[data-alchemy-job-id]",
+        );
+
+        if (!row) {
+            return;
+        }
+
+        event.preventDefault();
+
+        draggedRow = row;
+        dragHandle = handle;
+        activePointerId = event.pointerId;
+
+        draggedRow.classList.add("is-dragging");
+        dragHandle.setPointerCapture(activePointerId);
+    });
+
+    list.addEventListener("pointermove", event => {
+        if (
+            !draggedRow ||
+            event.pointerId !== activePointerId
+        ) {
+            return;
+        }
+
+        event.preventDefault();
+
+        const activeRow = list.querySelector(
+            ".alchemy-queue-active",
+        );
+
+        droppedOnActive = false;
+
+        if (activeRow) {
+            const activeRect =
+                activeRow.getBoundingClientRect();
+
+            droppedOnActive =
+                event.clientY >= activeRect.top &&
+                event.clientY <= activeRect.bottom;
+
+            activeRow.classList.toggle(
+                "is-drop-target",
+                droppedOnActive,
             );
+        }
 
-            if (!handle) {
-                return;
-            }
+        if (droppedOnActive) {
+            return;
+        }
 
-            const row = handle.closest(
-                "[data-alchemy-job-id]",
-            );
+        const waitingRows = Array.from(
+            list.querySelectorAll(
+                ".alchemy-queue-waiting",
+            ),
+        ).filter(row => row !== draggedRow);
 
-            if (!row) {
-                return;
-            }
+        let inserted = false;
 
-            event.preventDefault();
-
-            draggedRow = row;
-            dragHandle = handle;
-            activePointerId = event.pointerId;
-
-            draggedRow.classList.add(
-                "is-dragging",
-            );
-
-            dragHandle.setPointerCapture(
-                activePointerId,
-            );
-        },
-    );
-
-    list.addEventListener(
-        "pointermove",
-        (event) => {
-            if (
-                !draggedRow ||
-                event.pointerId !== activePointerId
-            ) {
-                return;
-            }
-
-            event.preventDefault();
-
-            const listRectangle =
-                list.getBoundingClientRect();
+        for (const row of waitingRows) {
+            const rect = row.getBoundingClientRect();
 
             if (
                 event.clientY <
-                listRectangle.top + 45
+                rect.top + rect.height / 2
             ) {
-                list.scrollTop -= 10;
-            } else if (
-                event.clientY >
-                listRectangle.bottom - 45
-            ) {
-                list.scrollTop += 10;
+                list.insertBefore(draggedRow, row);
+                inserted = true;
+                break;
             }
+        }
 
-            const otherRows = Array.from(
-                list.querySelectorAll(
-                    ".alchemy-queue-waiting",
-                ),
-            ).filter((row) => {
-                return row !== draggedRow;
-            });
+        if (!inserted) {
+            list.appendChild(draggedRow);
+        }
+    });
 
-            let rowWasMoved = false;
+    list.addEventListener("pointerup", event => {
+        if (
+            !draggedRow ||
+            event.pointerId !== activePointerId
+        ) {
+            return;
+        }
 
-            for (const row of otherRows) {
-                const rectangle =
-                    row.getBoundingClientRect();
+        const movedJobId =
+            draggedRow.dataset.alchemyJobId;
 
-                const rowMiddle =
-                    rectangle.top +
-                    rectangle.height / 2;
+        const shouldPrioritize = droppedOnActive;
 
-                if (event.clientY < rowMiddle) {
-                    list.insertBefore(
-                        draggedRow,
-                        row,
-                    );
+        const waitingRows = Array.from(
+            list.querySelectorAll(
+                "[data-alchemy-job-id]",
+            ),
+        );
 
-                    rowWasMoved = true;
-                    break;
-                }
-            }
+        const targetIndex =
+            waitingRows.indexOf(draggedRow);
 
-            if (!rowWasMoved) {
-                list.appendChild(draggedRow);
-            }
-        },
-    );
+        list
+            .querySelector(".alchemy-queue-active")
+            ?.classList.remove("is-drop-target");
 
+        resetAlchemyDrag();
 
-    list.addEventListener(
-        "pointerup",
-        (event) => {
-            if (
-                !draggedRow ||
-                event.pointerId !== activePointerId
-            ) {
-                return;
-            }
-
-            const movedJobId =
-                draggedRow.dataset.alchemyJobId;
-
-            const waitingRows = Array.from(
-                list.querySelectorAll(
-                    "[data-alchemy-job-id]",
-                ),
-            );
-
-            const targetIndex =
-                waitingRows.indexOf(draggedRow);
-
-            resetAlchemyDrag();
-
-            const moved = moveAlchemyQueueJob(
+        const moved = shouldPrioritize
+            ? prioritizeAlchemyQueueJob(movedJobId)
+            : moveAlchemyQueueJob(
                 movedJobId,
                 targetIndex,
             );
 
-            if (moved) {
-                renderAlchemy();
-            }
-        },
+        if (moved) {
+            renderAlchemy();
+        }
+    });
+
+    list.addEventListener("pointercancel", () => {
+        list
+            .querySelector(".alchemy-queue-active")
+            ?.classList.remove("is-drop-target");
+
+        resetAlchemyDrag();
+    });
+}
+
+function prioritizeAlchemyQueueJob(jobId) {
+    ensureAlchemyState();
+
+    const queue = player.alchemy.queue;
+
+    const jobIndex = queue.findIndex(
+        job => job.id === jobId,
     );
 
-    list.addEventListener(
-        "pointercancel",
-        () => {
-            resetAlchemyDrag();
-        },
+    if (jobIndex < 0) {
+        return false;
+    }
+
+    const [priorityJob] = queue.splice(
+        jobIndex,
+        1,
     );
+
+    if (
+        player.alchemy.isCrafting &&
+        player.alchemy.activeRecipeId
+    ) {
+        const totalQuantity = Math.max(
+            1,
+            Number(
+                player.alchemy.craftingQuantity,
+            ) || 1,
+        );
+
+        const completedQuantity = Math.max(
+            0,
+            Number(
+                player.alchemy
+                    .activeCompletedQuantity,
+            ) || 0,
+        );
+
+        const remainingQuantity = Math.max(
+            0,
+            totalQuantity - completedQuantity,
+        );
+
+        if (remainingQuantity > 0) {
+            queue.unshift({
+                id:
+                    player.alchemy.activeJobId ||
+                    createAlchemyJobId(),
+                recipeId:
+                    player.alchemy.activeRecipeId,
+                quantity: remainingQuantity,
+                addedAt: Date.now(),
+            });
+        }
+    }
+
+    clearAlchemyCraftingState();
+
+    queue.unshift(priorityJob);
+
+    startNextAlchemyJob();
+    saveGame();
+
+    return true;
 }
 
 function renderAlchemyProgressPanel(
@@ -1377,7 +1435,10 @@ function getAlchemyQueueHtml() {
                 : "";
 
         html += `
-        <div class="alchemy-queue-item alchemy-queue-active">
+        <div
+  class="alchemy-queue-item alchemy-queue-active"
+  data-alchemy-active-drop-target="true"
+>
             <div class="alchemy-queue-number">
                 🧪
             </div>

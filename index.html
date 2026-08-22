@@ -137,11 +137,8 @@
                         </button>
                         <button data-menu-section="mining" onclick="openMiningScreen()">⛏️ Kopalnia</button>
                         <button data-menu-section="herbalism" onclick="openHerbalismScreen()">🌿 Zielarstwo</button>
-                        <button 
-                        data-menu-section="garden"
-                         onclick="openGardenScreen()"
-                         >
-                         🌱 Ogród</button>
+                        <button data-menu-section="garden" onclick="openGardenScreen()">
+                            🌱 Ogród</button>
                         <button data-menu-section="fishing" onclick="openFishingScreen()">🎣 Łowienie</button>
                     </div>
                 </section>
@@ -648,14 +645,6 @@
                 <div id="mining-activity" class="mining-activity-card"></div>
 
                 <div id="mining-areas-list" class="mining-areas-list"></div>
-            </section>
-
-            <section id="screen-mining-area" class="screen">
-                <button onclick="leaveMiningArea()">
-                    ⬅️ Wróć do kopalni
-                </button>
-
-                <div id="mining-activity" class="mining-activity-card"></div>
             </section>
 
             <section id="screen-herbalism-locations" class="screen">
@@ -1393,8 +1382,7 @@
 
                         <div id="skill-tree-description" class="skill-tree-description"></div>
 
-                        <div id="magic-category-tabs" class="magic-category-tabs" hidden></div>
-
+                    
                         <div id="skills-list" class="skills-list"></div>
                     </div>
                 </div>
@@ -1654,7 +1642,7 @@
 
     <script src="js/data/equipmentCraftRecipes.js"></script>
     <script src="js/data/recipes.js?v=20260802-processed-equipment-materials"></script>
-    <script src="js/data/skills.js"></script>
+    <script src="js/data/skillsData.js"></script>
     <script src="js/data/locations.js"></script>
     <script src="js/data/dungeons.js?v=20260808-kobold-tunnels"></script>
 
@@ -1666,8 +1654,8 @@
     <script src="js/data/quests/craftingQuests.js"></script>
     <script src="js/data/quests/fishingQuests.js"></script>
     <script src="js/data/quests/cookingQuests.js"></script>
+    <script src="js/data/quests/gardenQuests.js"></script>
     <script src="js/data/questsData.js"></script>
-
     <script src="js/data/classes.js"></script>
     <script src="js/data/locationMasteryData.js"></script>
 

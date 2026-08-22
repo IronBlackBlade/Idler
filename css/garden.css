@@ -734,3 +734,14 @@
     position: static;
     width: 100%;
 }
+
+#screen-garden .garden-upgrade-card {
+    border: 1px solid #29452f;
+    background: #050b07;
+    box-shadow: none;
+}
+
+#screen-garden .garden-upgrade-card:hover {
+    border-color: #355d3d;
+    background: #071009;
+}

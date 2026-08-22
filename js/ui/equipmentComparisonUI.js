@@ -61,14 +61,102 @@ const equipmentComparisonStatDefinitions = [
     }
 ];
 
-function getDefaultEquipmentSlotForItem(
-    item
-) {
+function getCraftingArmorComparisonHtml(resultItem) {
+    const armorTypes = [
+        "shield",
+        "helmet",
+        "armor",
+        "pants",
+        "boots",
+        "gloves"
+    ];
+
+    if (
+        !resultItem ||
+        !armorTypes.includes(resultItem.type)
+    ) {
+        return "";
+    }
+
+    const slotByType = {
+        shield: "shield",
+        helmet: "helmet",
+        armor: "armor",
+        pants: "pants",
+        boots: "boots",
+        gloves: "gloves"
+    };
+
+    const slot = slotByType[resultItem.type];
+
+    const equippedItemId =
+        player.equipment?.[slot] || null;
+
+    const equippedItem =
+        equippedItemId
+            ? items[equippedItemId]
+            : null;
+
+    const currentArmor = Math.max(
+        0,
+        Number(equippedItem?.armor) || 0
+    );
+
+    const newArmor = Math.max(
+        0,
+        Number(resultItem.armor) || 0
+    );
+
+    const difference =
+        newArmor - currentArmor;
+
+    let differenceClass = "neutral";
+    let differenceText = "• 0";
+
+    if (difference > 0) {
+        differenceClass = "positive";
+        differenceText = "▲ +" + difference;
+    }
+
+    if (difference < 0) {
+        differenceClass = "negative";
+        differenceText = "▼ " + difference;
+    }
+
+    return `
+        <div class="crafting-weapon-damage-comparison">
+            <strong>🛡️ Porównanie pancerza</strong>
+
+            <div>
+                <span>Aktualny element</span>
+                <b>
+                    ${equippedItem?.name || "Brak"}
+                    ${currentArmor}
+                </b>
+            </div>
+
+            <div>
+                <span>Nowy element</span>
+                <b>
+                    ${resultItem.name}
+                    ${newArmor}
+                </b>
+            </div>
+
+            <div class="${differenceClass}">
+                <span>Różnica</span>
+                <b>${differenceText}</b>
+            </div>
+        </div>
+    `;
+}
+
+function getDefaultEquipmentSlotForItem(item) {
     if (!item) {
         return null;
     }
 
-    const defaultSlots = {
+    const slotsByType = {
         weapon: "weapon",
         shield: "shield",
         helmet: "helmet",
@@ -76,15 +164,44 @@ function getDefaultEquipmentSlotForItem(
         pants: "pants",
         boots: "boots",
         gloves: "gloves",
-        ring: "ring1",
         amulet: "amulet",
         talisman: "talisman"
     };
 
-    return (
-        defaultSlots[item.type] ||
-        null
-    );
+    if (item.type === "ring") {
+        if (!player.equipment?.ring1) {
+            return "ring1";
+        }
+
+        if (!player.equipment?.ring2) {
+            return "ring2";
+        }
+
+        return "ring1";
+    }
+
+    return slotsByType[item.type] || null;
+}
+
+function getComparisonEquipmentSlot(
+    item,
+    preferredSlot = null
+) {
+    if (!item) {
+        return null;
+    }
+
+    if (
+        preferredSlot &&
+        Object.prototype.hasOwnProperty.call(
+            player.equipment || {},
+            preferredSlot
+        )
+    ) {
+        return preferredSlot;
+    }
+
+    return getDefaultEquipmentSlotForItem(item);
 }
 
 function getComparisonEquipmentSlot(
@@ -100,14 +217,14 @@ function getComparisonEquipmentSlot(
             typeof equipmentSlotDefinitions !==
                 "undefined"
                 ? equipmentSlotDefinitions[
-                    preferredSlot
+                preferredSlot
                 ]
                 : null;
 
         if (
             preferredSlotDefinition &&
             preferredSlotDefinition.itemType ===
-                item.type
+            item.type
         ) {
             return preferredSlot;
         }
@@ -119,7 +236,7 @@ function getComparisonEquipmentSlot(
      */
     if (
         typeof selectedEquipmentSlot !==
-            "undefined" &&
+        "undefined" &&
         selectedEquipmentSlot
     ) {
         const slotDefinition =
@@ -325,7 +442,7 @@ function getEquipmentSetChangePreview(
         !comparisonSlot ||
         !item?.id ||
         typeof getEquipmentSetThresholdChanges !==
-            "function"
+        "function"
     ) {
         return {
             slot: comparisonSlot,

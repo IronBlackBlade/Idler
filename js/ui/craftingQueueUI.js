@@ -25,9 +25,9 @@ function renderCraftingActivity(container) {
   const isToolUpgrade =
     typeof isProfessionToolUpgradeRecipe === "function" &&
     isProfessionToolUpgradeRecipe(recipe);
-  const currentCraftNumber = Math.min(
+  const completedCraftCount = Math.min(
     job.totalCraftCount,
-    job.completedCraftCount + 1,
+    job.completedCraftCount,
   );
   const progress =
     typeof getCraftingQueueProgressPercent ===
@@ -40,6 +40,12 @@ function renderCraftingActivity(container) {
       ? getCraftingQueueRemainingSeconds()
       : 0;
 
+  const currentCraftNumber = Math.min(
+    Number(job.totalCraftCount) || 1,
+    (Number(job.completedCraftCount) || 0) + 1,
+  );
+
+
   const activity = document.createElement("section");
   activity.className = "crafting-activity";
   activity.classList.toggle(
@@ -47,6 +53,8 @@ function renderCraftingActivity(container) {
     isToolUpgrade,
   );
   activity.dataset.craftingActivity = "true";
+
+
 
   activity.innerHTML = `
     <div class="crafting-activity-header">
@@ -60,7 +68,10 @@ function renderCraftingActivity(container) {
       <span class="crafting-activity-count" data-crafting-activity-count>
         ${isToolUpgrade
       ? "Ranga " + resultItem.toolTier + "/" + PROFESSION_TOOL_MAX_TIER
-      : currentCraftNumber + "/" + job.totalCraftCount}
+      : "Ukończono " +
+      completedCraftCount +
+      "/" +
+      job.totalCraftCount}
       </span>
     </div>
 
@@ -94,25 +105,35 @@ function enableCraftingQueueDragging(list) {
   let dragHandle = null;
   let activePointerId = null;
   let dragStarted = false;
+  list
+    .querySelectorAll(".is-dragging")
+    .forEach(row => {
+      row.classList.remove("is-dragging");
+    });
 
   function resetDragState() {
-
     if (draggedRow) {
-      dragStarted = true;
-      draggedRow.classList.add("is-dragging");
+      draggedRow.classList.remove(
+        "is-dragging",
+      );
     }
 
     if (
       dragHandle &&
       activePointerId !== null &&
-      dragHandle.hasPointerCapture(activePointerId)
+      dragHandle.hasPointerCapture(
+        activePointerId,
+      )
     ) {
-      dragHandle.releasePointerCapture(activePointerId);
+      dragHandle.releasePointerCapture(
+        activePointerId,
+      );
     }
 
     draggedRow = null;
     dragHandle = null;
     activePointerId = null;
+    dragStarted = false;
   }
 
   list.addEventListener("pointerdown", (event) => {
@@ -178,34 +199,33 @@ function enableCraftingQueueDragging(list) {
       list.scrollTop += scrollStep;
     }
 
-    const waitingRows = Array.from(
+    const targetRows = Array.from(
       list.querySelectorAll(
-        ".crafting-queue-item.is-waiting",
+        ".crafting-queue-item",
       ),
     );
 
-    const targetRow =
-      waitingRows.find((row) => {
-        if (row === draggedRow) {
-          return false;
-        }
+    const targetRow = targetRows.find((row) => {
+      if (row === draggedRow) {
+        return false;
+      }
 
-        const rectangle =
-          row.getBoundingClientRect();
+      const rectangle =
+        row.getBoundingClientRect();
 
-        const pointerInsideHorizontally =
-          event.clientX >= rectangle.left &&
-          event.clientX <= rectangle.right;
+      const pointerInsideHorizontally =
+        event.clientX >= rectangle.left &&
+        event.clientX <= rectangle.right;
 
-        const pointerInsideVertically =
-          event.clientY >= rectangle.top &&
-          event.clientY <= rectangle.bottom;
+      const pointerInsideVertically =
+        event.clientY >= rectangle.top &&
+        event.clientY <= rectangle.bottom;
 
-        return (
-          pointerInsideHorizontally &&
-          pointerInsideVertically
-        );
-      }) || null;
+      return (
+        pointerInsideHorizontally &&
+        pointerInsideVertically
+      );
+    }) || null;
 
 
     if (
@@ -239,17 +259,20 @@ function enableCraftingQueueDragging(list) {
 
   });
 
-  list.addEventListener("pointerup", (event) => {
+  list.addEventListener("pointerup", event => {
     if (event.pointerId !== activePointerId) {
       return;
     }
 
-    let movedJobId = null;
+    const row = draggedRow;
 
-    if (draggedRow) {
-      movedJobId =
-        draggedRow.dataset.craftingJobId;
+    if (!row || !dragStarted) {
+      resetDragState();
+      return;
     }
+
+    const movedJobId =
+      row.dataset.craftingJobId;
 
     const currentRows = Array.from(
       list.querySelectorAll(
@@ -258,12 +281,11 @@ function enableCraftingQueueDragging(list) {
     );
 
     const targetIndex =
-      currentRows.indexOf(draggedRow);
+      currentRows.indexOf(row);
 
     const canMove =
-      dragStarted &&
-      movedJobId !== null &&
-      Number.isInteger(targetIndex);
+      Boolean(movedJobId) &&
+      targetIndex >= 0;
 
     resetDragState();
 
@@ -395,10 +417,22 @@ function renderCraftingQueue(container) {
           totalQueueSeconds,
         );
     } else {
+      const resultPerCraft =
+        getRecipeResultQuantity(recipe);
+
+      const remainingCrafts = Math.max(
+        0,
+        job.totalCraftCount -
+        job.completedCraftCount,
+      );
+
+      const remainingItems =
+        remainingCrafts * resultPerCraft;
+
       sideStatus.textContent =
-        "x" +
-        job.totalCraftCount;
+        "Pozostało: x" + remainingItems;
     }
+    ``
 
     const cancelButton =
       document.createElement("button");

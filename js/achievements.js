@@ -110,9 +110,9 @@ function getJournalQuestCompletionData(
 ) {
     if (
         typeof quests ===
-            "undefined" ||
+        "undefined" ||
         typeof getQuestLocationId !==
-            "function"
+        "function"
     ) {
         return {
             completed: 0,
@@ -174,14 +174,14 @@ function getJournalAchievementCategory(
 function getJournalProfessionAchievementData() {
     if (
         typeof ensureFishingState ===
-            "function"
+        "function"
     ) {
         ensureFishingState();
     }
 
     if (
         typeof ensureCookingState ===
-            "function"
+        "function"
     ) {
         ensureCookingState();
     }
@@ -247,7 +247,61 @@ function getJournalProfessionAchievementData() {
             ) > 0;
         });
 
+    if (
+        typeof ensureGardenState === "function"
+    ) {
+        ensureGardenState();
+    }
+
+    const garden =
+        player.garden || {};
+
+    const gardenStatistics =
+        garden.statistics || {};
+
     return {
+        gardenLevel: Math.max(
+            1,
+            Math.floor(
+                Number(garden.level) || 1
+            )
+        ),
+
+        gardenPlanted: Math.max(
+            0,
+            Math.floor(
+                Number(
+                    gardenStatistics.totalPlanted
+                ) || 0
+            )
+        ),
+
+        gardenHarvests: Math.max(
+            0,
+            Math.floor(
+                Number(
+                    gardenStatistics.totalHarvests
+                ) || 0
+            )
+        ),
+
+        gardenHarvestedItems: Math.max(
+            0,
+            Math.floor(
+                Number(
+                    gardenStatistics.totalHarvestedItems
+                ) || 0
+            )
+        ),
+
+        gardenExpansionLevel: Math.max(
+            0,
+            Math.floor(
+                Number(
+                    garden.expansionLevel
+                ) || 0
+            )
+        ),
         fishingLevel:
             Math.max(
                 1,
@@ -368,7 +422,10 @@ function getJournalProfessionAchievementData() {
                     ) || 0
                 )
             )
+
+
     };
+
 }
 
 function getJournalAchievementDefinitions() {
@@ -401,32 +458,32 @@ function getJournalAchievementDefinitions() {
     const professions =
         getJournalProfessionAchievementData();
 
-        const questCompletionByLocation = {
-    forest:
-        getJournalQuestCompletionData(
-            "forest"
-        ),
+    const questCompletionByLocation = {
+        forest:
+            getJournalQuestCompletionData(
+                "forest"
+            ),
 
-    cave:
-        getJournalQuestCompletionData(
-            "cave"
-        ),
+        cave:
+            getJournalQuestCompletionData(
+                "cave"
+            ),
 
-    ruins:
-        getJournalQuestCompletionData(
-            "ruins"
-        ),
+        ruins:
+            getJournalQuestCompletionData(
+                "ruins"
+            ),
 
-    ice:
-        getJournalQuestCompletionData(
-            "ice"
-        ),
+        ice:
+            getJournalQuestCompletionData(
+                "ice"
+            ),
 
-    volcano:
-        getJournalQuestCompletionData(
-            "volcano"
-        )
-};
+        volcano:
+            getJournalQuestCompletionData(
+                "volcano"
+            )
+    };
 
     return [
         {
@@ -631,305 +688,376 @@ function getJournalAchievementDefinitions() {
 
 
         {
-    id:
-        "complete_forest_quests",
+            id:
+                "complete_forest_quests",
 
-    points: 5,
-    icon: "🌲",
+            points: 5,
+            icon: "🌲",
 
-    name:
-        "Tropiciel Lasu",
+            name:
+                "Tropiciel Lasu",
 
-    description:
-        "Ukończ wszystkie etapy zadań w Lesie.",
+            description:
+                "Ukończ wszystkie etapy zadań w Lesie.",
 
-    progress:
-        questCompletionByLocation
-            .forest.completed,
+            progress:
+                questCompletionByLocation
+                    .forest.completed,
 
-    target:
-        Math.max(
-            1,
-            questCompletionByLocation
-                .forest.total
-        )
-},
-{
-    id:
-        "complete_cave_quests",
+            target:
+                Math.max(
+                    1,
+                    questCompletionByLocation
+                        .forest.total
+                )
+        },
+        {
+            id:
+                "complete_cave_quests",
 
-    points: 10,
-    icon: "🦇",
+            points: 10,
+            icon: "🦇",
 
-    name:
-        "Zdobywca Jaskini",
+            name:
+                "Zdobywca Jaskini",
 
-    description:
-        "Ukończ wszystkie etapy zadań w Jaskini.",
+            description:
+                "Ukończ wszystkie etapy zadań w Jaskini.",
 
-    progress:
-        questCompletionByLocation
-            .cave.completed,
+            progress:
+                questCompletionByLocation
+                    .cave.completed,
 
-    target:
-        Math.max(
-            1,
-            questCompletionByLocation
-                .cave.total
-        )
-},
-{
-    id:
-        "complete_ruins_quests",
+            target:
+                Math.max(
+                    1,
+                    questCompletionByLocation
+                        .cave.total
+                )
+        },
+        {
+            id:
+                "complete_ruins_quests",
 
-    points: 15,
-    icon: "🏛️",
+            points: 15,
+            icon: "🏛️",
 
-    name:
-        "Badacz Ruin",
+            name:
+                "Badacz Ruin",
 
-    description:
-        "Ukończ wszystkie etapy zadań w Zapomnianych Ruinach.",
+            description:
+                "Ukończ wszystkie etapy zadań w Zapomnianych Ruinach.",
 
-    progress:
-        questCompletionByLocation
-            .ruins.completed,
+            progress:
+                questCompletionByLocation
+                    .ruins.completed,
 
-    target:
-        Math.max(
-            1,
-            questCompletionByLocation
-                .ruins.total
-        )
-},
-{
-    id:
-        "complete_ice_quests",
+            target:
+                Math.max(
+                    1,
+                    questCompletionByLocation
+                        .ruins.total
+                )
+        },
+        {
+            id:
+                "complete_ice_quests",
 
-    points: 20,
-    icon: "❄️",
+            points: 20,
+            icon: "❄️",
 
-    name:
-        "Pogromca Mrozu",
+            name:
+                "Pogromca Mrozu",
 
-    description:
-        "Ukończ wszystkie etapy zadań w Lodowej Krainie.",
+            description:
+                "Ukończ wszystkie etapy zadań w Lodowej Krainie.",
 
-    progress:
-        questCompletionByLocation
-            .ice.completed,
+            progress:
+                questCompletionByLocation
+                    .ice.completed,
 
-    target:
-        Math.max(
-            1,
-            questCompletionByLocation
-                .ice.total
-        )
-},
-{
-    id:
-        "complete_volcano_quests",
+            target:
+                Math.max(
+                    1,
+                    questCompletionByLocation
+                        .ice.total
+                )
+        },
+        {
+            id:
+                "complete_volcano_quests",
 
-    points: 25,
-    icon: "🌋",
+            points: 25,
+            icon: "🌋",
 
-    name:
-        "Legenda Wulkanu",
+            name:
+                "Legenda Wulkanu",
 
-    description:
-        "Ukończ wszystkie etapy zadań na Wulkanicznym Pustkowiu.",
+            description:
+                "Ukończ wszystkie etapy zadań na Wulkanicznym Pustkowiu.",
 
-    progress:
-        questCompletionByLocation
-            .volcano.completed,
+            progress:
+                questCompletionByLocation
+                    .volcano.completed,
 
-    target:
-        Math.max(
-            1,
-            questCompletionByLocation
-                .volcano.total
-        )
-},
-{
-    id: "fishing_first_catch",
-    category: "professions",
-    points: 5,
-    icon: "🎣",
-    name: "Pierwszy połów",
-    description: "Złów swoją pierwszą rybę.",
-    progress: professions.totalFish,
-    target: 1
-},
-{
-    id: "fishing_angler_100",
-    category: "professions",
-    points: 10,
-    icon: "🐟",
-    name: "Doświadczony wędkarz",
-    description: "Złów łącznie 100 ryb.",
-    progress: professions.totalFish,
-    target: 100
-},
-{
-    id: "fishing_angler_500",
-    category: "professions",
-    points: 25,
-    icon: "🌊",
-    name: "Pan wód",
-    description: "Złów łącznie 500 ryb.",
-    progress: professions.totalFish,
-    target: 500
-},
-{
-    id: "fishing_rare_10",
-    category: "professions",
-    points: 15,
-    icon: "✨",
-    name: "Łowca okazów",
-    description: "Złów 10 rzadkich ryb.",
-    progress: professions.rareFish,
-    target: 10
-},
-{
-    id: "fishing_treasures_10",
-    category: "professions",
-    points: 20,
-    icon: "🧰",
-    name: "Skarby z głębin",
-    description: "Wyłów 10 skarbów.",
-    progress: professions.treasures,
-    target: 10
-},
-{
-    id: "fishing_orders_25",
-    category: "professions",
-    points: 20,
-    icon: "📦",
-    name: "Dostawca wybrzeża",
-    description: "Zrealizuj 25 zleceń wędkarskich.",
-    progress: professions.fishingOrders,
-    target: 25
-},
-{
-    id: "fishing_level_25",
-    category: "professions",
-    points: 25,
-    icon: "🏅",
-    name: "Mistrz wędkarstwa",
-    description: "Osiągnij 25. poziom łowienia.",
-    progress: professions.fishingLevel,
-    target: 25
-},
-{
-    id: "fishing_collection",
-    category: "collection",
-    points: 30,
-    icon: "🐠",
-    name: "Atlas ryb",
-    description: "Złów każdy dostępny gatunek ryby.",
-    progress: professions.caughtFish,
-    target: professions.catchableFish
-},
-{
-    id: "cooking_first_meal",
-    category: "professions",
-    points: 5,
-    icon: "🍲",
-    name: "Pierwsza potrawa",
-    description: "Ugotuj swoją pierwszą porcję jedzenia.",
-    progress: professions.mealsCooked,
-    target: 1
-},
-{
-    id: "cooking_meals_50",
-    category: "professions",
-    points: 10,
-    icon: "🥘",
-    name: "Kuchenny rytm",
-    description: "Ugotuj łącznie 50 porcji jedzenia.",
-    progress: professions.mealsCooked,
-    target: 50
-},
-{
-    id: "cooking_meals_250",
-    category: "professions",
-    points: 25,
-    icon: "👨‍🍳",
-    name: "Szef kuchni",
-    description: "Ugotuj łącznie 250 porcji jedzenia.",
-    progress: professions.mealsCooked,
-    target: 250
-},
-{
-    id: "cooking_level_20",
-    category: "professions",
-    points: 25,
-    icon: "🔥",
-    name: "Mistrz gotowania",
-    description: "Osiągnij 20. poziom gotowania.",
-    progress: professions.cookingLevel,
-    target: 20
-},
-{
-    id: "cooking_collection",
-    category: "collection",
-    points: 25,
-    icon: "📖",
-    name: "Pełna księga kucharska",
-    description: "Ugotuj przynajmniej raz każdą potrawę.",
-    progress: professions.cookedRecipes,
-    target: professions.totalRecipes
-},
-{
-    id: "tavern_first_order",
-    category: "professions",
-    points: 5,
-    icon: "🍺",
-    name: "Pierwszy gość",
-    description: "Zrealizuj pierwsze zamówienie w karczmie.",
-    progress: professions.tavernOrders,
-    target: 1
-},
-{
-    id: "tavern_orders_25",
-    category: "professions",
-    points: 15,
-    icon: "🍽️",
-    name: "Pełna sala",
-    description: "Zrealizuj 25 zamówień w karczmie.",
-    progress: professions.tavernOrders,
-    target: 25
-},
-{
-    id: "tavern_orders_100",
-    category: "professions",
-    points: 30,
-    icon: "🏰",
-    name: "Słynna karczma",
-    description: "Zrealizuj 100 zamówień w karczmie.",
-    progress: professions.tavernOrders,
-    target: 100
-},
-{
-    id: "tavern_level_5",
-    category: "professions",
-    points: 20,
-    icon: "🍻",
-    name: "Gwarna gospoda",
-    description: "Osiągnij 5. poziom karczmy.",
-    progress: professions.tavernLevel,
-    target: 5
-},
-{
-    id: "tavern_level_10",
-    category: "professions",
-    points: 35,
-    icon: "👑",
-    name: "Karczma królewska",
-    description: "Osiągnij 10. poziom karczmy.",
-    progress: professions.tavernLevel,
-    target: 10
-}
+            target:
+                Math.max(
+                    1,
+                    questCompletionByLocation
+                        .volcano.total
+                )
+        },
+        {
+            id: "fishing_first_catch",
+            category: "professions",
+            points: 5,
+            icon: "🎣",
+            name: "Pierwszy połów",
+            description: "Złów swoją pierwszą rybę.",
+            progress: professions.totalFish,
+            target: 1
+        },
+        {
+            id: "fishing_angler_100",
+            category: "professions",
+            points: 10,
+            icon: "🐟",
+            name: "Doświadczony wędkarz",
+            description: "Złów łącznie 100 ryb.",
+            progress: professions.totalFish,
+            target: 100
+        },
+        {
+            id: "fishing_angler_500",
+            category: "professions",
+            points: 25,
+            icon: "🌊",
+            name: "Pan wód",
+            description: "Złów łącznie 500 ryb.",
+            progress: professions.totalFish,
+            target: 500
+        },
+        {
+            id: "fishing_rare_10",
+            category: "professions",
+            points: 15,
+            icon: "✨",
+            name: "Łowca okazów",
+            description: "Złów 10 rzadkich ryb.",
+            progress: professions.rareFish,
+            target: 10
+        },
+        {
+            id: "fishing_treasures_10",
+            category: "professions",
+            points: 20,
+            icon: "🧰",
+            name: "Skarby z głębin",
+            description: "Wyłów 10 skarbów.",
+            progress: professions.treasures,
+            target: 10
+        },
+        {
+            id: "fishing_orders_25",
+            category: "professions",
+            points: 20,
+            icon: "📦",
+            name: "Dostawca wybrzeża",
+            description: "Zrealizuj 25 zleceń wędkarskich.",
+            progress: professions.fishingOrders,
+            target: 25
+        },
+        {
+            id: "fishing_level_25",
+            category: "professions",
+            points: 25,
+            icon: "🏅",
+            name: "Mistrz wędkarstwa",
+            description: "Osiągnij 25. poziom łowienia.",
+            progress: professions.fishingLevel,
+            target: 25
+        },
+        {
+            id: "fishing_collection",
+            category: "collection",
+            points: 30,
+            icon: "🐠",
+            name: "Atlas ryb",
+            description: "Złów każdy dostępny gatunek ryby.",
+            progress: professions.caughtFish,
+            target: professions.catchableFish
+        },
+        {
+            id: "cooking_first_meal",
+            category: "professions",
+            points: 5,
+            icon: "🍲",
+            name: "Pierwsza potrawa",
+            description: "Ugotuj swoją pierwszą porcję jedzenia.",
+            progress: professions.mealsCooked,
+            target: 1
+        },
+        {
+            id: "cooking_meals_50",
+            category: "professions",
+            points: 10,
+            icon: "🥘",
+            name: "Kuchenny rytm",
+            description: "Ugotuj łącznie 50 porcji jedzenia.",
+            progress: professions.mealsCooked,
+            target: 50
+        },
+        {
+            id: "cooking_meals_250",
+            category: "professions",
+            points: 25,
+            icon: "👨‍🍳",
+            name: "Szef kuchni",
+            description: "Ugotuj łącznie 250 porcji jedzenia.",
+            progress: professions.mealsCooked,
+            target: 250
+        },
+        {
+            id: "cooking_level_20",
+            category: "professions",
+            points: 25,
+            icon: "🔥",
+            name: "Mistrz gotowania",
+            description: "Osiągnij 20. poziom gotowania.",
+            progress: professions.cookingLevel,
+            target: 20
+        },
+        {
+            id: "cooking_collection",
+            category: "collection",
+            points: 25,
+            icon: "📖",
+            name: "Pełna księga kucharska",
+            description: "Ugotuj przynajmniej raz każdą potrawę.",
+            progress: professions.cookedRecipes,
+            target: professions.totalRecipes
+        },
+        {
+            id: "tavern_first_order",
+            category: "professions",
+            points: 5,
+            icon: "🍺",
+            name: "Pierwszy gość",
+            description: "Zrealizuj pierwsze zamówienie w karczmie.",
+            progress: professions.tavernOrders,
+            target: 1
+        },
+        {
+            id: "tavern_orders_25",
+            category: "professions",
+            points: 15,
+            icon: "🍽️",
+            name: "Pełna sala",
+            description: "Zrealizuj 25 zamówień w karczmie.",
+            progress: professions.tavernOrders,
+            target: 25
+        },
+        {
+            id: "tavern_orders_100",
+            category: "professions",
+            points: 30,
+            icon: "🏰",
+            name: "Słynna karczma",
+            description: "Zrealizuj 100 zamówień w karczmie.",
+            progress: professions.tavernOrders,
+            target: 100
+        },
+        {
+            id: "tavern_level_5",
+            category: "professions",
+            points: 20,
+            icon: "🍻",
+            name: "Gwarna gospoda",
+            description: "Osiągnij 5. poziom karczmy.",
+            progress: professions.tavernLevel,
+            target: 5
+        },
+        {
+            id: "tavern_level_10",
+            category: "professions",
+            points: 35,
+            icon: "👑",
+            name: "Karczma królewska",
+            description: "Osiągnij 10. poziom karczmy.",
+            progress: professions.tavernLevel,
+            target: 10
+        },
+
+        {
+            id: "garden_first_seed",
+            category: "professions",
+            points: 5,
+            icon: "🌱",
+            name: "Pierwsze nasiono",
+            description: "Zasadź pierwszą roślinę w Ogrodzie.",
+            progress: professions.gardenPlanted,
+            target: 1
+        },
+        {
+            id: "garden_planted_100",
+            category: "professions",
+            points: 15,
+            icon: "🌿",
+            name: "Regularne zasiewy",
+            description: "Zasadź łącznie 100 roślin.",
+            progress: professions.gardenPlanted,
+            target: 100
+        },
+        {
+            id: "garden_first_harvest",
+            category: "professions",
+            points: 5,
+            icon: "🧺",
+            name: "Pierwsze zbiory",
+            description: "Zbierz pierwszą dojrzałą roślinę.",
+            progress: professions.gardenHarvests,
+            target: 1
+        },
+        {
+            id: "garden_harvests_100",
+            category: "professions",
+            points: 15,
+            icon: "🌾",
+            name: "Pełne kosze",
+            description: "Zbierz rośliny ze 100 grządek.",
+            progress: professions.gardenHarvests,
+            target: 100
+        },
+        {
+            id: "garden_items_500",
+            category: "professions",
+            points: 25,
+            icon: "🥬",
+            name: "Obfite plony",
+            description: "Zbierz łącznie 500 roślin.",
+            progress: professions.gardenHarvestedItems,
+            target: 500
+        },
+        {
+            id: "garden_level_20",
+            category: "professions",
+            points: 25,
+            icon: "🏡",
+            name: "Mistrz Ogrodnictwa",
+            description: "Osiągnij 20. poziom Ogrodnictwa.",
+            progress: professions.gardenLevel,
+            target: 20
+        },
+        {
+            id: "garden_full_expansion",
+            category: "professions",
+            points: 30,
+            icon: "🧱",
+            name: "Rozległy ogród",
+            description: "Kup wszystkie poziomy rozbudowy Ogrodu.",
+            progress: professions.gardenExpansionLevel,
+            target: GARDEN_MAX_EXPANSION_LEVEL
+        }
     ];
 }
 
@@ -1041,7 +1169,7 @@ function checkJournalAchievements() {
 
         if (
             typeof updateJournalAchievementIndicators ===
-                "function"
+            "function"
         ) {
             updateJournalAchievementIndicators();
         }

@@ -58,6 +58,7 @@ function getDefaultAlchemyState() {
     };
 }
 
+
 function ensureAlchemyState() {
     if (
         !player.alchemy ||
@@ -439,8 +440,7 @@ function startAlchemyCrafting(
         id: createAlchemyJobId(),
         recipeId: recipe.id,
         quantity: quantity,
-        completedQuantity: 0,
-        addedAt: Date.now()
+        addedAt: Date.now(),
     });
 
     if (
@@ -694,25 +694,49 @@ function completeAlchemyCrafting() {
         );
     }
 
-    clearAlchemyCraftingState();
+    player.alchemy.activeCompletedQuantity =
+        Math.max(
+            0,
+            Number(
+                player.alchemy.activeCompletedQuantity,
+            ) || 0,
+        ) + 1;
+
+    const stackFinished =
+        player.alchemy.activeCompletedQuantity >=
+        player.alchemy.craftingQuantity;
+
+    if (stackFinished) {
+        clearAlchemyCraftingState();
+    } else {
+        const durationMilliseconds =
+            getAlchemyRecipeDurationMs(recipe);
+
+        const now = Date.now();
+
+        player.alchemy.craftingStartedAt = now;
+        player.alchemy.craftingDurationMs =
+            durationMilliseconds;
+        player.alchemy.craftingFinishesAt =
+            now + durationMilliseconds;
+
+        scheduleAlchemyCompletion();
+        startAlchemyUiUpdates();
+    }
 
     saveGame();
 
-    if (
-        typeof renderInventory ===
-        "function"
-    ) {
+    if (typeof renderInventory === "function") {
         renderInventory();
     }
 
-    if (
-        typeof renderAlchemy ===
-        "function"
-    ) {
+    if (typeof renderAlchemy === "function") {
         renderAlchemy();
     }
 
-    startNextAlchemyJob();
+    if (stackFinished) {
+        startNextAlchemyJob();
+    }
 }
 
 function clearAlchemyCraftingState() {
@@ -727,6 +751,7 @@ function clearAlchemyCraftingState() {
     player.alchemy.activeJobId = null;
     player.alchemy.activeRecipeId = null;
     player.alchemy.craftingQuantity = 1;
+    player.alchemy.activeCompletedQuantity = 0;
     player.alchemy.activeCompletedQuantity = 0;
     player.alchemy.craftingStartedAt = 0;
     player.alchemy.craftingDurationMs = 0;
@@ -1128,6 +1153,13 @@ function startNextAlchemyJob() {
     const nextJob =
         player.alchemy.queue.shift();
 
+    const jobQuantity = Math.max(
+        1,
+        Math.floor(
+            Number(nextJob.quantity) || 1,
+        ),
+    );
+
     const recipe =
         getAlchemyRecipe(
             nextJob.recipeId
@@ -1152,6 +1184,11 @@ function startNextAlchemyJob() {
 
     player.alchemy.activeRecipeId =
         recipe.id;
+
+    player.alchemy.craftingQuantity =
+        jobQuantity;
+
+    player.alchemy.activeCompletedQuantity = 0;
 
     player.alchemy.craftingQuantity =
         Math.max(
@@ -1259,10 +1296,7 @@ function cancelActiveAlchemyJob(
         );
     }
 
-    /*
-        Zatrzymujemy timer i czyścimy
-        aktywne warzenie.
-    */
+
     clearAlchemyCraftingState();
 
     if (

@@ -117,5 +117,9 @@ const quests = [
 
     ...balanceProfessionQuestRewards(
         cookingQuests
+    ),
+
+    ...balanceProfessionQuestRewards(
+        gardenQuests
     )
 ];

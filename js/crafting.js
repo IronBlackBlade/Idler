@@ -531,41 +531,93 @@ function getActiveCraftingQueueJob() {
   return queue[0] || null;
 }
 
-function moveCraftingQueueJob(jobId, targetIndex) {
+function moveCraftingQueueJob(
+  jobId,
+  targetIndex,
+) {
   const queue = getCraftingQueue();
 
-  const sourceIndex = queue.findIndex((job) => {
-    return job.id === jobId;
-  });
+  const sourceIndex = queue.findIndex(
+    job => job.id === jobId,
+  );
 
-  // Nie znaleziono zadania albo próbowano przesunąć aktywne zadanie.
+  // Aktywnego zadania nie przeciągamy.
   if (sourceIndex <= 0) {
     return false;
   }
 
-  const normalizedTargetIndex = Math.floor(Number(targetIndex));
+  const normalizedTargetIndex =
+    Math.floor(Number(targetIndex));
 
   if (!Number.isFinite(normalizedTargetIndex)) {
     return false;
   }
 
-  // Pozycja 0 jest zarezerwowana dla aktywnego zadania.
   const safeTargetIndex = Math.max(
-    1,
-    Math.min(queue.length - 1, normalizedTargetIndex),
+    0,
+    Math.min(
+      queue.length - 1,
+      normalizedTargetIndex,
+    ),
   );
 
   if (sourceIndex === safeTargetIndex) {
     return false;
   }
 
-  const [movedJob] = queue.splice(sourceIndex, 1);
+  const previousActiveJob = queue[0];
 
-  queue.splice(safeTargetIndex, 0, movedJob);
+  const [movedJob] = queue.splice(
+    sourceIndex,
+    1,
+  );
+
+  queue.splice(
+    safeTargetIndex,
+    0,
+    movedJob,
+  );
+
+  if (safeTargetIndex === 0) {
+    if (
+      previousActiveJob &&
+      previousActiveJob !== movedJob
+    ) {
+      previousActiveJob.cycleStartedAt = 0;
+      previousActiveJob.cycleFinishesAt = 0;
+    }
+
+    movedJob.cycleStartedAt = 0;
+    movedJob.cycleFinishesAt = 0;
+
+    startNextCraftingQueueJob(
+      Date.now(),
+      {
+        persist: false,
+      },
+    );
+  }
 
   if (typeof saveGame === "function") {
     saveGame();
   }
+
+  return true;
+}
+function prioritizeCraftingQueueJob(jobId) {
+  const queue = getCraftingQueue();
+
+  const jobIndex = queue.findIndex(
+    job => job.id === jobId
+  );
+
+  if (jobIndex <= 0) {
+    return false;
+  }
+
+  player.crafting.priorityJobId = jobId;
+
+  saveGame?.();
 
   return true;
 }
@@ -2943,9 +2995,65 @@ function completeCraftingQueueCycle(
   job.completedCraftCount +=
     totalCompletedCycleCount;
 
+  const priorityJobId =
+    player.crafting.priorityJobId;
+
+  const priorityJobIndex =
+    priorityJobId
+      ? player.crafting.queue.findIndex(
+        queueJob => {
+          return queueJob.id === priorityJobId;
+        }
+      )
+      : -1;
+
   const jobFinished =
     job.completedCraftCount >=
     job.totalCraftCount;
+
+  if (
+    !jobFinished &&
+    priorityJobIndex > 0
+  ) {
+    const [priorityJob] =
+      player.crafting.queue.splice(
+        priorityJobIndex,
+        1
+      );
+
+    const currentJob =
+      player.crafting.queue.shift();
+
+    currentJob.cycleStartedAt = 0;
+    currentJob.cycleFinishesAt = 0;
+
+    priorityJob.cycleStartedAt = 0;
+    priorityJob.cycleFinishesAt = 0;
+
+    player.crafting.queue.unshift(
+      priorityJob
+    );
+
+    player.crafting.queue.splice(
+      1,
+      0,
+      currentJob
+    );
+
+    player.crafting.priorityJobId = null;
+
+    startNextCraftingQueueJob(
+      lastCompletedCycleFinishesAt,
+      { persist: false }
+    );
+
+    saveGame?.();
+    render?.();
+
+    return true;
+  }
+
+
 
   if (jobFinished) {
     activateCompletedProfessionToolUpgrade(

@@ -187,16 +187,6 @@ function renderGarden() {
     if (!container) {
         return;
     }
-
-    const upgradeLevel =
-        player.garden.upgradeLevel;
-
-    const upgradeCost =
-        getGardenUpgradeCost();
-
-    const growthBonus =
-        (upgradeLevel - 1) * 5;
-
     const unlockedPlotCount =
         getGardenUnlockedPlotCount();
 
@@ -272,6 +262,9 @@ function renderGarden() {
 
     const expansionLevel =
         player.garden.expansionLevel;
+    const expansionMaxed =
+        expansionLevel >=
+        GARDEN_MAX_EXPANSION_LEVEL;
 
     const expansionCost =
         getGardenExpansionCost();
@@ -426,40 +419,37 @@ function renderGarden() {
         }
     </button>
 </div>
-<div class="garden-upgrade-panel">
+<div class="garden-upgrade-card">
     <div>
-        <strong>
-            Rozbudowa ogrodu
-            ${expansionLevel}/${GARDEN_MAX_EXPANSION_LEVEL}
-        </strong>
+        <strong>🧱 Rozbudowa ogrodu</strong>
 
         <span>
+            Poziom ${expansionLevel}/
+            ${GARDEN_MAX_EXPANSION_LEVEL}
+        </span>
+
+        <small>
             Każdy poziom odblokowuje jedną dodatkową grządkę.
-        </span>
+        </small>
 
-        <span>
+        <small>
             Dodatkowe grządki: +${expansionLevel}
-        </span>
+        </small>
     </div>
 
     <button
+        type="button"
         class="garden-upgrade-button"
-        onclick="purchaseGardenExpansion()"
-        ${expansionLevel >=
-            GARDEN_MAX_EXPANSION_LEVEL
-            ? "disabled"
-            : ""
-        }
+        onclick="buyGardenExpansionUpgrade()"
+        ${expansionMaxed ? "disabled" : ""}
     >
-        ${expansionLevel >=
-            GARDEN_MAX_EXPANSION_LEVEL
+        ${expansionMaxed
             ? "Maksymalny poziom"
-            : "Odblokuj grządkę za " +
-            expansionCost.toLocaleString("pl-PL") +
-            " złota"
+            : "Ulepsz za " + expansionCost + " 💰"
         }
     </button>
 </div>
+
     `;
 }
 

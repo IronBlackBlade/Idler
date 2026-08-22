@@ -852,25 +852,7 @@ function renderCombatFoodPanel() {
         return;
     }
 
-    if (cooldownSeconds > 0) {
-        statusElement.textContent =
-            "Jedzenie: " +
-            cooldownSeconds +
-            " s";
 
-        useButton.textContent =
-            "🍴 Odnowienie " +
-            cooldownSeconds +
-            " s";
-
-        useButton.disabled = true;
-
-        slot.classList.add(
-            "combat-food-cooldown"
-        );
-
-        return;
-    }
 
     const sameFoodIsActive =
         activeFood &&

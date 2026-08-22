@@ -1195,3 +1195,9 @@
     opacity: 0.45 !important;
     cursor: not-allowed !important;
 }
+
+.alchemy-queue-active.is-drop-target {
+  border-color: #bc82ce;
+  background: rgba(188, 130, 206, 0.14);
+  box-shadow: 0 0 14px rgba(188, 130, 206, 0.2);
+}

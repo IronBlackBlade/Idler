@@ -209,6 +209,168 @@ function getCraftingWeaponDamageComparisonHtml(resultItem) {
     `;
 }
 
+function getCraftingArmorComparisonHtml(
+  resultItem,
+  recipe = null,
+) {
+  const armorSlots = {
+    shield: "shield",
+    helmet: "helmet",
+    armor: "armor",
+    pants: "pants",
+    boots: "boots",
+    gloves: "gloves",
+  };
+
+  const slot = armorSlots[resultItem?.type];
+
+  if (!resultItem || !slot) {
+    return "";
+  }
+
+  const equippedItemId =
+    player.equipment?.[slot] || null;
+
+  const equippedItem =
+    equippedItemId
+      ? items[equippedItemId]
+      : null;
+
+  const currentArmor = Math.max(
+    0,
+    Number(equippedItem?.armor) || 0,
+  );
+
+  const newArmor = Math.max(
+    0,
+    Number(resultItem.armor) || 0,
+  );
+
+  const difference =
+    newArmor - currentArmor;
+
+  let differenceClass = "neutral";
+  let differenceText = "• 0";
+
+  if (difference > 0) {
+    differenceClass = "positive";
+    differenceText = "▲ +" + difference;
+  }
+
+  if (difference < 0) {
+    differenceClass = "negative";
+    differenceText = "▼ " + difference;
+  }
+
+  return `
+    <div class="crafting-weapon-damage-comparison">
+      <div class="crafting-weapon-damage-header">
+        🛡️ Porównanie pancerza
+      </div>
+
+      <div class="crafting-weapon-damage-row">
+        <span>Aktualny element</span>
+        <strong>
+          ${equippedItem?.name || "Brak"}
+          ${currentArmor}
+        </strong>
+      </div>
+
+      <div class="crafting-weapon-damage-row">
+        <span>Nowy element</span>
+        <strong>
+          ${resultItem.name}
+          ${newArmor}
+        </strong>
+      </div>
+
+      <div class="crafting-weapon-damage-row ${differenceClass}">
+        <span>Różnica</span>
+        <strong>${differenceText}</strong>
+      </div>
+    </div>
+  `;
+}
+function getCraftingArmorComparisonHtml(resultItem) {
+  const slotsByType = {
+    shield: "shield",
+    helmet: "helmet",
+    armor: "armor",
+    pants: "pants",
+    boots: "boots",
+    gloves: "gloves",
+  };
+
+  const slot = slotsByType[resultItem?.type];
+
+  if (!resultItem || !slot) {
+    return "";
+  }
+
+  const equippedItemId =
+    player.equipment?.[slot] || null;
+
+  const equippedItem = equippedItemId
+    ? items[equippedItemId]
+    : null;
+
+  const currentArmor = Math.max(
+    0,
+    Number(equippedItem?.armor) || 0,
+  );
+
+  const newArmor = Math.max(
+    0,
+    Number(resultItem.armor) || 0,
+  );
+
+  const difference = newArmor - currentArmor;
+
+  let differenceClass = "neutral";
+  let differenceText = "• 0";
+
+  if (difference > 0) {
+    differenceClass = "positive";
+    differenceText = "▲ +" + difference;
+  }
+
+  if (difference < 0) {
+    differenceClass = "negative";
+    differenceText = "▼ " + difference;
+  }
+
+  return `
+    <div class="crafting-weapon-damage-comparison">
+      <div class="crafting-weapon-damage-header">
+        🛡️ Porównanie pancerza
+      </div>
+
+      <div class="crafting-weapon-damage-row">
+        <span>Aktualny element</span>
+        <strong>
+          ${equippedItem?.name || "Brak"}
+          ${currentArmor}
+        </strong>
+      </div>
+
+      <div class="crafting-weapon-damage-row">
+        <span>Nowy element</span>
+        <strong>
+          ${resultItem.name}
+          ${newArmor}
+        </strong>
+      </div>
+
+      <div
+        class="crafting-weapon-damage-row ${differenceClass}"
+      >
+        <span>Różnica</span>
+        <strong>${differenceText}</strong>
+      </div>
+    </div>
+  `;
+}
+
 function getEquipmentUpgradeIcon(item) {
   const iconsByType = {
     weapon: item?.weaponType === "ranged"
@@ -1072,6 +1234,11 @@ function renderCrafting() {
         getCraftingWeaponDamageComparisonHtml(
           resultItem
         );
+      const armorComparisonHtml =
+        getCraftingArmorComparisonHtml(
+          resultItem,
+          recipe,
+        );
 
       const equipmentUpgradePathHtml =
         isEquipmentUpgrade
@@ -1183,6 +1350,13 @@ ${equippedText}
                 `;
       });
 
+      const mainStatKey =
+        getEquipmentUpgradeMainStat(resultItem);
+
+      const mainStatLabel =
+        getCraftingStatLabel(mainStatKey);
+
+
       let stats = "";
 
 
@@ -1220,7 +1394,10 @@ ${equippedText}
             );
 
           stats += `
-      <span>⭐ 1 główna statystyka: ${mainRange[0]}–${mainRange[1]}</span>
+  <span>
+    ⭐ 1 główna statystyka (${mainStatLabel}):
+    ${mainRange[0]}–${mainRange[1]}
+  </span>
       <span>🎲 2 losowe statystyki: ${randomRange[0]}–${randomRange[1]}</span>
     `;
         }
@@ -1254,6 +1431,8 @@ ${equipmentSetContextHtml}
 ${equipmentUpgradePathHtml}
 ${equipmentComparisonHtml}
 ${weaponDamageComparisonHtml}
+${armorComparisonHtml}
+
 
 <button
     type="button"
@@ -1353,6 +1532,8 @@ ${equipmentUpgradePathHtml}
 ${equipmentComparisonHtml}
 
 ${weaponDamageComparisonHtml}
+${armorComparisonHtml}
+
 
 <div class="crafting-batch-panel">
     <div class="crafting-batch-row">
@@ -1543,4 +1724,16 @@ ${stats ? `
     details.appendChild(recipesContainer);
     container.appendChild(details);
   });
+}
+
+function getCraftingStatLabel(statKey) {
+  const labels = {
+    strength: "Siła",
+    dexterity: "Zręczność",
+    intelligence: "Inteligencja",
+    endurance: "Wytrzymałość",
+    luck: "Szczęście",
+  };
+
+  return labels[statKey] || statKey || "Brak";
 }

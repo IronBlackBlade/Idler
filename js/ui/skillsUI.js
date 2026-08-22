@@ -1,30 +1,173 @@
 let currentSkillTree = "magic";
+
+let selectedCombatBranch =
+    localStorage.getItem(
+        "idler_combat_skill_branch"
+    ) || null;
+
+let selectedCombatSpecialization =
+    localStorage.getItem(
+        "idler_combat_skill_specialization"
+    ) || null;
+
+function selectCombatSkillBranch(branchId) {
+    selectedCombatBranch = branchId;
+    selectedCombatSpecialization = null;
+
+    localStorage.setItem(
+        "idler_combat_skill_branch",
+        branchId
+    );
+
+    localStorage.removeItem(
+        "idler_combat_skill_specialization"
+    );
+
+    renderSkills();
+}
+
+function selectCombatSkillSpecialization(
+    specializationId
+) {
+    selectedCombatSpecialization =
+        specializationId;
+
+    localStorage.setItem(
+        "idler_combat_skill_specialization",
+        specializationId
+    );
+
+    renderSkills();
+}
+
+function clearCombatSkillSelection() {
+    selectedCombatBranch = null;
+    selectedCombatSpecialization = null;
+
+    localStorage.removeItem(
+        "idler_combat_skill_branch"
+    );
+
+    localStorage.removeItem(
+        "idler_combat_skill_specialization"
+    );
+
+    renderSkills();
+}
+
+const combatBranchDefinitions = {
+    melee: {
+        icon: "⚔️",
+        name: "Walka wręcz",
+        specializations: ["slashing", "blunt"],
+    },
+    ranged: {
+        icon: "🏹",
+        name: "Broń dystansowa",
+        specializations: ["bow", "crossbow"],
+    },
+    magic_weapon: {
+        icon: "🪄",
+        name: "Broń magiczna",
+        specializations: ["wand", "staff"],
+    },
+};
+
+function hasPointsInSkillBranch(branchId) {
+    return Object.values(skills).some(skill => {
+        return (
+            skill.tree === "combat" &&
+            skill.branch === branchId &&
+            getSkillLevel(skill.id) > 0
+        );
+    });
+}
+
+function getSelectedCombatBranch() {
+    return (
+        Object.keys(combatBranchDefinitions).find(
+            branchId => {
+                const definition =
+                    combatBranchDefinitions[branchId];
+
+                return (
+                    hasPointsInSkillBranch(branchId) ||
+                    definition.specializations.some(
+                        hasPointsInSkillBranch,
+                    )
+                );
+            },
+        ) || null
+    );
+}
+
+function getSelectedCombatSpecialization(
+    combatBranchId,
+) {
+    const definition =
+        combatBranchDefinitions[combatBranchId];
+
+    if (!definition) {
+        return null;
+    }
+
+    return (
+        definition.specializations.find(
+            hasPointsInSkillBranch,
+        ) || null
+    );
+}
+
+function isCombatSkillVisible(skill) {
+    if (skill.tree !== "combat") {
+        return true;
+    }
+
+    const selectedBranch =
+        getSelectedCombatBranch();
+
+    if (!selectedBranch) {
+        return (
+            skill.branch === "general" ||
+            Object.keys(
+                combatBranchDefinitions,
+            ).includes(skill.branch)
+        );
+    }
+
+    const definition =
+        combatBranchDefinitions[selectedBranch];
+
+    const selectedSpecialization =
+        getSelectedCombatSpecialization(
+            selectedBranch,
+        );
+
+    if (
+        skill.branch === "general" ||
+        skill.branch === selectedBranch
+    ) {
+        return true;
+    }
+
+    if (
+        definition.specializations.includes(
+            skill.branch,
+        )
+    ) {
+        return (
+            !selectedSpecialization ||
+            skill.branch === selectedSpecialization
+        );
+    }
+
+    return false;
+}
+
 let currentMagicCategory =
     "offensive_spells";
 
-const magicCategoryDefinitions = [
-    {
-        id: "general",
-        icon: "🔮",
-        name: "Arkana",
-        description:
-            "Wiedza tajemna i ogólne podstawy magii."
-    },
-    {
-        id: "offensive_spells",
-        icon: "🔥",
-        name: "Ofensywne",
-        description:
-            "Czary zadające obrażenia i osłabiające przeciwnika."
-    },
-    {
-        id: "defensive_spells",
-        icon: "🛡️",
-        name: "Defensywne",
-        description:
-            "Leczenie, bariery i sposoby unikania obrażeń."
-    }
-];
+
 
 function setCurrentMagicCategory(
     categoryId
@@ -209,17 +352,14 @@ function getSkillBranchName(
             "Przetrwanie",
 
         melee: "Walka wręcz",
-
         slashing: "Broń sieczna",
         blunt: "Broń obuchowa",
 
         ranged: "Broń dystansowa",
-
         bow: "Łuk",
         crossbow: "Kusza",
 
         magic_weapon: "Broń magiczna",
-
         wand: "Różdżka",
         staff: "Kostur",
 
@@ -914,6 +1054,9 @@ function createWarriorSkillTreeLayout(
         </div>
     `;
 
+
+
+
     const specializationStatus =
         document.createElement("div");
 
@@ -1051,12 +1194,7 @@ function createWarriorSkillTreeLayout(
                 </div>
             `;
 
-            /*
-             * Główny łańcuch danej kategorii.
-             *
-             * Dla walki wręcz trafi tutaj
-             * wspólne Szkolenie w walce wręcz.
-             */
+
             const chain =
                 document.createElement(
                     "div"
@@ -1149,6 +1287,36 @@ function createWarriorSkillTreeLayout(
                     </small>
                 </div>
             `;
+                        const specializationButton =
+                            document.createElement("button");
+
+                        specializationButton.type = "button";
+                        specializationButton.className =
+                            "combat-path-select-button";
+
+                        specializationButton.textContent =
+                            selectedCombatSpecialization ===
+                                specialization.id
+                                ? "Wybrana broń"
+                                : "Wybierz broń";
+
+                        specializationButton.onclick = () => {
+                            selectCombatSkillSpecialization(
+                                specialization.id
+                            );
+                        };
+
+                        specializationHeading.appendChild(
+                            specializationButton
+                        );
+
+                        if (
+                            selectedCombatSpecialization &&
+                            selectedCombatSpecialization !==
+                            specialization.id
+                        ) {
+                            specializationSection.hidden = true;
+                        }
 
                         /*
                          * Przyszłe umiejętności z:
@@ -1202,6 +1370,42 @@ function createWarriorSkillTreeLayout(
 
     layout.appendChild(rootSection);
     layout.appendChild(branches);
+    layout.classList.toggle(
+        "has-selected-combat-branch",
+        Boolean(selectedCombatBranch)
+    );
+
+    layout.classList.toggle(
+        "has-selected-combat-specialization",
+        Boolean(selectedCombatSpecialization)
+    );
+
+    if (selectedCombatBranch) {
+        const resetButton =
+            document.createElement("button");
+
+        resetButton.type = "button";
+        resetButton.className =
+            "combat-path-reset-button";
+
+        resetButton.textContent =
+            "Pokaż wszystkie ścieżki";
+
+        resetButton.onclick =
+            clearCombatSkillSelection;
+
+        rootSection.appendChild(resetButton);
+    }
+
+    layout.classList.toggle(
+        "combat-branch-selected",
+        Boolean(selectedCombatBranch)
+    );
+
+    layout.classList.toggle(
+        "combat-specialization-selected",
+        Boolean(selectedCombatSpecialization)
+    );
     container.appendChild(layout);
 
     return targets;
@@ -1351,6 +1555,7 @@ function createExplorationSkillTreeLayout(
                 </div>
             `;
 
+
             const chain =
                 document.createElement(
                     "div"
@@ -1399,6 +1604,7 @@ function createExplorationSkillTreeLayout(
 function createCombatSkillTreeLayout(
     container
 ) {
+    restoreCombatPathFromSkills();
     const branchDefinitions = [
         {
             id: "melee",
@@ -1625,7 +1831,30 @@ function createCombatSkillTreeLayout(
                     </small>
                 </div>
             `;
+            const branchButton =
+                document.createElement("button");
 
+            branchButton.type = "button";
+            branchButton.className =
+                "combat-path-select-button";
+
+            branchButton.textContent =
+                selectedCombatBranch === branch.id
+                    ? "Wybrana ścieżka"
+                    : "Wybierz ścieżkę";
+
+            branchButton.onclick = () => {
+                selectCombatSkillBranch(branch.id);
+            };
+
+            heading.appendChild(branchButton);
+
+            if (
+                selectedCombatBranch &&
+                selectedCombatBranch !== branch.id
+            ) {
+                section.hidden = true;
+            }
             /*
              * Tutaj trafi wspólna
              * umiejętność danej kategorii.
@@ -1736,7 +1965,15 @@ function createCombatSkillTreeLayout(
                     specializations.appendChild(
                         specializationSection
                     );
+                    if (
+                        selectedCombatSpecialization &&
+                        specialization.id !==
+                        selectedCombatSpecialization
+                    ) {
+                        specializationSection.hidden = true;
+                    }
                 }
+
             );
 
             section.appendChild(
@@ -1762,6 +1999,49 @@ function createCombatSkillTreeLayout(
     );
 
     return targets;
+}
+
+function restoreCombatPathFromSkills() {
+    if (!selectedCombatBranch) {
+        const branchIds = [
+            "melee",
+            "ranged",
+            "magic_weapon"
+        ];
+
+        selectedCombatBranch =
+            branchIds.find(branchId => {
+                return Object.values(skills).some(skill => {
+                    return (
+                        skill.tree === "combat" &&
+                        skill.branch === branchId &&
+                        getSkillLevel(skill.id) > 0
+                    );
+                });
+            }) || null;
+    }
+
+    if (!selectedCombatSpecialization) {
+        const specializationIds = [
+            "slashing",
+            "blunt",
+            "bow",
+            "crossbow",
+            "wand",
+            "staff"
+        ];
+
+        selectedCombatSpecialization =
+            specializationIds.find(branchId => {
+                return Object.values(skills).some(skill => {
+                    return (
+                        skill.tree === "combat" &&
+                        skill.branch === branchId &&
+                        getSkillLevel(skill.id) > 0
+                    );
+                });
+            }) || null;
+    }
 }
 
 function createMagicSkillTreeLayout(
@@ -2586,17 +2866,25 @@ function renderSkills() {
         `;
     }
 
-    if (magicCategoryContainer) {
-        magicCategoryContainer.innerHTML = "";
-        magicCategoryContainer.hidden = true;
-    }
+    renderMagicCategoryTabs(
+        magicCategoryContainer
+    );
 
     const treeSkills =
         Object.values(skills).filter(skill => {
-            return (
-                skill.tree ===
-                currentSkillTree
-            );
+            if (skill.tree !== currentSkillTree) {
+                return false;
+            }
+
+
+            if (
+                currentSkillTree === "combat" &&
+                !isCombatSkillVisible(skill)
+            ) {
+                return false;
+            }
+
+            return true;
         });
 
     if (treeSkills.length === 0) {

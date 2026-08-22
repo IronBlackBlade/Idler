@@ -251,6 +251,13 @@ function loadGame() {
     }
 
     if (
+        typeof ensureGardenState ===
+        "function"
+    ) {
+        ensureGardenState();
+    }
+
+    if (
         typeof ensureCraftingState ===
         "function"
     ) {

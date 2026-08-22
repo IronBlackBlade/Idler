@@ -261,6 +261,31 @@ const player = {
         lastResult: null
     },
 
+    garden: {
+        level: 1,
+        exp: 0,
+        upgradeLevel: 1,
+        upgrades: {
+            greenhouseLevel: 0,
+            fertileSoilLevel: 0,
+            seedChestLevel: 0
+        },
+        expansionLevel: 0,
+        expToNextLevel: 80,
+        plots: [
+            { id: "garden_plot_1", seedItemId: null, sourceItemId: null, plantedAt: 0, finishesAt: 0 },
+            { id: "garden_plot_2", seedItemId: null, sourceItemId: null, plantedAt: 0, finishesAt: 0 },
+            { id: "garden_plot_3", seedItemId: null, sourceItemId: null, plantedAt: 0, finishesAt: 0 },
+            { id: "garden_plot_4", seedItemId: null, sourceItemId: null, plantedAt: 0, finishesAt: 0 },
+            { id: "garden_plot_5", seedItemId: null, sourceItemId: null, plantedAt: 0, finishesAt: 0 },
+            { id: "garden_plot_6", seedItemId: null, sourceItemId: null, plantedAt: 0, finishesAt: 0 },
+            { id: "garden_plot_7", seedItemId: null, sourceItemId: null, plantedAt: 0, finishesAt: 0 },
+            { id: "garden_plot_8", seedItemId: null, sourceItemId: null, plantedAt: 0, finishesAt: 0 },
+            { id: "garden_plot_9", seedItemId: null, sourceItemId: null, plantedAt: 0, finishesAt: 0 },
+            { id: "garden_plot_10", seedItemId: null, sourceItemId: null, plantedAt: 0, finishesAt: 0 }
+        ]
+    },
+
     professionTools: {
         pickaxe: null,
         sickle: null,
@@ -402,6 +427,31 @@ function resetPlayer() {
         craftingFinishesAt: 0,
 
         lastResult: null
+    };
+
+    player.garden = {
+        level: 1,
+        exp: 0,
+        upgradeLevel: 1,
+        upgrades: {
+            greenhouseLevel: 0,
+            fertileSoilLevel: 0,
+            seedChestLevel: 0
+        },
+        expansionLevel: 0,
+        expToNextLevel: 80,
+        plots: [
+            { id: "garden_plot_1", seedItemId: null, sourceItemId: null, plantedAt: 0, finishesAt: 0 },
+            { id: "garden_plot_2", seedItemId: null, sourceItemId: null, plantedAt: 0, finishesAt: 0 },
+            { id: "garden_plot_3", seedItemId: null, sourceItemId: null, plantedAt: 0, finishesAt: 0 },
+            { id: "garden_plot_4", seedItemId: null, sourceItemId: null, plantedAt: 0, finishesAt: 0 },
+            { id: "garden_plot_5", seedItemId: null, sourceItemId: null, plantedAt: 0, finishesAt: 0 },
+            { id: "garden_plot_6", seedItemId: null, sourceItemId: null, plantedAt: 0, finishesAt: 0 },
+            { id: "garden_plot_7", seedItemId: null, sourceItemId: null, plantedAt: 0, finishesAt: 0 },
+            { id: "garden_plot_8", seedItemId: null, sourceItemId: null, plantedAt: 0, finishesAt: 0 },
+            { id: "garden_plot_9", seedItemId: null, sourceItemId: null, plantedAt: 0, finishesAt: 0 },
+            { id: "garden_plot_10", seedItemId: null, sourceItemId: null, plantedAt: 0, finishesAt: 0 }
+        ]
     };
 
     player.isFighting = false;
@@ -639,7 +689,7 @@ function getExpToNextLevel(level) {
             0,
             normalizedLevel - 10
         ) *
-        0.35;
+        0.25;
 
     return Math.floor(
         baseRequirement *
@@ -661,8 +711,28 @@ function checkLevelUp() {
             player.expToNextLevel;
 
         player.level++;
-        player.attributePoints += 5;
-        player.skillPoints += 1;
+
+        let gainedAttributePoints = 5;
+        let gainedSkillPoints = 1;
+
+        if (player.level % 5 === 0) {
+            gainedAttributePoints += 5;
+            gainedSkillPoints += 1;
+        }
+
+        player.attributePoints += gainedAttributePoints;
+        player.skillPoints += gainedSkillPoints;
+        if (
+            player.level % 5 === 0 &&
+            typeof showNotification === "function"
+        ) {
+            showNotification(
+                "Premia za " +
+                player.level +
+                ". poziom: +5 pkt atrybutów i +1 pkt umiejętności!",
+                "success"
+            );
+        }
         if (
             player.level === 10 &&
             !player.classId
