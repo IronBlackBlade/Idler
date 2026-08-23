@@ -20,11 +20,12 @@ const miningAreas = [
             { itemId: "mine_amber", weight: 100, miningExp: 50 }
         ]
     },
+    
     {
         id: "middle_mine",
         name: "Środek kopalni",
         description: "Głębsze korytarze z lepszymi rudami i pierwszymi cennymi kryształami.",
-        requiredMiningLevel: 5,
+        requiredMiningLevel: 10,
         durationSeconds: 15,
         rareChance: 16,
         exceptionalChance: 1.8,
@@ -41,11 +42,12 @@ const miningAreas = [
             { itemId: "pure_crystal", weight: 100, miningExp: 65 }
         ]
     },
+
     {
         id: "left_shaft",
         name: "Lewy szyb",
         description: "Stare wyrobisko pełne srebra, złota i pozostałości pradawnych stworzeń.",
-        requiredMiningLevel: 10,
+        requiredMiningLevel: 20,
         durationSeconds: 18,
         rareChance: 14,
         exceptionalChance: 1.5,
@@ -62,11 +64,12 @@ const miningAreas = [
             { itemId: "ancient_fossil", weight: 100, miningExp: 80 }
         ]
     },
+
     {
         id: "right_shaft",
         name: "Prawy szyb",
         description: "Niebezpieczne, gorące tunele z obsydianem i rudą platyny.",
-        requiredMiningLevel: 15,
+        requiredMiningLevel: 30,
         durationSeconds: 21,
         rareChance: 12,
         exceptionalChance: 1.2,
@@ -83,11 +86,12 @@ const miningAreas = [
             { itemId: "burning_crystal", weight: 100, miningExp: 100 }
         ]
     },
+
     {
         id: "deep_tunnels",
         name: "Głębokie tunele",
         description: "Najgłębsza część kopalni. Kryje najcenniejsze minerały i odłamki mocy ziemi.",
-        requiredMiningLevel: 20,
+        requiredMiningLevel: 40,
         durationSeconds: 27,
         rareChance: 10,
         exceptionalChance: 1,
@@ -104,11 +108,12 @@ const miningAreas = [
             { itemId: "earth_core_shard", weight: 100, miningExp: 150 }
         ]
     },
+
     {
         id: "crystal_rift",
         name: "Kryształowa rozpadlina",
         description: "Pęknięcie w głębi ziemi odsłaniające runiczne skały, adamantyt i minerały nasycone magią.",
-        requiredMiningLevel: 35,
+        requiredMiningLevel: 50,
         durationSeconds: 32,
         rareChance: 9,
         exceptionalChance: 0.8,
@@ -125,11 +130,12 @@ const miningAreas = [
             { itemId: "crystal_heart", weight: 100, miningExp: 180 }
         ]
     },
+
     {
         id: "titans_abyss",
         name: "Otchłań tytanów",
         description: "Mityczne wyrobisko pod fundamentami świata, gdzie skały przechowują moc tytanów i gwiazd.",
-        requiredMiningLevel: 50,
+        requiredMiningLevel: 60,
         durationSeconds: 38,
         rareChance: 8,
         exceptionalChance: 0.6,

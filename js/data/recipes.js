@@ -471,17 +471,6 @@ const recipes = [
         ]
     },
 
-    {
-        id: "recipe_weighted_mace_head",
-        resultItemId: "weighted_mace_head",
-        category: "materials",
-        subcategory: "blacksmith",
-        name: "Obciążona głowica obuchu",
-        description: "Materiał używany do wytwarzania broni obuchowych.",
-        requiredCraftingLevel: 5,
-        resultQuantity: 1,
-        requiresScroll: false
-    },
 
 
 
@@ -512,6 +501,133 @@ const recipes = [
             }
         ]
 
+    },
+    {
+        id: "titan_whetstone_recipe",
+        name: "Tytanowy kamień szlifierski",
+
+        category: "materials",
+        subcategory: "blacksmith",
+
+        resultItemId: "titan_whetstone",
+        requiredCraftingLevel: 25,
+        craftingExp: 100,
+        craftingTimeSeconds: 25,
+
+        requiresScroll: false,
+        unlockCost: 0,
+        goldCost: 50,
+
+        materials: [
+            {
+                itemId: "titan_stone",
+                quantity: 5
+            },
+            {
+                itemId: "stone",
+                quantity: 5
+            }
+        ]
+    },
+
+    {
+        id: "prismatic_whetstone_recipe",
+        name: "Pryzmatyczny kamień szlifierski",
+        category: "materials",
+        subcategory: "blacksmith",
+        resultItemId: "prismatic_whetstone",
+        requiredCraftingLevel: 35,
+        craftingExp: 320,
+        craftingTimeSeconds: 30,
+        requiresScroll: false,
+        unlockCost: 0,
+        goldCost: 120,
+        materials: [
+            {
+                itemId: "crystal_shard",
+                quantity: 3
+            },
+            {
+                itemId: "prismatic_gem",
+                quantity: 1
+            },
+            {
+                itemId: "obsidian_whetstone",
+                quantity: 1
+            }
+        ]
+    },
+
+
+    {
+        id: "abyssal_whetstone_recipe",
+        name: "Otchłaniowy kamień szlifierski",
+        category: "materials",
+        subcategory: "blacksmith",
+        resultItemId: "abyssal_whetstone",
+        requiredCraftingLevel: 45,
+        craftingExp: 600,
+        craftingTimeSeconds: 42,
+        requiresScroll: false,
+        unlockCost: 0,
+        goldCost: 250,
+        materials: [
+            {
+                itemId: "prismatic_whetstone",
+                quantity: 1
+            },
+            {
+                itemId: "dark_matter",
+                quantity: 2
+            },
+            {
+                itemId: "chaos_essence",
+                quantity: 1
+            }
+        ]
+    },
+    {
+        id: "deepsea_whetstone_recipe",
+        name: "Głębinowy kamień szlifierski",
+        category: "materials",
+        subcategory: "blacksmith",
+        resultItemId: "deepsea_whetstone",
+        requiredCraftingLevel: 55,
+        craftingExp: 950,
+        craftingTimeSeconds: 55,
+        requiresScroll: false,
+        unlockCost: 0,
+        goldCost: 450,
+        materials: [
+            {
+                itemId: "abyssal_whetstone",
+                quantity: 1
+            },
+            {
+                itemId: "petrified_plate",
+                quantity: 2
+            },
+            {
+                itemId: "coral_heart",
+                quantity: 1
+            },
+            {
+                itemId: "depth_essence",
+                quantity: 1
+            }
+        ]
+    },
+
+    {
+        id: "recipe_weighted_mace_head",
+        resultItemId: "weighted_mace_head",
+        category: "materials",
+        subcategory: "blacksmith",
+        name: "Obciążona głowica obuchu",
+        description: "Materiał używany do wytwarzania broni obuchowych.",
+        requiredCraftingLevel: 5,
+        resultQuantity: 1,
+        requiresScroll: false
     },
     {
         id: "runic_core_recipe",
@@ -555,32 +671,53 @@ const recipes = [
     },
 
     {
-        id: "titan_whetstone_recipe",
-        name: "Tytanowy kamień szlifierski",
-
+        id: "abyss_mace_head_recipe",
+        name: "Głowica Otchłani",
         category: "materials",
         subcategory: "blacksmith",
-
-        resultItemId: "titan_whetstone",
-        requiredCraftingLevel: 25,
-        craftingExp: 100,
-        craftingTimeSeconds: 25,
-
+        resultItemId: "abyss_mace_head",
+        requiredCraftingLevel: 40,
+        craftingExp: 900,
+        craftingTimeSeconds: 60,
         requiresScroll: false,
         unlockCost: 0,
-        goldCost: 50,
-
-        materials: [
-            {
-                itemId: "titan_stone",
-                quantity: 5
-            },
-            {
-                itemId: "stone",
-                quantity: 5
-            }
-        ]
+        goldCost: 140,
+        materials: []
     },
+
+    {
+        id: "deep_mace_head_recipe",
+        name: "Głowica Głębinowa",
+        category: "materials",
+        subcategory: "blacksmith",
+        resultItemId: "deep_mace_head",
+        requiredCraftingLevel: 50,
+        craftingExp: 1250,
+        craftingTimeSeconds: 72,
+        requiresScroll: false,
+        unlockCost: 0,
+        goldCost: 190,
+
+        materials: []
+    },
+
+    {
+        id: "prismatic_mace_head_recipe",
+        name: "Pryzmatyczna głowica",
+        category: "materials",
+        subcategory: "blacksmith",
+        resultItemId: "prismatic_mace_head",
+        requiredCraftingLevel: 60,
+        craftingExp: 1700,
+        craftingTimeSeconds: 84,
+        requiresScroll: false,
+        unlockCost: 0,
+        goldCost: 260,
+
+        materials: []
+    },
+
+
     {
         id: "simple_crossbow_trigger_recipe",
         name: "Prosty mechanizm spustowy",
@@ -682,11 +819,11 @@ const recipes = [
         craftingTimeSeconds: 12,
         requiresScroll: false,
         unlockCost: 80,
-        goldCost: 60,        
+        goldCost: 60,
         materials: [],
     },
 
-    
+
 
     {
         id: "cave_sword_recipe",
@@ -699,7 +836,7 @@ const recipes = [
         requiresScroll: false,
         unlockCost: 250,
         goldCost: 180,
-        materials: [ ],
+        materials: [],
     },
 
     {
@@ -728,7 +865,7 @@ const recipes = [
         unlockCost: 900,
         goldCost: 700,
 
-        materials: [ ]
+        materials: []
     },
 
     {
@@ -743,7 +880,7 @@ const recipes = [
         unlockCost: 1400,
         goldCost: 1100,
 
-        materials: [ ]
+        materials: []
     },
 
     {
@@ -1016,7 +1153,7 @@ const recipes = [
         requiresScroll: false,
         unlockCost: 0,
         goldCost: 3800,
-        materials: [ ]
+        materials: []
     },
 
     {
@@ -1036,7 +1173,7 @@ const recipes = [
         requiresScroll: false,
         unlockCost: 0,
         goldCost: 280,
-        materials: [ ]
+        materials: []
     },
 
     {
@@ -1098,7 +1235,7 @@ const recipes = [
         requiresScroll: false,
         unlockCost: 0,
         goldCost: 70,
-        materials: [ ]
+        materials: []
     },
 
     {
@@ -1200,7 +1337,7 @@ const recipes = [
         requiresScroll: false,
         unlockCost: 0,
         goldCost: 1000,
-        materials: [ ]
+        materials: []
     },
 
     {
@@ -1212,7 +1349,7 @@ const recipes = [
         requiredCraftingLevel: 20,
         goldCost: 1600,
         materials: [],
-        
+
     },
 
 
@@ -1353,7 +1490,7 @@ const recipes = [
         requiresScroll: false,
         unlockCost: 0,
         goldCost: 1400,
-        materials: [ ]
+        materials: []
     },
 
     {

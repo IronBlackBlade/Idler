@@ -905,7 +905,34 @@ const dungeonKeyDropConfigs = {
         bossName: "Pradawny Smok Wulkanu",
         keyName: "Klucz do Serca Wulkanu",
         icon: "🌋"
+    },
+    abyssCitadel: {
+        locationId: "abyss",
+        bossId: "abyss_lord",
+        keyItemId: "abyss_citadel_key",
+        bossName: "Władca Otchłani",
+        keyName: "Klucz do Cytadeli Otchłani",
+        icon: "🌌"
+    },
+    deepPalace: {
+        locationId: "sunkenKingdom",
+        bossId: "crown_leviathan",
+        keyItemId: "deep_palace_key",
+        bossName: "Lewiatan Korony",
+        keyName: "Klucz do Pałacu Głębin",
+        icon: "🌊"
+    },
+    prismaticSpire: {
+        locationId: "crystalPeaks",
+        bossId: "heart_of_the_mountain",
+        keyItemId: "crystal_spire_key",
+        bossName: "Serce Góry",
+        keyName: "Klucz do Pryzmatycznej Iglicy",
+        icon: "💎"
     }
+
+
+
 };
 
 function ensureDungeonKeyProgress(dungeonId) {
@@ -1391,8 +1418,8 @@ function autoAttack() {
             "."
         );
 
-const goldResult =
-    grantGoldReward(enemy.gold);
+        const goldResult =
+            grantGoldReward(enemy.gold);
 
 
         player.exp +=
@@ -1408,6 +1435,29 @@ const goldResult =
 
         const defeatedEnemyWasBoss =
             player.isBossFight === true;
+
+        let firstBossReward = null;
+
+        if (
+            defeatedEnemyWasBoss &&
+            typeof grantFirstBossKillReward ===
+            "function"
+        ) {
+            firstBossReward =
+                grantFirstBossKillReward(
+                    player.location
+                );
+
+            if (firstBossReward) {
+                addCombatLog(
+                    "🏆 Zdobyto pierwszą nagrodę za pokonanie bossa: " +
+                    firstBossReward.gold +
+                    " złota i " +
+                    firstBossReward.experience +
+                    " EXP."
+                );
+            }
+        }
 
         const defeatedDungeonEnemy =
             enemy.isDungeonEncounter === true &&
@@ -1532,6 +1582,8 @@ const goldResult =
     saveGame();
     refreshCombatInterface();
 }
+
+
 
 function autoEnemyAttack() {
     if (

@@ -878,24 +878,24 @@ function getOfflineCombatSurvivalData(
             guardianRecoveryInterval
             : 0;
 
-const guardianClassRegenPercent =
-    player.classId === "guardian" &&
-    typeof getGuardianCombatHpRegenPercent ===
-        "function"
-        ? getGuardianCombatHpRegenPercent()
-        : 0;
+    const guardianClassRegenPercent =
+        player.classId === "guardian" &&
+            typeof getGuardianCombatHpRegenPercent ===
+            "function"
+            ? getGuardianCombatHpRegenPercent()
+            : 0;
 
-const guardianClassHealingPerSecond =
-    (
-        Number(derived.maxHp) || 0
-    ) *
-    guardianClassRegenPercent /
-    100;
+    const guardianClassHealingPerSecond =
+        (
+            Number(derived.maxHp) || 0
+        ) *
+        guardianClassRegenPercent /
+        100;
 
-const healingPerSecond =
-    defensiveSpellHealingPerSecond +
-    guardianHealingPerSecond +
-    guardianClassHealingPerSecond;
+    const healingPerSecond =
+        defensiveSpellHealingPerSecond +
+        guardianHealingPerSecond +
+        guardianClassHealingPerSecond;
 
 
     const averageDamagePerSecond =
@@ -5476,11 +5476,11 @@ function processOfflineCombatProgress(
      */
     if (
         currentEnemyWasBoss &&
-        typeof tryGrantGoblinHideoutKey ===
+        typeof tryGrantDungeonKey ===
         "function"
     ) {
         dungeonKeyResult =
-            tryGrantGoblinHideoutKey(
+            tryGrantDungeonKey(
                 currentEnemyData,
                 player.location
             );

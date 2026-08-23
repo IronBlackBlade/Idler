@@ -145,7 +145,7 @@ const dungeons = {
                 isBoss: true,
                 loot: [
                     { item: "kobold_crown_fragment", chance: 100 },
-                
+
                 ]
             }
         ],
@@ -402,5 +402,387 @@ const dungeons = {
                 }
             ]
         }
+    },
+    abyssCitadel: {
+        id: "abyssCitadel",
+        name: "Cytadela Otchłani",
+        icon: "🌌",
+        keyItemId: "abyss_citadel_key",
+        recommendedLevel: 70,
+
+        rooms: [
+            {
+                id: "memory_keeper",
+                name: "Strażnik wspomnień",
+                hp: 120000,
+                attack: 340,
+                gold: 12000,
+                exp: 17000,
+                loot: [
+                    {
+                        item: "memory_fragment",
+                        chance: 65
+                    },
+                    {
+                        item: "crystallized_thought",
+                        chance: 40
+                    }
+                ]
+            },
+            {
+                id: "rift_stalker",
+                name: "Tropiciel Rozdarcia",
+                hp: 155000,
+                attack: 375,
+                gold: 15000,
+                exp: 21500,
+                loot: [
+                    {
+                        item: "dimensional_thread",
+                        chance: 65
+                    },
+                    {
+                        item: "spatial_gland",
+                        chance: 35
+                    }
+                ]
+            },
+            {
+                id: "void_seer",
+                name: "Wieszcz Pustki",
+                hp: 200000,
+                attack: 415,
+                gold: 19000,
+                exp: 27000,
+                loot: [
+                    {
+                        item: "astral_pupil",
+                        chance: 55
+                    },
+                    {
+                        item: "dark_matter",
+                        chance: 40
+                    }
+                ]
+            },
+            {
+                id: "chaos_colossus",
+                name: "Kolos Chaosu",
+                hp: 275000,
+                attack: 465,
+                gold: 24500,
+                exp: 35000,
+                loot: [
+                    {
+                        item: "rift_core",
+                        chance: 60
+                    },
+                    {
+                        item: "interdimensional_bone",
+                        chance: 45
+                    },
+                    {
+                        item: "chaos_essence",
+                        chance: 25
+                    }
+                ]
+            },
+            {
+                id: "abyss_citadel_sovereign",
+                name: "Suweren Otchłani",
+                hp: 480000,
+                attack: 540,
+                gold: 48000,
+                exp: 70000,
+                isBoss: true,
+                loot: [
+                    {
+                        item: "abyss_heart",
+                        chance: 100
+                    },
+                    {
+                        item: "chaos_essence",
+                        chance: 80
+                    },
+                    {
+                        item: "dark_matter",
+                        chance: 70
+                    }
+                ]
+            }
+        ],
+
+        completionRewards: {
+            gold: 55000,
+            exp: 80000,
+            items: [
+                {
+                    item: "abyss_sovereign_trophy",
+                    quantity: 1
+                }
+            ]
+        }
+    },
+
+    deepPalace: {
+        id: "deepPalace",
+        name: "Pałac Głębin",
+        icon: "🏛️",
+        keyItemId: "deep_palace_key",
+        recommendedLevel: 80,
+
+        rooms: [
+            {
+                id: "sunken_gate_guardian",
+                name: "Strażnik Zatopionej Bramy",
+                hp: 260000,
+                attack: 500,
+                gold: 27000,
+                exp: 38000,
+                loot: [
+                    {
+                        item: "rusted_guard_medal",
+                        chance: 60
+                    },
+                    {
+                        item: "petrified_plate",
+                        chance: 40
+                    }
+                ]
+            },
+            {
+                id: "court_hydromancer",
+                name: "Nadworny Hydromanta",
+                hp: 340000,
+                attack: 550,
+                gold: 34000,
+                exp: 48000,
+                loot: [
+                    {
+                        item: "enchanted_shell",
+                        chance: 60
+                    },
+                    {
+                        item: "depth_essence",
+                        chance: 35
+                    }
+                ]
+            },
+            {
+                id: "royal_siren",
+                name: "Królewska Syrena",
+                hp: 440000,
+                attack: 610,
+                gold: 43000,
+                exp: 61000,
+                loot: [
+                    {
+                        item: "song_crystal",
+                        chance: 55
+                    },
+                    {
+                        item: "coral_heart",
+                        chance: 40
+                    }
+                ]
+            },
+            {
+                id: "palace_reef_colossus",
+                name: "Kolos Pałacowych Raf",
+                hp: 580000,
+                attack: 680,
+                gold: 55000,
+                exp: 78000,
+                loot: [
+                    {
+                        item: "living_coral_shard",
+                        chance: 70
+                    },
+                    {
+                        item: "coral_heart",
+                        chance: 55
+                    },
+                    {
+                        item: "depth_essence",
+                        chance: 30
+                    }
+                ]
+            },
+            {
+                id: "spectral_deep_king",
+                name: "Widmowy Król Głębin",
+                hp: 950000,
+                attack: 780,
+                gold: 105000,
+                exp: 150000,
+                isBoss: true,
+                loot: [
+                    {
+                        item: "leviathan_crown",
+                        chance: 100
+                    },
+                    {
+                        item: "depth_essence",
+                        chance: 85
+                    },
+                    {
+                        item: "coral_heart",
+                        chance: 70
+                    }
+                ]
+            }
+        ],
+
+        completionRewards: {
+            gold: 120000,
+            exp: 175000,
+            items: [
+                {
+                    item:
+                        "spectral_deep_king_trophy",
+                    quantity: 1
+                }
+            ]
+        }
+    },
+    prismaticSpire: {
+        id: "prismaticSpire",
+        name: "Pryzmatyczna Iglica",
+        icon: "💎",
+        keyItemId: "crystal_spire_key",
+        recommendedLevel: 90,
+
+        rooms: [
+            {
+                id: "spire_crystal_sentinel",
+                name: "Kryształowy Wartownik",
+                hp: 1400000,
+                attack: 1050,
+                gold: 260000,
+                exp: 360000,
+
+                loot: [
+                    {
+                        item: "spire_armor_fragment",
+                        chance: 60
+                    },
+                    {
+                        item: "living_crystal",
+                        chance: 40
+                    }
+                ]
+            },
+
+            {
+                id: "prismatic_channeler",
+                name: "Pryzmatyczny Kanałowiec",
+                hp: 1750000,
+                attack: 1130,
+                gold: 320000,
+                exp: 440000,
+
+                loot: [
+                    {
+                        item: "unstable_crystal",
+                        chance: 65
+                    },
+                    {
+                        item: "prismatic_core",
+                        chance: 35
+                    }
+                ]
+            },
+
+            {
+                id: "geode_titan",
+                name: "Tytan Geod",
+                hp: 2200000,
+                attack: 1220,
+                gold: 390000,
+                exp: 540000,
+
+                loot: [
+                    {
+                        item: "geode_heart",
+                        chance: 55
+                    },
+                    {
+                        item: "crystalline_sinew",
+                        chance: 60
+                    },
+                    {
+                        item: "mountain_essence",
+                        chance: 30
+                    }
+                ]
+            },
+
+            {
+                id: "spire_prismatic_guardian",
+                name: "Strażnik Pryzmatycznego Tronu",
+                hp: 2900000,
+                attack: 1320,
+                gold: 480000,
+                exp: 670000,
+
+                loot: [
+                    {
+                        item: "prismatic_scale",
+                        chance: 70
+                    },
+                    {
+                        item: "crystal_stinger",
+                        chance: 55
+                    },
+                    {
+                        item: "prismatic_core",
+                        chance: 45
+                    }
+                ]
+            },
+
+            {
+                id: "prismatic_spire_sovereign",
+                name: "Władca Pryzmatycznej Iglicy",
+                hp: 4800000,
+                attack: 1450,
+                gold: 900000,
+                exp: 1250000,
+                isBoss: true,
+
+                loot: [
+                    {
+                        item: "mountain_heart",
+                        chance: 100
+                    },
+                    {
+                        item: "prismatic_core",
+                        chance: 85
+                    },
+                    {
+                        item: "mountain_essence",
+                        chance: 70
+                    }
+                ]
+            }
+        ],
+
+        completionRewards: {
+            gold: 1100000,
+            exp: 1500000,
+
+            items: [
+                {
+                    item: "prismatic_spire_trophy",
+                    quantity: 1
+                }
+            ]
+        }
     }
+
+
+
 };
+
+
+

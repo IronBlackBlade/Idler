@@ -1242,6 +1242,32 @@ const equipmentCraftRecipes = {
             }
         ]
     },
+abyss_mace_head: {
+    materials: [
+    { itemId: "mithril_ingot", quantity: 5 },
+    { itemId: "void_armor_fragment", quantity: 4 },
+    { itemId: "dark_matter", quantity: 2 },
+    { itemId: "rift_core", quantity: 1 }
+]
+},
+deep_mace_head: {
+materials: [
+    { itemId: "adamantite_ingot", quantity: 5 },
+    { itemId: "petrified_plate", quantity: 4 },
+    { itemId: "coral_heart", quantity: 2 },
+    { itemId: "depth_essence", quantity: 1 }
+]
+},
+
+
+prismatic_mace_head: {
+materials: [
+    { itemId: "dragonsteel_ingot", quantity: 5 },
+    { itemId: "living_crystal", quantity: 4 },
+    { itemId: "prismatic_core", quantity: 2 },
+    { itemId: "mountain_essence", quantity: 1 }
+]
+},
 
     // =========================
     // TARCZE

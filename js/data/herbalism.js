@@ -57,7 +57,7 @@ const herbalismAreas = [
         description:
             "Bagienne tereny pełne grzybów, mchów i toksycznych roślin.",
 
-        requiredHerbalismLevel: 5,
+        requiredHerbalismLevel: 10,
         durationSeconds: 15,
 
         rareChance: 16,
@@ -109,7 +109,7 @@ const herbalismAreas = [
         description:
             "Chłodne i wietrzne zbocze, na którym rosną odporne zioła.",
 
-        requiredHerbalismLevel: 10,
+        requiredHerbalismLevel: 20,
         durationSeconds: 18,
 
         rareChance: 14,
@@ -161,7 +161,7 @@ const herbalismAreas = [
         description:
             "Magiczne miejsce porośnięte roślinami pamiętającymi dawne czasy.",
 
-        requiredHerbalismLevel: 15,
+        requiredHerbalismLevel: 30,
         durationSeconds: 21,
 
         rareChance: 12,
@@ -213,7 +213,7 @@ const herbalismAreas = [
         description:
             "Niebezpieczna kraina pełna toksycznych i magicznie wypaczonych roślin.",
 
-        requiredHerbalismLevel: 20,
+        requiredHerbalismLevel: 40,
         durationSeconds: 27,
 
         rareChance: 10,
@@ -265,7 +265,7 @@ const herbalismAreas = [
         description:
             "Ukryty ogród rozkwitający pomiędzy dniem a nocą, pełen roślin reagujących na sny i magię księżyca.",
 
-        requiredHerbalismLevel: 35,
+        requiredHerbalismLevel: 50,
         durationSeconds: 32,
 
         rareChance: 9,
@@ -317,7 +317,7 @@ const herbalismAreas = [
         description:
             "Sanktuarium poza zwykłym rytmem natury, gdzie pradawne rośliny czerpią siłę z eteru i czasu.",
 
-        requiredHerbalismLevel: 50,
+        requiredHerbalismLevel: 60,
         durationSeconds: 38,
 
         rareChance: 8,

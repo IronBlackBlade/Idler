@@ -3,5 +3,8 @@ const locations = {
     cave: cave,
     ruins: ruins,
     ice: ice,
-    volcano: volcano
+    volcano: volcano,
+    abyss: abyss,
+    sunkenKingdom: sunkenKingdom,
+    crystalPeaks: crystalPeaks,
 };

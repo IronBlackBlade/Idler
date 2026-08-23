@@ -69,7 +69,13 @@ const enemyIcons = {
     frost_queen: "👑",
     goblin_chief: "👺",
     kobold_king: "👑",
-    ancient_guardian: "🗿"
+    ancient_guardian: "🗿",
+
+    crystal_beetle: "🪲",
+    shardling: "🔹",
+    geode_breaker: "🪨",
+    prismatic_manticore: "🌈",
+    crystal_spire_guardian: "🗿"
 };
 
 function getEnemyIcon(enemyId) {

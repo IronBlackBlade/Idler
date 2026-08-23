@@ -566,6 +566,471 @@ const items = {
         value: 500
     },
 
+    /* ========================================
+       MATERIAŁY — RUBIEŻE OTCHŁANI
+    ======================================== */
+
+    memory_fragment: {
+        id: "memory_fragment",
+        name: "Strzęp wspomnienia",
+        rarity: "common",
+        type: "crafting_material",
+        value: 145
+    },
+
+    crystallized_thought: {
+        id: "crystallized_thought",
+        name: "Skrystalizowana myśl",
+        rarity: "uncommon",
+        type: "crafting_material",
+        value: 220
+    },
+
+    cerebral_membrane: {
+        id: "cerebral_membrane",
+        name: "Mózgowa błona",
+        rarity: "rare",
+        type: "crafting_material",
+        value: 340
+    },
+
+    dimensional_thread: {
+        id: "dimensional_thread",
+        name: "Nić wymiarowa",
+        rarity: "common",
+        type: "crafting_material",
+        value: 155
+    },
+
+    weaver_armor_shard: {
+        id: "weaver_armor_shard",
+        name: "Odłamek pancerza tkacza",
+        rarity: "uncommon",
+        type: "crafting_material",
+        value: 240
+    },
+
+    spatial_gland: {
+        id: "spatial_gland",
+        name: "Gruczoł przestrzenny",
+        rarity: "rare",
+        type: "crafting_material",
+        value: 370
+    },
+
+    observer_lens: {
+        id: "observer_lens",
+        name: "Soczewka obserwatora",
+        rarity: "common",
+        type: "crafting_material",
+        value: 170
+    },
+
+    astral_pupil: {
+        id: "astral_pupil",
+        name: "Astralna źrenica",
+        rarity: "uncommon",
+        type: "crafting_material",
+        value: 265
+    },
+
+    focus_ring: {
+        id: "focus_ring",
+        name: "Pierścień skupienia",
+        rarity: "rare",
+        type: "crafting_material",
+        value: 410
+    },
+
+    void_armor_fragment: {
+        id: "void_armor_fragment",
+        name: "Fragment pancerza pustki",
+        rarity: "uncommon",
+        type: "crafting_material",
+        value: 290
+    },
+
+    dark_matter: {
+        id: "dark_matter",
+        name: "Ciemna materia",
+        rarity: "rare",
+        type: "crafting_material",
+        value: 450
+    },
+
+    herald_blade: {
+        id: "herald_blade",
+        name: "Ostrze Herolda",
+        rarity: "epic",
+        type: "crafting_material",
+        value: 720
+    },
+
+    rift_core: {
+        id: "rift_core",
+        name: "Rdzeń rozdarcia",
+        rarity: "rare",
+        type: "crafting_material",
+        value: 500
+    },
+
+    interdimensional_bone: {
+        id: "interdimensional_bone",
+        name: "Kość międzywymiarowa",
+        rarity: "rare",
+        type: "crafting_material",
+        value: 540
+    },
+
+    chaos_essence: {
+        id: "chaos_essence",
+        name: "Esencja chaosu",
+        rarity: "epic",
+        type: "crafting_material",
+        value: 850
+    },
+
+    heart_of_the_abyss: {
+        id: "abyss_heart",
+        name: "Serce Otchłani",
+        rarity: "legendary",
+        type: "crafting_material",
+        description:
+            "Niestabilne serce wyrwane Władcy Otchłani.",
+        value: 1500
+    },
+
+    abyss_citadel_key: {
+        id: "abyss_citadel_key",
+        name: "Klucz do Cytadeli Otchłani",
+        rarity: "legendary",
+        type: "dungeon_key",
+        description:
+            "Pozwala rozpocząć wyprawę do Cytadeli Otchłani.",
+        value: 0,
+        canSell: false
+    },
+
+    /* ========================================
+   MATERIAŁY — ZATOPIONE KRÓLESTWO
+======================================== */
+
+    royal_uniform_scrap: {
+        id: "royal_uniform_scrap",
+        name: "Strzęp królewskiego munduru",
+        rarity: "common",
+        type: "crafting_material",
+        value: 220
+    },
+
+    rusted_guard_medal: {
+        id: "rusted_guard_medal",
+        name: "Zardzewiały medal gwardii",
+        rarity: "uncommon",
+        type: "crafting_material",
+        value: 340
+    },
+
+    drowned_bone: {
+        id: "drowned_bone",
+        name: "Kość topielca",
+        rarity: "rare",
+        type: "crafting_material",
+        value: 520
+    },
+
+    deep_scale: {
+        id: "deep_scale",
+        name: "Głębinowa łuska",
+        rarity: "common",
+        type: "crafting_material",
+        value: 240
+    },
+
+    sea_predator_fang: {
+        id: "sea_predator_fang",
+        name: "Ząb morskiego drapieżcy",
+        rarity: "uncommon",
+        type: "crafting_material",
+        value: 370
+    },
+
+    pressure_gland: {
+        id: "pressure_gland",
+        name: "Gruczoł ciśnieniowy",
+        rarity: "rare",
+        type: "crafting_material",
+        value: 570
+    },
+
+    siren_scale: {
+        id: "siren_scale",
+        name: "Łuska syreny",
+        rarity: "common",
+        type: "crafting_material",
+        value: 260
+    },
+
+    enchanted_shell: {
+        id: "enchanted_shell",
+        name: "Zaklęta muszla",
+        rarity: "uncommon",
+        type: "crafting_material",
+        value: 410
+    },
+
+    song_crystal: {
+        id: "song_crystal",
+        name: "Kryształ pieśni",
+        rarity: "rare",
+        type: "crafting_material",
+        value: 640
+    },
+
+    living_coral_shard: {
+        id: "living_coral_shard",
+        name: "Odłamek żywego koralu",
+        rarity: "uncommon",
+        type: "crafting_material",
+        value: 450
+    },
+
+    petrified_plate: {
+        id: "petrified_plate",
+        name: "Skamieniała płyta",
+        rarity: "rare",
+        type: "crafting_material",
+        value: 680
+    },
+
+    coral_heart: {
+        id: "coral_heart",
+        name: "Koralowe serce",
+        rarity: "epic",
+        type: "crafting_material",
+        value: 1050
+    },
+
+    soaked_scroll: {
+        id: "soaked_scroll",
+        name: "Przemoczony zwój",
+        rarity: "uncommon",
+        type: "crafting_material",
+        value: 480
+    },
+
+    sunken_cult_relic: {
+        id: "sunken_cult_relic",
+        name: "Relikwia zatopionego kultu",
+        rarity: "rare",
+        type: "crafting_material",
+        value: 760
+    },
+
+    depth_essence: {
+        id: "depth_essence",
+        name: "Esencja głębin",
+        rarity: "epic",
+        type: "crafting_material",
+        value: 1200
+    },
+
+    leviathan_crown: {
+        id: "leviathan_crown",
+        name: "Korona Lewiatana",
+        rarity: "legendary",
+        type: "crafting_material",
+        description:
+            "Korona nasycona pradawną mocą władcy głębin.",
+        value: 2400
+    },
+
+    deep_palace_key: {
+        id: "deep_palace_key",
+        name: "Klucz do Pałacu Głębin",
+        rarity: "legendary",
+        type: "dungeon_key",
+        description:
+            "Pozwala rozpocząć wyprawę do Pałacu Głębin.",
+        value: 0,
+        canSell: false
+    },
+
+    spectral_deep_king_trophy: {
+        id: "spectral_deep_king_trophy",
+        name: "Trofeum Widmowego Króla Głębin",
+        rarity: "legendary",
+        type: "dungeon_reward",
+        description:
+            "Dowód ukończenia Pałacu Głębin.",
+        value: 0,
+        canSell: false
+    },
+
+    /* ========================================
+   MATERIAŁY — KRYSZTAŁOWE SZCZYTY
+======================================== */
+
+    crystal_shell: {
+        id: "crystal_shell",
+        name: "Kryształowy pancerzyk",
+        rarity: "common",
+        type: "crafting_material",
+        value: 340
+    },
+
+    shimmering_mandible: {
+        id: "shimmering_mandible",
+        name: "Lśniące żuwaczki",
+        rarity: "uncommon",
+        type: "crafting_material",
+        value: 520
+    },
+
+    crystal_gland: {
+        id: "crystal_gland",
+        name: "Kryształowy gruczoł",
+        rarity: "rare",
+        type: "crafting_material",
+        value: 800
+    },
+
+    floating_shard: {
+        id: "floating_shard",
+        name: "Lewitujący odłamek",
+        rarity: "common",
+        type: "crafting_material",
+        value: 370
+    },
+
+    unstable_crystal: {
+        id: "unstable_crystal",
+        name: "Niestabilny kryształ",
+        rarity: "uncommon",
+        type: "crafting_material",
+        value: 570
+    },
+
+    shardling_core: {
+        id: "shardling_core",
+        name: "Rdzeń odpryskowca",
+        rarity: "rare",
+        type: "crafting_material",
+        value: 870
+    },
+
+    geode_fragment: {
+        id: "geode_fragment",
+        name: "Fragment geody",
+        rarity: "common",
+        type: "crafting_material",
+        value: 400
+    },
+
+    crystalline_sinew: {
+        id: "crystalline_sinew",
+        name: "Krystaliczne ścięgno",
+        rarity: "uncommon",
+        type: "crafting_material",
+        value: 620
+    },
+
+    geode_heart: {
+        id: "geode_heart",
+        name: "Serce geody",
+        rarity: "rare",
+        type: "crafting_material",
+        value: 950
+    },
+
+    prismatic_scale: {
+        id: "prismatic_scale",
+        name: "Pryzmatyczna łuska",
+        rarity: "uncommon",
+        type: "crafting_material",
+        value: 680
+    },
+
+    crystal_stinger: {
+        id: "crystal_stinger",
+        name: "Kryształowe żądło",
+        rarity: "rare",
+        type: "crafting_material",
+        value: 1050
+    },
+
+    refracted_venom: {
+        id: "refracted_venom",
+        name: "Załamany jad",
+        rarity: "epic",
+        type: "crafting_material",
+        value: 1650
+    },
+
+    spire_armor_fragment: {
+        id: "spire_armor_fragment",
+        name: "Fragment pancerza Iglicy",
+        rarity: "uncommon",
+        type: "crafting_material",
+        value: 740
+    },
+
+    living_crystal: {
+        id: "living_crystal",
+        name: "Żywy kryształ",
+        rarity: "rare",
+        type: "crafting_material",
+        value: 1150
+    },
+
+    prismatic_core: {
+        id: "prismatic_core",
+        name: "Pryzmatyczny rdzeń",
+        rarity: "epic",
+        type: "crafting_material",
+        value: 1800
+    },
+
+    mountain_essence: {
+        id: "mountain_essence",
+        name: "Esencja góry",
+        rarity: "epic",
+        type: "crafting_material",
+        value: 2100
+    },
+
+    mountain_heart: {
+        id: "mountain_heart",
+        name: "Serce Góry",
+        rarity: "legendary",
+        type: "crafting_material",
+        description:
+            "Żywe serce wypełnione pradawną mocą Kryształowych Szczytów.",
+        value: 3600
+    },
+
+    crystal_spire_key: {
+        id: "crystal_spire_key",
+        name: "Klucz do Pryzmatycznej Iglicy",
+        rarity: "legendary",
+        type: "dungeon_key",
+        description:
+            "Pozwala rozpocząć wyprawę do Pryzmatycznej Iglicy.",
+        value: 0,
+        canSell: false
+    },
+
+    prismatic_spire_trophy: {
+        id: "prismatic_spire_trophy",
+        name: "Trofeum Pryzmatycznej Iglicy",
+        rarity: "legendary",
+        type: "dungeon_reward",
+        description:
+            "Dowód ukończenia Pryzmatycznej Iglicy.",
+        value: 0,
+        canSell: false
+    },
+
 
 
 
@@ -3162,6 +3627,30 @@ const items = {
         value: 100
     },
 
+    prismatic_whetstone: {
+        id: "prismatic_whetstone",
+        name: "Pryzmatyczny kamień szlifierski",
+        rarity: "epic",
+        type: "processed_material",
+        value: 220
+    },
+
+    abyssal_whetstone: {
+        id: "abyssal_whetstone",
+        name: "Otchłaniowy kamień szlifierski",
+        rarity: "legendary",
+        type: "processed_material",
+        value: 450
+    },
+
+    deepsea_whetstone: {
+        id: "deepsea_whetstone",
+        name: "Głębinowy kamień szlifierski",
+        rarity: "legendary",
+        type: "processed_material",
+        value: 750
+    },
+
     weighted_mace_head: {
         id: "weighted_mace_head",
         name: "Obciążona głowica obuchu",
@@ -3186,6 +3675,30 @@ const items = {
         type: "crafting_material",
         value: 420,
         description: "Ciężka głowica obuchu nasycona ciepłem kamienia słonecznego i rdzenia magmy. Używana do wytwarzania potężnych młotów, buław i maczug."
+    },
+
+    abyss_mace_head: {
+        id: "abyss_mace_head",
+        name: "Głowica Otchłani",
+        rarity: "epic",
+        type: "crafting_material",
+        value: 1800
+    },
+
+    deep_mace_head: {
+        id: "deep_mace_head",
+        name: "Głowica Głębinowa",
+        rarity: "epic",
+        type: "crafting_material",
+        value: 2600
+    },
+
+    prismatic_mace_head: {
+        id: "prismatic_mace_head",
+        name: "Pryzmatyczna głowica",
+        rarity: "legendary",
+        type: "crafting_material",
+        value: 3800
     },
 
     simple_crossbow_trigger: {

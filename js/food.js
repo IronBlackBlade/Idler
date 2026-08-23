@@ -209,11 +209,6 @@ function useSelectedCombatFood() {
         return false;
     }
 
-    const cooldownSeconds =
-        getCombatFoodCooldownSecondsLeft();
-
-
-
     const foodItem =
         items[selectedFoodId];
 
@@ -257,19 +252,6 @@ function useSelectedCombatFood() {
 
     if (!foodWasUsed) {
         return false;
-    }
-
-    /*
-     * Poza walką potrawę można jeść
-     * bez dodatkowego cooldownu.
-     */
-    if (
-        isCombatCurrentlyActive()
-    ) {
-        player.combatFood
-            .cooldownUntil =
-            Date.now() +
-            COMBAT_FOOD_COOLDOWN_MS;
     }
 
     if (
