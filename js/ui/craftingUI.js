@@ -1368,38 +1368,65 @@ ${equippedText}
 
         if (isJewelry) {
           const jewelryRange =
-            getEquipmentUpgradeStatRange(
-              resultItem.requiredLevel,
-              false,
-              resultItem.type
-            );
+            typeof getEquipmentUpgradeStatRange === "function"
+              ? getEquipmentUpgradeStatRange(
+                  resultItem.requiredLevel,
+                  false,
+                  resultItem.type
+                )
+              : null;
 
-          stats += `
+          if (
+            Array.isArray(jewelryRange) &&
+            jewelryRange.length >= 2
+          ) {
+            stats += `
       <span>🎲 3 losowe statystyki</span>
       <span>Zakres każdej: ${jewelryRange[0]}–${jewelryRange[1]}</span>
     `;
+          } else {
+            stats += `
+      <span>🎲 3 losowe statystyki</span>
+      <span>Zakres statystyk zostanie ustalony przy ulepszeniu</span>
+    `;
+          }
         } else {
           const mainRange =
-            getEquipmentUpgradeStatRange(
-              resultItem.requiredLevel,
-              true,
-              resultItem.type
-            );
+            typeof getEquipmentUpgradeStatRange === "function"
+              ? getEquipmentUpgradeStatRange(
+                  resultItem.requiredLevel,
+                  true,
+                  resultItem.type
+                )
+              : null;
 
           const randomRange =
-            getEquipmentUpgradeStatRange(
-              resultItem.requiredLevel,
-              false,
-              resultItem.type
-            );
+            typeof getEquipmentUpgradeStatRange === "function"
+              ? getEquipmentUpgradeStatRange(
+                  resultItem.requiredLevel,
+                  false,
+                  resultItem.type
+                )
+              : null;
 
-          stats += `
+          if (
+            Array.isArray(mainRange) &&
+            mainRange.length >= 2 &&
+            Array.isArray(randomRange) &&
+            randomRange.length >= 2
+          ) {
+            stats += `
   <span>
     ⭐ 1 główna statystyka (${mainStatLabel}):
     ${mainRange[0]}–${mainRange[1]}
   </span>
       <span>🎲 2 losowe statystyki: ${randomRange[0]}–${randomRange[1]}</span>
     `;
+          } else {
+            stats += `
+      <span>🎲 Statystyki ulepszenia będą ustalone podczas ulepszania</span>
+    `;
+          }
         }
       }
 

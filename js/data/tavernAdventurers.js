@@ -29,7 +29,7 @@ const tavernAdventurers = [
         efficiencyPercent: 10,
         description: "Łowi niewielką ilość ryb z wybranego łowiska."
     },
-        {
+    {
         id: "tavern_hunter",
         name: "Łowca z karczmy",
         icon: "⚔️",

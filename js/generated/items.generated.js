@@ -1,7 +1,7 @@
 // AUTO-GENERATED FILE. DO NOT EDIT BY HAND.
 // Source: Excel crafting workbook
 
-const generatedItems = {
+window.idlerGeneratedItems = {
     platnerz_t1: {
         id: "platnerz_t1",
         name: "Płatnerz t1",
@@ -66,5 +66,3 @@ const generatedItems = {
     },
 
 };
-
-export { generatedItems };

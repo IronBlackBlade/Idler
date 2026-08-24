@@ -2394,6 +2394,16 @@ const items = {
         value: 60
     },
 
+    mana_ring: {
+        id: "mana_ring",
+        name: "Pierścień many",
+        rarity: "common",
+        type: "ring",
+        requiredLevel: 5,
+        intelligence: 2,
+        value: 90
+    },
+
     lucky_ring: {
         id: "lucky_ring",
         name: "Pierścień szczęścia",
@@ -2469,15 +2479,7 @@ const items = {
         value: 15000
     },
 
-    mana_ring: {
-        id: "mana_ring",
-        name: " Pierścień many",
-        rarity: "common",
-        type: "ring",
-        requiredLevel: 1,
-        luck: 1,
-        value: 60
-    },
+
 
 
     kobold_ring: {

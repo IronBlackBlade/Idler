@@ -343,7 +343,7 @@ def load_existing_items(path: Path | None):
             continue
         name = nm.group(1)
         entry = {"id": item_id, "name": name}
-        for field in ["rarity", "type", "weaponType"]:
+        for field in ["rarity", "type", "weaponType", "weaponClass"] :
             fm = re.search(rf"(?m)^\s*{field}:\s*\"([^\"]*)\"", body)
             if fm:
                 entry[field] = fm.group(1)
@@ -632,6 +632,202 @@ def parse_block(rows, start, header, category_title, sheet_name, name_to_id, war
 
 
 
+
+def load_crafting_recipes_table(sheets):
+    """Read the normalized 'Crafting Recipes' sheet.
+
+    Columns:
+      Tier, Przedmiot, Kategoria, Bazowy item,
+      Materiał 1/Ilość 1, Materiał 2/Ilość 2,
+      Materiał specjalny/Ilość specjalna,
+      Boss/Ilość bossa, Sztabka/Ilość sztabki,
+      Poziom postaci, Poziom craftingu, Koszt złota,
+      EXP craftingu, Czas craftingu
+    """
+    rows = sheets.get("Crafting Recipes") or {}
+    if not rows:
+        return []
+
+    header = row_list(rows, 1, 30)
+    index = {norm(v): i for i, v in enumerate(header, start=1) if norm(v)}
+
+    def get(row_no, name):
+        col = index.get(norm(name))
+        if not col:
+            return ""
+        return rows.get(row_no, {}).get(num_to_col(col), "")
+
+    def num(value):
+        if value in (None, ""):
+            return None
+        try:
+            return int(float(value))
+        except (TypeError, ValueError):
+            return None
+
+    out = []
+    for r in sorted(rows):
+        if r <= 1:
+            continue
+        result_name = str(get(r, "Przedmiot") or "").strip()
+        if not result_name or norm(result_name) == "na razie brak":
+            continue
+
+        tier = num(get(r, "Tier"))
+        if tier is None:
+            continue
+
+        category = norm(get(r, "Kategoria")) or category_from_recipe_name(result_name)
+        result_id = resolve_item_id(result_name, {})  # resolved later against real items
+        if not result_id:
+            result_id = slugify(result_name)
+
+        def material(name_col, qty_col):
+            name = str(get(r, name_col) or "").strip()
+            qty = num(get(r, qty_col))
+            if not name:
+                return None
+            return name, (qty if qty is not None else parse_qty(name))
+
+        materials_raw = []
+        for nc, qc, role in [
+            ("Materiał 1", "Ilość 1", "material1"),
+            ("Materiał 2", "Ilość 2", "material2"),
+            ("Materiał specjalny", "Ilość specjalna", "special"),
+            ("Boss", "Ilość bossa", "boss"),
+            ("Sztabka", "Ilość sztabki", "ingot"),
+        ]:
+            value = material(nc, qc)
+            materials_raw.append((role, value))
+
+        out.append({
+            "id": f"{result_id}_recipe",
+            "name": result_name,
+            "resultItemId": result_id,
+            "category": category,
+            "tier": tier,
+            "requiredPlayerLevel": num(get(r, "Poziom postaci")),
+            "requiredCraftingLevel": num(get(r, "Poziom craftingu")),
+            "goldCost": num(get(r, "Koszt złota")),
+            "craftingExp": num(get(r, "EXP craftingu")),
+            "craftingTimeSeconds": num(get(r, "Czas craftingu")),
+            "requiresScroll": False,
+            "unlockCost": 0,
+            "_baseName": str(get(r, "Bazowy item") or "").strip(),
+            "_materialRows": materials_raw,
+            "_source": f"Crafting Recipes!row{r}",
+        })
+    return out
+
+
+def num_to_col(n):
+    letters = ""
+    while n:
+        n, rem = divmod(n - 1, 26)
+        letters = chr(65 + rem) + letters
+    return letters
+
+
+
+
+
+def resolve_profession_and_subcategory(result_id, result_name, items):
+    """Return the UI crafting profession category and its subcategory."""
+    item = items.get(result_id) if isinstance(items, dict) else None
+    if not item:
+        return None, None
+
+    item_type = norm(item.get("type", ""))
+    weapon_type = norm(item.get("weaponType", ""))
+    weapon_class = norm(item.get("weaponClass", ""))
+    name = norm(item.get("name", result_name))
+
+    if item_type == "weapon":
+        if weapon_type == "ranged":
+            if weapon_class == "crossbow" or "kusza" in name:
+                return "bowyer", "crossbow"
+            return "bowyer", "bow"
+        if weapon_type == "magic":
+            if "kostur" in name or "staff" in name or "kostur" in norm(result_name):
+                return "arcanist", "staff"
+            return "arcanist", "wand"
+        if weapon_class == "slashing" or "miecz" in name or "ostrze" in name:
+            return "blacksmith", "sword"
+        if weapon_class == "blunt" or any(x in name for x in ["pałka", "palka", "maczuga", "młot", "mlot", "buława"]):
+            return "blacksmith", "mace"
+        return "blacksmith", None
+
+    type_to_profession = {
+        "shield": "armorer", "helmet": "armorer", "armor": "armorer",
+        "pants": "armorer", "boots": "armorer", "gloves": "armorer",
+        "ring": "jeweler", "amulet": "jeweler", "talisman": "shaman",
+    }
+    profession = type_to_profession.get(item_type)
+    if profession:
+        return profession, item_type
+
+    return None, None
+
+def category_from_item_id(item_id, items):
+    """Derive crafting category from the actual item definition."""
+    item = items.get(item_id) if isinstance(items, dict) else None
+    if not item:
+        return None
+
+    item_type = norm(item.get("type", ""))
+    weapon_type = norm(item.get("weaponType", ""))
+    weapon_class = norm(item.get("weaponClass", ""))
+
+    if item_type == "weapon":
+        # Current game data uses weaponClass to distinguish melee families.
+        if weapon_class in {"slashing"}:
+            return "sword"
+        if weapon_class in {"blunt"}:
+            return "mace"
+        if weapon_class in {"bow"} or weapon_type == "ranged" and "bow" in norm(item.get("name", "")):
+            return "bow"
+        if weapon_class in {"crossbow"} or weapon_type == "ranged" and "kusza" in norm(item.get("name", "")):
+            return "crossbow"
+        if item_type == "weapon" and ("różdżka" in norm(item.get("name", "")) or "kostur" in norm(item.get("name", ""))):
+            return "wand"
+
+    if item_type in {"ring", "amulet", "talisman"}:
+        return item_type
+
+    if item_type in {"armor", "helmet", "shield", "pants", "boots", "gloves"}:
+        return "armor"
+
+    return None
+
+
+def resolve_category(result_id, result_name, items):
+    """Prefer the authoritative item data; fallback to name only if needed."""
+    category = category_from_item_id(result_id, items)
+    if category:
+        return category
+    return category_from_recipe_name(result_name)
+
+
+def category_from_recipe_name(name):
+    n = norm(name)
+    if "pierścień" in n or "pierscien" in n:
+        return "ring"
+    if "talizman" in n:
+        return "talisman"
+    if "kusza" in n:
+        return "crossbow"
+    if "łuk" in n:
+        return "bow"
+    if "miecz" in n or "ostrze" in n:
+        return "sword"
+    if "różdżka" in n or "rózdzka" in n or "kostur" in n:
+        return "wand"
+    if any(x in n for x in ["pałka", "palka", "maczuga", "młot", "mlot", "buława"]):
+        return "mace"
+    return "armor"
+
+
+
 def load_recipe_costs(sheets):
     result = {}
     rows = sheets.get("RecipeCosts") or {}
@@ -658,6 +854,18 @@ def load_recipe_costs(sheets):
             "craftingTimeSeconds": num(vals[6]),
         }
     return result
+
+
+
+def merchant_base_mapping(sheets):
+    rows = sheets.get("GeneratorConfig") or {}
+    mapping = {}
+    for r, data in rows.items():
+        excel_value = str(data.get("B", "")).strip()
+        item_id = str(data.get("C", "")).strip()
+        if excel_value and item_id:
+            mapping[norm(excel_value)] = item_id
+    return mapping
 
 
 def load_generator_config(sheets):
@@ -692,20 +900,25 @@ def resolve_tier_bases(recipes, name_to_id, generator_config=None):
 
         n = norm(base_name)
         if base_marker:
-            r["materials"].insert(0, {"itemId": base_marker, "quantity": 1})
+            if not any(m.get("itemId") == base_marker for m in r["materials"]):
+                r["materials"].insert(0, {"itemId": base_marker, "quantity": 1})
         elif re.search(r"wytwarzana|wytwarzany|z t\d+|z t\s*\d+", n):
             prev = re.search(r"t\s*(\d+)", n)
             prev_tier = int(prev.group(1)) if prev else max(1, r["tier"] - 1)
             prev_recipe = by_category_tier.get((r["category"], prev_tier))
             if prev_recipe:
-                r["materials"].insert(0, {"itemId": prev_recipe["resultItemId"], "quantity": 1})
+                base_id = prev_recipe["resultItemId"]
+                if not any(m.get("itemId") == base_id for m in r["materials"]):
+                    r["materials"].insert(0, {"itemId": base_id, "quantity": 1})
             else:
                 candidate = [x for x in recipes if x["category"] == r["category"] and x["tier"] == prev_tier]
                 if candidate:
-                    r["materials"].insert(0, {"itemId": candidate[0]["resultItemId"], "quantity": 1})
+                    base_id = candidate[0]["resultItemId"]
+                    if not any(m.get("itemId") == base_id for m in r["materials"]):
+                        r["materials"].insert(0, {"itemId": base_id, "quantity": 1})
                 else:
                     r["materials"].insert(0, {"itemId": f"__UNRESOLVED_BASE__:{slugify(base_name)}", "quantity": 1})
-        else:
+        elif base_name:
             r["materials"].insert(0, {"itemId": f"__UNRESOLVED_BASE__:{slugify(base_name)}", "quantity": 1})
 
         del r["_baseName"]
@@ -740,7 +953,7 @@ def js_value(v):
 
 
 def render_items_js(items: dict[str, dict]):
-    lines = ["// AUTO-GENERATED FILE. DO NOT EDIT BY HAND.", "// Source: Excel crafting workbook", "", "const generatedItems = {"]
+    lines = ["// AUTO-GENERATED FILE. DO NOT EDIT BY HAND.", "// Source: Excel crafting workbook", "", "window.idlerGeneratedItems = {"]
     for iid, item in items.items():
         lines.append(f"    {iid}: {{")
         fields = ["id", "name", "rarity", "type", "weaponType", "requiredLevel", "damage", "strength", "dexterity", "intelligence", "endurance", "luck", "value"]
@@ -755,7 +968,6 @@ def render_items_js(items: dict[str, dict]):
         lines.append("")
     lines.append("};")
     lines.append("")
-    lines.append("export { generatedItems };")
     return "\n".join(lines)
 
 
@@ -766,10 +978,10 @@ def clean_recipe(r):
 
 
 def render_recipes_js(recipes):
-    lines = ["// AUTO-GENERATED FILE. DO NOT EDIT BY HAND.", "// Source: Excel crafting workbook", "", "const generatedRecipes = ["]
+    lines = ["// AUTO-GENERATED FILE. DO NOT EDIT BY HAND.", "// Source: Excel crafting workbook", "", "window.idlerGeneratedRecipes = ["]
     for recipe in recipes:
         lines.append("    {")
-        for key in ["id","name","resultItemId","category","tier","requiredPlayerLevel","requiredCraftingLevel","goldCost","craftingExp","craftingTimeSeconds","requiresScroll","unlockCost"]:
+        for key in ["id","name","resultItemId","category","subcategory","tier","requiredPlayerLevel","requiredCraftingLevel","goldCost","craftingExp","craftingTimeSeconds","requiresScroll","unlockCost"]:
             if key in recipe:
                 lines.append(f"        {key}: {js_value(recipe[key])},")
         lines.append("        materials: [")
@@ -780,9 +992,75 @@ def render_recipes_js(recipes):
         lines.append("")
     lines.append("];" )
     lines.append("")
-    lines.append("export { generatedRecipes };")
     return "\n".join(lines)
 
+
+
+def render_loader_js():
+    return """// AUTO-GENERATED FILE. DO NOT EDIT BY HAND.
+// Connects Excel-generated crafting data with the existing game data.
+
+(function () {
+    if (typeof items !== "undefined" && window.idlerGeneratedItems) {
+        Object.assign(items, window.idlerGeneratedItems);
+    }
+
+    if (typeof recipes === "undefined" || !window.idlerGeneratedRecipes) {
+        return;
+    }
+
+    const generatedByResultId = new Map(
+        window.idlerGeneratedRecipes.map(recipe => [recipe.resultItemId, recipe])
+    );
+
+    recipes.forEach((recipe, index) => {
+        const generated = generatedByResultId.get(recipe.resultItemId);
+
+        if (!generated) {
+            return;
+        }
+
+        recipes[index] = {
+            ...recipe,
+            ...generated,
+            materials: generated.materials || recipe.materials || [],
+        };
+
+        if (typeof items !== "undefined") {
+            const resultItem = items[recipe.resultItemId];
+            if (resultItem?.type === "ring") {
+                recipes[index].category = "jeweler";
+                recipes[index].subcategory = "ring";
+            } else if (resultItem?.type === "amulet") {
+                recipes[index].category = "jeweler";
+                recipes[index].subcategory = "amulet";
+            } else if (resultItem?.type === "talisman") {
+                recipes[index].category = "shaman";
+                recipes[index].subcategory = "talisman";
+            }
+        }
+
+        generatedByResultId.delete(recipe.resultItemId);
+    });
+
+    generatedByResultId.forEach(generated => {
+        if (typeof items !== "undefined") {
+            const resultItem = items[generated.resultItemId];
+            if (resultItem?.type === "ring") {
+                generated.category = "jeweler";
+                generated.subcategory = "ring";
+            } else if (resultItem?.type === "amulet") {
+                generated.category = "jeweler";
+                generated.subcategory = "amulet";
+            } else if (resultItem?.type === "talisman") {
+                generated.category = "shaman";
+                generated.subcategory = "talisman";
+            }
+        }
+        recipes.push(generated);
+    });
+})();
+"""
 
 def main():
     ap = argparse.ArgumentParser()
@@ -804,14 +1082,90 @@ def main():
     generator_config = load_generator_config(sheets)
     recipes = []
 
-    for sheet_name in ["Bronie", "Biżuteria", "Pancerze"]:
-        rows = sheets.get(sheet_name)
-        if not rows:
-            warnings.append(f"Brak arkusza {sheet_name}.")
-            continue
-        blocks = detect_blocks(rows, 3)
-        for start, end, title, header in blocks:
-            recipes.extend(parse_block(rows, start, header, title, sheet_name, name_to_id, warnings, locations, recipe_costs))
+    normalized_rows = load_crafting_recipes_table(sheets)
+    merchant_map = merchant_base_mapping(sheets)
+    generator_config.update(merchant_map)
+
+    if normalized_rows:
+        for raw in normalized_rows:
+            result_name = raw["name"]
+            result_id = resolve_item_id(result_name, name_to_id) or raw["resultItemId"]
+            category, subcategory = resolve_profession_and_subcategory(result_id, result_name, existing_items)
+
+            # Authoritative fallback from the item type. This is especially
+            # important for jewelry because the UI expects the profession
+            # category "jeweler", not the equipment type "ring".
+            result_item = existing_items.get(result_id, {})
+            result_type = norm(result_item.get("type", ""))
+            if result_type == "ring":
+                category, subcategory = "jeweler", "ring"
+            elif result_type == "amulet":
+                category, subcategory = "jeweler", "amulet"
+            elif result_type == "talisman":
+                category, subcategory = "shaman", "talisman"
+
+            category = category or raw["category"]
+            subcategory = subcategory or raw.get("subcategory")
+
+            materials = []
+            used_item_ids = set()
+
+            base_name = raw["_baseName"]
+            for role, material_data in raw["_materialRows"]:
+                if not material_data:
+                    continue
+                material_name, quantity = material_data
+                mat = parse_material(
+                    material_name,
+                    name_to_id,
+                    role,
+                    warnings,
+                    f"Crafting Recipes {result_name} {role}",
+                    locations,
+                    category,
+                    result_name,
+                    len(materials),
+                    used_item_ids,
+                )
+                if mat:
+                    # Preserve explicit quantity from the normalized sheet.
+                    mat["quantity"] = quantity
+                    materials.append(mat)
+                    used_item_ids.add(mat["itemId"])
+
+            materials = [
+                m for m in materials
+                if m.get("itemId") and not str(m.get("itemId", "")).startswith("__UNRESOLVED_BASE__")
+            ]
+
+            recipes.append({
+                "id": f"{result_id}_recipe",
+                "name": result_name,
+                "resultItemId": result_id,
+                "category": category,
+                "subcategory": subcategory,
+                "tier": raw["tier"],
+                "requiredPlayerLevel": raw["requiredPlayerLevel"],
+                "requiredCraftingLevel": raw["requiredCraftingLevel"],
+                "goldCost": raw["goldCost"],
+                "craftingExp": raw["craftingExp"],
+                "craftingTimeSeconds": raw["craftingTimeSeconds"],
+                "requiresScroll": raw["requiresScroll"],
+                "unlockCost": raw["unlockCost"],
+                "materials": materials,
+                "_baseName": base_name,
+                "_source": raw["_source"],
+            })
+    else:
+        for sheet_name in ["Bronie", "Biżuteria", "Pancerze"]:
+            rows = sheets.get(sheet_name)
+            if not rows:
+                warnings.append(f"Brak arkusza {sheet_name}.")
+                continue
+            blocks = detect_blocks(rows, 3)
+            for start, end, title, header in blocks:
+                recipes.extend(parse_block(rows, start, header, title, sheet_name, name_to_id, warnings, locations, recipe_costs))
+
 
     resolve_tier_bases(recipes, name_to_id, generator_config)
     generated_items = build_generated_items(recipes, existing_items, name_to_id)
@@ -838,6 +1192,7 @@ def main():
     args.output.mkdir(parents=True, exist_ok=True)
     (args.output / "recipes.generated.js").write_text(render_recipes_js(recipes), encoding="utf-8")
     (args.output / "items.generated.js").write_text(render_items_js(generated_items), encoding="utf-8")
+    (args.output / "recipeLoader.js").write_text(render_loader_js(), encoding="utf-8")
 
     report = {
         "workbook": str(args.workbook),
