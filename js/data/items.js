@@ -1048,18 +1048,6 @@ const items = {
         value: 50
     },
 
-    forest_blade: {
-        id: "forest_blade",
-        name: "Leśne ostrze",
-        rarity: "uncommon",
-        type: "weapon",
-        weaponType: "melee",
-        weaponClass: "slashing",
-        requiredLevel: 1,
-        damage: 6,
-        value: 150
-    },
-
     iron_sword: {
         id: "iron_sword",
         name: "Żelazny miecz",
@@ -1070,18 +1058,6 @@ const items = {
         requiredLevel: 10,
         damage: 15,
         value: 140
-    },
-
-    cave_sword: {
-        id: "cave_sword",
-        name: "Zabójca Koboldów",
-        rarity: "rare",
-        type: "weapon",
-        weaponType: "melee",
-        weaponClass: "slashing",
-        requiredLevel: 10,
-        damage: 18,
-        value: 300
     },
 
     steel_sword: {
@@ -1095,6 +1071,78 @@ const items = {
         damage: 30,
         value: 380
     },
+
+    guard_sword: {
+        id: "guard_sword",
+        name: "Miecz strażnika",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "melee",
+        weaponClass: "slashing",
+        requiredLevel: 35,
+        damage: 60,
+        value: 1500
+    },
+    knight_sword: {
+        id: "knight_sword",
+        name: "Rycerski miecz",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "melee",
+        weaponClass: "slashing",
+        requiredLevel: 50,
+        damage: 100,
+        value: 3000
+    },
+    captain_sword: {
+        id: "captain_sword",
+        name: "Miecz kapitana",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "melee",
+        weaponClass: "slashing",
+        requiredLevel: 75,
+        damage: 175,
+        value: 12000
+    },
+
+    master_sword: {
+        id: "master_sword",
+        name: "Mistrzowski miecz",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "melee",
+        weaponClass: "slashing",
+        requiredLevel: 100,
+        damage: 250,
+        value: 18000
+    },
+
+
+    forest_blade: {
+        id: "forest_blade",
+        name: "Leśne ostrze",
+        rarity: "uncommon",
+        type: "weapon",
+        weaponType: "melee",
+        weaponClass: "slashing",
+        requiredLevel: 1,
+        damage: 6,
+        value: 150
+    },
+    cave_sword: {
+        id: "cave_sword",
+        name: "Zabójca Koboldów",
+        rarity: "rare",
+        type: "weapon",
+        weaponType: "melee",
+        weaponClass: "slashing",
+        requiredLevel: 10,
+        damage: 18,
+        value: 300
+    },
+
+
 
     guardian_blade: {
         id: "guardian_blade",
@@ -1131,28 +1179,6 @@ const items = {
         damage: 50,
         value: 1800
     },
-    guard_sword: {
-        id: "guard_sword",
-        name: "Miecz strażnika",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "melee",
-        weaponClass: "slashing",
-        requiredLevel: 35,
-        damage: 60,
-        value: 1500
-    },
-    knight_sword: {
-        id: "knight_sword",
-        name: "Rycerski miecz",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "melee",
-        weaponClass: "slashing",
-        requiredLevel: 50,
-        damage: 100,
-        value: 3000
-    },
 
     commander_sword: {
         id: "commander_sword",
@@ -1166,29 +1192,6 @@ const items = {
         value: 6000
     },
 
-    captain_sword: {
-        id: "captain_sword",
-        name: "Miecz kapitana",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "melee",
-        weaponClass: "slashing",
-        requiredLevel: 75,
-        damage: 175,
-        value: 12000
-    },
-
-    master_sword: {
-        id: "master_sword",
-        name: "Mistrzowski miecz",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "melee",
-        weaponClass: "slashing",
-        requiredLevel: 100,
-        damage: 250,
-        value: 18000
-    },
 
     dragon_blade: {
         id: "dragon_blade",
@@ -1388,14 +1391,75 @@ const items = {
 
     // TARCZE
 
-    wooden_shield: {
-        id: "wooden_shield",
-        name: "Drewniana tarcza",
+    simple_shield: {
+        id: "simple_shield",
+        name: "Prosta tarcza",
         rarity: "common",
         type: "shield",
         requiredLevel: 1,
         armor: 1,
         value: 40
+    },
+
+    wooden_shield: {
+        id: "wooden_shield",
+        name: "Drewniana tarcza",
+        rarity: "common",
+        type: "shield",
+        requiredLevel: 10,
+        armor: 1,
+        value: 40
+    },
+    iron_shield: {
+        id: "iron_shield",
+        name: "Żelazna tarcza",
+        rarity: "common",
+        type: "shield",
+        requiredLevel: 20,
+        armor: 3,
+        value: 160
+    },
+
+
+    steel_shield: {
+        id: "steel_shield",
+        name: "Stalowa tarcza",
+        rarity: "common",
+        type: "shield",
+        requiredLevel: 35,
+        armor: 7,
+        value: 500
+    },
+
+    knight_shield: {
+        id: "knight_shield",
+        name: "Rycerska tarcza",
+        rarity: "common",
+        type: "shield",
+        requiredLevel: 50,
+        armor: 21,
+        value: 1800
+    },
+
+
+    captain_shield: {
+        id: "captain_shield",
+        name: "Tarcza kapitana",
+        rarity: "common",
+        type: "shield",
+        requiredLevel: 75,
+        armor: 21,
+        value: 1800
+    },
+
+    master_shield: {
+        id: "master_shield",
+        name: "Mistrzowska tarcza",
+        rarity: "common",
+        type: "shield",
+        requiredLevel: 100,
+        armor: 28,
+        value: 7500
     },
 
     bark_shield: {
@@ -1409,17 +1473,6 @@ const items = {
         luck: 1,
         value: 120
     },
-
-    iron_shield: {
-        id: "iron_shield",
-        name: "Żelazna tarcza",
-        rarity: "common",
-        type: "shield",
-        requiredLevel: 10,
-        armor: 3,
-        value: 160
-    },
-
     kobold_shield: {
         id: "kobold_shield",
         name: "Tarcza koboldów",
@@ -1432,15 +1485,7 @@ const items = {
         value: 360
     },
 
-    steel_shield: {
-        id: "steel_shield",
-        name: "Stalowa tarcza",
-        rarity: "common",
-        type: "shield",
-        requiredLevel: 20,
-        armor: 7,
-        value: 500
-    },
+
 
     guardian_shield: {
         id: "guardian_shield",
@@ -1476,15 +1521,7 @@ const items = {
         value: 4000
     },
 
-    knight_shield: {
-        id: "knight_shield",
-        name: "Rycerska tarcza",
-        rarity: "common",
-        type: "shield",
-        requiredLevel: 40,
-        armor: 21,
-        value: 1800
-    },
+
 
     commander_shield: {
         id: "commander_shield",
@@ -1499,15 +1536,7 @@ const items = {
         value: 4200
     },
 
-    master_shield: {
-        id: "master_shield",
-        name: "Mistrzowska tarcza",
-        rarity: "common",
-        type: "shield",
-        requiredLevel: 50,
-        armor: 28,
-        value: 7500
-    },
+
 
     dragon_shield: {
         id: "dragon_shield",
@@ -1524,15 +1553,78 @@ const items = {
 
     // HEŁMY
 
+    simple_helmet: {
+        id: "simple_helmet",
+        name: "Prosty hełm",
+        rarity: "common",
+        type: "helmet",
+        requiredLevel: 1,
+        armor: 28,
+        value: 6500
+    },
+
     leather_helmet: {
         id: "leather_helmet",
         name: "Skórzany hełm",
         rarity: "common",
         type: "helmet",
-        requiredLevel: 1,
+        requiredLevel: 10,
         armor: 1,
         value: 30
     },
+
+    iron_helmet: {
+        id: "iron_helmet",
+        name: "Żelazny hełm",
+        rarity: "common",
+        type: "helmet",
+        requiredLevel: 20,
+        armor: 2,
+        value: 140
+    },
+
+    steel_helmet: {
+        id: "steel_helmet",
+        name: "Stalowy hełm",
+        rarity: "common",
+        type: "helmet",
+        requiredLevel: 35,
+        armor: 4,
+        value: 450
+    },
+
+    knight_helmet: {
+        id: "knight_helmet",
+        name: "Rycerski hełm",
+        rarity: "common",
+        type: "helmet",
+        requiredLevel: 50,
+        armor: 21,
+        value: 1500
+    },
+
+    captain_helmet: {
+        id: "captain_helmet",
+        name: "Hełm kapitana",
+        rarity: "common",
+        type: "helmet",
+        requiredLevel: 75,
+        armor: 28,
+        value: 6500
+    },
+
+
+    master_helmet: {
+        id: "master_helmet",
+        name: "Mistrzowski hełm",
+        rarity: "common",
+        type: "helmet",
+        requiredLevel: 100,
+        armor: 28,
+        value: 6500
+    },
+
+
 
     beetle_helmet: {
         id: "beetle_helmet",
@@ -1546,16 +1638,6 @@ const items = {
         value: 100
     },
 
-    iron_helmet: {
-        id: "iron_helmet",
-        name: "Żelazny hełm",
-        rarity: "common",
-        type: "helmet",
-        requiredLevel: 10,
-        armor: 2,
-        value: 140
-    },
-
     kobold_helmet: {
         id: "kobold_helmet",
         name: "Hełm kobolda",
@@ -1566,16 +1648,6 @@ const items = {
         endurance: 4,
         strength: 1,
         value: 320
-    },
-
-    steel_helmet: {
-        id: "steel_helmet",
-        name: "Stalowy hełm",
-        rarity: "common",
-        type: "helmet",
-        requiredLevel: 20,
-        armor: 4,
-        value: 450
     },
 
     guardian_helmet: {
@@ -1612,16 +1684,6 @@ const items = {
         value: 3200
     },
 
-    knight_helmet: {
-        id: "knight_helmet",
-        name: "Rycerski hełm",
-        rarity: "common",
-        type: "helmet",
-        requiredLevel: 40,
-        armor: 21,
-        value: 1500
-    },
-
     commander_helmet: {
         id: "commander_helmet",
         name: "Hełm dowódcy",
@@ -1633,16 +1695,6 @@ const items = {
         strength: 4,
         luck: 1,
         value: 3500
-    },
-
-    master_helmet: {
-        id: "master_helmet",
-        name: "Mistrzowski hełm",
-        rarity: "common",
-        type: "helmet",
-        requiredLevel: 50,
-        armor: 28,
-        value: 6500
     },
 
     dragon_helmet: {
@@ -1660,14 +1712,76 @@ const items = {
 
     // PANCERZE
 
-    leather_armor: {
-        id: "leather_armor",
-        name: "Skórzany pancerz",
+    simple_armor: {
+        id: "simple_armor",
+        name: "Prosty pancerz",
         rarity: "common",
         type: "armor",
         requiredLevel: 1,
         armor: 1,
         value: 70
+    },
+
+    leather_armor: {
+        id: "leather_armor",
+        name: "Skórzany pancerz",
+        rarity: "common",
+        type: "armor",
+        requiredLevel: 10,
+        armor: 1,
+        value: 70
+    },
+
+    iron_armor: {
+        id: "iron_armor",
+        name: "Żelazny pancerz",
+        rarity: "common",
+        type: "armor",
+        requiredLevel: 20,
+        armor: 4,
+        value: 320
+    },
+
+    steel_armor: {
+        id: "steel_armor",
+        name: "Stalowy pancerz",
+        rarity: "common",
+        type: "armor",
+        requiredLevel: 35,
+        armor: 9,
+        value: 1100
+    },
+
+
+    knight_armor: {
+        id: "knight_armor",
+        name: "Rycerski pancerz",
+        rarity: "common",
+        type: "armor",
+        requiredLevel: 50,
+        armor: 21,
+        value: 4500
+    },
+
+    captain_armor: {
+        id: "captain_armor",
+        name: "Pancerz kapitana",
+        rarity: "common",
+        type: "armor",
+        requiredLevel: 75,
+        armor: 28,
+        value: 16000
+    },
+
+
+    master_armor: {
+        id: "master_armor",
+        name: "Mistrzowski pancerz",
+        rarity: "common",
+        type: "armor",
+        requiredLevel: 100,
+        armor: 28,
+        value: 16000
     },
 
     wolf_armor: {
@@ -1682,15 +1796,6 @@ const items = {
         value: 180
     },
 
-    iron_armor: {
-        id: "iron_armor",
-        name: "Żelazny pancerz",
-        rarity: "common",
-        type: "armor",
-        requiredLevel: 10,
-        armor: 4,
-        value: 320
-    },
 
     kobold_armor: {
         id: "kobold_armor",
@@ -1704,15 +1809,7 @@ const items = {
         value: 700
     },
 
-    steel_armor: {
-        id: "steel_armor",
-        name: "Stalowy pancerz",
-        rarity: "common",
-        type: "armor",
-        requiredLevel: 20,
-        armor: 9,
-        value: 1100
-    },
+
 
     guardian_armor: {
         id: "guardian_armor",
@@ -1748,15 +1845,6 @@ const items = {
         value: 8000
     },
 
-    knight_armor: {
-        id: "knight_armor",
-        name: "Rycerski pancerz",
-        rarity: "common",
-        type: "armor",
-        requiredLevel: 40,
-        armor: 21,
-        value: 4500
-    },
 
     commander_armor: {
         id: "commander_armor",
@@ -1772,15 +1860,6 @@ const items = {
     },
 
 
-    master_armor: {
-        id: "master_armor",
-        name: "Mistrzowski pancerz",
-        rarity: "common",
-        type: "armor",
-        requiredLevel: 50,
-        armor: 28,
-        value: 16000
-    },
 
     dragon_armor: {
         id: "dragon_armor",
@@ -1797,15 +1876,78 @@ const items = {
 
     // SPODNIE
 
-    leather_pants: {
-        id: "leather_pants",
-        name: "Skórzane spodnie",
+    simple_pants: {
+        id: "simple_pants",
+        name: "Proste spodnie",
         rarity: "common",
         type: "pants",
         requiredLevel: 1,
         armor: 1,
         value: 45
     },
+
+    leather_pants: {
+        id: "leather_pants",
+        name: "Skórzane spodnie",
+        rarity: "common",
+        type: "pants",
+        requiredLevel: 10,
+        armor: 1,
+        value: 45
+    },
+
+    iron_pants: {
+        id: "iron_pants",
+        name: "Żelazne nogawice",
+        rarity: "common",
+        type: "pants",
+        requiredLevel: 20,
+        armor: 2,
+        value: 180
+    },
+
+    steel_pants: {
+        id: "steel_pants",
+        name: "Stalowe nogawice",
+        rarity: "common",
+        type: "pants",
+        requiredLevel: 35,
+        armor: 5,
+        value: 650
+    },
+
+    knight_pants: {
+        id: "knight_pants",
+        name: "Rycerskie nogawice",
+        rarity: "common",
+        type: "pants",
+        requiredLevel: 50,
+        armor: 14,
+        value: 2600
+    },
+
+    captain_pants: {
+        id: "captain_pants",
+        name: "Nogawice kapitana",
+        rarity: "common",
+        type: "pants",
+        requiredLevel: 75,
+        armor: 14,
+        value: 2600
+    },
+
+    master_pants: {
+        id: "master_pants",
+        name: "Mistrzowskie nogawice",
+        rarity: "common",
+        type: "pants",
+        requiredLevel: 100,
+        armor: 18,
+        value: 11000
+    },
+
+
+
 
     tracker_pants: {
         id: "tracker_pants",
@@ -1820,15 +1962,7 @@ const items = {
         value: 130
     },
 
-    iron_pants: {
-        id: "iron_pants",
-        name: "Żelazne nogawice",
-        rarity: "common",
-        type: "pants",
-        requiredLevel: 10,
-        armor: 2,
-        value: 180
-    },
+
 
     kobold_pants: {
         id: "kobold_pants",
@@ -1843,15 +1977,6 @@ const items = {
         value: 420
     },
 
-    steel_pants: {
-        id: "steel_pants",
-        name: "Stalowe nogawice",
-        rarity: "common",
-        type: "pants",
-        requiredLevel: 20,
-        armor: 5,
-        value: 650
-    },
 
     guardian_pants: {
         id: "guardian_pants",
@@ -1888,15 +2013,7 @@ const items = {
         value: 5500
     },
 
-    knight_pants: {
-        id: "knight_pants",
-        name: "Rycerskie nogawice",
-        rarity: "common",
-        type: "pants",
-        requiredLevel: 40,
-        armor: 14,
-        value: 2600
-    },
+
 
     commander_pants: {
         id: "commander_pants",
@@ -1912,15 +2029,6 @@ const items = {
         value: 5600
     },
 
-    master_pants: {
-        id: "master_pants",
-        name: "Mistrzowskie nogawice",
-        rarity: "common",
-        type: "pants",
-        requiredLevel: 50,
-        armor: 18,
-        value: 11000
-    },
 
     dragon_pants: {
         id: "dragon_pants",
@@ -1938,6 +2046,17 @@ const items = {
 
     // BUTY
 
+    simple_boots: {
+        id: "simple_boots",
+        name: "Proste buty",
+        rarity: "common",
+        type: "boots",
+        requiredLevel: 1,
+        armor: 1,
+        value: 30
+    },
+
+
     old_boots: {
         id: "old_boots",
         name: "Stare buty",
@@ -1946,6 +2065,16 @@ const items = {
         requiredLevel: 1,
         armor: 1,
         value: 30
+    },
+
+    iron_boots: {
+        id: "iron_boots",
+        name: "Żelazne buty",
+        rarity: "common",
+        type: "boots",
+        requiredLevel: 10,
+        armor: 2,
+        value: 160
     },
 
     wolf_boots: {
@@ -1961,15 +2090,46 @@ const items = {
         value: 120
     },
 
-    iron_boots: {
-        id: "iron_boots",
-        name: "Żelazne buty",
+    steel_boots: {
+        id: "steel_boots",
+        name: "Stalowe buty",
         rarity: "common",
         type: "boots",
-        requiredLevel: 10,
-        armor: 2,
-        value: 160
+        requiredLevel: 20,
+        armor: 4,
+        value: 600
     },
+
+    knight_boots: {
+        id: "knight_boots",
+        name: "Rycerskie buty",
+        rarity: "common",
+        type: "boots",
+        requiredLevel: 40,
+        armor: 11,
+        value: 2400
+    },
+
+    captain_boots: {
+        id: "captain_boots",
+        name: "Buty kapitana",
+        rarity: "common",
+        type: "boots",
+        requiredLevel: 50,
+        armor: 14,
+        value: 10000
+    },
+
+    master_boots: {
+        id: "master_boots",
+        name: "Mistrzowskie buty",
+        rarity: "common",
+        type: "boots",
+        requiredLevel: 50,
+        armor: 14,
+        value: 10000
+    },
+
 
     kobold_boots: {
         id: "kobold_boots",
@@ -1984,15 +2144,7 @@ const items = {
         value: 380
     },
 
-    steel_boots: {
-        id: "steel_boots",
-        name: "Stalowe buty",
-        rarity: "common",
-        type: "boots",
-        requiredLevel: 20,
-        armor: 4,
-        value: 600
-    },
+
 
     guardian_boots: {
         id: "guardian_boots",
@@ -2029,15 +2181,7 @@ const items = {
         value: 4800
     },
 
-    knight_boots: {
-        id: "knight_boots",
-        name: "Rycerskie buty",
-        rarity: "common",
-        type: "boots",
-        requiredLevel: 40,
-        armor: 11,
-        value: 2400
-    },
+
 
     commander_boots: {
         id: "commander_boots",
@@ -2053,15 +2197,7 @@ const items = {
         value: 5200
     },
 
-    master_boots: {
-        id: "master_boots",
-        name: "Mistrzowskie buty",
-        rarity: "common",
-        type: "boots",
-        requiredLevel: 50,
-        armor: 14,
-        value: 10000
-    },
+
 
     dragon_boots: {
         id: "dragon_boots",
@@ -2079,15 +2215,78 @@ const items = {
 
     // RĘKAWICE
 
-    leather_gloves: {
-        id: "leather_gloves",
-        name: "Skórzane rękawice",
+    simple_gloves: {
+        id: "simple_gloves",
+        name: "Proste rękawice",
         rarity: "common",
         type: "gloves",
         requiredLevel: 1,
         armor: 1,
         value: 35
     },
+
+    leather_gloves: {
+        id: "leather_gloves",
+        name: "Skórzane rękawice",
+        rarity: "common",
+        type: "gloves",
+        requiredLevel: 10,
+        armor: 1,
+        value: 35
+    },
+
+    iron_gloves: {
+        id: "iron_gloves",
+        name: "Żelazne rękawice",
+        rarity: "common",
+        type: "gloves",
+        requiredLevel: 20,
+        armor: 2,
+        value: 170
+    },
+
+
+    steel_gloves: {
+        id: "steel_gloves",
+        name: "Stalowe rękawice",
+        rarity: "common",
+        type: "gloves",
+        requiredLevel: 35,
+        armor: 4,
+        value: 620
+    },
+
+    knight_gloves: {
+        id: "knight_gloves",
+        name: "Rycerskie rękawice",
+        rarity: "common",
+        type: "gloves",
+        requiredLevel: 50,
+        armor: 11,
+        value: 2500
+    },
+
+    captain_gloves: {
+        id: "captain_gloves",
+        name: "Rękawice kaptiana",
+        rarity: "common",
+        type: "gloves",
+        requiredLevel: 75,
+        armor: 11,
+        value: 2500
+    },
+
+    master_gloves: {
+        id: "master_gloves",
+        name: "Mistrzowskie rękawice",
+        rarity: "common",
+        type: "gloves",
+        requiredLevel: 100,
+        armor: 14,
+        value: 10500
+    },
+
+
 
     wolf_gloves: {
         id: "wolf_gloves",
@@ -2102,15 +2301,6 @@ const items = {
         value: 120
     },
 
-    iron_gloves: {
-        id: "iron_gloves",
-        name: "Żelazne rękawice",
-        rarity: "common",
-        type: "gloves",
-        requiredLevel: 10,
-        armor: 2,
-        value: 170
-    },
 
     kobold_gloves: {
         id: "kobold_gloves",
@@ -2125,15 +2315,6 @@ const items = {
         value: 400
     },
 
-    steel_gloves: {
-        id: "steel_gloves",
-        name: "Stalowe rękawice",
-        rarity: "common",
-        type: "gloves",
-        requiredLevel: 20,
-        armor: 4,
-        value: 620
-    },
 
     guardian_gloves: {
         id: "guardian_gloves",
@@ -2170,15 +2351,7 @@ const items = {
         value: 5000
     },
 
-    knight_gloves: {
-        id: "knight_gloves",
-        name: "Rycerskie rękawice",
-        rarity: "common",
-        type: "gloves",
-        requiredLevel: 40,
-        armor: 11,
-        value: 2500
-    },
+
 
     commander_gloves: {
         id: "commander_gloves",
@@ -2194,15 +2367,6 @@ const items = {
         value: 5400
     },
 
-    master_gloves: {
-        id: "master_gloves",
-        name: "Mistrzowskie rękawice",
-        rarity: "common",
-        type: "gloves",
-        requiredLevel: 50,
-        armor: 14,
-        value: 10500
-    },
 
     dragon_gloves: {
         id: "dragon_gloves",
@@ -2233,9 +2397,9 @@ const items = {
     lucky_ring: {
         id: "lucky_ring",
         name: "Pierścień szczęścia",
-        rarity: "uncommon",
+        rarity: "common",
         type: "ring",
-        requiredLevel: 1,
+        requiredLevel: 10,
         luck: 3,
         dexterity: 1,
 
@@ -2247,12 +2411,74 @@ const items = {
         name: "Żelazny pierścień",
         rarity: "common",
         type: "ring",
-        requiredLevel: 10,
+        requiredLevel: 20,
         strength: 1,
         endurance: 1,
         luck: 1,
         value: 220
     },
+
+    steel_ring: {
+        id: "steel_ring",
+        name: "Stalowy pierścień",
+        rarity: "common",
+        type: "ring",
+        requiredLevel: 35,
+        strength: 2,
+        endurance: 2,
+        luck: 2,
+        value: 850
+    },
+
+    knight_ring: {
+        id: "knight_ring",
+        name: "Rycerski pierścień",
+        rarity: "common",
+        type: "ring",
+        requiredLevel: 50,
+        strength: 4,
+        endurance: 4,
+        dexterity: 2,
+        luck: 3,
+        value: 3600
+    },
+
+    magic_ring: {
+        id: "magic_ring",
+        name: "Magiczny pierścień",
+        rarity: "common",
+        type: "ring",
+        requiredLevel: 75,
+        strength: 8,
+        endurance: 8,
+        dexterity: 5,
+        luck: 6,
+        value: 15000
+    },
+
+    master_ring: {
+        id: "master_ring",
+        name: "Mistrzowski pierścień",
+        rarity: "common",
+        type: "ring",
+        requiredLevel: 100,
+        strength: 8,
+        endurance: 8,
+        dexterity: 5,
+        luck: 6,
+        value: 15000
+    },
+
+    mana_ring: {
+        id: "mana_ring",
+        name: " Pierścień many",
+        rarity: "common",
+        type: "ring",
+        requiredLevel: 1,
+        luck: 1,
+        value: 60
+    },
+
 
     kobold_ring: {
         id: "kobold_ring",
@@ -2267,17 +2493,6 @@ const items = {
         value: 520
     },
 
-    steel_ring: {
-        id: "steel_ring",
-        name: "Stalowy pierścień",
-        rarity: "common",
-        type: "ring",
-        requiredLevel: 20,
-        strength: 2,
-        endurance: 2,
-        luck: 2,
-        value: 850
-    },
 
     guardian_ring: {
         id: "guardian_ring",
@@ -2291,6 +2506,7 @@ const items = {
 
         value: 1700
     },
+
 
     steel_guardian_ring: {
         id: "steel_guardian_ring",
@@ -2317,18 +2533,6 @@ const items = {
         value: 5200
     },
 
-    knight_ring: {
-        id: "knight_ring",
-        name: "Rycerski pierścień",
-        rarity: "common",
-        type: "ring",
-        requiredLevel: 40,
-        strength: 4,
-        endurance: 4,
-        dexterity: 2,
-        luck: 3,
-        value: 3600
-    },
 
     commander_ring: {
         id: "commander_ring",
@@ -2344,18 +2548,6 @@ const items = {
         value: 7800
     },
 
-    master_ring: {
-        id: "master_ring",
-        name: "Mistrzowski pierścień",
-        rarity: "common",
-        type: "ring",
-        requiredLevel: 50,
-        strength: 8,
-        endurance: 8,
-        dexterity: 5,
-        luck: 6,
-        value: 15000
-    },
 
     dragon_ring: {
         id: "dragon_ring",
@@ -2384,6 +2576,82 @@ const items = {
         value: 70
     },
 
+    lucky_amulet: {
+        id: "lucky_amulet",
+        name: "Amulet szczęścia",
+        rarity: "common",
+        type: "amulet",
+        requiredLevel: 10,
+        intelligence: 1,
+        luck: 1,
+        value: 70
+    },
+
+    iron_amulet: {
+        id: "iron_amulet",
+        name: "Żelazny amulet",
+        rarity: "common",
+        type: "amulet",
+        requiredLevel: 20,
+        intelligence: 2,
+        endurance: 1,
+        luck: 1,
+        value: 240
+    },
+
+
+
+    steel_amulet: {
+        id: "steel_amulet",
+        name: "Stalowy amulet",
+        rarity: "common",
+        type: "amulet",
+        requiredLevel: 35,
+        intelligence: 4,
+        endurance: 2,
+        luck: 2,
+        value: 900
+    },
+
+    knight_amulet: {
+        id: "knight_amulet",
+        name: "Rycerski amulet",
+        rarity: "common",
+        type: "amulet",
+        requiredLevel: 50,
+        intelligence: 8,
+        endurance: 4,
+        strength: 2,
+        luck: 3,
+        value: 3800
+    },
+
+    magic_amulet: {
+        id: "magic_amulet",
+        name: "Magiczny amulet",
+        rarity: "common",
+        type: "amulet",
+        requiredLevel: 75,
+        intelligence: 18,
+        endurance: 8,
+        strength: 5,
+        luck: 6,
+        value: 15500
+    },
+
+    master_amulet: {
+        id: "master_amulet",
+        name: "Mistrzowski amulet",
+        rarity: "common",
+        type: "amulet",
+        requiredLevel: 100,
+        intelligence: 18,
+        endurance: 8,
+        strength: 5,
+        luck: 6,
+        value: 15500
+    },
+
     mana_amulet: {
         id: "mana_amulet",
         name: "Amulet many",
@@ -2395,17 +2663,7 @@ const items = {
         value: 190
     },
 
-    iron_amulet: {
-        id: "iron_amulet",
-        name: "Żelazny amulet",
-        rarity: "common",
-        type: "amulet",
-        requiredLevel: 10,
-        intelligence: 2,
-        endurance: 1,
-        luck: 1,
-        value: 240
-    },
+
 
     kobold_amulet: {
         id: "kobold_amulet",
@@ -2419,17 +2677,7 @@ const items = {
         value: 560
     },
 
-    steel_amulet: {
-        id: "steel_amulet",
-        name: "Stalowy amulet",
-        rarity: "common",
-        type: "amulet",
-        requiredLevel: 20,
-        intelligence: 4,
-        endurance: 2,
-        luck: 2,
-        value: 900
-    },
+
 
     guardian_amulet: {
         id: "guardian_amulet",
@@ -2467,18 +2715,7 @@ const items = {
         value: 4200
     },
 
-    knight_amulet: {
-        id: "knight_amulet",
-        name: "Rycerski amulet",
-        rarity: "common",
-        type: "amulet",
-        requiredLevel: 40,
-        intelligence: 8,
-        endurance: 4,
-        strength: 2,
-        luck: 3,
-        value: 3800
-    },
+
 
     commander_amulet: {
         id: "commander_amulet",
@@ -2493,18 +2730,7 @@ const items = {
         value: 8200
     },
 
-    master_amulet: {
-        id: "master_amulet",
-        name: "Mistrzowski amulet",
-        rarity: "common",
-        type: "amulet",
-        requiredLevel: 50,
-        intelligence: 18,
-        endurance: 8,
-        strength: 5,
-        luck: 6,
-        value: 15500
-    },
+
 
     dragon_amulet: {
         id: "dragon_amulet",
@@ -2530,6 +2756,76 @@ const items = {
         luck: 2,
         value: 80
     },
+    lucky_talisman: {
+        id: "lucky_talisman",
+        name: "Talizman szczęścia",
+        rarity: "common",
+        type: "talisman",
+        requiredLevel: 10,
+        luck: 2,
+        value: 80
+    },
+
+    iron_talisman: {
+        id: "iron_talisman",
+        name: "Żelazny talizman",
+        rarity: "common",
+        type: "talisman",
+        requiredLevel: 20,
+        luck: 2,
+        endurance: 2,
+        value: 280
+    },
+
+    steel_talisman: {
+        id: "steel_talisman",
+        name: "Stalowy talizman",
+        rarity: "common",
+        type: "talisman",
+        requiredLevel: 35,
+        luck: 4,
+        endurance: 3,
+        value: 1000
+    },
+
+    knight_talisman: {
+        id: "knight_talisman",
+        name: "Rycerski talizman",
+        rarity: "common",
+        type: "talisman",
+        requiredLevel: 50,
+        luck: 6,
+        strength: 3,
+        endurance: 4,
+        intelligence: 3,
+        value: 4200
+    },
+
+    magic_talisman: {
+        id: "magic_talisman",
+        name: "Magiczny talizman",
+        rarity: "common",
+        type: "talisman",
+        requiredLevel: 75,
+        luck: 10,
+        strength: 6,
+        dexterity: 6,
+        intelligence: 8,
+        value: 17000
+    },
+
+    master_talisman: {
+        id: "master_talisman",
+        name: "Mistrzowski talizman",
+        rarity: "common",
+        type: "talisman",
+        requiredLevel: 100,
+        luck: 10,
+        strength: 6,
+        dexterity: 6,
+        intelligence: 8,
+        value: 17000
+    },
 
     nature_talisman: {
         id: "nature_talisman",
@@ -2540,17 +2836,6 @@ const items = {
         luck: 4,
         intelligence: 1,
         value: 220
-    },
-
-    iron_talisman: {
-        id: "iron_talisman",
-        name: "Żelazny talizman",
-        rarity: "common",
-        type: "talisman",
-        requiredLevel: 10,
-        luck: 2,
-        endurance: 2,
-        value: 280
     },
 
     kobold_talisman: {
@@ -2565,16 +2850,6 @@ const items = {
         value: 650
     },
 
-    steel_talisman: {
-        id: "steel_talisman",
-        name: "Stalowy talizman",
-        rarity: "common",
-        type: "talisman",
-        requiredLevel: 20,
-        luck: 4,
-        endurance: 3,
-        value: 1000
-    },
 
     guardian_talisman: {
         id: "guardian_talisman",
@@ -2610,19 +2885,6 @@ const items = {
         value: 4400
     },
 
-    knight_talisman: {
-        id: "knight_talisman",
-        name: "Rycerski talizman",
-        rarity: "common",
-        type: "talisman",
-        requiredLevel: 40,
-        luck: 6,
-        strength: 3,
-        endurance: 4,
-        intelligence: 3,
-        value: 4200
-    },
-
     commander_talisman: {
         id: "commander_talisman",
         name: "Talizman dowódcy",
@@ -2634,19 +2896,6 @@ const items = {
         dexterity: 5,
         intelligence: 5,
         value: 9000
-    },
-
-    master_talisman: {
-        id: "master_talisman",
-        name: "Mistrzowski talizman",
-        rarity: "common",
-        type: "talisman",
-        requiredLevel: 50,
-        luck: 10,
-        strength: 6,
-        dexterity: 6,
-        intelligence: 8,
-        value: 17000
     },
 
     dragon_talisman: {
@@ -2856,7 +3105,7 @@ const items = {
         damage: 7,
         value: 120
     },
-        light_crossbow: {
+    light_crossbow: {
         id: "light_crossbow",
         name: "Lekka kusza",
         rarity: "common",
@@ -2903,7 +3152,7 @@ const items = {
         damage: 100,
         value: 5500
     },
-        heavy_crossbow: {
+    heavy_crossbow: {
         id: "heavy_crossbow",
         name: "Ciężka kusza",
         rarity: "common",
@@ -3027,7 +3276,7 @@ const items = {
         value: 100
     },
 
-        simple_wand: {
+    simple_wand: {
         id: "simple_wand",
         name: "Prosta różdżka",
         rarity: "common",
@@ -3074,7 +3323,7 @@ const items = {
         value: 6000
     },
 
-        master_wand: {
+    master_wand: {
         id: "master_wand",
         name: "Mistrzowska różdżka",
         rarity: "common",
@@ -3160,7 +3409,7 @@ const items = {
     },
 
 
-        heavy_battle_staff: {
+    heavy_battle_staff: {
         id: "heavy_battle_staff",
         name: "Ciężki bojowy kostur",
         rarity: "common",

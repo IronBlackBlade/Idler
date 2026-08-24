@@ -2490,7 +2490,7 @@ materials: [
     // PIERŚCIENIE
     // =========================
 
-    lucky_ring: {
+    mana_ring: {
         materials: [
             {
                 itemId: "simple_ring",
@@ -2911,7 +2911,7 @@ materials: [
                 quantity: 4
             },
             {
-                itemId: "forest_nymph_tear",
+                itemId: "nymph_tear",
                 quantity: 3
             },
             {
@@ -3095,5 +3095,3 @@ materials: [
         ]
     },
 };
-
-

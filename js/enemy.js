@@ -71,11 +71,37 @@ const enemyIcons = {
     kobold_king: "👑",
     ancient_guardian: "🗿",
 
+    abyss_lord: "👑",
+    memory_devourer: "🧠",
+    dimension_weaver: "🕸️",
+    nameless_observer: "👁️",
+    void_herald: "🌑",
+    rift_architect: "🌀",
+
+    heart_of_the_mountain: "💠",
     crystal_beetle: "🪲",
-    shardling: "🔹",
+    shardling: "💎",
     geode_breaker: "🪨",
-    prismatic_manticore: "🌈",
-    crystal_spire_guardian: "🗿"
+    prismatic_manticore: "🦂",
+    crystal_spire_guardian: "🗿",
+
+    memory_keeper: "🧠",
+    rift_stalker: "🌀",
+    void_seer: "🔮",
+    chaos_colossus: "🗿",
+    abyss_citadel_sovereign: "👑",
+
+    sunken_gate_guardian: "🌊",
+    court_hydromancer: "💧",
+    royal_siren: "🧜",
+    palace_reef_colossus: "🪸",
+    spectral_deep_king: "👑",
+
+    spire_crystal_sentinel: "🔱",
+    prismatic_channeler: "🔮",
+    geode_titan: "🪨",
+    spire_prismatic_guardian: "🛡️",
+    prismatic_spire_sovereign: "👑"
 };
 
 function getEnemyIcon(enemyId) {

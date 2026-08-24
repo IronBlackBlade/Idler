@@ -8,10 +8,10 @@ const forest = {
     boss: {
         id: "goblin_chief",
         name: "👑 Goblini Herszt",
-hp: 450,
-attack: 20,
-gold: 75,
-exp: 120,
+        hp: 450,
+        attack: 20,
+        gold: 75,
+        exp: 120,
         firstKillReward: {
             gold: 100,
             exp: 150,
@@ -104,5 +104,3 @@ exp: 120,
 
 
 };
-
-

@@ -1699,9 +1699,9 @@ const recipes = [
     },
 
     {
-        id: "lucky_ring_recipe",
-        name: "Pierścień szczęścia",
-        resultItemId: "lucky_ring",
+        id: "mana_ring_recipe",
+        name: "Pierścień many",
+        resultItemId: "mana_ring",
         requiresScroll: false,
         unlockCost: 0,
         goldCost: 90,
