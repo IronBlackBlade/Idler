@@ -96,18 +96,6 @@ const player = {
         volcanoHeart: {
             firstKeyGranted: false,
             bossKillsSinceKey: 0
-        },
-        abyssCitadel: {
-            firstKeyGranted: false,
-            bossKillsSinceKey: 0
-        },
-        deepPalace: {
-            firstKeyGranted: false,
-            bossKillsSinceKey: 0
-        },
-        prismaticSpire: {
-            firstKeyGranted: false,
-            bossKillsSinceKey: 0
         }
     },
 
@@ -149,33 +137,6 @@ const player = {
             completedAt: 0
         },
         volcanoHeart: {
-            active: false,
-            roomIndex: 0,
-            completed: false,
-            completionCount: 0,
-            failedRuns: 0,
-            enteredAt: 0,
-            completedAt: 0
-        },
-        abyssCitadel: {
-            active: false,
-            roomIndex: 0,
-            completed: false,
-            completionCount: 0,
-            failedRuns: 0,
-            enteredAt: 0,
-            completedAt: 0
-        },
-        deepPalace: {
-            active: false,
-            roomIndex: 0,
-            completed: false,
-            completionCount: 0,
-            failedRuns: 0,
-            enteredAt: 0,
-            completedAt: 0
-        },
-        prismaticSpire: {
             active: false,
             roomIndex: 0,
             completed: false,
@@ -535,20 +496,7 @@ function resetPlayer() {
         volcanoHeart: {
             firstKeyGranted: false,
             bossKillsSinceKey: 0
-        },
-        abyssCitadel: {
-            firstKeyGranted: false,
-            bossKillsSinceKey: 0
-        },
-        deepPalace: {
-            firstKeyGranted: false,
-            bossKillsSinceKey: 0
-        },
-        prismaticSpire: {
-            firstKeyGranted: false,
-            bossKillsSinceKey: 0
         }
-        
     };
 
     player.dungeons = {
@@ -596,33 +544,6 @@ function resetPlayer() {
             failedRuns: 0,
             enteredAt: 0,
             completedAt: 0
-        },
-        abyssCitadel: {
-            active: false,
-            roomIndex: 0,
-            completed: false,
-            completionCount: 0,
-            failedRuns: 0,
-            enteredAt: 0,
-            completedAt: 0
-        },
-        deepPalace: {
-            active: false,
-            roomIndex: 0,
-            completed: false,
-            completionCount: 0,
-            failedRuns: 0,
-            enteredAt: 0,
-            completedAt: 0
-        },
-        prismaticSpire: {
-            active: false,
-            roomIndex: 0,
-            completed: false,
-            completionCount: 0,
-            failedRuns: 0,
-            enteredAt: 0,
-            completedAt: 0
         }
     };
 
@@ -654,30 +575,6 @@ function resetPlayer() {
     );
     player.selectedCombatBranch = null;
     player.selectedCombatSpecialization = null;
-    if (
-        typeof resetCombatSkillPathSelection ===
-        "function"
-    ) {
-        resetCombatSkillPathSelection();
-    }
-
-    player.selectedWarriorCapstone =
-        null;
-    player.selectedHunterCapstone =
-        null;
-    player.selectedMageCapstone =
-        null;
-    player.selectedGuardianCapstone =
-        null;
-    player.selectedRogueCapstone =
-        null;
-
-    renderSkills();
-
-    player.selectedSpells = {
-        offensive: null,
-        defensive: null
-    };
 
     player.autoHealing = {
         selectedPotionId: null,
@@ -773,7 +670,7 @@ function resetPlayer() {
     player.mana = derived.maxMana;
 
     console.log("resetPlayer wykonany:", player);
-
+    
     if (typeof renderSkills === "function") {
         renderSkills();
     }

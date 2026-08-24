@@ -55,6 +55,32 @@ function clearCombatSkillSelection() {
     renderSkills();
 }
 
+/*
+ * Alias - player.js (resetPlayer), save.js
+ * (loadGame) i skills.js (resetSkills)
+ * wołają tę funkcję pod tą nazwą, ale
+ * właściwa logika czyszcząca żyje w
+ * clearCombatSkillSelection().
+ */
+function resetCombatSkillPathSelection() {
+    clearCombatSkillSelection();
+}
+
+/*
+ * Przywraca domyślny widok ekranu
+ * umiejętności - wołane przy wczytaniu
+ * zapisu (save.js), żeby nie zostać
+ * na zakładce/kategorii z poprzedniej
+ * sesji.
+ */
+function resetSkillsUiState() {
+    currentSkillTree = "magic";
+    currentMagicCategory =
+        "offensive_spells";
+
+    clearCombatSkillSelection();
+}
+
 const combatBranchDefinitions = {
     melee: {
         icon: "⚔️",
@@ -3849,26 +3875,4 @@ function renderCombatSpellSlot(spellType) {
 function renderCombatSpellSlots() {
     renderCombatSpellSlot("offensive");
     renderCombatSpellSlot("defensive");
-}
-
-function resetCombatSkillPathSelection() {
-    selectedCombatBranch = null;
-    selectedCombatSpecialization = null;
-
-    localStorage.removeItem(
-        "idler_combat_skill_branch"
-    );
-
-    localStorage.removeItem(
-        "idler_combat_skill_specialization"
-    );
-}
-
-function resetSkillsUiState() {
-    currentSkillTree = "magic";
-    currentMagicCategory = "offensive_spells";
-
-    if (typeof renderSkills === "function") {
-        renderSkills();
-    }
 }

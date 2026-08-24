@@ -302,7 +302,7 @@ const recipes = [
         craftingTimeSeconds: 10,
         requiresScroll: false,
         unlockCost: 0,
-        goldCost: 2,
+        goldCost: 3,
 
         materials: [
             {
@@ -319,9 +319,9 @@ const recipes = [
         category: "materials",
         subcategory: "tanner",
         resultItemId: "wool_cloth",
-        requiredCraftingLevel: 2,
+        requiredCraftingLevel: 3,
         craftingExp: 15,
-        craftingTimeSeconds: 10,
+        craftingTimeSeconds: 12,
         requiresScroll: false,
         unlockCost: 0,
         goldCost: 4,
@@ -342,9 +342,9 @@ const recipes = [
         subcategory: "tanner",
         resultItemId:
             "tanned_wolf_leather",
-        requiredCraftingLevel: 3,
+        requiredCraftingLevel: 5,
         craftingExp: 20,
-        craftingTimeSeconds: 10,
+        craftingTimeSeconds: 15,
         requiresScroll: false,
         unlockCost: 0,
         goldCost: 5,
@@ -446,6 +446,83 @@ const recipes = [
             }
         ]
     },
+
+    {
+        id: "void_plate_recipe",
+        name: "Płyta z materii pustki",
+        category: "materials",
+        subcategory: "armorer",
+        resultItemId: "void_plate",
+        requiredCraftingLevel: 40,
+        craftingExp: 900,
+        craftingTimeSeconds: 60,
+        requiresScroll: false,
+        unlockCost: 0,
+        goldCost: 140,
+
+        materials: [
+            {
+                itemId: "void_armor_fragment",
+                quantity: 3
+            },
+            {
+                itemId: "dark_matter",
+                quantity: 1
+            }
+        ]
+    },
+
+    {
+        id: "deep_scale_plate_recipe",
+        name: "Płyta z łusek głebinowców",
+        category: "materials",
+        subcategory: "armorer",
+        resultItemId: "deep_scale_plate",
+        requiredCraftingLevel: 50,
+        craftingExp: 1250,
+        craftingTimeSeconds: 72,
+        requiresScroll: false,
+        unlockCost: 0,
+        goldCost: 190,
+
+        materials: [
+            {
+                itemId: "deep_scale",
+                quantity: 3
+            },
+            {
+                itemId: "coral_heart",
+                quantity: 1
+            }
+        ]
+    },
+
+    {
+        id: "prismatic_plate_recipe",
+        name: "Pryzmatyczna płyta",
+        category: "materials",
+        subcategory: "armorer",
+        resultItemId: "prismatic_plate",
+        requiredCraftingLevel: 60,
+        craftingExp: 1700,
+        craftingTimeSeconds: 84,
+        requiresScroll: false,
+        unlockCost: 0,
+        goldCost: 260,
+
+        materials: [
+            {
+                itemId: "prismatic_scale",
+                quantity: 3
+            },
+            {
+                itemId: "living_crystal",
+                quantity: 1
+            }
+        ]
+    },
+
+
 
     {
         id: "whetstone_recipe",
@@ -809,6 +886,184 @@ const recipes = [
             }
         ]
     },
+
+    {
+    id: "abyss_echo_crossbow_mechanism_recipe",
+    name: "Mechanizm Echa Otchłani",
+    category: "materials",
+    subcategory: "bowyer",
+    resultItemId:
+        "abyss_echo_crossbow_mechanism",
+    requiredCraftingLevel: 35,
+    craftingExp: 480,
+    craftingTimeSeconds: 36,
+    requiresScroll: false,
+    unlockCost: 0,
+    goldCost: 140,
+    materials: [
+        {
+            itemId:
+                "crossbow_tension_mechanism",
+            quantity: 1
+        },
+        {
+            itemId: "dark_matter",
+            quantity: 2
+        },
+        {
+            itemId: "dimensional_thread",
+            quantity: 3
+        },
+        {
+            itemId: "rift_core",
+            quantity: 1
+        }
+    ]
+},
+{
+    id:
+        "leviathan_pressure_crossbow_mechanism_recipe",
+    name: "Mechanizm Ciśnieniowy Lewiatana",
+    category: "materials",
+    subcategory: "bowyer",
+    resultItemId:
+        "leviathan_pressure_crossbow_mechanism",
+    requiredCraftingLevel: 45,
+    craftingExp: 750,
+    craftingTimeSeconds: 48,
+    requiresScroll: false,
+    unlockCost: 0,
+    goldCost: 280,
+    materials: [
+        {
+            itemId:
+                "abyss_echo_crossbow_mechanism",
+            quantity: 1
+        },
+        {
+            itemId: "pressure_gland",
+            quantity: 2
+        },
+        {
+            itemId: "petrified_plate",
+            quantity: 2
+        },
+        {
+            itemId: "depth_essence",
+            quantity: 1
+        }
+    ]
+},
+{
+    id:
+        "prismatic_spectral_crossbow_mechanism_recipe",
+    name: "Pryzmatyczny Mechanizm Widmowy",
+    category: "materials",
+    subcategory: "bowyer",
+    resultItemId:
+        "prismatic_spectral_crossbow_mechanism",
+    requiredCraftingLevel: 55,
+    craftingExp: 1150,
+    craftingTimeSeconds: 60,
+    requiresScroll: false,
+    unlockCost: 0,
+    goldCost: 520,
+    materials: [
+        {
+            itemId:
+                "leviathan_pressure_crossbow_mechanism",
+            quantity: 1
+        },
+        {
+            itemId: "crystal_shard",
+            quantity: 3
+        },
+        {
+            itemId: "prismatic_gem",
+            quantity: 2
+        },
+        {
+            itemId: "crystal_heart",
+            quantity: 1
+        }
+    ]
+},
+
+    {
+        id: "dimensional_bowstring_recipe",
+        name: "Struna Rozdartego Wymiaru",
+        category: "materials",
+        subcategory: "bowyer",
+        resultItemId: "dimensional_bowstring",
+        requiredCraftingLevel: 40,
+        craftingExp: 900,
+        craftingTimeSeconds: 60,
+        requiresScroll: false,
+        unlockCost: 0,
+        goldCost: 140,
+
+        materials: [
+            {
+                itemId: "dimensional_thread",
+                quantity: 3
+            },
+            {
+                itemId: "cerebral_membrane",
+                quantity: 1
+            }
+        ]
+    },
+
+    {
+        id: "deep_bowstring_recipe",
+        name: "Śpiewająca Cięciwa Głębin",
+        category: "materials",
+        subcategory: "bowyer",
+        resultItemId: "deep_bowstring",
+        requiredCraftingLevel: 50,
+        craftingExp: 1250,
+        craftingTimeSeconds: 72,
+        requiresScroll: false,
+        unlockCost: 0,
+        goldCost: 190,
+
+        materials: [
+            {
+                itemId: "siren_scale",
+                quantity: 3
+            },
+            {
+                itemId: "enchanted_shell",
+                quantity: 1
+            }
+        ]
+    },
+
+    {
+        id: "prismatic_bowstring_recipe",
+        name: "Nić Pryzmatycznego Światła",
+        category: "materials",
+        subcategory: "bowyer",
+        resultItemId: "prismatic_bowstring",
+        requiredCraftingLevel: 60,
+        craftingExp: 1700,
+        craftingTimeSeconds: 84,
+        requiresScroll: false,
+        unlockCost: 0,
+        goldCost: 260,
+
+        materials: [
+            {
+                itemId: "crystalline_sinew",
+                quantity: 3
+            },
+            {
+                itemId: "living_crystal",
+                quantity: 1
+            }
+        ]
+    },
+
     {
         id: "forest_blade_recipe",
         name: "Leśne ostrze",

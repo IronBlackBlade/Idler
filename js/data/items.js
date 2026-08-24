@@ -1131,7 +1131,17 @@ const items = {
         damage: 50,
         value: 1800
     },
-
+    guard_sword: {
+        id: "guard_sword",
+        name: "Miecz strażnika",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "melee",
+        weaponClass: "slashing",
+        requiredLevel: 35,
+        damage: 60,
+        value: 1500
+    },
     knight_sword: {
         id: "knight_sword",
         name: "Rycerski miecz",
@@ -1139,9 +1149,9 @@ const items = {
         type: "weapon",
         weaponType: "melee",
         weaponClass: "slashing",
-        requiredLevel: 40,
-        damage: 85,
-        value: 1400
+        requiredLevel: 50,
+        damage: 100,
+        value: 3000
     },
 
     commander_sword: {
@@ -1151,9 +1161,21 @@ const items = {
         type: "weapon",
         weaponType: "melee",
         weaponClass: "slashing",
-        requiredLevel: 40,
-        damage: 95,
-        value: 3200
+        requiredLevel: 50,
+        damage: 150,
+        value: 6000
+    },
+
+    captain_sword: {
+        id: "captain_sword",
+        name: "Miecz kapitana",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "melee",
+        weaponClass: "slashing",
+        requiredLevel: 75,
+        damage: 175,
+        value: 12000
     },
 
     master_sword: {
@@ -1163,9 +1185,9 @@ const items = {
         type: "weapon",
         weaponType: "melee",
         weaponClass: "slashing",
-        requiredLevel: 50,
-        damage: 125,
-        value: 6000
+        requiredLevel: 100,
+        damage: 250,
+        value: 18000
     },
 
     dragon_blade: {
@@ -1217,6 +1239,18 @@ const items = {
         value: 850
     },
 
+    iron_club: {
+        id: "iron_club",
+        name: "Żelazna maczuga",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "melee",
+        weaponClass: "blunt",
+        requiredLevel: 35,
+        damage: 60,
+        value: 3200
+    },
+
     war_hammer: {
         id: "war_hammer",
         name: "Młot wojenny",
@@ -1224,8 +1258,8 @@ const items = {
         type: "weapon",
         weaponType: "melee",
         weaponClass: "blunt",
-        requiredLevel: 40,
-        damage: 85,
+        requiredLevel: 50,
+        damage: 100,
         value: 3200
     },
 
@@ -1236,10 +1270,24 @@ const items = {
         type: "weapon",
         weaponType: "melee",
         weaponClass: "blunt",
-        requiredLevel: 50,
-        damage: 125,
+        requiredLevel: 75,
+        damage: 175,
         value: 12000
     },
+
+    heavy_war_hammer: {
+        id: "heavy_war_hammer",
+        name: "Ciężki młot wojenny",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "melee",
+        weaponClass: "blunt",
+        requiredLevel: 100,
+        damage: 250,
+        value: 3200
+    },
+
+
 
     forest_club: {
         id: "forest_club",
@@ -2641,9 +2689,9 @@ const items = {
         value: 140
     },
 
-    war_bow: {
-        id: "war_bow",
-        name: "Łuk wojenny",
+    long_bow: {
+        id: "long_bow",
+        name: "Długi łuk",
         rarity: "common",
         type: "weapon",
         weaponType: "ranged",
@@ -2653,6 +2701,17 @@ const items = {
         value: 450
     },
 
+    oak_bow: {
+        id: "oak_bow",
+        name: "Łuk dębowy",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "ranged",
+        weaponClass: "bow",
+        requiredLevel: 35,
+        damage: 60,
+        value: 1500
+    },
 
 
     ranger_bow: {
@@ -2662,9 +2721,20 @@ const items = {
         type: "weapon",
         weaponType: "ranged",
         weaponClass: "bow",
-        requiredLevel: 40,
-        damage: 85,
-        value: 1400
+        requiredLevel: 50,
+        damage: 100,
+        value: 5500
+    },
+    war_bow: {
+        id: "war_bow",
+        name: "Łuk wojenny",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "ranged",
+        weaponClass: "bow",
+        requiredLevel: 75,
+        damage: 175,
+        value: 10500
     },
 
     master_bow: {
@@ -2674,9 +2744,9 @@ const items = {
         type: "weapon",
         weaponType: "ranged",
         weaponClass: "bow",
-        requiredLevel: 50,
-        damage: 125,
-        value: 6000
+        requiredLevel: 100,
+        damage: 250,
+        value: 21000
     },
 
     forest_bow: {
@@ -2786,6 +2856,17 @@ const items = {
         damage: 7,
         value: 120
     },
+        light_crossbow: {
+        id: "light_crossbow",
+        name: "Lekka kusza",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "ranged",
+        weaponClass: "crossbow",
+        requiredLevel: 10,
+        damage: 16,
+        value: 175
+    },
 
     hunting_crossbow: {
         id: "hunting_crossbow",
@@ -2794,9 +2875,9 @@ const items = {
         type: "weapon",
         weaponType: "ranged",
         weaponClass: "crossbow",
-        requiredLevel: 10,
-        damage: 18,
-        value: 320
+        requiredLevel: 20,
+        damage: 30,
+        value: 550
     },
 
     steel_crossbow: {
@@ -2806,9 +2887,9 @@ const items = {
         type: "weapon",
         weaponType: "ranged",
         weaponClass: "crossbow",
-        requiredLevel: 20,
-        damage: 30,
-        value: 850
+        requiredLevel: 35,
+        damage: 60,
+        value: 1750
     },
 
     battle_crossbow: {
@@ -2818,9 +2899,20 @@ const items = {
         type: "weapon",
         weaponType: "ranged",
         weaponClass: "crossbow",
-        requiredLevel: 40,
-        damage: 42,
-        value: 3200
+        requiredLevel: 50,
+        damage: 100,
+        value: 5500
+    },
+        heavy_crossbow: {
+        id: "heavy_crossbow",
+        name: "Ciężka kusza",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "ranged",
+        weaponClass: "crossbow",
+        requiredLevel: 75,
+        damage: 175,
+        value: 11000
     },
 
     master_crossbow: {
@@ -2830,9 +2922,9 @@ const items = {
         type: "weapon",
         weaponType: "ranged",
         weaponClass: "crossbow",
-        requiredLevel: 50,
-        damage: 65,
-        value: 12000
+        requiredLevel: 100,
+        damage: 250,
+        value: 22000
     },
 
 
@@ -2932,7 +3024,19 @@ const items = {
         weaponClass: "wand",
         requiredLevel: 1,
         damage: 4,
-        value: 50
+        value: 100
+    },
+
+        simple_wand: {
+        id: "simple_wand",
+        name: "Prosta różdżka",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "magic",
+        weaponClass: "wand",
+        requiredLevel: 10,
+        damage: 18,
+        value: 300
     },
 
     apprentice_wand: {
@@ -2942,9 +3046,9 @@ const items = {
         type: "weapon",
         weaponType: "magic",
         weaponClass: "wand",
-        requiredLevel: 10,
-        damage: 12,
-        value: 140
+        requiredLevel: 20,
+        damage: 30,
+        value: 900
     },
     arcane_wand: {
         id: "arcane_wand",
@@ -2953,9 +3057,9 @@ const items = {
         type: "weapon",
         weaponType: "magic",
         weaponClass: "wand",
-        requiredLevel: 20,
-        damage: 20,
-        value: 380
+        requiredLevel: 35,
+        damage: 60,
+        value: 2100
     },
 
     magic_wand: {
@@ -2965,10 +3069,23 @@ const items = {
         type: "weapon",
         weaponType: "magic",
         weaponClass: "wand",
-        requiredLevel: 40,
-        damage: 32,
-        value: 900
+        requiredLevel: 50,
+        damage: 100,
+        value: 6000
     },
+
+        master_wand: {
+        id: "master_wand",
+        name: "Mistrzowska różdżka",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "magic",
+        weaponClass: "wand",
+        requiredLevel: 75,
+        damage: 175,
+        value: 11000
+    },
+
 
     archmaster_wand: {
         id: "archmaster_wand",
@@ -2977,11 +3094,21 @@ const items = {
         type: "weapon",
         weaponType: "magic",
         weaponClass: "wand",
-        requiredLevel: 50,
-        damage: 50,
-        value: 2200
+        requiredLevel: 100,
+        damage: 250,
+        value: 22000
     },
-
+    simple_staff: {
+        id: "simple_staff",
+        name: "Prosty kostur",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "magic",
+        weaponClass: "staff",
+        requiredLevel: 1,
+        damage: 10,
+        value: 120
+    },
     apprentice_staff: {
         id: "apprentice_staff",
         name: "Kostur ucznia",
@@ -2989,9 +3116,9 @@ const items = {
         type: "weapon",
         weaponType: "magic",
         weaponClass: "staff",
-        requiredLevel: 1,
-        damage: 10,
-        value: 140
+        requiredLevel: 10,
+        damage: 18,
+        value: 250
     },
 
     adept_staff: {
@@ -3001,9 +3128,9 @@ const items = {
         type: "weapon",
         weaponType: "magic",
         weaponClass: "staff",
-        requiredLevel: 10,
-        damage: 16,
-        value: 280
+        requiredLevel: 20,
+        damage: 35,
+        value: 850
     },
 
     battle_staff: {
@@ -3013,9 +3140,9 @@ const items = {
         type: "weapon",
         weaponType: "magic",
         weaponClass: "staff",
-        requiredLevel: 20,
-        damage: 28,
-        value: 850
+        requiredLevel: 35,
+        damage: 60,
+        value: 2500
     },
 
 
@@ -3027,9 +3154,22 @@ const items = {
         type: "weapon",
         weaponType: "magic",
         weaponClass: "staff",
-        requiredLevel: 40,
-        damage: 85,
-        value: 1400
+        requiredLevel: 50,
+        damage: 100,
+        value: 6000
+    },
+
+
+        heavy_battle_staff: {
+        id: "heavy_battle_staff",
+        name: "Ciężki bojowy kostur",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "magic",
+        weaponClass: "staff",
+        requiredLevel: 75,
+        damage: 175,
+        value: 12000
     },
 
     master_staff: {
@@ -3039,9 +3179,9 @@ const items = {
         type: "weapon",
         weaponType: "magic",
         weaponClass: "staff",
-        requiredLevel: 50,
-        damage: 125,
-        value: 6000
+        requiredLevel: 100,
+        damage: 250,
+        value: 24000
     },
 
 
@@ -3731,6 +3871,36 @@ const items = {
         description: "Zaawansowany mechanizm naciągowy używany do wytwarzania najlepszych kusz."
     },
 
+    abyss_echo_crossbow_mechanism: {
+        id: "abyss_echo_crossbow_mechanism",
+        name: "Mechanizm Echa Otchłani",
+        description:
+            "Mechanizm naciągowo-spustowy nasączony energią Otchłani.",
+        rarity: "epic",
+        type: "processed_material",
+        value: 650
+    },
+
+    leviathan_pressure_crossbow_mechanism: {
+        id: "leviathan_pressure_crossbow_mechanism",
+        name: "Mechanizm Ciśnieniowy Lewiatana",
+        description:
+            "Wzmocniony mechanizm wykorzystujący ogromne ciśnienie głębin.",
+        rarity: "legendary",
+        type: "processed_material",
+        value: 1100
+    },
+
+    prismatic_spectral_crossbow_mechanism: {
+        id: "prismatic_spectral_crossbow_mechanism",
+        name: "Pryzmatyczny Mechanizm Widmowy",
+        description:
+            "Precyzyjny mechanizm skupiający pryzmatyczną energię podczas wystrzału.",
+        rarity: "legendary",
+        type: "processed_material",
+        value: 1800
+    },
+
 
     tanned_sheep_leather: {
         id: "tanned_sheep_leather",
@@ -3786,6 +3956,53 @@ const items = {
         rarity: "rare",
         type: "processed_material",
         value: 75
+    },
+    void_plate: {
+        id: "void_plate",
+        name: "Płyta z materii pustki",
+        rarity: "epic",
+        type: "crafting_material",
+        value: 1900
+    },
+
+    deep_scale_plate: {
+        id: "deep_scale_plate",
+        name: "Płyta z łusek głębinowców",
+        rarity: "epic",
+        type: "crafting_material",
+        value: 2800
+    },
+
+    prismatic_plate: {
+        id: "prismatic_plate",
+        name: "Pryzmatyczna płyta",
+        rarity: "legendary",
+        type: "crafting_material",
+        value: 3500
+    },
+
+    dimensional_bowstring: {
+        id: "dimensional_bowstring",
+        name: "Struna Rozdartego Wymiaru",
+        rarity: "epic",
+        type: "crafting_material",
+        value: 1700
+    },
+
+    deep_bowstring: {
+        id: "deep_bowstring",
+        name: "Śpiewająca Cięciwa Głębin",
+        rarity: "epic",
+        type: "crafting_material",
+        value: 2500
+    },
+
+    prismatic_bowstring: {
+        id: "prismatic_bowstring",
+        name: "Nić Pryzmatycznego Światła",
+        rarity: "legendary",
+        type: "crafting_material",
+        value: 3700
     },
 
     // ========================================
