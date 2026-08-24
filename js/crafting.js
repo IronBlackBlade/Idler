@@ -2001,6 +2001,12 @@ function getEquipmentUpgradeStatRange(
       jewelryRandom: [1, 2]
     },
 
+    5: {
+      main: [2, 4],
+      random: [1, 2],
+      jewelryRandom: [1, 2]
+    },
+
     10: {
       main: [4, 7],
       random: [2, 4],
