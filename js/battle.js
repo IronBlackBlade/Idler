@@ -906,6 +906,7 @@ const dungeonKeyDropConfigs = {
         keyName: "Klucz do Serca Wulkanu",
         icon: "🌋"
     },
+
     abyssCitadel: {
         locationId: "abyss",
         bossId: "abyss_lord",
@@ -914,14 +915,7 @@ const dungeonKeyDropConfigs = {
         keyName: "Klucz do Cytadeli Otchłani",
         icon: "🌌"
     },
-    deepPalace: {
-        locationId: "sunkenKingdom",
-        bossId: "crown_leviathan",
-        keyItemId: "deep_palace_key",
-        bossName: "Lewiatan Korony",
-        keyName: "Klucz do Pałacu Głębin",
-        icon: "🌊"
-    },
+
     prismaticSpire: {
         locationId: "crystalPeaks",
         bossId: "heart_of_the_mountain",
@@ -929,10 +923,16 @@ const dungeonKeyDropConfigs = {
         bossName: "Serce Góry",
         keyName: "Klucz do Pryzmatycznej Iglicy",
         icon: "💎"
+    },
+
+    deepPalace: {
+        locationId: "sunkenKingdom",
+        bossId: "crown_leviathan",
+        keyItemId: "deep_palace_key",
+        bossName: "Lewiatan Korony",
+        keyName: "Klucz do Pałacu Głębin",
+        icon: "🏛️"
     }
-
-
-
 };
 
 function ensureDungeonKeyProgress(dungeonId) {
@@ -976,11 +976,6 @@ function tryGrantDungeonKey(defeatedEnemy, locationId = player.location) {
             );
         }
     );
-    console.log("BOSS KEY CHECK", {
-        locationId,
-        enemyId: defeatedEnemy?.id,
-        enemyName: defeatedEnemy?.name
-    });
     if (!matchedEntry) {
         return null;
     }
@@ -1018,7 +1013,8 @@ function tryGrantDungeonKey(defeatedEnemy, locationId = player.location) {
             return {
                 granted: false,
                 guaranteed: false,
-                chance
+                chance,
+                dungeonId
             };
         }
     }
@@ -1060,7 +1056,8 @@ function tryGrantDungeonKey(defeatedEnemy, locationId = player.location) {
     return {
         granted: true,
         guaranteed,
-        chance
+        chance,
+        dungeonId
     };
 }
 
@@ -1418,9 +1415,8 @@ function autoAttack() {
             "."
         );
 
-        const goldResult =
-            grantGoldReward(enemy.gold);
-
+        player.gold +=
+            enemy.gold;
 
         player.exp +=
             enemy.exp;
@@ -1435,29 +1431,6 @@ function autoAttack() {
 
         const defeatedEnemyWasBoss =
             player.isBossFight === true;
-
-        let firstBossReward = null;
-
-        if (
-            defeatedEnemyWasBoss &&
-            typeof grantFirstBossKillReward ===
-            "function"
-        ) {
-            firstBossReward =
-                grantFirstBossKillReward(
-                    player.location
-                );
-
-            if (firstBossReward) {
-                addCombatLog(
-                    "🏆 Zdobyto pierwszą nagrodę za pokonanie bossa: " +
-                    firstBossReward.gold +
-                    " złota i " +
-                    firstBossReward.experience +
-                    " EXP."
-                );
-            }
-        }
 
         const defeatedDungeonEnemy =
             enemy.isDungeonEncounter === true &&
@@ -1583,8 +1556,6 @@ function autoAttack() {
     refreshCombatInterface();
 }
 
-
-
 function autoEnemyAttack() {
     if (
         !isFighting ||
@@ -1600,14 +1571,8 @@ function autoEnemyAttack() {
         return;
     }
 
-    if (
-        typeof applyGuardianCombatRegeneration ===
-        "function"
-    ) {
-        applyGuardianCombatRegeneration();
-    }
-
     enemyAttackPlayer();
+
     saveGame();
     refreshCombatInterface();
 }

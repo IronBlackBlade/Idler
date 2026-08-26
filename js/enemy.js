@@ -101,7 +101,14 @@ const enemyIcons = {
     prismatic_channeler: "🔮",
     geode_titan: "🪨",
     spire_prismatic_guardian: "🛡️",
-    prismatic_spire_sovereign: "👑"
+    prismatic_spire_sovereign: "👑",
+
+    crown_leviathan: "👑",
+    drowned_royal_guard: "🛡️",
+    deep_hunter: "🔱",
+    abyss_siren: "🧜",
+    coral_colossus: "🪸",
+    sunken_throne_priest: "🐚"
 };
 
 function getEnemyIcon(enemyId) {

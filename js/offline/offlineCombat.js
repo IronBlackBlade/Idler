@@ -6040,22 +6040,38 @@ function processOfflineCombatProgress(
         });
     }
     if (dungeonKeyResult) {
+        const matchedDungeonId =
+            dungeonKeyResult.dungeonId ||
+            "goblinHideout";
+
+        const config =
+            typeof dungeonKeyDropConfigs !==
+            "undefined"
+                ? dungeonKeyDropConfigs[
+                    matchedDungeonId
+                ]
+                : null;
+
         const keyProgress =
-            typeof ensureGoblinHideoutKeyProgress ===
+            typeof ensureDungeonKeyProgress ===
                 "function"
-                ? ensureGoblinHideoutKeyProgress()
+                ? ensureDungeonKeyProgress(
+                    matchedDungeonId
+                )
                 : player.dungeonKeyProgress
-                    ?.goblinHideout;
+                    ?.[matchedDungeonId];
 
         const keyWasGranted =
             dungeonKeyResult.granted ===
             true;
 
         summarySections.push({
-            icon: "🗝️",
+            icon:
+                config?.icon || "🗝️",
 
             title:
-                "Klucz do Kryjówki Goblinów",
+                config?.keyName ||
+                "Klucz do lochu",
 
             stats:
                 keyWasGranted
@@ -6115,6 +6131,7 @@ function processOfflineCombatProgress(
                     ? [
                         {
                             itemId:
+                                config?.keyItemId ||
                                 "goblin_hideout_key",
 
                             quantity: 1

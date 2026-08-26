@@ -2062,7 +2062,7 @@ const items = {
         name: "Stare buty",
         rarity: "common",
         type: "boots",
-        requiredLevel: 1,
+        requiredLevel: 10,
         armor: 1,
         value: 30
     },
@@ -2072,7 +2072,7 @@ const items = {
         name: "Żelazne buty",
         rarity: "common",
         type: "boots",
-        requiredLevel: 10,
+        requiredLevel: 20,
         armor: 2,
         value: 160
     },
@@ -2095,7 +2095,7 @@ const items = {
         name: "Stalowe buty",
         rarity: "common",
         type: "boots",
-        requiredLevel: 20,
+        requiredLevel: 35,
         armor: 4,
         value: 600
     },
@@ -2105,7 +2105,7 @@ const items = {
         name: "Rycerskie buty",
         rarity: "common",
         type: "boots",
-        requiredLevel: 40,
+        requiredLevel: 50,
         armor: 11,
         value: 2400
     },
@@ -2115,7 +2115,7 @@ const items = {
         name: "Buty kapitana",
         rarity: "common",
         type: "boots",
-        requiredLevel: 50,
+        requiredLevel: 75,
         armor: 14,
         value: 10000
     },
@@ -2125,7 +2125,7 @@ const items = {
         name: "Mistrzowskie buty",
         rarity: "common",
         type: "boots",
-        requiredLevel: 50,
+        requiredLevel: 100,
         armor: 14,
         value: 10000
     },
@@ -4202,7 +4202,7 @@ const items = {
     },
 
     ancient_chitin_plate: {
-        id: "chitin_plate",
+        id: "ancient_chitin_plate",
         name: "Pradawna płyta chitynowa",
         rarity: "rare",
         type: "processed_material",

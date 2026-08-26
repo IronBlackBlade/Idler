@@ -1,26 +1,26 @@
 {
-  "workbook": "data\\recipes\\locations\\crafting_recipes.xlsx",
-  "recipeCount": 56,
-  "generatedItemCount": 7,
+  "workbook": "crafting\\crafting_recipes.xlsx",
+  "recipeCount": 105,
+  "generatedItemCount": 0,
   "warnings": [],
   "recipes": [
     {
-      "id": "nature_wand_recipe",
-      "name": "Różdżka natury",
-      "resultItemId": "nature_wand",
-      "category": "arcanist",
-      "subcategory": "wand",
+      "id": "mana_amulet_recipe",
+      "name": "Amulet many",
+      "resultItemId": "mana_amulet",
+      "category": "jeweler",
+      "subcategory": "amulet",
       "tier": 1,
       "requiredPlayerLevel": 1,
       "requiredCraftingLevel": 1,
-      "goldCost": 60,
+      "goldCost": 100,
       "craftingExp": 25,
       "craftingTimeSeconds": 12,
       "requiresScroll": false,
       "unlockCost": 0,
       "materials": [
         {
-          "itemId": "wooden_wand",
+          "itemId": "simple_amulet",
           "quantity": 1
         },
         {
@@ -39,25 +39,26 @@
           "itemId": "tin_ingot",
           "quantity": 6
         }
-      ]
+      ],
+      "_baseId": "simple_amulet"
     },
     {
-      "id": "crystal_wand_recipe",
-      "name": "Kryształowa różdżka",
-      "resultItemId": "crystal_wand",
-      "category": "arcanist",
-      "subcategory": "wand",
+      "id": "kobold_amulet_recipe",
+      "name": "Amulet kobolda",
+      "resultItemId": "kobold_amulet",
+      "category": "jeweler",
+      "subcategory": "amulet",
       "tier": 2,
       "requiredPlayerLevel": 10,
       "requiredCraftingLevel": 5,
-      "goldCost": 180,
+      "goldCost": 280,
       "craftingExp": 50,
       "craftingTimeSeconds": 14,
       "requiresScroll": false,
       "unlockCost": 0,
       "materials": [
         {
-          "itemId": "simple_wand",
+          "itemId": "lucky_amulet",
           "quantity": 1
         },
         {
@@ -80,25 +81,26 @@
           "itemId": "tin_ingot",
           "quantity": 8
         }
-      ]
+      ],
+      "_baseId": "lucky_amulet"
     },
     {
-      "id": "guardian_wand_recipe",
-      "name": "Różdżka strażnika",
-      "resultItemId": "guardian_wand",
-      "category": "arcanist",
-      "subcategory": "wand",
+      "id": "guardian_amulet_recipe",
+      "name": "Amulet strażnika",
+      "resultItemId": "guardian_amulet",
+      "category": "jeweler",
+      "subcategory": "amulet",
       "tier": 3,
       "requiredPlayerLevel": 20,
       "requiredCraftingLevel": 10,
-      "goldCost": 450,
+      "goldCost": 760,
       "craftingExp": 85,
       "craftingTimeSeconds": 16,
       "requiresScroll": false,
       "unlockCost": 0,
       "materials": [
         {
-          "itemId": "apprentice_wand",
+          "itemId": "iron_amulet",
           "quantity": 1
         },
         {
@@ -121,25 +123,26 @@
           "itemId": "silver_ingot",
           "quantity": 6
         }
-      ]
+      ],
+      "_baseId": "iron_amulet"
     },
     {
-      "id": "shadow_wand_recipe",
-      "name": "Różdżka cienia",
-      "resultItemId": "shadow_wand",
-      "category": "arcanist",
-      "subcategory": "wand",
+      "id": "steel_guardian_amulet_recipe",
+      "name": "Amulet stalowego strażnika",
+      "resultItemId": "steel_guardian_amulet",
+      "category": "jeweler",
+      "subcategory": "amulet",
       "tier": 4,
       "requiredPlayerLevel": 25,
       "requiredCraftingLevel": 15,
-      "goldCost": 1200,
-      "craftingExp": 140,
-      "craftingTimeSeconds": 20,
+      "goldCost": 850,
+      "craftingExp": 120,
+      "craftingTimeSeconds": 18,
       "requiresScroll": false,
       "unlockCost": 0,
       "materials": [
         {
-          "itemId": "guardian_wand",
+          "itemId": "guardian_amulet",
           "quantity": 1
         },
         {
@@ -162,25 +165,26 @@
           "itemId": "silver_ingot",
           "quantity": 8
         }
-      ]
+      ],
+      "_baseId": "guardian_amulet"
     },
     {
-      "id": "elite_guardian_wand_recipe",
-      "name": "Różdżka elitarnego strażnika",
-      "resultItemId": "elite_guardian_wand",
-      "category": "arcanist",
-      "subcategory": "wand",
+      "id": "elite_guardian_amulet_recipe",
+      "name": "Amulet elitarnego strażnika",
+      "resultItemId": "elite_guardian_amulet",
+      "category": "jeweler",
+      "subcategory": "amulet",
       "tier": 5,
       "requiredPlayerLevel": 30,
       "requiredCraftingLevel": 20,
-      "goldCost": 1100,
+      "goldCost": 1350,
       "craftingExp": 140,
       "craftingTimeSeconds": 20,
       "requiresScroll": false,
       "unlockCost": 0,
       "materials": [
         {
-          "itemId": "shadow_wand",
+          "itemId": "steel_guardian_amulet",
           "quantity": 1
         },
         {
@@ -203,25 +207,26 @@
           "itemId": "gold_ingot",
           "quantity": 4
         }
-      ]
+      ],
+      "_baseId": "steel_guardian_amulet"
     },
     {
-      "id": "commander_wand_recipe",
-      "name": "Różdżka dowódcy",
-      "resultItemId": "commander_wand",
-      "category": "arcanist",
-      "subcategory": "wand",
+      "id": "commander_amulet_recipe",
+      "name": "Amulet dowódcy",
+      "resultItemId": "commander_amulet",
+      "category": "jeweler",
+      "subcategory": "amulet",
       "tier": 6,
       "requiredPlayerLevel": 40,
       "requiredCraftingLevel": 25,
-      "goldCost": 1200,
+      "goldCost": 2000,
       "craftingExp": 140,
       "craftingTimeSeconds": 20,
       "requiresScroll": false,
       "unlockCost": 0,
       "materials": [
         {
-          "itemId": "arcane_wand",
+          "itemId": "steel_amulet",
           "quantity": 1
         },
         {
@@ -244,25 +249,26 @@
           "itemId": "gold_ingot",
           "quantity": 2
         }
-      ]
+      ],
+      "_baseId": "steel_amulet"
     },
     {
-      "id": "dragon_wand_recipe",
-      "name": "Smocza różdżka",
-      "resultItemId": "dragon_wand",
-      "category": "arcanist",
-      "subcategory": "wand",
+      "id": "dragon_amulet_recipe",
+      "name": "Smoczy amulet",
+      "resultItemId": "dragon_amulet",
+      "category": "jeweler",
+      "subcategory": "amulet",
       "tier": 7,
       "requiredPlayerLevel": 50,
       "requiredCraftingLevel": 30,
-      "goldCost": 4000,
+      "goldCost": 6500,
       "craftingExp": 220,
       "craftingTimeSeconds": 24,
       "requiresScroll": false,
       "unlockCost": 0,
       "materials": [
         {
-          "itemId": "magic_wand",
+          "itemId": "knight_amulet",
           "quantity": 1
         },
         {
@@ -285,14 +291,305 @@
           "itemId": "platinum_ingot",
           "quantity": 6
         }
-      ]
+      ],
+      "_baseId": "knight_amulet"
     },
     {
-      "id": "forest_club_recipe",
-      "name": "Leśna pałka",
-      "resultItemId": "forest_club",
-      "category": "blacksmith",
-      "subcategory": "mace",
+      "id": "wolf_armor_recipe",
+      "name": "Pancerz wilka",
+      "resultItemId": "wolf_armor",
+      "category": "armorer",
+      "subcategory": "armor",
+      "tier": 1,
+      "requiredPlayerLevel": 1,
+      "requiredCraftingLevel": 1,
+      "goldCost": 90,
+      "craftingExp": 25,
+      "craftingTimeSeconds": 12,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "simple_armor",
+          "quantity": 1
+        },
+        {
+          "itemId": "wolf_claw",
+          "quantity": 4
+        },
+        {
+          "itemId": "goblin_blade_fragment",
+          "quantity": 4
+        },
+        {
+          "itemId": "chitin_plate",
+          "quantity": 8
+        },
+        {
+          "itemId": "copper_ingot",
+          "quantity": 6
+        }
+      ],
+      "_baseId": "simple_armor"
+    },
+    {
+      "id": "kobold_armor_recipe",
+      "name": "Pancerz kobolda",
+      "resultItemId": "kobold_armor",
+      "category": "armorer",
+      "subcategory": "armor",
+      "tier": 2,
+      "requiredPlayerLevel": 10,
+      "requiredCraftingLevel": 5,
+      "goldCost": 280,
+      "craftingExp": 50,
+      "craftingTimeSeconds": 14,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "leather_armor",
+          "quantity": 1
+        },
+        {
+          "itemId": "wolf_claw",
+          "quantity": 5
+        },
+        {
+          "itemId": "cave_crystal",
+          "quantity": 5
+        },
+        {
+          "itemId": "wool_cloth",
+          "quantity": 8
+        },
+        {
+          "itemId": "kobold_crown_fragment",
+          "quantity": 1
+        },
+        {
+          "itemId": "copper_ingot",
+          "quantity": 8
+        }
+      ],
+      "_baseId": "leather_armor"
+    },
+    {
+      "id": "guardian_armor_recipe",
+      "name": "Pancerz strażnika",
+      "resultItemId": "guardian_armor",
+      "category": "armorer",
+      "subcategory": "armor",
+      "tier": 3,
+      "requiredPlayerLevel": 20,
+      "requiredCraftingLevel": 10,
+      "goldCost": 750,
+      "craftingExp": 85,
+      "craftingTimeSeconds": 16,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "iron_armor",
+          "quantity": 1
+        },
+        {
+          "itemId": "cave_crystal",
+          "quantity": 5
+        },
+        {
+          "itemId": "prismatic_core",
+          "quantity": 5
+        },
+        {
+          "itemId": "tanned_wolf_leather",
+          "quantity": 6
+        },
+        {
+          "itemId": "kobold_crown_fragment",
+          "quantity": 1
+        },
+        {
+          "itemId": "bronze_ingot",
+          "quantity": 6
+        }
+      ],
+      "_baseId": "iron_armor"
+    },
+    {
+      "id": "steel_guardian_armor_recipe",
+      "name": "Pancerz stalowego strażnika",
+      "resultItemId": "steel_guardian_armor",
+      "category": "armorer",
+      "subcategory": "armor",
+      "tier": 4,
+      "requiredPlayerLevel": 25,
+      "requiredCraftingLevel": 15,
+      "goldCost": 1500,
+      "craftingExp": 120,
+      "craftingTimeSeconds": 18,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "guardian_armor",
+          "quantity": 1
+        },
+        {
+          "itemId": "prismatic_core",
+          "quantity": 6
+        },
+        {
+          "itemId": "crystal_gland",
+          "quantity": 6
+        },
+        {
+          "itemId": "tanned_wolf_leather",
+          "quantity": 8
+        },
+        {
+          "itemId": "mountain_heart",
+          "quantity": 1
+        },
+        {
+          "itemId": "bronze_ingot",
+          "quantity": 8
+        }
+      ],
+      "_baseId": "guardian_armor"
+    },
+    {
+      "id": "elite_guardian_armor_recipe",
+      "name": "Pancerz elitarnego strażnika",
+      "resultItemId": "elite_guardian_armor",
+      "category": "armorer",
+      "subcategory": "armor",
+      "tier": 5,
+      "requiredPlayerLevel": 30,
+      "requiredCraftingLevel": 20,
+      "goldCost": 2400,
+      "craftingExp": 140,
+      "craftingTimeSeconds": 20,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "steel_guardian_armor",
+          "quantity": 1
+        },
+        {
+          "itemId": "prismatic_core",
+          "quantity": 6
+        },
+        {
+          "itemId": "ice_elemental_core",
+          "quantity": 6
+        },
+        {
+          "itemId": "chitin_plate_ancient",
+          "quantity": 3
+        },
+        {
+          "itemId": "mountain_heart",
+          "quantity": 1
+        },
+        {
+          "itemId": "iron_ingot",
+          "quantity": 5
+        }
+      ],
+      "_baseId": "steel_guardian_armor"
+    },
+    {
+      "id": "commander_armor_recipe",
+      "name": "Pancerz dowódcy",
+      "resultItemId": "commander_armor",
+      "category": "armorer",
+      "subcategory": "armor",
+      "tier": 6,
+      "requiredPlayerLevel": 40,
+      "requiredCraftingLevel": 25,
+      "goldCost": 2200,
+      "craftingExp": 140,
+      "craftingTimeSeconds": 20,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "steel_armor",
+          "quantity": 1
+        },
+        {
+          "itemId": "ice_elemental_core",
+          "quantity": 7
+        },
+        {
+          "itemId": "frost_essence",
+          "quantity": 7
+        },
+        {
+          "itemId": "chitin_plate_ancient",
+          "quantity": 4
+        },
+        {
+          "itemId": "frost_crown_fragment",
+          "quantity": 1
+        },
+        {
+          "itemId": "iron_ingot",
+          "quantity": 7
+        }
+      ],
+      "_baseId": "steel_armor"
+    },
+    {
+      "id": "dragon_armor_recipe",
+      "name": "Smoczy pancerz",
+      "resultItemId": "dragon_armor",
+      "category": "armorer",
+      "subcategory": "armor",
+      "tier": 7,
+      "requiredPlayerLevel": 50,
+      "requiredCraftingLevel": 30,
+      "goldCost": 7000,
+      "craftingExp": 220,
+      "craftingTimeSeconds": 24,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "knight_armor",
+          "quantity": 1
+        },
+        {
+          "itemId": "ice_elemental_core",
+          "quantity": 8
+        },
+        {
+          "itemId": "spectral_essence",
+          "quantity": 8
+        },
+        {
+          "itemId": "tanned_lava_hound_leather",
+          "quantity": 4
+        },
+        {
+          "itemId": "guardian_emblem",
+          "quantity": 1
+        },
+        {
+          "itemId": "platinum_ingot",
+          "quantity": 6
+        }
+      ],
+      "_baseId": "knight_armor"
+    },
+    {
+      "id": "wolf_boots_recipe",
+      "name": "Buty wilka",
+      "resultItemId": "wolf_boots",
+      "category": "armorer",
+      "subcategory": "boots",
       "tier": 1,
       "requiredPlayerLevel": 1,
       "requiredCraftingLevel": 1,
@@ -303,7 +600,7 @@
       "unlockCost": 0,
       "materials": [
         {
-          "itemId": "club",
+          "itemId": "simple_boots",
           "quantity": 1
         },
         {
@@ -315,32 +612,33 @@
           "quantity": 4
         },
         {
-          "itemId": "stone",
-          "quantity": 4
+          "itemId": "chitin_plate",
+          "quantity": 8
         },
         {
           "itemId": "copper_ingot",
           "quantity": 6
         }
-      ]
+      ],
+      "_baseId": "simple_boots"
     },
     {
-      "id": "kobold_slayer_mace_recipe",
-      "name": "Maczuga pogromcy koboldów",
-      "resultItemId": "kobold_slayer_mace",
-      "category": "blacksmith",
-      "subcategory": "mace",
+      "id": "kobold_boots_recipe",
+      "name": "Buty kobolda",
+      "resultItemId": "kobold_boots",
+      "category": "armorer",
+      "subcategory": "boots",
       "tier": 2,
       "requiredPlayerLevel": 10,
       "requiredCraftingLevel": 5,
-      "goldCost": 180,
+      "goldCost": 200,
       "craftingExp": 50,
       "craftingTimeSeconds": 14,
       "requiresScroll": false,
       "unlockCost": 0,
       "materials": [
         {
-          "itemId": "kobold_mace",
+          "itemId": "old_boots",
           "quantity": 1
         },
         {
@@ -352,7 +650,7 @@
           "quantity": 5
         },
         {
-          "itemId": "stone",
+          "itemId": "wool_cloth",
           "quantity": 8
         },
         {
@@ -363,25 +661,26 @@
           "itemId": "copper_ingot",
           "quantity": 8
         }
-      ]
+      ],
+      "_baseId": "old_boots"
     },
     {
-      "id": "power_club_recipe",
-      "name": "Maczuga mocy",
-      "resultItemId": "power_club",
-      "category": "blacksmith",
-      "subcategory": "mace",
+      "id": "guardian_boots_recipe",
+      "name": "Buty strażnika",
+      "resultItemId": "guardian_boots",
+      "category": "armorer",
+      "subcategory": "boots",
       "tier": 3,
       "requiredPlayerLevel": 20,
       "requiredCraftingLevel": 10,
-      "goldCost": 450,
+      "goldCost": 520,
       "craftingExp": 85,
       "craftingTimeSeconds": 16,
       "requiresScroll": false,
       "unlockCost": 0,
       "materials": [
         {
-          "itemId": "battle_club",
+          "itemId": "iron_boots",
           "quantity": 1
         },
         {
@@ -393,8 +692,8 @@
           "quantity": 5
         },
         {
-          "itemId": "weighted_mace_head",
-          "quantity": 2
+          "itemId": "tanned_wolf_leather",
+          "quantity": 6
         },
         {
           "itemId": "kobold_crown_fragment",
@@ -404,25 +703,26 @@
           "itemId": "bronze_ingot",
           "quantity": 6
         }
-      ]
+      ],
+      "_baseId": "iron_boots"
     },
     {
-      "id": "steel_guardian_hammer_recipe",
-      "name": "Młot stalowego strażnika",
-      "resultItemId": "steel_guardian_hammer",
-      "category": "blacksmith",
-      "subcategory": "mace",
+      "id": "steel_guardian_boots_recipe",
+      "name": "Stalowe buty strażnika",
+      "resultItemId": "steel_guardian_boots",
+      "category": "armorer",
+      "subcategory": "boots",
       "tier": 4,
       "requiredPlayerLevel": 25,
       "requiredCraftingLevel": 15,
-      "goldCost": 700,
+      "goldCost": 1000,
       "craftingExp": 120,
       "craftingTimeSeconds": 18,
       "requiresScroll": false,
       "unlockCost": 0,
       "materials": [
         {
-          "itemId": "power_club",
+          "itemId": "guardian_boots",
           "quantity": 1
         },
         {
@@ -434,8 +734,8 @@
           "quantity": 6
         },
         {
-          "itemId": "weighted_mace_head",
-          "quantity": 4
+          "itemId": "tanned_wolf_leather",
+          "quantity": 8
         },
         {
           "itemId": "mountain_heart",
@@ -445,25 +745,26 @@
           "itemId": "bronze_ingot",
           "quantity": 8
         }
-      ]
+      ],
+      "_baseId": "guardian_boots"
     },
     {
-      "id": "elite_guardian_hammer_recipe",
-      "name": "Młot elitarnego strażnika",
-      "resultItemId": "elite_guardian_hammer",
-      "category": "blacksmith",
-      "subcategory": "mace",
+      "id": "elite_guardian_boots_recipe",
+      "name": "Buty elitarnego strażnika",
+      "resultItemId": "elite_guardian_boots",
+      "category": "armorer",
+      "subcategory": "boots",
       "tier": 5,
       "requiredPlayerLevel": 30,
       "requiredCraftingLevel": 20,
-      "goldCost": 1100,
+      "goldCost": 1600,
       "craftingExp": 140,
       "craftingTimeSeconds": 20,
       "requiresScroll": false,
       "unlockCost": 0,
       "materials": [
         {
-          "itemId": "steel_guardian_hammer",
+          "itemId": "steel_guardian_boots",
           "quantity": 1
         },
         {
@@ -475,7 +776,7 @@
           "quantity": 6
         },
         {
-          "itemId": "runic_core",
+          "itemId": "chitin_plate_ancient",
           "quantity": 3
         },
         {
@@ -486,25 +787,26 @@
           "itemId": "iron_ingot",
           "quantity": 5
         }
-      ]
+      ],
+      "_baseId": "steel_guardian_boots"
     },
     {
-      "id": "shadow_hammer_recipe",
-      "name": "Młot cienia",
-      "resultItemId": "shadow_hammer",
-      "category": "blacksmith",
-      "subcategory": "mace",
+      "id": "commander_boots_recipe",
+      "name": "Buty dowódcy",
+      "resultItemId": "commander_boots",
+      "category": "armorer",
+      "subcategory": "boots",
       "tier": 6,
       "requiredPlayerLevel": 40,
       "requiredCraftingLevel": 25,
-      "goldCost": 1200,
+      "goldCost": 1450,
       "craftingExp": 140,
       "craftingTimeSeconds": 20,
       "requiresScroll": false,
       "unlockCost": 0,
       "materials": [
         {
-          "itemId": "iron_club",
+          "itemId": "steel_boots",
           "quantity": 1
         },
         {
@@ -516,7 +818,7 @@
           "quantity": 7
         },
         {
-          "itemId": "runic_core",
+          "itemId": "chitin_plate_ancient",
           "quantity": 4
         },
         {
@@ -527,25 +829,26 @@
           "itemId": "iron_ingot",
           "quantity": 7
         }
-      ]
+      ],
+      "_baseId": "steel_boots"
     },
     {
-      "id": "dragon_hammer_recipe",
-      "name": "Smoczy młot",
-      "resultItemId": "dragon_hammer",
-      "category": "blacksmith",
-      "subcategory": "mace",
+      "id": "dragon_boots_recipe",
+      "name": "Smocze buty",
+      "resultItemId": "dragon_boots",
+      "category": "armorer",
+      "subcategory": "boots",
       "tier": 7,
       "requiredPlayerLevel": 50,
       "requiredCraftingLevel": 30,
-      "goldCost": 4000,
+      "goldCost": 4800,
       "craftingExp": 220,
       "craftingTimeSeconds": 24,
       "requiresScroll": false,
       "unlockCost": 0,
       "materials": [
         {
-          "itemId": "war_hammer",
+          "itemId": "knight_boots",
           "quantity": 1
         },
         {
@@ -557,8 +860,8 @@
           "quantity": 8
         },
         {
-          "itemId": "scorching_mace_head",
-          "quantity": 2
+          "itemId": "tanned_lava_hound_leather",
+          "quantity": 4
         },
         {
           "itemId": "guardian_emblem",
@@ -568,290 +871,8 @@
           "itemId": "platinum_ingot",
           "quantity": 6
         }
-      ]
-    },
-    {
-      "id": "forest_blade_recipe",
-      "name": "Leśne ostrze",
-      "resultItemId": "forest_blade",
-      "category": "blacksmith",
-      "subcategory": "sword",
-      "tier": 1,
-      "requiredPlayerLevel": 1,
-      "requiredCraftingLevel": 1,
-      "goldCost": 160,
-      "craftingExp": 25,
-      "craftingTimeSeconds": 12,
-      "requiresScroll": false,
-      "unlockCost": 0,
-      "materials": [
-        {
-          "itemId": "old_sword",
-          "quantity": 1
-        },
-        {
-          "itemId": "wolf_claw",
-          "quantity": 4
-        },
-        {
-          "itemId": "goblin_blade_fragment",
-          "quantity": 4
-        },
-        {
-          "itemId": "whetstone",
-          "quantity": 2
-        },
-        {
-          "itemId": "copper_ingot",
-          "quantity": 6
-        }
-      ]
-    },
-    {
-      "id": "cave_sword_recipe",
-      "name": "Zabójca Koboldów",
-      "resultItemId": "cave_sword",
-      "category": "blacksmith",
-      "subcategory": "sword",
-      "tier": 2,
-      "requiredPlayerLevel": 10,
-      "requiredCraftingLevel": 5,
-      "goldCost": 180,
-      "craftingExp": 50,
-      "craftingTimeSeconds": 14,
-      "requiresScroll": false,
-      "unlockCost": 0,
-      "materials": [
-        {
-          "itemId": "iron_sword",
-          "quantity": 1
-        },
-        {
-          "itemId": "wolf_claw",
-          "quantity": 5
-        },
-        {
-          "itemId": "cave_crystal",
-          "quantity": 5
-        },
-        {
-          "itemId": "whetstone",
-          "quantity": 3
-        },
-        {
-          "itemId": "kobold_crown_fragment",
-          "quantity": 1
-        },
-        {
-          "itemId": "copper_ingot",
-          "quantity": 8
-        }
-      ]
-    },
-    {
-      "id": "guardian_blade_recipe",
-      "name": "Ostrze strażnika",
-      "resultItemId": "guardian_blade",
-      "category": "blacksmith",
-      "subcategory": "sword",
-      "tier": 3,
-      "requiredPlayerLevel": 20,
-      "requiredCraftingLevel": 10,
-      "goldCost": 450,
-      "craftingExp": 85,
-      "craftingTimeSeconds": 16,
-      "requiresScroll": false,
-      "unlockCost": 0,
-      "materials": [
-        {
-          "itemId": "steel_sword",
-          "quantity": 1
-        },
-        {
-          "itemId": "cave_crystal",
-          "quantity": 5
-        },
-        {
-          "itemId": "prismatic_core",
-          "quantity": 5
-        },
-        {
-          "itemId": "whetstone",
-          "quantity": 4
-        },
-        {
-          "itemId": "kobold_crown_fragment",
-          "quantity": 1
-        },
-        {
-          "itemId": "bronze_ingot",
-          "quantity": 6
-        }
-      ]
-    },
-    {
-      "id": "steel_guardian_sword_recipe",
-      "name": "Miecz stalowego strażnika",
-      "resultItemId": "steel_guardian_sword",
-      "category": "blacksmith",
-      "subcategory": "sword",
-      "tier": 4,
-      "requiredPlayerLevel": 25,
-      "requiredCraftingLevel": 15,
-      "goldCost": 700,
-      "craftingExp": 120,
-      "craftingTimeSeconds": 18,
-      "requiresScroll": false,
-      "unlockCost": 0,
-      "materials": [
-        {
-          "itemId": "guardian_blade",
-          "quantity": 1
-        },
-        {
-          "itemId": "prismatic_core",
-          "quantity": 6
-        },
-        {
-          "itemId": "crystal_gland",
-          "quantity": 6
-        },
-        {
-          "itemId": "obsidian_whetstone",
-          "quantity": 2
-        },
-        {
-          "itemId": "mountain_heart",
-          "quantity": 1
-        },
-        {
-          "itemId": "bronze_ingot",
-          "quantity": 8
-        }
-      ]
-    },
-    {
-      "id": "elite_guardian_blade_recipe",
-      "name": "Ostrze elitarnego strażnika",
-      "resultItemId": "elite_guardian_blade",
-      "category": "blacksmith",
-      "subcategory": "sword",
-      "tier": 5,
-      "requiredPlayerLevel": 30,
-      "requiredCraftingLevel": 20,
-      "goldCost": 1100,
-      "craftingExp": 140,
-      "craftingTimeSeconds": 20,
-      "requiresScroll": false,
-      "unlockCost": 0,
-      "materials": [
-        {
-          "itemId": "steel_guardian_sword",
-          "quantity": 1
-        },
-        {
-          "itemId": "prismatic_core",
-          "quantity": 6
-        },
-        {
-          "itemId": "ice_elemental_core",
-          "quantity": 6
-        },
-        {
-          "itemId": "obsidian_whetstone",
-          "quantity": 3
-        },
-        {
-          "itemId": "mountain_heart",
-          "quantity": 1
-        },
-        {
-          "itemId": "iron_ingot",
-          "quantity": 5
-        }
-      ]
-    },
-    {
-      "id": "commander_sword_recipe",
-      "name": "Miecz dowódcy",
-      "resultItemId": "commander_sword",
-      "category": "blacksmith",
-      "subcategory": "sword",
-      "tier": 6,
-      "requiredPlayerLevel": 40,
-      "requiredCraftingLevel": 25,
-      "goldCost": 1200,
-      "craftingExp": 140,
-      "craftingTimeSeconds": 20,
-      "requiresScroll": false,
-      "unlockCost": 0,
-      "materials": [
-        {
-          "itemId": "guard_sword",
-          "quantity": 1
-        },
-        {
-          "itemId": "ice_elemental_core",
-          "quantity": 7
-        },
-        {
-          "itemId": "frost_essence",
-          "quantity": 7
-        },
-        {
-          "itemId": "obsidian_whetstone",
-          "quantity": 4
-        },
-        {
-          "itemId": "frost_crown_fragment",
-          "quantity": 1
-        },
-        {
-          "itemId": "iron_ingot",
-          "quantity": 7
-        }
-      ]
-    },
-    {
-      "id": "dragon_blade_recipe",
-      "name": "Smocze ostrze",
-      "resultItemId": "dragon_blade",
-      "category": "blacksmith",
-      "subcategory": "sword",
-      "tier": 7,
-      "requiredPlayerLevel": 50,
-      "requiredCraftingLevel": 30,
-      "goldCost": 4000,
-      "craftingExp": 220,
-      "craftingTimeSeconds": 24,
-      "requiresScroll": false,
-      "unlockCost": 0,
-      "materials": [
-        {
-          "itemId": "knight_sword",
-          "quantity": 1
-        },
-        {
-          "itemId": "ice_elemental_core",
-          "quantity": 8
-        },
-        {
-          "itemId": "spectral_essence",
-          "quantity": 8
-        },
-        {
-          "itemId": "titan_whetstone",
-          "quantity": 2
-        },
-        {
-          "itemId": "guardian_emblem",
-          "quantity": 1
-        },
-        {
-          "itemId": "platinum_ingot",
-          "quantity": 6
-        }
-      ]
+      ],
+      "_baseId": "knight_boots"
     },
     {
       "id": "forest_bow_recipe",
@@ -888,7 +909,8 @@
           "itemId": "copper_ingot",
           "quantity": 6
         }
-      ]
+      ],
+      "_baseId": "old_bow"
     },
     {
       "id": "wolf_bow_recipe",
@@ -929,7 +951,8 @@
           "itemId": "copper_ingot",
           "quantity": 8
         }
-      ]
+      ],
+      "_baseId": "hunter_bow"
     },
     {
       "id": "guardian_bow_recipe",
@@ -970,7 +993,8 @@
           "itemId": "bronze_ingot",
           "quantity": 6
         }
-      ]
+      ],
+      "_baseId": "long_bow"
     },
     {
       "id": "steel_guardian_bow_recipe",
@@ -1011,7 +1035,8 @@
           "itemId": "bronze_ingot",
           "quantity": 8
         }
-      ]
+      ],
+      "_baseId": "guardian_bow"
     },
     {
       "id": "elite_guardian_bow_recipe",
@@ -1052,7 +1077,8 @@
           "itemId": "iron_ingot",
           "quantity": 5
         }
-      ]
+      ],
+      "_baseId": "steel_guardian_bow"
     },
     {
       "id": "shadow_bow_recipe",
@@ -1093,7 +1119,8 @@
           "itemId": "iron_ingot",
           "quantity": 7
         }
-      ]
+      ],
+      "_baseId": "oak_bow"
     },
     {
       "id": "dragon_bow_recipe",
@@ -1134,7 +1161,8 @@
           "itemId": "platinum_ingot",
           "quantity": 6
         }
-      ]
+      ],
+      "_baseId": "ranger_bow"
     },
     {
       "id": "forest_crossbow_recipe",
@@ -1171,7 +1199,8 @@
           "itemId": "copper_ingot",
           "quantity": 6
         }
-      ]
+      ],
+      "_baseId": "simple_crossbow"
     },
     {
       "id": "wolf_crossbow_recipe",
@@ -1212,7 +1241,8 @@
           "itemId": "copper_ingot",
           "quantity": 8
         }
-      ]
+      ],
+      "_baseId": "light_crossbow"
     },
     {
       "id": "guardian_crossbow_recipe",
@@ -1253,7 +1283,8 @@
           "itemId": "bronze_ingot",
           "quantity": 6
         }
-      ]
+      ],
+      "_baseId": "hunting_crossbow"
     },
     {
       "id": "steel_guardian_crossbow_recipe",
@@ -1294,7 +1325,8 @@
           "itemId": "bronze_ingot",
           "quantity": 8
         }
-      ]
+      ],
+      "_baseId": "guardian_crossbow"
     },
     {
       "id": "elite_guardian_crossbow_recipe",
@@ -1335,7 +1367,8 @@
           "itemId": "iron_ingot",
           "quantity": 5
         }
-      ]
+      ],
+      "_baseId": "steel_guardian_crossbow"
     },
     {
       "id": "shadow_crossbow_recipe",
@@ -1376,7 +1409,8 @@
           "itemId": "iron_ingot",
           "quantity": 7
         }
-      ]
+      ],
+      "_baseId": "steel_crossbow"
     },
     {
       "id": "dragon_crossbow_recipe",
@@ -1417,7 +1451,1168 @@
           "itemId": "platinum_ingot",
           "quantity": 6
         }
-      ]
+      ],
+      "_baseId": "battle_crossbow"
+    },
+    {
+      "id": "wolf_gloves_recipe",
+      "name": "Rękawice wilka",
+      "resultItemId": "wolf_gloves",
+      "category": "armorer",
+      "subcategory": "gloves",
+      "tier": 1,
+      "requiredPlayerLevel": 1,
+      "requiredCraftingLevel": 1,
+      "goldCost": 65,
+      "craftingExp": 25,
+      "craftingTimeSeconds": 12,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "simple_gloves",
+          "quantity": 1
+        },
+        {
+          "itemId": "wolf_claw",
+          "quantity": 4
+        },
+        {
+          "itemId": "goblin_blade_fragment",
+          "quantity": 4
+        },
+        {
+          "itemId": "chitin_plate",
+          "quantity": 8
+        },
+        {
+          "itemId": "copper_ingot",
+          "quantity": 6
+        }
+      ],
+      "_baseId": "simple_gloves"
+    },
+    {
+      "id": "kobold_gloves_recipe",
+      "name": "Rękawice kobolda",
+      "resultItemId": "kobold_gloves",
+      "category": "armorer",
+      "subcategory": "gloves",
+      "tier": 2,
+      "requiredPlayerLevel": 10,
+      "requiredCraftingLevel": 5,
+      "goldCost": 210,
+      "craftingExp": 50,
+      "craftingTimeSeconds": 14,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "leather_gloves",
+          "quantity": 1
+        },
+        {
+          "itemId": "wolf_claw",
+          "quantity": 5
+        },
+        {
+          "itemId": "cave_crystal",
+          "quantity": 5
+        },
+        {
+          "itemId": "wool_cloth",
+          "quantity": 8
+        },
+        {
+          "itemId": "kobold_crown_fragment",
+          "quantity": 1
+        },
+        {
+          "itemId": "copper_ingot",
+          "quantity": 8
+        }
+      ],
+      "_baseId": "leather_gloves"
+    },
+    {
+      "id": "guardian_gloves_recipe",
+      "name": "Rękawice strażnika",
+      "resultItemId": "guardian_gloves",
+      "category": "armorer",
+      "subcategory": "gloves",
+      "tier": 3,
+      "requiredPlayerLevel": 20,
+      "requiredCraftingLevel": 10,
+      "goldCost": 550,
+      "craftingExp": 85,
+      "craftingTimeSeconds": 16,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "iron_gloves",
+          "quantity": 1
+        },
+        {
+          "itemId": "cave_crystal",
+          "quantity": 5
+        },
+        {
+          "itemId": "prismatic_core",
+          "quantity": 5
+        },
+        {
+          "itemId": "tanned_wolf_leather",
+          "quantity": 6
+        },
+        {
+          "itemId": "kobold_crown_fragment",
+          "quantity": 1
+        },
+        {
+          "itemId": "bronze_ingot",
+          "quantity": 6
+        }
+      ],
+      "_baseId": "iron_gloves"
+    },
+    {
+      "id": "steel_guardian_gloves_recipe",
+      "name": "Stalowe rękawice strażnika",
+      "resultItemId": "steel_guardian_gloves",
+      "category": "armorer",
+      "subcategory": "gloves",
+      "tier": 4,
+      "requiredPlayerLevel": 25,
+      "requiredCraftingLevel": 15,
+      "goldCost": 1000,
+      "craftingExp": 120,
+      "craftingTimeSeconds": 18,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "guardian_gloves",
+          "quantity": 1
+        },
+        {
+          "itemId": "prismatic_core",
+          "quantity": 6
+        },
+        {
+          "itemId": "crystal_gland",
+          "quantity": 6
+        },
+        {
+          "itemId": "tanned_wolf_leather",
+          "quantity": 8
+        },
+        {
+          "itemId": "mountain_heart",
+          "quantity": 1
+        },
+        {
+          "itemId": "bronze_ingot",
+          "quantity": 8
+        }
+      ],
+      "_baseId": "guardian_gloves"
+    },
+    {
+      "id": "elite_guardian_gloves_recipe",
+      "name": "Rękawice elitarnego strażnika",
+      "resultItemId": "elite_guardian_gloves",
+      "category": "armorer",
+      "subcategory": "gloves",
+      "tier": 5,
+      "requiredPlayerLevel": 30,
+      "requiredCraftingLevel": 20,
+      "goldCost": 1650,
+      "craftingExp": 140,
+      "craftingTimeSeconds": 20,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "steel_guardian_gloves",
+          "quantity": 1
+        },
+        {
+          "itemId": "prismatic_core",
+          "quantity": 6
+        },
+        {
+          "itemId": "ice_elemental_core",
+          "quantity": 6
+        },
+        {
+          "itemId": "chitin_plate_ancient",
+          "quantity": 3
+        },
+        {
+          "itemId": "mountain_heart",
+          "quantity": 1
+        },
+        {
+          "itemId": "iron_ingot",
+          "quantity": 5
+        }
+      ],
+      "_baseId": "steel_guardian_gloves"
+    },
+    {
+      "id": "commander_gloves_recipe",
+      "name": "Rękawice dowódcy",
+      "resultItemId": "commander_gloves",
+      "category": "armorer",
+      "subcategory": "gloves",
+      "tier": 6,
+      "requiredPlayerLevel": 40,
+      "requiredCraftingLevel": 25,
+      "goldCost": 1500,
+      "craftingExp": 140,
+      "craftingTimeSeconds": 20,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "steel_gloves",
+          "quantity": 1
+        },
+        {
+          "itemId": "ice_elemental_core",
+          "quantity": 7
+        },
+        {
+          "itemId": "frost_essence",
+          "quantity": 7
+        },
+        {
+          "itemId": "chitin_plate_ancient",
+          "quantity": 4
+        },
+        {
+          "itemId": "frost_crown_fragment",
+          "quantity": 1
+        },
+        {
+          "itemId": "iron_ingot",
+          "quantity": 7
+        }
+      ],
+      "_baseId": "steel_gloves"
+    },
+    {
+      "id": "dragon_gloves_recipe",
+      "name": "Smocze rękawice",
+      "resultItemId": "dragon_gloves",
+      "category": "armorer",
+      "subcategory": "gloves",
+      "tier": 7,
+      "requiredPlayerLevel": 50,
+      "requiredCraftingLevel": 30,
+      "goldCost": 5000,
+      "craftingExp": 220,
+      "craftingTimeSeconds": 24,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "knight_gloves",
+          "quantity": 1
+        },
+        {
+          "itemId": "ice_elemental_core",
+          "quantity": 8
+        },
+        {
+          "itemId": "spectral_essence",
+          "quantity": 8
+        },
+        {
+          "itemId": "tanned_lava_hound_leather",
+          "quantity": 4
+        },
+        {
+          "itemId": "guardian_emblem",
+          "quantity": 1
+        },
+        {
+          "itemId": "platinum_ingot",
+          "quantity": 6
+        }
+      ],
+      "_baseId": "knight_gloves"
+    },
+    {
+      "id": "beetle_helmet_recipe",
+      "name": "Hełm z pancerza chrząszcza",
+      "resultItemId": "beetle_helmet",
+      "category": "armorer",
+      "subcategory": "helmet",
+      "tier": 1,
+      "requiredPlayerLevel": 1,
+      "requiredCraftingLevel": 1,
+      "goldCost": 40,
+      "craftingExp": 25,
+      "craftingTimeSeconds": 12,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "simple_helmet",
+          "quantity": 1
+        },
+        {
+          "itemId": "wolf_claw",
+          "quantity": 4
+        },
+        {
+          "itemId": "goblin_blade_fragment",
+          "quantity": 4
+        },
+        {
+          "itemId": "chitin_plate",
+          "quantity": 8
+        },
+        {
+          "itemId": "copper_ingot",
+          "quantity": 6
+        }
+      ],
+      "_baseId": "simple_helmet"
+    },
+    {
+      "id": "kobold_helmet_recipe",
+      "name": "Hełm kobolda",
+      "resultItemId": "kobold_helmet",
+      "category": "armorer",
+      "subcategory": "helmet",
+      "tier": 2,
+      "requiredPlayerLevel": 10,
+      "requiredCraftingLevel": 5,
+      "goldCost": 160,
+      "craftingExp": 50,
+      "craftingTimeSeconds": 14,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "leather_helmet",
+          "quantity": 1
+        },
+        {
+          "itemId": "wolf_claw",
+          "quantity": 5
+        },
+        {
+          "itemId": "cave_crystal",
+          "quantity": 5
+        },
+        {
+          "itemId": "wool_cloth",
+          "quantity": 8
+        },
+        {
+          "itemId": "kobold_crown_fragment",
+          "quantity": 1
+        },
+        {
+          "itemId": "copper_ingot",
+          "quantity": 8
+        }
+      ],
+      "_baseId": "leather_helmet"
+    },
+    {
+      "id": "guardian_helmet_recipe",
+      "name": "Hełm strażnika",
+      "resultItemId": "guardian_helmet",
+      "category": "armorer",
+      "subcategory": "helmet",
+      "tier": 3,
+      "requiredPlayerLevel": 20,
+      "requiredCraftingLevel": 10,
+      "goldCost": 420,
+      "craftingExp": 85,
+      "craftingTimeSeconds": 16,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "iron_helmet",
+          "quantity": 1
+        },
+        {
+          "itemId": "cave_crystal",
+          "quantity": 5
+        },
+        {
+          "itemId": "prismatic_core",
+          "quantity": 5
+        },
+        {
+          "itemId": "tanned_wolf_leather",
+          "quantity": 6
+        },
+        {
+          "itemId": "kobold_crown_fragment",
+          "quantity": 1
+        },
+        {
+          "itemId": "bronze_ingot",
+          "quantity": 6
+        }
+      ],
+      "_baseId": "iron_helmet"
+    },
+    {
+      "id": "steel_guardian_helmet_recipe",
+      "name": "Hełm stalowego strażnika",
+      "resultItemId": "steel_guardian_helmet",
+      "category": "armorer",
+      "subcategory": "helmet",
+      "tier": 4,
+      "requiredPlayerLevel": 25,
+      "requiredCraftingLevel": 15,
+      "goldCost": 800,
+      "craftingExp": 120,
+      "craftingTimeSeconds": 18,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "guardian_helmet",
+          "quantity": 1
+        },
+        {
+          "itemId": "prismatic_core",
+          "quantity": 6
+        },
+        {
+          "itemId": "crystal_gland",
+          "quantity": 6
+        },
+        {
+          "itemId": "tanned_wolf_leather",
+          "quantity": 8
+        },
+        {
+          "itemId": "mountain_heart",
+          "quantity": 1
+        },
+        {
+          "itemId": "bronze_ingot",
+          "quantity": 8
+        }
+      ],
+      "_baseId": "guardian_helmet"
+    },
+    {
+      "id": "elite_guardian_helmet_recipe",
+      "name": "Hełm elitarnego strażnika",
+      "resultItemId": "elite_guardian_helmet",
+      "category": "armorer",
+      "subcategory": "helmet",
+      "tier": 5,
+      "requiredPlayerLevel": 30,
+      "requiredCraftingLevel": 20,
+      "goldCost": 1300,
+      "craftingExp": 140,
+      "craftingTimeSeconds": 20,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "steel_guardian_helmet",
+          "quantity": 1
+        },
+        {
+          "itemId": "prismatic_core",
+          "quantity": 6
+        },
+        {
+          "itemId": "ice_elemental_core",
+          "quantity": 6
+        },
+        {
+          "itemId": "chitin_plate_ancient",
+          "quantity": 3
+        },
+        {
+          "itemId": "mountain_heart",
+          "quantity": 1
+        },
+        {
+          "itemId": "iron_ingot",
+          "quantity": 5
+        }
+      ],
+      "_baseId": "steel_guardian_helmet"
+    },
+    {
+      "id": "commander_helmet_recipe",
+      "name": "Hełm dowódcy",
+      "resultItemId": "commander_helmet",
+      "category": "armorer",
+      "subcategory": "helmet",
+      "tier": 6,
+      "requiredPlayerLevel": 40,
+      "requiredCraftingLevel": 25,
+      "goldCost": 1100,
+      "craftingExp": 140,
+      "craftingTimeSeconds": 20,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "steel_helmet",
+          "quantity": 1
+        },
+        {
+          "itemId": "ice_elemental_core",
+          "quantity": 7
+        },
+        {
+          "itemId": "frost_essence",
+          "quantity": 7
+        },
+        {
+          "itemId": "chitin_plate_ancient",
+          "quantity": 4
+        },
+        {
+          "itemId": "frost_crown_fragment",
+          "quantity": 1
+        },
+        {
+          "itemId": "iron_ingot",
+          "quantity": 7
+        }
+      ],
+      "_baseId": "steel_helmet"
+    },
+    {
+      "id": "dragon_helmet_recipe",
+      "name": "Smoczy hełm",
+      "resultItemId": "dragon_helmet",
+      "category": "armorer",
+      "subcategory": "helmet",
+      "tier": 7,
+      "requiredPlayerLevel": 50,
+      "requiredCraftingLevel": 30,
+      "goldCost": 3800,
+      "craftingExp": 220,
+      "craftingTimeSeconds": 24,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "knight_helmet",
+          "quantity": 1
+        },
+        {
+          "itemId": "ice_elemental_core",
+          "quantity": 8
+        },
+        {
+          "itemId": "spectral_essence",
+          "quantity": 8
+        },
+        {
+          "itemId": "tanned_lava_hound_leather",
+          "quantity": 4
+        },
+        {
+          "itemId": "guardian_emblem",
+          "quantity": 1
+        },
+        {
+          "itemId": "platinum_ingot",
+          "quantity": 6
+        }
+      ],
+      "_baseId": "knight_helmet"
+    },
+    {
+      "id": "forest_club_recipe",
+      "name": "Leśna pałka",
+      "resultItemId": "forest_club",
+      "category": "blacksmith",
+      "subcategory": "mace",
+      "tier": 1,
+      "requiredPlayerLevel": 1,
+      "requiredCraftingLevel": 1,
+      "goldCost": 60,
+      "craftingExp": 25,
+      "craftingTimeSeconds": 12,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "club",
+          "quantity": 1
+        },
+        {
+          "itemId": "wolf_claw",
+          "quantity": 4
+        },
+        {
+          "itemId": "goblin_blade_fragment",
+          "quantity": 4
+        },
+        {
+          "itemId": "stone",
+          "quantity": 4
+        },
+        {
+          "itemId": "copper_ingot",
+          "quantity": 6
+        }
+      ],
+      "_baseId": "club"
+    },
+    {
+      "id": "kobold_slayer_mace_recipe",
+      "name": "Maczuga pogromcy koboldów",
+      "resultItemId": "kobold_slayer_mace",
+      "category": "blacksmith",
+      "subcategory": "mace",
+      "tier": 2,
+      "requiredPlayerLevel": 10,
+      "requiredCraftingLevel": 5,
+      "goldCost": 180,
+      "craftingExp": 50,
+      "craftingTimeSeconds": 14,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "kobold_mace",
+          "quantity": 1
+        },
+        {
+          "itemId": "wolf_claw",
+          "quantity": 5
+        },
+        {
+          "itemId": "cave_crystal",
+          "quantity": 5
+        },
+        {
+          "itemId": "stone",
+          "quantity": 8
+        },
+        {
+          "itemId": "kobold_crown_fragment",
+          "quantity": 1
+        },
+        {
+          "itemId": "copper_ingot",
+          "quantity": 8
+        }
+      ],
+      "_baseId": "kobold_mace"
+    },
+    {
+      "id": "power_club_recipe",
+      "name": "Maczuga mocy",
+      "resultItemId": "power_club",
+      "category": "blacksmith",
+      "subcategory": "mace",
+      "tier": 3,
+      "requiredPlayerLevel": 20,
+      "requiredCraftingLevel": 10,
+      "goldCost": 450,
+      "craftingExp": 85,
+      "craftingTimeSeconds": 16,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "battle_club",
+          "quantity": 1
+        },
+        {
+          "itemId": "cave_crystal",
+          "quantity": 5
+        },
+        {
+          "itemId": "prismatic_core",
+          "quantity": 5
+        },
+        {
+          "itemId": "weighted_mace_head",
+          "quantity": 2
+        },
+        {
+          "itemId": "kobold_crown_fragment",
+          "quantity": 1
+        },
+        {
+          "itemId": "bronze_ingot",
+          "quantity": 6
+        }
+      ],
+      "_baseId": "battle_club"
+    },
+    {
+      "id": "steel_guardian_hammer_recipe",
+      "name": "Młot stalowego strażnika",
+      "resultItemId": "steel_guardian_hammer",
+      "category": "blacksmith",
+      "subcategory": "mace",
+      "tier": 4,
+      "requiredPlayerLevel": 25,
+      "requiredCraftingLevel": 15,
+      "goldCost": 700,
+      "craftingExp": 120,
+      "craftingTimeSeconds": 18,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "power_club",
+          "quantity": 1
+        },
+        {
+          "itemId": "prismatic_core",
+          "quantity": 6
+        },
+        {
+          "itemId": "crystal_gland",
+          "quantity": 6
+        },
+        {
+          "itemId": "weighted_mace_head",
+          "quantity": 4
+        },
+        {
+          "itemId": "mountain_heart",
+          "quantity": 1
+        },
+        {
+          "itemId": "bronze_ingot",
+          "quantity": 8
+        }
+      ],
+      "_baseId": "power_club"
+    },
+    {
+      "id": "elite_guardian_hammer_recipe",
+      "name": "Młot elitarnego strażnika",
+      "resultItemId": "elite_guardian_hammer",
+      "category": "blacksmith",
+      "subcategory": "mace",
+      "tier": 5,
+      "requiredPlayerLevel": 30,
+      "requiredCraftingLevel": 20,
+      "goldCost": 1100,
+      "craftingExp": 140,
+      "craftingTimeSeconds": 20,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "steel_guardian_hammer",
+          "quantity": 1
+        },
+        {
+          "itemId": "prismatic_core",
+          "quantity": 6
+        },
+        {
+          "itemId": "ice_elemental_core",
+          "quantity": 6
+        },
+        {
+          "itemId": "runic_core",
+          "quantity": 3
+        },
+        {
+          "itemId": "mountain_heart",
+          "quantity": 1
+        },
+        {
+          "itemId": "iron_ingot",
+          "quantity": 5
+        }
+      ],
+      "_baseId": "steel_guardian_hammer"
+    },
+    {
+      "id": "shadow_hammer_recipe",
+      "name": "Młot cienia",
+      "resultItemId": "shadow_hammer",
+      "category": "blacksmith",
+      "subcategory": "mace",
+      "tier": 6,
+      "requiredPlayerLevel": 40,
+      "requiredCraftingLevel": 25,
+      "goldCost": 1200,
+      "craftingExp": 140,
+      "craftingTimeSeconds": 20,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "iron_club",
+          "quantity": 1
+        },
+        {
+          "itemId": "ice_elemental_core",
+          "quantity": 7
+        },
+        {
+          "itemId": "frost_essence",
+          "quantity": 7
+        },
+        {
+          "itemId": "runic_core",
+          "quantity": 4
+        },
+        {
+          "itemId": "frost_crown_fragment",
+          "quantity": 1
+        },
+        {
+          "itemId": "iron_ingot",
+          "quantity": 7
+        }
+      ],
+      "_baseId": "iron_club"
+    },
+    {
+      "id": "dragon_hammer_recipe",
+      "name": "Smoczy młot",
+      "resultItemId": "dragon_hammer",
+      "category": "blacksmith",
+      "subcategory": "mace",
+      "tier": 7,
+      "requiredPlayerLevel": 50,
+      "requiredCraftingLevel": 30,
+      "goldCost": 4000,
+      "craftingExp": 220,
+      "craftingTimeSeconds": 24,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "war_hammer",
+          "quantity": 1
+        },
+        {
+          "itemId": "ice_elemental_core",
+          "quantity": 8
+        },
+        {
+          "itemId": "spectral_essence",
+          "quantity": 8
+        },
+        {
+          "itemId": "scorching_mace_head",
+          "quantity": 2
+        },
+        {
+          "itemId": "guardian_emblem",
+          "quantity": 1
+        },
+        {
+          "itemId": "platinum_ingot",
+          "quantity": 6
+        }
+      ],
+      "_baseId": "war_hammer"
+    },
+    {
+      "id": "tracker_pants_recipe",
+      "name": "Spodnie tropiciela",
+      "resultItemId": "tracker_pants",
+      "category": "armorer",
+      "subcategory": "pants",
+      "tier": 1,
+      "requiredPlayerLevel": 1,
+      "requiredCraftingLevel": 1,
+      "goldCost": 70,
+      "craftingExp": 25,
+      "craftingTimeSeconds": 12,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "simple_pants",
+          "quantity": 1
+        },
+        {
+          "itemId": "wolf_claw",
+          "quantity": 4
+        },
+        {
+          "itemId": "goblin_blade_fragment",
+          "quantity": 4
+        },
+        {
+          "itemId": "chitin_plate",
+          "quantity": 8
+        },
+        {
+          "itemId": "copper_ingot",
+          "quantity": 6
+        }
+      ],
+      "_baseId": "simple_pants"
+    },
+    {
+      "id": "kobold_pants_recipe",
+      "name": "Spodnie kobolda",
+      "resultItemId": "kobold_pants",
+      "category": "armorer",
+      "subcategory": "pants",
+      "tier": 2,
+      "requiredPlayerLevel": 10,
+      "requiredCraftingLevel": 5,
+      "goldCost": 220,
+      "craftingExp": 50,
+      "craftingTimeSeconds": 14,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "leather_pants",
+          "quantity": 1
+        },
+        {
+          "itemId": "wolf_claw",
+          "quantity": 5
+        },
+        {
+          "itemId": "cave_crystal",
+          "quantity": 5
+        },
+        {
+          "itemId": "wool_cloth",
+          "quantity": 8
+        },
+        {
+          "itemId": "kobold_crown_fragment",
+          "quantity": 1
+        },
+        {
+          "itemId": "copper_ingot",
+          "quantity": 8
+        }
+      ],
+      "_baseId": "leather_pants"
+    },
+    {
+      "id": "guardian_pants_recipe",
+      "name": "Spodnie strażnika",
+      "resultItemId": "guardian_pants",
+      "category": "armorer",
+      "subcategory": "pants",
+      "tier": 3,
+      "requiredPlayerLevel": 20,
+      "requiredCraftingLevel": 10,
+      "goldCost": 580,
+      "craftingExp": 85,
+      "craftingTimeSeconds": 16,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "iron_pants",
+          "quantity": 1
+        },
+        {
+          "itemId": "cave_crystal",
+          "quantity": 5
+        },
+        {
+          "itemId": "prismatic_core",
+          "quantity": 5
+        },
+        {
+          "itemId": "tanned_wolf_leather",
+          "quantity": 6
+        },
+        {
+          "itemId": "kobold_crown_fragment",
+          "quantity": 1
+        },
+        {
+          "itemId": "bronze_ingot",
+          "quantity": 6
+        }
+      ],
+      "_baseId": "iron_pants"
+    },
+    {
+      "id": "steel_guardian_pants_recipe",
+      "name": "Spodnie stalowego strażnika",
+      "resultItemId": "steel_guardian_pants",
+      "category": "armorer",
+      "subcategory": "pants",
+      "tier": 4,
+      "requiredPlayerLevel": 25,
+      "requiredCraftingLevel": 15,
+      "goldCost": 1100,
+      "craftingExp": 120,
+      "craftingTimeSeconds": 18,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "guardian_pants",
+          "quantity": 1
+        },
+        {
+          "itemId": "prismatic_core",
+          "quantity": 6
+        },
+        {
+          "itemId": "crystal_gland",
+          "quantity": 6
+        },
+        {
+          "itemId": "tanned_wolf_leather",
+          "quantity": 8
+        },
+        {
+          "itemId": "mountain_heart",
+          "quantity": 1
+        },
+        {
+          "itemId": "bronze_ingot",
+          "quantity": 8
+        }
+      ],
+      "_baseId": "guardian_pants"
+    },
+    {
+      "id": "elite_guardian_pants_recipe",
+      "name": "Spodnie elitarnego strażnika",
+      "resultItemId": "elite_guardian_pants",
+      "category": "armorer",
+      "subcategory": "pants",
+      "tier": 5,
+      "requiredPlayerLevel": 30,
+      "requiredCraftingLevel": 20,
+      "goldCost": 1800,
+      "craftingExp": 140,
+      "craftingTimeSeconds": 20,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "steel_guardian_pants",
+          "quantity": 1
+        },
+        {
+          "itemId": "prismatic_core",
+          "quantity": 6
+        },
+        {
+          "itemId": "ice_elemental_core",
+          "quantity": 6
+        },
+        {
+          "itemId": "chitin_plate_ancient",
+          "quantity": 3
+        },
+        {
+          "itemId": "mountain_heart",
+          "quantity": 1
+        },
+        {
+          "itemId": "iron_ingot",
+          "quantity": 5
+        }
+      ],
+      "_baseId": "steel_guardian_pants"
+    },
+    {
+      "id": "commander_pants_recipe",
+      "name": "Spodnie dowódcy",
+      "resultItemId": "commander_pants",
+      "category": "armorer",
+      "subcategory": "pants",
+      "tier": 6,
+      "requiredPlayerLevel": 40,
+      "requiredCraftingLevel": 25,
+      "goldCost": 1600,
+      "craftingExp": 140,
+      "craftingTimeSeconds": 20,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "steel_pants",
+          "quantity": 1
+        },
+        {
+          "itemId": "ice_elemental_core",
+          "quantity": 7
+        },
+        {
+          "itemId": "frost_essence",
+          "quantity": 7
+        },
+        {
+          "itemId": "chitin_plate_ancient",
+          "quantity": 4
+        },
+        {
+          "itemId": "frost_crown_fragment",
+          "quantity": 1
+        },
+        {
+          "itemId": "iron_ingot",
+          "quantity": 7
+        }
+      ],
+      "_baseId": "steel_pants"
+    },
+    {
+      "id": "dragon_pants_recipe",
+      "name": "Smocze spodnie",
+      "resultItemId": "dragon_pants",
+      "category": "armorer",
+      "subcategory": "pants",
+      "tier": 7,
+      "requiredPlayerLevel": 50,
+      "requiredCraftingLevel": 30,
+      "goldCost": 5200,
+      "craftingExp": 220,
+      "craftingTimeSeconds": 24,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "knight_pants",
+          "quantity": 1
+        },
+        {
+          "itemId": "ice_elemental_core",
+          "quantity": 8
+        },
+        {
+          "itemId": "spectral_essence",
+          "quantity": 8
+        },
+        {
+          "itemId": "tanned_lava_hound_leather",
+          "quantity": 4
+        },
+        {
+          "itemId": "guardian_emblem",
+          "quantity": 1
+        },
+        {
+          "itemId": "platinum_ingot",
+          "quantity": 6
+        }
+      ],
+      "_baseId": "knight_pants"
     },
     {
       "id": "mana_ring_recipe",
@@ -1454,7 +2649,8 @@
           "itemId": "tin_ingot",
           "quantity": 6
         }
-      ]
+      ],
+      "_baseId": "simple_ring"
     },
     {
       "id": "kobold_ring_recipe",
@@ -1495,7 +2691,8 @@
           "itemId": "tin_ingot",
           "quantity": 8
         }
-      ]
+      ],
+      "_baseId": "lucky_ring"
     },
     {
       "id": "guardian_ring_recipe",
@@ -1536,7 +2733,8 @@
           "itemId": "silver_ingot",
           "quantity": 6
         }
-      ]
+      ],
+      "_baseId": "iron_ring"
     },
     {
       "id": "steel_guardian_ring_recipe",
@@ -1577,7 +2775,8 @@
           "itemId": "silver_ingot",
           "quantity": 8
         }
-      ]
+      ],
+      "_baseId": "guardian_ring"
     },
     {
       "id": "elite_guardian_ring_recipe",
@@ -1618,7 +2817,8 @@
           "itemId": "gold_ingot",
           "quantity": 4
         }
-      ]
+      ],
+      "_baseId": "steel_guardian_ring"
     },
     {
       "id": "commander_ring_recipe",
@@ -1659,7 +2859,8 @@
           "itemId": "gold_ingot",
           "quantity": 2
         }
-      ]
+      ],
+      "_baseId": "steel_ring"
     },
     {
       "id": "dragon_ring_recipe",
@@ -1700,7 +2901,878 @@
           "itemId": "platinum_ingot",
           "quantity": 6
         }
-      ]
+      ],
+      "_baseId": "knight_ring"
+    },
+    {
+      "id": "bark_shield_recipe",
+      "name": "Tarcza z kory",
+      "resultItemId": "bark_shield",
+      "category": "armorer",
+      "subcategory": "shield",
+      "tier": 1,
+      "requiredPlayerLevel": 1,
+      "requiredCraftingLevel": 1,
+      "goldCost": 50,
+      "craftingExp": 25,
+      "craftingTimeSeconds": 12,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "simple_shield",
+          "quantity": 1
+        },
+        {
+          "itemId": "wolf_claw",
+          "quantity": 4
+        },
+        {
+          "itemId": "goblin_blade_fragment",
+          "quantity": 4
+        },
+        {
+          "itemId": "chitin_plate",
+          "quantity": 8
+        },
+        {
+          "itemId": "copper_ingot",
+          "quantity": 6
+        }
+      ],
+      "_baseId": "simple_shield"
+    },
+    {
+      "id": "kobold_shield_recipe",
+      "name": "Tarcza koboldów",
+      "resultItemId": "kobold_shield",
+      "category": "armorer",
+      "subcategory": "shield",
+      "tier": 2,
+      "requiredPlayerLevel": 10,
+      "requiredCraftingLevel": 5,
+      "goldCost": 190,
+      "craftingExp": 50,
+      "craftingTimeSeconds": 14,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "wooden_shield",
+          "quantity": 1
+        },
+        {
+          "itemId": "wolf_claw",
+          "quantity": 5
+        },
+        {
+          "itemId": "cave_crystal",
+          "quantity": 5
+        },
+        {
+          "itemId": "wool_cloth",
+          "quantity": 8
+        },
+        {
+          "itemId": "kobold_crown_fragment",
+          "quantity": 1
+        },
+        {
+          "itemId": "copper_ingot",
+          "quantity": 8
+        }
+      ],
+      "_baseId": "wooden_shield"
+    },
+    {
+      "id": "guardian_shield_recipe",
+      "name": "Tarcza strażnika",
+      "resultItemId": "guardian_shield",
+      "category": "armorer",
+      "subcategory": "shield",
+      "tier": 3,
+      "requiredPlayerLevel": 20,
+      "requiredCraftingLevel": 10,
+      "goldCost": 500,
+      "craftingExp": 85,
+      "craftingTimeSeconds": 16,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "iron_shield",
+          "quantity": 1
+        },
+        {
+          "itemId": "cave_crystal",
+          "quantity": 5
+        },
+        {
+          "itemId": "prismatic_core",
+          "quantity": 5
+        },
+        {
+          "itemId": "tanned_wolf_leather",
+          "quantity": 6
+        },
+        {
+          "itemId": "kobold_crown_fragment",
+          "quantity": 1
+        },
+        {
+          "itemId": "bronze_ingot",
+          "quantity": 6
+        }
+      ],
+      "_baseId": "iron_shield"
+    },
+    {
+      "id": "steel_guardian_shield_recipe",
+      "name": "Stalowa tarcza strażnika",
+      "resultItemId": "steel_guardian_shield",
+      "category": "armorer",
+      "subcategory": "shield",
+      "tier": 4,
+      "requiredPlayerLevel": 25,
+      "requiredCraftingLevel": 15,
+      "goldCost": 900,
+      "craftingExp": 120,
+      "craftingTimeSeconds": 18,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "guardian_shield",
+          "quantity": 1
+        },
+        {
+          "itemId": "prismatic_core",
+          "quantity": 6
+        },
+        {
+          "itemId": "crystal_gland",
+          "quantity": 6
+        },
+        {
+          "itemId": "tanned_wolf_leather",
+          "quantity": 8
+        },
+        {
+          "itemId": "mountain_heart",
+          "quantity": 1
+        },
+        {
+          "itemId": "bronze_ingot",
+          "quantity": 8
+        }
+      ],
+      "_baseId": "guardian_shield"
+    },
+    {
+      "id": "elite_guardian_shield_recipe",
+      "name": "Tarcza elitarnego strażnika",
+      "resultItemId": "elite_guardian_shield",
+      "category": "armorer",
+      "subcategory": "shield",
+      "tier": 5,
+      "requiredPlayerLevel": 30,
+      "requiredCraftingLevel": 20,
+      "goldCost": 1400,
+      "craftingExp": 140,
+      "craftingTimeSeconds": 20,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "steel_guardian_shield",
+          "quantity": 1
+        },
+        {
+          "itemId": "prismatic_core",
+          "quantity": 6
+        },
+        {
+          "itemId": "ice_elemental_core",
+          "quantity": 6
+        },
+        {
+          "itemId": "chitin_plate_ancient",
+          "quantity": 3
+        },
+        {
+          "itemId": "mountain_heart",
+          "quantity": 1
+        },
+        {
+          "itemId": "iron_ingot",
+          "quantity": 5
+        }
+      ],
+      "_baseId": "steel_guardian_shield"
+    },
+    {
+      "id": "commander_shield_recipe",
+      "name": "Tarcza dowódcy",
+      "resultItemId": "commander_shield",
+      "category": "armorer",
+      "subcategory": "shield",
+      "tier": 6,
+      "requiredPlayerLevel": 40,
+      "requiredCraftingLevel": 25,
+      "goldCost": 1300,
+      "craftingExp": 140,
+      "craftingTimeSeconds": 20,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "steel_shield",
+          "quantity": 1
+        },
+        {
+          "itemId": "ice_elemental_core",
+          "quantity": 7
+        },
+        {
+          "itemId": "frost_essence",
+          "quantity": 7
+        },
+        {
+          "itemId": "chitin_plate_ancient",
+          "quantity": 4
+        },
+        {
+          "itemId": "frost_crown_fragment",
+          "quantity": 1
+        },
+        {
+          "itemId": "iron_ingot",
+          "quantity": 7
+        }
+      ],
+      "_baseId": "steel_shield"
+    },
+    {
+      "id": "dragon_shield_recipe",
+      "name": "Smocza tarcza",
+      "resultItemId": "dragon_shield",
+      "category": "armorer",
+      "subcategory": "shield",
+      "tier": 7,
+      "requiredPlayerLevel": 50,
+      "requiredCraftingLevel": 30,
+      "goldCost": 4200,
+      "craftingExp": 220,
+      "craftingTimeSeconds": 24,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "knight_shield",
+          "quantity": 1
+        },
+        {
+          "itemId": "ice_elemental_core",
+          "quantity": 8
+        },
+        {
+          "itemId": "spectral_essence",
+          "quantity": 8
+        },
+        {
+          "itemId": "tanned_lava_hound_leather",
+          "quantity": 4
+        },
+        {
+          "itemId": "guardian_emblem",
+          "quantity": 1
+        },
+        {
+          "itemId": "platinum_ingot",
+          "quantity": 6
+        }
+      ],
+      "_baseId": "knight_shield"
+    },
+    {
+      "id": "nature_staff_recipe",
+      "name": "Kostur natury",
+      "resultItemId": "nature_staff",
+      "category": "arcanist",
+      "subcategory": "staff",
+      "tier": 1,
+      "requiredPlayerLevel": 1,
+      "requiredCraftingLevel": 1,
+      "goldCost": 60,
+      "craftingExp": 25,
+      "craftingTimeSeconds": 12,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "simple_staff",
+          "quantity": 1
+        },
+        {
+          "itemId": "wolf_claw",
+          "quantity": 4
+        },
+        {
+          "itemId": "goblin_blade_fragment",
+          "quantity": 4
+        },
+        {
+          "itemId": "nymph_tear",
+          "quantity": 3
+        },
+        {
+          "itemId": "tin_ingot",
+          "quantity": 6
+        }
+      ],
+      "_baseId": "simple_staff"
+    },
+    {
+      "id": "crystal_staff_recipe",
+      "name": "Kryształowy kostur",
+      "resultItemId": "crystal_staff",
+      "category": "arcanist",
+      "subcategory": "staff",
+      "tier": 2,
+      "requiredPlayerLevel": 10,
+      "requiredCraftingLevel": 5,
+      "goldCost": 180,
+      "craftingExp": 50,
+      "craftingTimeSeconds": 14,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "apprentice_staff",
+          "quantity": 1
+        },
+        {
+          "itemId": "wolf_claw",
+          "quantity": 5
+        },
+        {
+          "itemId": "cave_crystal",
+          "quantity": 5
+        },
+        {
+          "itemId": "nymph_tear",
+          "quantity": 3
+        },
+        {
+          "itemId": "kobold_crown_fragment",
+          "quantity": 1
+        },
+        {
+          "itemId": "tin_ingot",
+          "quantity": 8
+        }
+      ],
+      "_baseId": "apprentice_staff"
+    },
+    {
+      "id": "guardian_staff_recipe",
+      "name": "Kostur strażnika",
+      "resultItemId": "guardian_staff",
+      "category": "arcanist",
+      "subcategory": "staff",
+      "tier": 3,
+      "requiredPlayerLevel": 20,
+      "requiredCraftingLevel": 10,
+      "goldCost": 450,
+      "craftingExp": 85,
+      "craftingTimeSeconds": 16,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "adept_staff",
+          "quantity": 1
+        },
+        {
+          "itemId": "cave_crystal",
+          "quantity": 5
+        },
+        {
+          "itemId": "prismatic_core",
+          "quantity": 5
+        },
+        {
+          "itemId": "swamp_heart",
+          "quantity": 3
+        },
+        {
+          "itemId": "kobold_crown_fragment",
+          "quantity": 1
+        },
+        {
+          "itemId": "silver_ingot",
+          "quantity": 6
+        }
+      ],
+      "_baseId": "adept_staff"
+    },
+    {
+      "id": "guardian_arcane_staff_recipe",
+      "name": "Kostur arkanicznego strażnika",
+      "resultItemId": "guardian_arcane_staff",
+      "category": "arcanist",
+      "subcategory": "staff",
+      "tier": 4,
+      "requiredPlayerLevel": 25,
+      "requiredCraftingLevel": 15,
+      "goldCost": 700,
+      "craftingExp": 120,
+      "craftingTimeSeconds": 18,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "guardian_staff",
+          "quantity": 1
+        },
+        {
+          "itemId": "prismatic_core",
+          "quantity": 6
+        },
+        {
+          "itemId": "crystal_gland",
+          "quantity": 6
+        },
+        {
+          "itemId": "swamp_heart",
+          "quantity": 3
+        },
+        {
+          "itemId": "mountain_heart",
+          "quantity": 1
+        },
+        {
+          "itemId": "silver_ingot",
+          "quantity": 8
+        }
+      ],
+      "_baseId": "guardian_staff"
+    },
+    {
+      "id": "frost_giant_staff_recipe",
+      "name": "Kostur lodowego giganta",
+      "resultItemId": "frost_giant_staff",
+      "category": "arcanist",
+      "subcategory": "staff",
+      "tier": 5,
+      "requiredPlayerLevel": 30,
+      "requiredCraftingLevel": 20,
+      "goldCost": 1100,
+      "craftingExp": 140,
+      "craftingTimeSeconds": 20,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "guardian_arcane_staff",
+          "quantity": 1
+        },
+        {
+          "itemId": "prismatic_core",
+          "quantity": 6
+        },
+        {
+          "itemId": "ice_elemental_core",
+          "quantity": 6
+        },
+        {
+          "itemId": "crystal_orchid",
+          "quantity": 3
+        },
+        {
+          "itemId": "mountain_heart",
+          "quantity": 1
+        },
+        {
+          "itemId": "gold_ingot",
+          "quantity": 4
+        }
+      ],
+      "_baseId": "guardian_arcane_staff"
+    },
+    {
+      "id": "shadow_staff_recipe",
+      "name": "Kostur cienia",
+      "resultItemId": "shadow_staff",
+      "category": "arcanist",
+      "subcategory": "staff",
+      "tier": 6,
+      "requiredPlayerLevel": 40,
+      "requiredCraftingLevel": 25,
+      "goldCost": 1200,
+      "craftingExp": 140,
+      "craftingTimeSeconds": 20,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "battle_staff",
+          "quantity": 1
+        },
+        {
+          "itemId": "frost_essence",
+          "quantity": 7
+        },
+        {
+          "itemId": "ice_elemental_core",
+          "quantity": 7
+        },
+        {
+          "itemId": "crystal_orchid",
+          "quantity": 3
+        },
+        {
+          "itemId": "frost_crown_fragment",
+          "quantity": 1
+        },
+        {
+          "itemId": "gold_ingot",
+          "quantity": 2
+        }
+      ],
+      "_baseId": "battle_staff"
+    },
+    {
+      "id": "volcanic_staff_recipe",
+      "name": "Wulkaniczny kostur",
+      "resultItemId": "volcanic_staff",
+      "category": "arcanist",
+      "subcategory": "staff",
+      "tier": 7,
+      "requiredPlayerLevel": 50,
+      "requiredCraftingLevel": 30,
+      "goldCost": 4000,
+      "craftingExp": 220,
+      "craftingTimeSeconds": 24,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "mage_staff",
+          "quantity": 1
+        },
+        {
+          "itemId": "ice_elemental_core",
+          "quantity": 8
+        },
+        {
+          "itemId": "spectral_essence",
+          "quantity": 8
+        },
+        {
+          "itemId": "ancient_tree_seed",
+          "quantity": 4
+        },
+        {
+          "itemId": "guardian_emblem",
+          "quantity": 1
+        },
+        {
+          "itemId": "platinum_ingot",
+          "quantity": 6
+        }
+      ],
+      "_baseId": "mage_staff"
+    },
+    {
+      "id": "forest_blade_recipe",
+      "name": "Leśne ostrze",
+      "resultItemId": "forest_blade",
+      "category": "blacksmith",
+      "subcategory": "sword",
+      "tier": 1,
+      "requiredPlayerLevel": 1,
+      "requiredCraftingLevel": 1,
+      "goldCost": 60,
+      "craftingExp": 25,
+      "craftingTimeSeconds": 12,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "old_sword",
+          "quantity": 1
+        },
+        {
+          "itemId": "wolf_claw",
+          "quantity": 4
+        },
+        {
+          "itemId": "goblin_blade_fragment",
+          "quantity": 4
+        },
+        {
+          "itemId": "whetstone",
+          "quantity": 2
+        },
+        {
+          "itemId": "copper_ingot",
+          "quantity": 6
+        }
+      ],
+      "_baseId": "old_sword"
+    },
+    {
+      "id": "cave_sword_recipe",
+      "name": "Zabójca Koboldów",
+      "resultItemId": "cave_sword",
+      "category": "blacksmith",
+      "subcategory": "sword",
+      "tier": 2,
+      "requiredPlayerLevel": 10,
+      "requiredCraftingLevel": 5,
+      "goldCost": 180,
+      "craftingExp": 50,
+      "craftingTimeSeconds": 14,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "iron_sword",
+          "quantity": 1
+        },
+        {
+          "itemId": "wolf_claw",
+          "quantity": 5
+        },
+        {
+          "itemId": "cave_crystal",
+          "quantity": 5
+        },
+        {
+          "itemId": "whetstone",
+          "quantity": 3
+        },
+        {
+          "itemId": "kobold_crown_fragment",
+          "quantity": 1
+        },
+        {
+          "itemId": "copper_ingot",
+          "quantity": 8
+        }
+      ],
+      "_baseId": "iron_sword"
+    },
+    {
+      "id": "guardian_blade_recipe",
+      "name": "Ostrze strażnika",
+      "resultItemId": "guardian_blade",
+      "category": "blacksmith",
+      "subcategory": "sword",
+      "tier": 3,
+      "requiredPlayerLevel": 20,
+      "requiredCraftingLevel": 10,
+      "goldCost": 450,
+      "craftingExp": 85,
+      "craftingTimeSeconds": 16,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "steel_sword",
+          "quantity": 1
+        },
+        {
+          "itemId": "cave_crystal",
+          "quantity": 5
+        },
+        {
+          "itemId": "prismatic_core",
+          "quantity": 5
+        },
+        {
+          "itemId": "whetstone",
+          "quantity": 4
+        },
+        {
+          "itemId": "kobold_crown_fragment",
+          "quantity": 1
+        },
+        {
+          "itemId": "bronze_ingot",
+          "quantity": 6
+        }
+      ],
+      "_baseId": "steel_sword"
+    },
+    {
+      "id": "steel_guardian_sword_recipe",
+      "name": "Miecz stalowego strażnika",
+      "resultItemId": "steel_guardian_sword",
+      "category": "blacksmith",
+      "subcategory": "sword",
+      "tier": 4,
+      "requiredPlayerLevel": 25,
+      "requiredCraftingLevel": 15,
+      "goldCost": 700,
+      "craftingExp": 120,
+      "craftingTimeSeconds": 18,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "guardian_blade",
+          "quantity": 1
+        },
+        {
+          "itemId": "prismatic_core",
+          "quantity": 6
+        },
+        {
+          "itemId": "crystal_gland",
+          "quantity": 6
+        },
+        {
+          "itemId": "obsidian_whetstone",
+          "quantity": 2
+        },
+        {
+          "itemId": "mountain_heart",
+          "quantity": 1
+        },
+        {
+          "itemId": "bronze_ingot",
+          "quantity": 8
+        }
+      ],
+      "_baseId": "guardian_blade"
+    },
+    {
+      "id": "elite_guardian_blade_recipe",
+      "name": "Ostrze elitarnego strażnika",
+      "resultItemId": "elite_guardian_blade",
+      "category": "blacksmith",
+      "subcategory": "sword",
+      "tier": 5,
+      "requiredPlayerLevel": 30,
+      "requiredCraftingLevel": 20,
+      "goldCost": 1100,
+      "craftingExp": 140,
+      "craftingTimeSeconds": 20,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "steel_guardian_sword",
+          "quantity": 1
+        },
+        {
+          "itemId": "prismatic_core",
+          "quantity": 6
+        },
+        {
+          "itemId": "ice_elemental_core",
+          "quantity": 6
+        },
+        {
+          "itemId": "obsidian_whetstone",
+          "quantity": 3
+        },
+        {
+          "itemId": "mountain_heart",
+          "quantity": 1
+        },
+        {
+          "itemId": "iron_ingot",
+          "quantity": 5
+        }
+      ],
+      "_baseId": "steel_guardian_sword"
+    },
+    {
+      "id": "commander_sword_recipe",
+      "name": "Miecz dowódcy",
+      "resultItemId": "commander_sword",
+      "category": "blacksmith",
+      "subcategory": "sword",
+      "tier": 6,
+      "requiredPlayerLevel": 40,
+      "requiredCraftingLevel": 25,
+      "goldCost": 1200,
+      "craftingExp": 140,
+      "craftingTimeSeconds": 20,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "guard_sword",
+          "quantity": 1
+        },
+        {
+          "itemId": "ice_elemental_core",
+          "quantity": 7
+        },
+        {
+          "itemId": "frost_essence",
+          "quantity": 7
+        },
+        {
+          "itemId": "obsidian_whetstone",
+          "quantity": 4
+        },
+        {
+          "itemId": "frost_crown_fragment",
+          "quantity": 1
+        },
+        {
+          "itemId": "iron_ingot",
+          "quantity": 7
+        }
+      ],
+      "_baseId": "guard_sword"
+    },
+    {
+      "id": "dragon_blade_recipe",
+      "name": "Smocze ostrze",
+      "resultItemId": "dragon_blade",
+      "category": "blacksmith",
+      "subcategory": "sword",
+      "tier": 7,
+      "requiredPlayerLevel": 50,
+      "requiredCraftingLevel": 30,
+      "goldCost": 4000,
+      "craftingExp": 220,
+      "craftingTimeSeconds": 24,
+      "requiresScroll": false,
+      "unlockCost": 0,
+      "materials": [
+        {
+          "itemId": "knight_sword",
+          "quantity": 1
+        },
+        {
+          "itemId": "ice_elemental_core",
+          "quantity": 8
+        },
+        {
+          "itemId": "spectral_essence",
+          "quantity": 8
+        },
+        {
+          "itemId": "titan_whetstone",
+          "quantity": 2
+        },
+        {
+          "itemId": "guardian_emblem",
+          "quantity": 1
+        },
+        {
+          "itemId": "platinum_ingot",
+          "quantity": 6
+        }
+      ],
+      "_baseId": "knight_sword"
     },
     {
       "id": "nature_talisman_recipe",
@@ -1737,7 +3809,8 @@
           "itemId": "tin_ingot",
           "quantity": 6
         }
-      ]
+      ],
+      "_baseId": "simple_talisman"
     },
     {
       "id": "kobold_talisman_recipe",
@@ -1778,7 +3851,8 @@
           "itemId": "tin_ingot",
           "quantity": 8
         }
-      ]
+      ],
+      "_baseId": "lucky_talisman"
     },
     {
       "id": "guardian_talisman_recipe",
@@ -1819,7 +3893,8 @@
           "itemId": "silver_ingot",
           "quantity": 6
         }
-      ]
+      ],
+      "_baseId": "iron_talisman"
     },
     {
       "id": "steel_guardian_talisman_recipe",
@@ -1860,7 +3935,8 @@
           "itemId": "silver_ingot",
           "quantity": 8
         }
-      ]
+      ],
+      "_baseId": "guardian_talisman"
     },
     {
       "id": "elite_guardian_talisman_recipe",
@@ -1901,7 +3977,8 @@
           "itemId": "gold_ingot",
           "quantity": 4
         }
-      ]
+      ],
+      "_baseId": "steel_guardian_talisman"
     },
     {
       "id": "commander_talisman_recipe",
@@ -1942,7 +4019,8 @@
           "itemId": "gold_ingot",
           "quantity": 2
         }
-      ]
+      ],
+      "_baseId": "steel_talisman"
     },
     {
       "id": "dragon_talisman_recipe",
@@ -1983,66 +4061,68 @@
           "itemId": "platinum_ingot",
           "quantity": 6
         }
-      ]
+      ],
+      "_baseId": "knight_talisman"
     },
     {
-      "id": "platnerz_t1_recipe",
-      "name": "Płatnerz t1",
-      "resultItemId": "platnerz_t1",
-      "category": "armor",
-      "subcategory": null,
+      "id": "nature_wand_recipe",
+      "name": "Różdżka natury",
+      "resultItemId": "nature_wand",
+      "category": "arcanist",
+      "subcategory": "wand",
       "tier": 1,
       "requiredPlayerLevel": 1,
       "requiredCraftingLevel": 1,
-      "goldCost": 80,
+      "goldCost": 60,
       "craftingExp": 25,
       "craftingTimeSeconds": 12,
       "requiresScroll": false,
       "unlockCost": 0,
       "materials": [
         {
-          "itemId": "simple_armor",
+          "itemId": "wooden_wand",
           "quantity": 1
         },
         {
-          "itemId": "sheep_skin",
+          "itemId": "wolf_claw",
           "quantity": 4
         },
         {
-          "itemId": "beetle_shell",
+          "itemId": "goblin_blade_fragment",
           "quantity": 4
         },
         {
-          "itemId": "chitin_plate",
-          "quantity": 8
+          "itemId": "quartz",
+          "quantity": 4
         },
         {
-          "itemId": "copper_ingot",
+          "itemId": "tin_ingot",
           "quantity": 6
         }
-      ]
+      ],
+      "_baseId": "wooden_wand"
     },
     {
-      "id": "platnerz_t2_recipe",
-      "name": "Płatnerz t2",
-      "resultItemId": "platnerz_t2",
-      "category": "armor",
-      "subcategory": null,
+      "id": "crystal_wand_recipe",
+      "name": "Kryształowa różdżka",
+      "resultItemId": "crystal_wand",
+      "category": "arcanist",
+      "subcategory": "wand",
       "tier": 2,
       "requiredPlayerLevel": 10,
       "requiredCraftingLevel": 5,
-      "goldCost": 240,
+      "goldCost": 180,
       "craftingExp": 50,
       "craftingTimeSeconds": 14,
       "requiresScroll": false,
       "unlockCost": 0,
       "materials": [
         {
-          "itemId": "leather_armor",
+          "itemId": "simple_wand",
           "quantity": 1
         },
         {
-          "itemId": "sheep_skin",
+          "itemId": "wolf_claw",
           "quantity": 5
         },
         {
@@ -2050,36 +4130,37 @@
           "quantity": 5
         },
         {
-          "itemId": "wool_cloth",
-          "quantity": 8
+          "itemId": "quartz",
+          "quantity": 6
         },
         {
           "itemId": "kobold_crown_fragment",
           "quantity": 1
         },
         {
-          "itemId": "copper_ingot",
+          "itemId": "tin_ingot",
           "quantity": 8
         }
-      ]
+      ],
+      "_baseId": "simple_wand"
     },
     {
-      "id": "platnerz_t3_recipe",
-      "name": "Płatnerz t3",
-      "resultItemId": "platnerz_t3",
-      "category": "armor",
-      "subcategory": null,
+      "id": "guardian_wand_recipe",
+      "name": "Różdżka strażnika",
+      "resultItemId": "guardian_wand",
+      "category": "arcanist",
+      "subcategory": "wand",
       "tier": 3,
       "requiredPlayerLevel": 20,
       "requiredCraftingLevel": 10,
-      "goldCost": 600,
+      "goldCost": 450,
       "craftingExp": 85,
       "craftingTimeSeconds": 16,
       "requiresScroll": false,
       "unlockCost": 0,
       "materials": [
         {
-          "itemId": "iron_armor",
+          "itemId": "apprentice_wand",
           "quantity": 1
         },
         {
@@ -2087,175 +4168,179 @@
           "quantity": 5
         },
         {
-          "itemId": "crystal_shell",
+          "itemId": "prismatic_core",
           "quantity": 5
         },
         {
-          "itemId": "tanned_wolf_leather",
-          "quantity": 6
+          "itemId": "amethyst",
+          "quantity": 4
         },
         {
           "itemId": "kobold_crown_fragment",
           "quantity": 1
         },
         {
-          "itemId": "bronze_ingot",
+          "itemId": "silver_ingot",
           "quantity": 6
         }
-      ]
+      ],
+      "_baseId": "apprentice_wand"
     },
     {
-      "id": "platnerz_t4_recipe",
-      "name": "Płatnerz t4",
-      "resultItemId": "platnerz_t4",
-      "category": "armor",
-      "subcategory": null,
+      "id": "shadow_wand_recipe",
+      "name": "Różdżka cienia",
+      "resultItemId": "shadow_wand",
+      "category": "arcanist",
+      "subcategory": "wand",
       "tier": 4,
       "requiredPlayerLevel": 25,
       "requiredCraftingLevel": 15,
       "goldCost": 1200,
-      "craftingExp": 120,
-      "craftingTimeSeconds": 18,
+      "craftingExp": 140,
+      "craftingTimeSeconds": 20,
       "requiresScroll": false,
       "unlockCost": 0,
       "materials": [
         {
-          "itemId": "platnerz_t3",
+          "itemId": "guardian_wand",
           "quantity": 1
         },
         {
-          "itemId": "crystal_shell",
+          "itemId": "prismatic_core",
           "quantity": 6
         },
         {
-          "itemId": "prismatic_scale",
+          "itemId": "crystal_gland",
           "quantity": 6
         },
         {
-          "itemId": "tanned_wolf_leather",
-          "quantity": 8
+          "itemId": "amethyst",
+          "quantity": 6
         },
         {
           "itemId": "mountain_heart",
           "quantity": 1
         },
         {
-          "itemId": "bronze_ingot",
+          "itemId": "silver_ingot",
           "quantity": 8
         }
-      ]
+      ],
+      "_baseId": "guardian_wand"
     },
     {
-      "id": "platnerz_t5_recipe",
-      "name": "Płatnerz t5",
-      "resultItemId": "platnerz_t5",
-      "category": "armor",
-      "subcategory": null,
+      "id": "elite_guardian_wand_recipe",
+      "name": "Różdżka elitarnego strażnika",
+      "resultItemId": "elite_guardian_wand",
+      "category": "arcanist",
+      "subcategory": "wand",
       "tier": 5,
       "requiredPlayerLevel": 30,
       "requiredCraftingLevel": 20,
-      "goldCost": 2000,
-      "craftingExp": 170,
-      "craftingTimeSeconds": 22,
+      "goldCost": 1100,
+      "craftingExp": 140,
+      "craftingTimeSeconds": 20,
       "requiresScroll": false,
       "unlockCost": 0,
       "materials": [
         {
-          "itemId": "platnerz_t4",
+          "itemId": "shadow_wand",
           "quantity": 1
         },
         {
-          "itemId": "crystal_shell",
+          "itemId": "prismatic_core",
           "quantity": 6
         },
         {
-          "itemId": "ice_wolf_fur",
+          "itemId": "ice_elemental_core",
           "quantity": 6
         },
         {
-          "itemId": "chitin_plate_ancient",
-          "quantity": 3
+          "itemId": "sapphire",
+          "quantity": 4
         },
         {
           "itemId": "mountain_heart",
           "quantity": 1
         },
         {
-          "itemId": "iron_ingot",
-          "quantity": 5
+          "itemId": "gold_ingot",
+          "quantity": 4
         }
-      ]
+      ],
+      "_baseId": "shadow_wand"
     },
     {
-      "id": "platnerz_t6_recipe",
-      "name": "Płatnerz t6",
-      "resultItemId": "platnerz_t6",
-      "category": "armor",
-      "subcategory": null,
+      "id": "commander_wand_recipe",
+      "name": "Różdżka dowódcy",
+      "resultItemId": "commander_wand",
+      "category": "arcanist",
+      "subcategory": "wand",
       "tier": 6,
       "requiredPlayerLevel": 40,
       "requiredCraftingLevel": 25,
-      "goldCost": 3500,
-      "craftingExp": 220,
-      "craftingTimeSeconds": 24,
+      "goldCost": 1200,
+      "craftingExp": 140,
+      "craftingTimeSeconds": 20,
       "requiresScroll": false,
       "unlockCost": 0,
       "materials": [
         {
-          "itemId": "commander_armor",
+          "itemId": "arcane_wand",
           "quantity": 1
         },
         {
-          "itemId": "ice_wolf_fur",
+          "itemId": "ice_elemental_core",
           "quantity": 7
         },
         {
-          "itemId": "frozen_bone",
+          "itemId": "frost_essence",
           "quantity": 7
         },
         {
-          "itemId": "chitin_plate_ancient",
-          "quantity": 4
+          "itemId": "sapphire",
+          "quantity": 6
         },
         {
           "itemId": "frost_crown_fragment",
           "quantity": 1
         },
         {
-          "itemId": "iron_ingot",
-          "quantity": 7
+          "itemId": "gold_ingot",
+          "quantity": 2
         }
-      ]
+      ],
+      "_baseId": "arcane_wand"
     },
     {
-      "id": "platnerz_t7_recipe",
-      "name": "Płatnerz t7",
-      "resultItemId": "platnerz_t7",
-      "category": "armor",
-      "subcategory": null,
+      "id": "dragon_wand_recipe",
+      "name": "Smocza różdżka",
+      "resultItemId": "dragon_wand",
+      "category": "arcanist",
+      "subcategory": "wand",
       "tier": 7,
       "requiredPlayerLevel": 50,
       "requiredCraftingLevel": 30,
-      "goldCost": 6000,
-      "craftingExp": 280,
-      "craftingTimeSeconds": 28,
+      "goldCost": 4000,
+      "craftingExp": 220,
+      "craftingTimeSeconds": 24,
       "requiresScroll": false,
       "unlockCost": 0,
       "materials": [
         {
-          "itemId": "knight_armor",
+          "itemId": "magic_wand",
           "quantity": 1
         },
         {
-          "itemId": "ice_wolf_fur",
+          "itemId": "ice_elemental_core",
           "quantity": 8
         },
         {
-          "itemId": "rusted_guardian_plate",
+          "itemId": "spectral_essence",
           "quantity": 8
         },
         {
-          "itemId": "tanned_lava_hound_leather",
+          "itemId": "ruby",
           "quantity": 4
         },
         {
@@ -2266,65 +4351,9 @@
           "itemId": "platinum_ingot",
           "quantity": 6
         }
-      ]
+      ],
+      "_baseId": "magic_wand"
     }
   ],
-  "generatedItems": [
-    {
-      "id": "platnerz_t1",
-      "name": "Płatnerz t1",
-      "rarity": "uncommon",
-      "type": "armor",
-      "requiredLevel": 1,
-      "value": 0
-    },
-    {
-      "id": "platnerz_t2",
-      "name": "Płatnerz t2",
-      "rarity": "uncommon",
-      "type": "armor",
-      "requiredLevel": 10,
-      "value": 0
-    },
-    {
-      "id": "platnerz_t3",
-      "name": "Płatnerz t3",
-      "rarity": "uncommon",
-      "type": "armor",
-      "requiredLevel": 20,
-      "value": 0
-    },
-    {
-      "id": "platnerz_t4",
-      "name": "Płatnerz t4",
-      "rarity": "uncommon",
-      "type": "armor",
-      "requiredLevel": 25,
-      "value": 0
-    },
-    {
-      "id": "platnerz_t5",
-      "name": "Płatnerz t5",
-      "rarity": "uncommon",
-      "type": "armor",
-      "requiredLevel": 30,
-      "value": 0
-    },
-    {
-      "id": "platnerz_t6",
-      "name": "Płatnerz t6",
-      "rarity": "uncommon",
-      "type": "armor",
-      "requiredLevel": 40,
-      "value": 0
-    },
-    {
-      "id": "platnerz_t7",
-      "name": "Płatnerz t7",
-      "rarity": "uncommon",
-      "type": "armor",
-      "requiredLevel": 50,
-      "value": 0
-    }
-  ]
+  "generatedItems": []
 }

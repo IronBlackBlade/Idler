@@ -8,11 +8,8 @@ libraries, because the source is only used as data. It generates:
   generated/items.generated.js
   generated/generation-report.json
 
-The current workbook format is supported for sheets:
-  - Bronie
-  - Biżuteria
-  - Pancerze
-  - RecipeCosts
+The current workbook format is driven by standardized sheets:
+  - Recipes_* (one sheet per crafting category)
   - GeneratorConfig
 
 Design rule:
@@ -36,7 +33,7 @@ import posixpath
 from pathlib import Path
 
 
-DEFAULT_EXCEL = Path("data/recipes/locations/crafting_recipes.xlsx")
+DEFAULT_EXCEL = Path("crafting/crafting_recipes.xlsx")
 try:
     from drop_rules import score_material
 except ImportError:
@@ -326,6 +323,186 @@ def row_list(rows: dict[int, dict[str, str]], row_no: int, max_col: int = 60):
     return out
 
 
+
+def parse_structured_recipe_sheet(rows: dict[int, dict[str, str]], sheet_name: str,
+                                  name_to_id: dict[str, str], warnings: list[str],
+                                  locations: dict, generator_config: dict):
+    """Parse one standardized Recipes_* sheet.
+
+    Columns:
+      Tier, Result Item, Result ItemId, Base Item, Base ItemId,
+      Material 1, Qty 1, Material 2, Qty 2, Material 3, Qty 3,
+      Boss, Qty Boss, Ingot, Qty Ingot, Player Level, Crafting Level,
+      Gold Cost, Crafting EXP, Crafting Time (s), Unlock Cost, Requires Scroll
+    """
+    if not rows:
+        return []
+
+    header = row_list(rows, 1, 30)
+    header_map = {norm(v): i for i, v in enumerate(header)}
+    required = ["tier", "result item"]
+    if any(k not in header_map for k in required):
+        return []
+
+    recipes = []
+
+    def get(block, key, default=""):
+        i = header_map.get(norm(key))
+        if i is None or i >= len(block):
+            return default
+        return block[i]
+
+    for r in sorted(rows):
+        if r <= 1:
+            continue
+        block = row_list(rows, r, 30)
+        result_name = str(get(block, "Result Item", "")).strip()
+        if not result_name or norm(result_name) in INVALID_RESULT_NAMES:
+            continue
+
+        tier_text = get(block, "Tier", "")
+        tier = parse_tier(tier_text)
+        if tier is None:
+            continue
+
+        explicit_result_id = str(get(block, "Result ItemId", "") or "").strip()
+        result_id = (
+            explicit_result_id
+            or resolve_item_id(result_name, name_to_id)
+            or (generator_config or {}).get(norm(result_name))
+            or slugify(result_name)
+        )
+
+        base_name = str(get(block, "Base Item", "") or "").strip()
+        explicit_base_id = str(get(block, "Base ItemId", "") or "").strip()
+        base_id = explicit_base_id or resolve_item_id(base_name, name_to_id)
+
+        if not base_id and base_name:
+            if "t" in norm(base_name) and tier and tier > 1:
+                base_id = f"__BASE_BY_PREVIOUS_TIER__:{tier-1}"
+            else:
+                warnings.append(
+                    f"{sheet_name} {tier_text} {result_name}: "
+                    f"nie znaleziono bazowego itemId dla '{base_name}'."
+                )
+
+        # Materials: named field + explicit quantity.
+        materials = []
+        used = set()
+        material_pairs = [
+            ("Material 1", "Qty 1", "material1"),
+            ("Material 2", "Qty 2", "material2"),
+            ("Material 3", "Qty 3", "special"),
+            ("Boss", "Qty Boss", "boss"),
+            ("Ingot", "Qty Ingot", "ingot"),
+        ]
+
+        for name_key, qty_key, role in material_pairs:
+            mat_name = str(get(block, name_key, "") or "").strip()
+            if not mat_name:
+                continue
+            qty = get(block, qty_key, "")
+            try:
+                qty = int(float(str(qty).strip())) if str(qty).strip() else 1
+            except Exception:
+                qty = 1
+
+            mat = parse_material(
+                mat_name, name_to_id, role, warnings,
+                f"{sheet_name} {result_name} {role}",
+                locations, "", result_name, len(materials), used
+            )
+            if mat:
+                mat["quantity"] = qty
+                materials.append(mat)
+                used.add(mat["itemId"])
+
+        def num_or_none(v):
+            try:
+                if v is None or str(v).strip() == "":
+                    return None
+                return int(float(str(v).strip()))
+            except Exception:
+                return None
+
+        gold = num_or_none(get(block, "Gold Cost", ""))
+        exp = num_or_none(get(block, "Crafting EXP", ""))
+        ctime = num_or_none(get(block, "Crafting Time (s)", "")) 
+        unlock = num_or_none(get(block, "Unlock Cost", "")) or 0
+        scroll_raw = str(get(block, "Requires Scroll", "") or "").strip().lower()
+        scroll = scroll_raw in {"true", "1", "yes", "tak"}
+
+        category, subcategory = resolve_profession_and_subcategory(
+            result_id, result_name, {}
+        )
+        # Structured sheet name is authoritative where possible.
+        structured_category = {
+            "Recipes_Wands": ("arcanist", "wand"),
+            "Recipes_Staves": ("arcanist", "staff"),
+            "Recipes_Maces": ("blacksmith", "mace"),
+            "Recipes_Swords": ("blacksmith", "sword"),
+            "Recipes_Bows": ("bowyer", "bow"),
+            "Recipes_Crossbows": ("bowyer", "crossbow"),
+            "Recipes_Rings": ("jeweler", "ring"),
+            "Recipes_Amulets": ("jeweler", "amulet"),
+            "Recipes_Talismans": ("shaman", "talisman"),
+            "Recipes_Armor": ("armorer", "armor"),
+            "Recipes_Helmets": ("armorer", "helmet"),
+            "Recipes_Pants": ("armorer", "pants"),
+            "Recipes_Boots": ("armorer", "boots"),
+            "Recipes_Gloves": ("armorer", "gloves"),
+            "Recipes_Shields": ("armorer", "shield"),
+        }.get(sheet_name)
+        if structured_category:
+            category, subcategory = structured_category
+
+        # Accept both the original compact headers and the newer
+        # explicit headers used by the normalized Recipes_* sheets.
+        player_level_raw = get(block, "Required Player Level", "")
+        if str(player_level_raw).strip() == "":
+            player_level_raw = get(block, "Player Level", "")
+
+        crafting_level_raw = get(block, "Required Crafting Level", "")
+        if str(crafting_level_raw).strip() == "":
+            crafting_level_raw = get(block, "Crafting Level", "")
+
+        recipes.append({
+            "id": f"{result_id}_recipe",
+            "name": result_name,
+            "resultItemId": result_id,
+            "category": category,
+            "subcategory": subcategory,
+            "tier": tier,
+            "requiredPlayerLevel": num_or_none(player_level_raw),
+            "requiredCraftingLevel": num_or_none(crafting_level_raw),
+            "goldCost": gold,
+            "craftingExp": exp,
+            "craftingTimeSeconds": ctime,
+            "requiresScroll": scroll,
+            "unlockCost": unlock,
+            "materials": materials,
+            "_baseName": base_name,
+            "_source": f"{sheet_name}:{r}",
+            "_baseId": base_id,
+        })
+
+    # Normalize previous-tier bases inside this sheet.
+    by_tier = {r.get("tier"): r.get("resultItemId") for r in recipes}
+    for r in recipes:
+        bid = r.get("_baseId")
+        if isinstance(bid, str) and bid.startswith("__BASE_BY_PREVIOUS_TIER__:"):
+            try:
+                prev = int(bid.split(":")[-1])
+            except Exception:
+                prev = None
+            if prev in by_tier:
+                r["materials"] = r.get("materials", [])
+                r["_baseId"] = by_tier[prev]
+            else:
+                r["_baseId"] = None
+
+    return recipes
+
 def load_existing_items(path: Path | None):
     items_by_id = {}
     name_to_id = {}
@@ -347,7 +524,7 @@ def load_existing_items(path: Path | None):
             fm = re.search(rf"(?m)^\s*{field}:\s*\"([^\"]*)\"", body)
             if fm:
                 entry[field] = fm.group(1)
-        for field in ["requiredLevel", "damage", "strength", "dexterity", "intelligence", "endurance", "luck", "value"]:
+        for field in ["requiredLevel", "damage", "armor", "strength", "dexterity", "intelligence", "endurance", "luck", "value"]:
             fm = re.search(rf"(?m)^\s*{field}:\s*(-?\d+(?:\.\d+)?)", body)
             if fm:
                 num = float(fm.group(1))
@@ -558,7 +735,7 @@ def detect_blocks(rows: dict[int, dict[str, str]], header_row: int = 3):
     return blocks
 
 
-def parse_block(rows, start, header, category_title, sheet_name, name_to_id, warnings, locations, recipe_costs):
+def parse_block(rows, start, header, category_title, sheet_name, name_to_id, warnings, locations, recipe_costs, generator_config=None):
     # Current standard layout is 10 columns. The talisman block in Biżuteria
     # has result/base header labels swapped; the data itself is still result/base.
     if len(header) < 10:
@@ -585,7 +762,12 @@ def parse_block(rows, start, header, category_title, sheet_name, name_to_id, war
         player_level = int(float(block[8])) if str(block[8]).strip() else None
         craft_level = int(float(block[9])) if str(block[9]).strip() else None
         cost_info = recipe_costs.get(norm(str(result_name).strip()), {})
-        result_id = resolve_item_id(result_name, name_to_id) or slugify(result_name)
+        configured_result_id = (generator_config or {}).get(norm(str(result_name).strip()))
+        result_id = (
+            resolve_item_id(result_name, name_to_id)
+            or configured_result_id
+            or slugify(result_name)
+        )
         base_id = resolve_item_id(base_name, name_to_id)
         if not base_id:
             # Higher tiers explicitly saying "wytwarzana z tX" need to point to
@@ -637,7 +819,7 @@ def load_crafting_recipes_table(sheets):
     """Read the normalized 'Crafting Recipes' sheet.
 
     Columns:
-      Tier, Przedmiot, Kategoria, Bazowy item,
+      Tier, Przedmiot, Result itemId, Kategoria, Bazowy item,
       Materiał 1/Ilość 1, Materiał 2/Ilość 2,
       Materiał specjalny/Ilość specjalna,
       Boss/Ilość bossa, Sztabka/Ilość sztabki,
@@ -678,9 +860,16 @@ def load_crafting_recipes_table(sheets):
             continue
 
         category = norm(get(r, "Kategoria")) or category_from_recipe_name(result_name)
-        result_id = resolve_item_id(result_name, {})  # resolved later against real items
-        if not result_id:
-            result_id = slugify(result_name)
+
+        # Result itemId is authoritative when supplied in Excel.
+        # This allows recipe names to be different from item names.
+        explicit_result_id = str(get(r, "Result itemId") or "").strip()
+
+        result_id = (
+            explicit_result_id
+            or resolve_item_id(result_name, {})
+            or slugify(result_name)
+        )
 
         def material(name_col, qty_col):
             name = str(get(r, name_col) or "").strip()
@@ -700,6 +889,25 @@ def load_crafting_recipes_table(sheets):
             value = material(nc, qc)
             materials_raw.append((role, value))
 
+        item_overrides = {
+            "id": str(get(r, "Item ID") or "").strip(),
+            "rarity": str(get(r, "Rzadkość") or get(r, "Rzadkosc") or "").strip(),
+            "type": str(get(r, "Typ itemu") or "").strip(),
+            "weaponType": str(get(r, "Typ broni") or "").strip(),
+            "weaponClass": str(get(r, "Klasa broni") or "").strip(),
+        }
+        for field_name, header_name in [
+            ("damage", "Obrażenia"),
+            ("armor", "Pancerz"),
+            ("strength", "Siła"),
+            ("dexterity", "Zręczność"),
+            ("intelligence", "Inteligencja"),
+            ("endurance", "Wytrzymałość"),
+            ("luck", "Szczęście"),
+            ("value", "Wartość"),
+        ]:
+            item_overrides[field_name] = num(get(r, header_name))
+
         out.append({
             "id": f"{result_id}_recipe",
             "name": result_name,
@@ -715,6 +923,7 @@ def load_crafting_recipes_table(sheets):
             "unlockCost": 0,
             "_baseName": str(get(r, "Bazowy item") or "").strip(),
             "_materialRows": materials_raw,
+            "_itemOverrides": item_overrides,
             "_source": f"Crafting Recipes!row{r}",
         })
     return out
@@ -926,25 +1135,127 @@ def resolve_tier_bases(recipes, name_to_id, generator_config=None):
 
 
 def build_generated_items(recipes, existing_items, name_to_id):
+    """Create complete item definitions for recipe results that do not exist in items.js.
+
+    Excel can optionally override the generated values with these columns on
+    Crafting Recipes: Item ID, Rzadkość, Typ itemu, Typ broni, Klasa broni,
+    Obrażenia, Pancerz, Siła, Zręczność, Inteligencja, Wytrzymałość,
+    Szczęście, Wartość.
+    """
     generated = {}
+
+    # Conservative defaults following the current game's progression.
+    damage_by_level = {
+        1: 6, 10: 18, 20: 34, 25: 50, 30: 65, 40: 95, 50: 165,
+    }
+    rarity_by_tier = {
+        1: "uncommon", 2: "rare", 3: "rare", 4: "common",
+        5: "rare", 6: "epic", 7: "legendary",
+    }
+    jewelry_stats = {
+        "ring": {
+            1: {"luck": 1}, 10: {"dexterity": 2, "luck": 2},
+            20: {"strength": 2, "endurance": 2, "luck": 2},
+            25: {"strength": 3, "dexterity": 1, "endurance": 3, "luck": 2},
+            30: {"strength": 5, "dexterity": 4, "endurance": 3, "luck": 3},
+            40: {"strength": 7, "dexterity": 4, "endurance": 7, "luck": 7},
+            50: {"strength": 13, "dexterity": 9, "endurance": 13, "luck": 12},
+        },
+        "amulet": {
+            1: {"intelligence": 2, "luck": 1}, 10: {"dexterity": 1, "intelligence": 4, "luck": 2},
+            20: {"intelligence": 6, "endurance": 3, "luck": 3},
+            25: {"intelligence": 6, "endurance": 3, "luck": 2},
+            30: {"intelligence": 9, "endurance": 6, "luck": 3},
+            40: {"strength": 4, "intelligence": 12, "endurance": 6, "luck": 6},
+            50: {"strength": 8, "intelligence": 28, "endurance": 12, "luck": 12},
+        },
+        "talisman": {
+            1: {"intelligence": 1, "luck": 4}, 10: {"dexterity": 2, "intelligence": 2, "luck": 4},
+            20: {"intelligence": 3, "endurance": 4, "luck": 6},
+            25: {"endurance": 3, "luck": 8}, 30: {"intelligence": 6, "endurance": 6, "luck": 12},
+            40: {"strength": 5, "dexterity": 5, "intelligence": 5, "luck": 10},
+            50: {"strength": 10, "dexterity": 10, "intelligence": 14, "endurance": 8, "luck": 20},
+        },
+    }
+
+    profession_to_type = {
+        "blacksmith": ("weapon", "melee", {"sword": "slashing", "mace": "blunt"}),
+        "bowyer": ("weapon", "ranged", {"bow": "bow", "crossbow": "crossbow"}),
+        "arcanist": ("weapon", "magic", {"wand": "wand", "staff": "staff"}),
+        "armorer": ("armor", None, {}),
+        "jeweler": (None, None, {"ring": "ring", "amulet": "amulet"}),
+        "shaman": ("talisman", None, {"talisman": "talisman"}),
+    }
+
     for r in recipes:
         iid = r["resultItemId"]
-        if iid in existing_items:
+        if iid in existing_items or iid in generated:
             continue
-        cat = r["category"]
-        item_type, weapon_type = CATEGORY_ITEM_TYPE.get(cat, ("crafting_material", None))
+
+        overrides = r.get("_itemOverrides") or {}
+        level = int(r.get("requiredPlayerLevel") or (r.get("tier") or 1) or 1)
+        category = r.get("category")
+        subcategory = r.get("subcategory") or ""
+        item_type, weapon_type, weapon_classes = profession_to_type.get(category, ("crafting_material", None, {}))
+        if subcategory in {"ring", "amulet"}:
+            item_type = subcategory
+        if category == "armorer" and subcategory in {"shield", "helmet", "armor", "pants", "boots", "gloves"}:
+            item_type = subcategory
+        weapon_class = weapon_classes.get(subcategory)
+
+        # Prefer an explicit Excel override for type/class.
+        item_type = overrides.get("type") or item_type
+        weapon_type = overrides.get("weaponType") or weapon_type
+        weapon_class = overrides.get("weaponClass") or weapon_class
+
+        rarity = overrides.get("rarity") or rarity_by_tier.get(int(r.get("tier") or 1), "uncommon")
+        value = overrides.get("value")
+        if value is None:
+            value = max(10, int(r.get("goldCost") or 0) * 3)
+
         item = {
-            "id": iid,
+            "id": overrides.get("id") or iid,
             "name": r["name"],
-            "rarity": "uncommon",
-            "type": item_type,
-            "requiredLevel": r["requiredPlayerLevel"] or 1,
-            "value": 0,
+            "rarity": rarity,
+            "type": item_type or "crafting_material",
+            "requiredLevel": level,
+            "value": value,
         }
+
         if weapon_type:
             item["weaponType"] = weapon_type
-            item["damage"] = 0
+        if weapon_class:
+            item["weaponClass"] = weapon_class
+
+        if item["type"] == "weapon":
+            item["damage"] = overrides.get("damage")
+            if item["damage"] is None:
+                item["damage"] = damage_by_level.get(level, max(1, int(round(3.2 * level))))
+            # Basic stat bonuses for special/rarer crafted weapons can be overridden in Excel.
+            if subcategory in {"wand", "staff"} and level >= 10 and overrides.get("intelligence") is None:
+                item["intelligence"] = max(1, level // 10)
+
+        elif item["type"] in {"armor", "helmet", "shield", "pants", "boots", "gloves"}:
+            item["armor"] = overrides.get("armor")
+            if item["armor"] is None:
+                armor_base = {1: 6, 10: 14, 20: 28, 25: 38, 30: 50, 40: 80, 50: 120}
+                item["armor"] = armor_base.get(level, max(1, int(round(level * 2.4))))
+            if overrides.get("endurance") is not None:
+                item["endurance"] = overrides["endurance"]
+            elif level >= 10:
+                item["endurance"] = max(1, level // 3)
+
+        elif item["type"] in {"ring", "amulet", "talisman"}:
+            for stat, val in (jewelry_stats.get(item["type"], {}).get(level, {})).items():
+                item[stat] = val
+
+        # Explicit Excel stats always win.
+        for stat in ["damage", "armor", "strength", "dexterity", "intelligence", "endurance", "luck", "value"]:
+            if overrides.get(stat) is not None:
+                item[stat] = overrides[stat]
+
         generated[iid] = item
+
     return generated
 
 
@@ -956,7 +1267,7 @@ def render_items_js(items: dict[str, dict]):
     lines = ["// AUTO-GENERATED FILE. DO NOT EDIT BY HAND.", "// Source: Excel crafting workbook", "", "window.idlerGeneratedItems = {"]
     for iid, item in items.items():
         lines.append(f"    {iid}: {{")
-        fields = ["id", "name", "rarity", "type", "weaponType", "requiredLevel", "damage", "strength", "dexterity", "intelligence", "endurance", "luck", "value"]
+        fields = ["id", "name", "rarity", "type", "weaponType", "weaponClass", "requiredLevel", "damage", "armor", "strength", "dexterity", "intelligence", "endurance", "luck", "value"]
         for field in fields:
             if field not in item:
                 continue
@@ -1064,7 +1375,7 @@ def render_loader_js():
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("workbook", nargs="?", type=Path, default=Path("data/recipes/locations/crafting_recipes.xlsx"))
+    ap.add_argument("workbook", nargs="?", type=Path, default=Path("crafting/crafting_recipes.xlsx"))
     ap.add_argument("--items-js", type=Path, default=Path("js/data/items.js"))
     ap.add_argument("--output", type=Path, default=Path("js/generated"))
     ap.add_argument("--locations-dir", type=Path, default=Path("js/data/locations"), help="Folder with location JS files containing enemies/boss loot.")
@@ -1078,18 +1389,72 @@ def main():
     existing_items, name_to_id = load_existing_items(args.items_js)
     warnings: list[str] = []
     locations = load_location_loot(args.locations_dir, existing_items, warnings)
-    recipe_costs = load_recipe_costs(sheets)
+    # V20: cost/EXP/time are read directly from each Recipes_* sheet.
+    recipe_costs = {}
     generator_config = load_generator_config(sheets)
     recipes = []
 
-    normalized_rows = load_crafting_recipes_table(sheets)
+    # Preferred source: clean standardized Recipes_* sheets.
+    structured_sheets = [s for s in sheets.keys() if s.startswith("Recipes_")]
+    if structured_sheets:
+        for sheet_name in sorted(structured_sheets):
+            recipes.extend(parse_structured_recipe_sheet(
+                sheets.get(sheet_name) or {},
+                sheet_name,
+                name_to_id,
+                warnings,
+                locations,
+                generator_config
+            ))
+        # Skip all legacy-sheet parsing when the structured source exists.
+        normalized_rows = []
+    else:
+        normalized_rows = None
+
+    # "Crafting Recipes" in the current master workbook is an overview/index
+    # sheet. The real recipe data lives in Bronie, Biżuteria and Pancerze.
+    # Only use the normalized parser when that sheet actually contains the
+    # detailed recipe columns.
+    crafting_sheet = sheets.get("Crafting Recipes") or {}
+    crafting_header = row_list(crafting_sheet, 1, 30)
+    has_detailed_crafting_columns = (
+        "kategoria" in {norm(v) for v in crafting_header}
+        and (
+            "koszt złota" in {norm(v) for v in crafting_header}
+            or "exp craftingu" in {norm(v) for v in crafting_header}
+        )
+    )
+
+    if not structured_sheets:
+        normalized_rows = (
+            load_crafting_recipes_table(sheets)
+            if has_detailed_crafting_columns
+            else []
+        )
+
     merchant_map = merchant_base_mapping(sheets)
     generator_config.update(merchant_map)
 
-    if normalized_rows:
+    # Płatnerz uses recipe labels instead of the actual item names.
+    # Keep this exception in one place so the Excel structure stays clean.
+    generator_config.update({
+        "płatnerz t1": "wolf_armor",
+        "płatnerz t2": "kobold_armor",
+        "płatnerz t3": "guardian_armor",
+        "płatnerz t4": "steel_guardian_armor",
+        "płatnerz t5": "elite_guardian_armor",
+        "płatnerz t6": "commander_armor",
+        "płatnerz t7": "dragon_armor",
+    })
+
+    if not structured_sheets and normalized_rows:
         for raw in normalized_rows:
             result_name = raw["name"]
-            result_id = resolve_item_id(result_name, name_to_id) or raw["resultItemId"]
+
+            # Excel "Result itemId" is authoritative.
+            # It must be used before resolving the recipe name, because
+            # recipe names like "Płatnerz t1" are not item names.
+            result_id = raw["resultItemId"]
             category, subcategory = resolve_profession_and_subcategory(result_id, result_name, existing_items)
 
             # Authoritative fallback from the item type. This is especially
@@ -1156,7 +1521,7 @@ def main():
                 "_baseName": base_name,
                 "_source": raw["_source"],
             })
-    else:
+    elif not structured_sheets:
         for sheet_name in ["Bronie", "Biżuteria", "Pancerze"]:
             rows = sheets.get(sheet_name)
             if not rows:
@@ -1164,20 +1529,23 @@ def main():
                 continue
             blocks = detect_blocks(rows, 3)
             for start, end, title, header in blocks:
-                recipes.extend(parse_block(rows, start, header, title, sheet_name, name_to_id, warnings, locations, recipe_costs))
+                recipes.extend(parse_block(
+                    rows, start, header, title, sheet_name, name_to_id,
+                    warnings, locations, recipe_costs, generator_config
+                ))
 
 
     resolve_tier_bases(recipes, name_to_id, generator_config)
     generated_items = build_generated_items(recipes, existing_items, name_to_id)
 
-    # Assign default costs as explicit TODOs rather than guessing economy values.
+    # Costs are explicit data in Recipes_*; never guess them.
     for r in recipes:
         if r["goldCost"] is None:
-            warnings.append(f"{r['name']}: brak goldCost w Excelu -> ustawiono null.")
+            warnings.append(f"{r['name']}: brak Gold Cost w arkuszu Recipes_*.")
         if r["craftingExp"] is None:
-            warnings.append(f"{r['name']}: brak craftingExp w Excelu -> ustawiono null.")
+            warnings.append(f"{r['name']}: brak Crafting EXP w arkuszu Recipes_*.")
         if r["craftingTimeSeconds"] is None:
-            warnings.append(f"{r['name']}: brak craftingTimeSeconds w Excelu -> ustawiono null.")
+            warnings.append(f"{r['name']}: brak Crafting Time (s) w arkuszu Recipes_*.")
 
     # Validate duplicate IDs.
     seen = set()

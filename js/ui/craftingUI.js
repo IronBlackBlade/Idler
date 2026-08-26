@@ -1209,9 +1209,11 @@ function renderCrafting() {
       }
 
       const equipmentUpgradeSource =
-        recipe.upgradeFromItemId
-          ? items[recipe.upgradeFromItemId]
-          : null;
+        recipe.materials?.[0]?.itemId
+          ? items[recipe.materials[0].itemId]
+          : recipe.upgradeFromItemId
+            ? items[recipe.upgradeFromItemId]
+            : null;
       const isEquipmentUpgrade = Boolean(
         equipmentUpgradeSource &&
         recipe.equipmentUpgradeRank,
@@ -1370,15 +1372,15 @@ ${equippedText}
           const jewelryRange =
             typeof getEquipmentUpgradeStatRange === "function"
               ? getEquipmentUpgradeStatRange(
-                  resultItem.requiredLevel,
-                  false,
-                  resultItem.type
-                )
+                resultItem.requiredLevel,
+                false,
+                resultItem.type
+              )
               : null;
 
           const safeJewelryRange =
             Array.isArray(jewelryRange) &&
-            jewelryRange.length >= 2
+              jewelryRange.length >= 2
               ? jewelryRange
               : [1, 2];
 
