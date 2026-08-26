@@ -1077,6 +1077,74 @@ def merchant_base_mapping(sheets):
     return mapping
 
 
+
+
+def load_damage_workbook(path: Path | None, existing_items: dict[str, dict], warnings: list[str], label: str):
+    """Read damage overrides from a standalone weapon workbook.
+
+    Expected sheets: Miecze, Obuchy, Łuki, Kusze, Różdżki, Kostury.
+    Expected columns: Lv, ID, Nazwa, Obecny damage, Nowy damage, Zmiana.
+
+    Only ``damage`` is changed; all other fields are preserved from items.js.
+    """
+    overrides = {}
+    if not path:
+        return overrides
+    if not path.exists():
+        warnings.append(f"Brak pliku {label}: {path}")
+        return overrides
+
+    try:
+        sheets = load_xlsm(path)
+    except Exception as exc:
+        warnings.append(f"Nie udało się odczytać {label} {path}: {exc}")
+        return overrides
+
+    for sheet_name in ["Miecze", "Obuchy", "Łuki", "Kusze", "Różdżki", "Kostury"]:
+        rows = sheets.get(sheet_name)
+        if not rows:
+            continue
+
+        header = row_list(rows, 1, 10)
+        index = {norm(v): i for i, v in enumerate(header)}
+        id_col = index.get("id")
+        damage_col = index.get("nowy damage")
+        if id_col is None or damage_col is None:
+            warnings.append(
+                f"Arkusz {sheet_name} w {label} nie ma kolumn 'ID' i 'Nowy damage'."
+            )
+            continue
+
+        for row_no in sorted(rows):
+            if row_no <= 1:
+                continue
+            values = row_list(rows, row_no, len(header))
+            item_id = str(values[id_col] if id_col < len(values) else "").strip()
+            if not item_id:
+                continue
+
+            raw_damage = values[damage_col] if damage_col < len(values) else ""
+            try:
+                new_damage = int(float(str(raw_damage).strip()))
+            except (TypeError, ValueError):
+                warnings.append(
+                    f"{label} {sheet_name} wiersz {row_no}: brak poprawnego 'Nowy damage' dla {item_id}."
+                )
+                continue
+
+            if item_id not in existing_items:
+                warnings.append(
+                    f"Item '{item_id}' z {label}, arkusz {sheet_name}, nie istnieje w items.js."
+                )
+                continue
+
+            updated = dict(existing_items[item_id])
+            updated["damage"] = new_damage
+            overrides[item_id] = updated
+
+    return overrides
+
+
 def load_generator_config(sheets):
     config = {}
     rows = sheets.get("GeneratorConfig") or {}
@@ -1379,6 +1447,10 @@ def main():
     ap.add_argument("--items-js", type=Path, default=Path("js/data/items.js"))
     ap.add_argument("--output", type=Path, default=Path("js/generated"))
     ap.add_argument("--locations-dir", type=Path, default=Path("js/data/locations"), help="Folder with location JS files containing enemies/boss loot.")
+    ap.add_argument("--merchant-workbook", type=Path, default=Path("crafting/itemy_kupca.xlsx"),
+                    help="Excel with merchant weapon damage overrides.")
+    ap.add_argument("--craft-workbook", type=Path, default=Path("crafting/itemy_craft.xlsx"),
+                    help="Excel with crafted weapon damage overrides.")
     args = ap.parse_args()
 
     if not args.workbook.exists():
@@ -1388,6 +1460,14 @@ def main():
     sheets = load_xlsm(args.workbook)
     existing_items, name_to_id = load_existing_items(args.items_js)
     warnings: list[str] = []
+
+    merchant_overrides = load_damage_workbook(
+        args.merchant_workbook, existing_items, warnings, "itemy_kupca.xlsx"
+    )
+    craft_overrides = load_damage_workbook(
+        args.craft_workbook, existing_items, warnings, "itemy_craft.xlsx"
+    )
+
     locations = load_location_loot(args.locations_dir, existing_items, warnings)
     # V20: cost/EXP/time are read directly from each Recipes_* sheet.
     recipe_costs = {}
@@ -1538,6 +1618,12 @@ def main():
     resolve_tier_bases(recipes, name_to_id, generator_config)
     generated_items = build_generated_items(recipes, existing_items, name_to_id)
 
+    # Standalone weapon workbooks are authoritative for weapon damage.
+    # We copy the full existing item definition and replace only ``damage``
+    # so no rarity/type/stat metadata is lost.
+    generated_items.update(merchant_overrides)
+    generated_items.update(craft_overrides)
+
     # Costs are explicit data in Recipes_*; never guess them.
     for r in recipes:
         if r["goldCost"] is None:
@@ -1566,6 +1652,10 @@ def main():
         "workbook": str(args.workbook),
         "recipeCount": len(recipes),
         "generatedItemCount": len(generated_items),
+        "merchantDamageOverrideCount": len(merchant_overrides),
+        "craftDamageOverrideCount": len(craft_overrides),
+        "merchantWorkbook": str(args.merchant_workbook),
+        "craftWorkbook": str(args.craft_workbook),
         "warnings": warnings,
         "recipes": recipes,
         "generatedItems": list(generated_items.values()),
@@ -1573,7 +1663,9 @@ def main():
     (args.output / "generation-report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
 
     print(f"Generated recipes: {len(recipes)}")
-    print(f"Generated new item entries: {len(generated_items)}")
+    print(f"Generated item entries: {len(generated_items)}")
+    print(f"Merchant damage overrides: {len(merchant_overrides)}")
+    print(f"Craft damage overrides: {len(craft_overrides)}")
     print(f"Warnings: {len(warnings)}")
     for warning in warnings[:25]:
         print("WARNING:", warning)

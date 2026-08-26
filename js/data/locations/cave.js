@@ -8,7 +8,7 @@ const cave = {
     boss: {
         id: "kobold_king",
         name: "👑 Król Koboldów",
-        hp: 2600,
+        hp: 650,
         attack: 52,
         gold: 360,
         exp: 560,
@@ -37,7 +37,7 @@ const cave = {
         {
             id: "bat",
             name: "Nietoperz",
-            hp: 180,
+            hp: 120,
             attack: 15,
             gold: 22,
             exp: 36,
@@ -50,7 +50,7 @@ const cave = {
         {
             id: "cave_spider",
             name: "Pająk jaskiniowy",
-            hp: 230,
+            hp: 140,
             attack: 18,
             gold: 28,
             exp: 46,
@@ -63,7 +63,7 @@ const cave = {
         {
             id: "skeleton",
             name: "Szkielet",
-            hp: 300,
+            hp: 165,
             attack: 23,
             gold: 36,
             exp: 62,
@@ -76,7 +76,7 @@ const cave = {
         {
             id: "kobold",
             name: "Kobold",
-            hp: 410,
+            hp: 200,
             attack: 28,
             gold: 48,
             exp: 82,
@@ -89,7 +89,7 @@ const cave = {
         {
             id: "stone_golem",
             name: "Kamienny golem",
-            hp: 560,
+            hp: 250,
             attack: 34,
             gold: 70,
             exp: 118,

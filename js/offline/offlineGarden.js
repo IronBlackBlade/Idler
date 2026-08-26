@@ -99,7 +99,8 @@ function processOfflineGardenProgress(
                         label: "Status",
                         value: "Rośliny czekają na zebranie"
                     }
-                ]
+                ],
+                items: readyItems
             }
         ]
     };

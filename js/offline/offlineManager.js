@@ -106,14 +106,14 @@ function simulateOfflineProgress(
             )
             : null;
 
-            const gardenSummary =
-    typeof processOfflineGardenProgress ===
-        "function"
-        ? processOfflineGardenProgress(
-            offlineStartedAt,
-            offlineFinishedAt
-        )
-        : null;
+    const gardenSummary =
+        typeof processOfflineGardenProgress ===
+            "function"
+            ? processOfflineGardenProgress(
+                offlineStartedAt,
+                offlineFinishedAt
+            )
+            : null;
 
     const tavernSummary =
         typeof processOfflineTavernProgress ===

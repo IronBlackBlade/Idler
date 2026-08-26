@@ -8,7 +8,7 @@ const forest = {
     boss: {
         id: "goblin_chief",
         name: "👑 Goblini Herszt",
-        hp: 450,
+        hp: 150,
         attack: 20,
         gold: 75,
         exp: 120,
@@ -50,7 +50,7 @@ const forest = {
         {
             id: "sheep",
             name: "Owca",
-            hp: 28,
+            hp: 24,
             attack: 4,
             gold: 3,
             exp: 6,
@@ -63,7 +63,7 @@ const forest = {
         {
             id: "rat",
             name: "Olbrzymi szczur",
-            hp: 40,
+            hp: 30,
             attack: 5,
             gold: 5,
             exp: 9,
@@ -76,7 +76,7 @@ const forest = {
         {
             id: "wolf",
             name: "Młody wilk",
-            hp: 60,
+            hp: 40,
             attack: 7,
             gold: 8,
             exp: 14,
@@ -89,7 +89,7 @@ const forest = {
         {
             id: "goblin",
             name: "Goblin",
-            hp: 85,
+            hp: 50,
             attack: 9,
             gold: 12,
             exp: 20,

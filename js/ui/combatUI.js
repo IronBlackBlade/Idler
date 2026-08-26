@@ -778,12 +778,6 @@ function renderCombatFoodPanel() {
             ? getActiveFoodRemainingSeconds()
             : 0;
 
-    const cooldownSeconds =
-        typeof getCombatFoodCooldownSecondsLeft ===
-            "function"
-            ? getCombatFoodCooldownSecondsLeft()
-            : 0;
-
     foodSelect.value =
         selectedFoodId;
 
