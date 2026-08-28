@@ -8,8 +8,8 @@ const abyss = {
     boss: {
         id: "abyss_lord",
         name: "👑 Władca Otchłani",
-        hp: 180000,
-        attack: 360,
+        hp: 17000,
+        attack: 195,
         gold: 15500,
         exp: 22500,
         firstKillReward: {
@@ -45,8 +45,8 @@ const abyss = {
         {
             id: "memory_devourer",
             name: "Pożeracz wspomnień",
-            hp: 25000,
-            attack: 215,
+            hp: 800,
+            attack: 86,
             gold: 5200,
             exp: 7200,
             loot: [
@@ -67,8 +67,8 @@ const abyss = {
         {
             id: "dimension_weaver",
             name: "Tkacz wymiarów",
-            hp: 31500,
-            attack: 235,
+            hp: 930,
+            attack: 96,
             gold: 6500,
             exp: 9000,
             loot: [
@@ -89,8 +89,8 @@ const abyss = {
         {
             id: "nameless_observer",
             name: "Bezimienny obserwator",
-            hp: 38000,
-            attack: 255,
+            hp: 1100,
+            attack: 106,
             gold: 7900,
             exp: 11000,
             loot: [
@@ -111,8 +111,8 @@ const abyss = {
         {
             id: "void_herald",
             name: "Herold Pustki",
-            hp: 46500,
-            attack: 278,
+            hp: 1280,
+            attack: 116,
             gold: 9600,
             exp: 13400,
             loot: [
@@ -133,8 +133,8 @@ const abyss = {
         {
             id: "rift_architect",
             name: "Architekt Rozdarcia",
-            hp: 56000,
-            attack: 305,
+            hp: 1500,
+            attack: 126,
             gold: 11800,
             exp: 16600,
             loot: [

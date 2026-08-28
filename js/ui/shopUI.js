@@ -254,6 +254,9 @@ function buySelectedShopQuantity(
 }
 
 function renderShop() {
+
+    rebuildShopItems();
+
     const container = document.getElementById("shop-list");
 
     if (!container) {
@@ -1416,9 +1419,9 @@ function getShopItemStatsHtml(
 
 
     ${getStatComparisonHtml(
-        "Siła",
-        comparison
-    )}
+                "Siła",
+                comparison
+            )}
 
 </div>
 
@@ -1454,9 +1457,9 @@ function getShopItemStatsHtml(
 
 
     ${getStatComparisonHtml(
-        "Inteligencja",
-        comparison
-    )}
+                "Inteligencja",
+                comparison
+            )}
 
 </div>
 
@@ -1493,9 +1496,9 @@ function getShopItemStatsHtml(
 
 
     ${getStatComparisonHtml(
-        "Szczęście",
-        comparison
-    )}
+                "Szczęście",
+                comparison
+            )}
 
 </div>
 

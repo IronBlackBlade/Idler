@@ -14,8 +14,8 @@ const crystalPeaks = {
         id: "heart_of_the_mountain",
         name: "💠 Serce Góry",
 
-        hp: 1800000,
-        attack: 980,
+        hp: 35000,
+        attack: 340,
         gold: 210000,
         exp: 300000,
 
@@ -56,8 +56,8 @@ const crystalPeaks = {
             id: "crystal_beetle",
             name: "Kryształowy żuk",
 
-            hp: 420000,
-            attack: 620,
+            hp: 1500,
+            attack: 180,
             gold: 70000,
             exp: 98000,
 
@@ -81,8 +81,8 @@ const crystalPeaks = {
             id: "shardling",
             name: "Odpryskowiec",
 
-            hp: 500000,
-            attack: 680,
+            hp: 1680,
+            attack: 195,
             gold: 85000,
             exp: 118000,
 
@@ -106,8 +106,8 @@ const crystalPeaks = {
             id: "geode_breaker",
             name: "Łamacz geod",
 
-            hp: 610000,
-            attack: 750,
+            hp: 1900,
+            attack: 210,
             gold: 103000,
             exp: 145000,
 
@@ -131,8 +131,8 @@ const crystalPeaks = {
             id: "prismatic_manticore",
             name: "Pryzmatyczny mantykor",
 
-            hp: 740000,
-            attack: 830,
+            hp: 2200,
+            attack: 225,
             gold: 125000,
             exp: 175000,
 
@@ -156,8 +156,8 @@ const crystalPeaks = {
             id: "crystal_spire_guardian",
             name: "Strażnik Kryształowej Iglicy",
 
-            hp: 900000,
-            attack: 910,
+            hp: 2500,
+            attack: 242,
             gold: 152000,
             exp: 215000,
 

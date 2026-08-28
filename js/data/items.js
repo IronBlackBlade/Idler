@@ -1044,7 +1044,7 @@ const items = {
         weaponType: "melee",
         weaponClass: "slashing",
         requiredLevel: 1,
-        damage: 5,
+        damage: 10,
         value: 50
     },
 
@@ -1056,7 +1056,7 @@ const items = {
         weaponType: "melee",
         weaponClass: "slashing",
         requiredLevel: 10,
-        damage: 15,
+        damage: 30,
         value: 140
     },
 
@@ -1068,7 +1068,7 @@ const items = {
         weaponType: "melee",
         weaponClass: "slashing",
         requiredLevel: 20,
-        damage: 30,
+        damage: 55,
         value: 380
     },
 
@@ -1080,7 +1080,7 @@ const items = {
         weaponType: "melee",
         weaponClass: "slashing",
         requiredLevel: 35,
-        damage: 60,
+        damage: 90,
         value: 1500
     },
     knight_sword: {
@@ -1091,7 +1091,7 @@ const items = {
         weaponType: "melee",
         weaponClass: "slashing",
         requiredLevel: 50,
-        damage: 100,
+        damage: 180,
         value: 3000
     },
     captain_sword: {
@@ -1102,7 +1102,7 @@ const items = {
         weaponType: "melee",
         weaponClass: "slashing",
         requiredLevel: 75,
-        damage: 175,
+        damage: 240,
         value: 12000
     },
 
@@ -1114,7 +1114,7 @@ const items = {
         weaponType: "melee",
         weaponClass: "slashing",
         requiredLevel: 100,
-        damage: 250,
+        damage: 300,
         value: 18000
     },
 
@@ -1127,7 +1127,7 @@ const items = {
         weaponType: "melee",
         weaponClass: "slashing",
         requiredLevel: 1,
-        damage: 6,
+        damage: 10,
         value: 150
     },
     cave_sword: {
@@ -1138,7 +1138,7 @@ const items = {
         weaponType: "melee",
         weaponClass: "slashing",
         requiredLevel: 10,
-        damage: 18,
+        damage: 30,
         value: 300
     },
 
@@ -1152,7 +1152,7 @@ const items = {
         weaponType: "melee",
         weaponClass: "slashing",
         requiredLevel: 20,
-        damage: 34,
+        damage: 55,
         value: 850
     },
 
@@ -1164,7 +1164,7 @@ const items = {
         weaponType: "melee",
         weaponClass: "slashing",
         requiredLevel: 25,
-        damage: 50,
+        damage: 70,
         value: 900
     },
 
@@ -1176,7 +1176,7 @@ const items = {
         weaponType: "melee",
         weaponClass: "slashing",
         requiredLevel: 30,
-        damage: 50,
+        damage: 90,
         value: 1800
     },
 
@@ -1187,8 +1187,8 @@ const items = {
         type: "weapon",
         weaponType: "melee",
         weaponClass: "slashing",
-        requiredLevel: 50,
-        damage: 150,
+        requiredLevel: 40,
+        damage: 120,
         value: 6000
     },
 
@@ -1201,7 +1201,7 @@ const items = {
         weaponType: "melee",
         weaponClass: "slashing",
         requiredLevel: 50,
-        damage: 165,
+        damage: 180,
         value: 14000
     },
 
@@ -1214,7 +1214,7 @@ const items = {
         weaponType: "melee",
         weaponClass: "blunt",
         requiredLevel: 1,
-        damage: 8,
+        damage: 10,
         value: 40
     },
 
@@ -1226,7 +1226,7 @@ const items = {
         weaponType: "melee",
         weaponClass: "blunt",
         requiredLevel: 10,
-        damage: 18,
+        damage: 30,
         value: 280
     },
 
@@ -1238,7 +1238,7 @@ const items = {
         weaponType: "melee",
         weaponClass: "blunt",
         requiredLevel: 20,
-        damage: 30,
+        damage: 55,
         value: 850
     },
 
@@ -1250,7 +1250,7 @@ const items = {
         weaponType: "melee",
         weaponClass: "blunt",
         requiredLevel: 35,
-        damage: 60,
+        damage: 90,
         value: 3200
     },
 
@@ -1262,7 +1262,7 @@ const items = {
         weaponType: "melee",
         weaponClass: "blunt",
         requiredLevel: 50,
-        damage: 100,
+        damage: 180,
         value: 3200
     },
 
@@ -1274,7 +1274,7 @@ const items = {
         weaponType: "melee",
         weaponClass: "blunt",
         requiredLevel: 75,
-        damage: 175,
+        damage: 240,
         value: 12000
     },
 
@@ -1286,7 +1286,7 @@ const items = {
         weaponType: "melee",
         weaponClass: "blunt",
         requiredLevel: 100,
-        damage: 250,
+        damage: 300,
         value: 3200
     },
 
@@ -1300,9 +1300,7 @@ const items = {
         weaponType: "melee",
         weaponClass: "blunt",
         requiredLevel: 1,
-        damage: 6,
-        strength: 2,
-        luck: 1,
+        damage: 10,
         value: 150
     },
 
@@ -1314,9 +1312,7 @@ const items = {
         weaponType: "melee",
         weaponClass: "blunt",
         requiredLevel: 10,
-        damage: 18,
-        strength: 3,
-        endurance: 1,
+        damage: 30,
         value: 300
     },
 
@@ -1328,9 +1324,7 @@ const items = {
         weaponType: "melee",
         weaponClass: "blunt",
         requiredLevel: 20,
-        damage: 34,
-        strength: 6,
-        luck: 2,
+        damage: 55,
         value: 850
     },
 
@@ -1342,7 +1336,7 @@ const items = {
         weaponType: "melee",
         weaponClass: "blunt",
         requiredLevel: 25,
-        damage: 50,
+        damage: 70,
         value: 900
     },
 
@@ -1354,9 +1348,7 @@ const items = {
         weaponType: "melee",
         weaponClass: "blunt",
         requiredLevel: 30,
-        damage: 50,
-        strength: 10,
-        endurance: 4,
+        damage: 90,
         value: 1800
     },
 
@@ -1368,9 +1360,7 @@ const items = {
         weaponType: "melee",
         weaponClass: "blunt",
         requiredLevel: 40,
-        damage: 95,
-        strength: 12,
-        luck: 5,
+        damage: 120,
         value: 3200
     },
 
@@ -1382,9 +1372,7 @@ const items = {
         weaponType: "melee",
         weaponClass: "blunt",
         requiredLevel: 50,
-        damage: 165,
-        strength: 28,
-        luck: 8,
+        damage: 180,
         value: 14000
     },
 
@@ -1416,7 +1404,7 @@ const items = {
         rarity: "common",
         type: "shield",
         requiredLevel: 20,
-        armor: 3,
+        armor: 2,
         value: 160
     },
 
@@ -1427,7 +1415,7 @@ const items = {
         rarity: "common",
         type: "shield",
         requiredLevel: 35,
-        armor: 7,
+        armor: 5,
         value: 500
     },
 
@@ -1437,7 +1425,7 @@ const items = {
         rarity: "common",
         type: "shield",
         requiredLevel: 50,
-        armor: 21,
+        armor: 6,
         value: 1800
     },
 
@@ -1448,7 +1436,7 @@ const items = {
         rarity: "common",
         type: "shield",
         requiredLevel: 75,
-        armor: 21,
+        armor: 10,
         value: 1800
     },
 
@@ -1458,7 +1446,7 @@ const items = {
         rarity: "common",
         type: "shield",
         requiredLevel: 100,
-        armor: 28,
+        armor: 15,
         value: 7500
     },
 
@@ -1469,8 +1457,6 @@ const items = {
         type: "shield",
         requiredLevel: 1,
         armor: 1,
-        endurance: 2,
-        luck: 1,
         value: 120
     },
     kobold_shield: {
@@ -1479,9 +1465,7 @@ const items = {
         rarity: "rare",
         type: "shield",
         requiredLevel: 10,
-        armor: 3,
-        endurance: 5,
-        strength: 1,
+        armor: 2,
         value: 360
     },
 
@@ -1493,9 +1477,7 @@ const items = {
         rarity: "rare",
         type: "shield",
         requiredLevel: 20,
-        armor: 7,
-        endurance: 9,
-        strength: 2,
+        armor: 3,
         value: 1050
     },
 
@@ -1505,7 +1487,7 @@ const items = {
         rarity: "common",
         type: "shield",
         requiredLevel: 25,
-        armor: 14,
+        armor: 4,
         value: 2200
     },
 
@@ -1515,9 +1497,7 @@ const items = {
         rarity: "rare",
         type: "shield",
         requiredLevel: 30,
-        armor: 14,
-        endurance: 10,
-        strength: 4,
+        armor: 5,
         value: 4000
     },
 
@@ -1529,10 +1509,7 @@ const items = {
         rarity: "epic",
         type: "shield",
         requiredLevel: 40,
-        armor: 21,
-        endurance: 18,
-        strength: 4,
-        luck: 2,
+        armor: 6,
         value: 4200
     },
 
@@ -1544,10 +1521,7 @@ const items = {
         rarity: "legendary",
         type: "shield",
         requiredLevel: 50,
-        armor: 36,
-        endurance: 40,
-        strength: 8,
-        luck: 5,
+        armor: 8,
         value: 16000
     },
 
@@ -1559,7 +1533,7 @@ const items = {
         rarity: "common",
         type: "helmet",
         requiredLevel: 1,
-        armor: 28,
+        armor: 1,
         value: 6500
     },
 
@@ -1579,7 +1553,7 @@ const items = {
         rarity: "common",
         type: "helmet",
         requiredLevel: 20,
-        armor: 2,
+        armor: 1,
         value: 140
     },
 
@@ -1589,7 +1563,7 @@ const items = {
         rarity: "common",
         type: "helmet",
         requiredLevel: 35,
-        armor: 4,
+        armor: 2,
         value: 450
     },
 
@@ -1599,7 +1573,7 @@ const items = {
         rarity: "common",
         type: "helmet",
         requiredLevel: 50,
-        armor: 21,
+        armor: 2,
         value: 1500
     },
 
@@ -1609,7 +1583,7 @@ const items = {
         rarity: "common",
         type: "helmet",
         requiredLevel: 75,
-        armor: 28,
+        armor: 3,
         value: 6500
     },
 
@@ -1620,7 +1594,7 @@ const items = {
         rarity: "common",
         type: "helmet",
         requiredLevel: 100,
-        armor: 28,
+        armor: 5,
         value: 6500
     },
 
@@ -1633,8 +1607,6 @@ const items = {
         type: "helmet",
         requiredLevel: 1,
         armor: 1,
-        endurance: 2,
-        luck: 1,
         value: 100
     },
 
@@ -1645,8 +1617,6 @@ const items = {
         type: "helmet",
         requiredLevel: 10,
         armor: 2,
-        endurance: 4,
-        strength: 1,
         value: 320
     },
 
@@ -1656,9 +1626,7 @@ const items = {
         rarity: "rare",
         type: "helmet",
         requiredLevel: 20,
-        armor: 4,
-        endurance: 7,
-        strength: 2,
+        armor: 3,
         value: 900
     },
 
@@ -1668,7 +1636,7 @@ const items = {
         rarity: "common",
         type: "helmet",
         requiredLevel: 25,
-        armor: 14,
+        armor: 4,
         value: 1800
     },
 
@@ -1678,9 +1646,7 @@ const items = {
         rarity: "rare",
         type: "helmet",
         requiredLevel: 30,
-        armor: 14,
-        endurance: 8,
-        strength: 3,
+        armor: 5,
         value: 3200
     },
 
@@ -1690,10 +1656,7 @@ const items = {
         rarity: "epic",
         type: "helmet",
         requiredLevel: 40,
-        armor: 21,
-        endurance: 14,
-        strength: 4,
-        luck: 1,
+        armor: 6,
         value: 3500
     },
 
@@ -1703,10 +1666,7 @@ const items = {
         rarity: "legendary",
         type: "helmet",
         requiredLevel: 50,
-        armor: 36,
-        endurance: 32,
-        strength: 7,
-        luck: 4,
+        armor: 8,
         value: 14500
     },
 
@@ -1728,7 +1688,7 @@ const items = {
         rarity: "common",
         type: "armor",
         requiredLevel: 10,
-        armor: 1,
+        armor: 2,
         value: 70
     },
 
@@ -1738,7 +1698,7 @@ const items = {
         rarity: "common",
         type: "armor",
         requiredLevel: 20,
-        armor: 4,
+        armor: 3,
         value: 320
     },
 
@@ -1748,7 +1708,7 @@ const items = {
         rarity: "common",
         type: "armor",
         requiredLevel: 35,
-        armor: 9,
+        armor: 5,
         value: 1100
     },
 
@@ -1759,7 +1719,7 @@ const items = {
         rarity: "common",
         type: "armor",
         requiredLevel: 50,
-        armor: 21,
+        armor: 6,
         value: 4500
     },
 
@@ -1769,7 +1729,7 @@ const items = {
         rarity: "common",
         type: "armor",
         requiredLevel: 75,
-        armor: 28,
+        armor: 9,
         value: 16000
     },
 
@@ -1780,7 +1740,7 @@ const items = {
         rarity: "common",
         type: "armor",
         requiredLevel: 100,
-        armor: 28,
+        armor: 15,
         value: 16000
     },
 
@@ -1791,8 +1751,6 @@ const items = {
         type: "armor",
         requiredLevel: 1,
         armor: 1,
-        endurance: 4,
-        dexterity: 1,
         value: 180
     },
 
@@ -1803,9 +1761,7 @@ const items = {
         rarity: "rare",
         type: "armor",
         requiredLevel: 10,
-        armor: 4,
-        endurance: 9,
-        strength: 2,
+        armor: 3,
         value: 700
     },
 
@@ -1817,9 +1773,7 @@ const items = {
         rarity: "rare",
         type: "armor",
         requiredLevel: 20,
-        armor: 9,
-        endurance: 17,
-        strength: 3,
+        armor: 4,
         value: 2200
     },
 
@@ -1829,7 +1783,7 @@ const items = {
         rarity: "common",
         type: "armor",
         requiredLevel: 25,
-        armor: 14,
+        armor: 5,
         value: 4500
     },
 
@@ -1839,9 +1793,7 @@ const items = {
         rarity: "rare",
         type: "armor",
         requiredLevel: 30,
-        armor: 14,
-        endurance: 18,
-        strength: 5,
+        armor: 6,
         value: 8000
     },
 
@@ -1852,10 +1804,7 @@ const items = {
         rarity: "epic",
         type: "armor",
         requiredLevel: 40,
-        armor: 21,
-        endurance: 34,
-        strength: 7,
-        luck: 2,
+        armor: 7,
         value: 8500
     },
 
@@ -1867,10 +1816,7 @@ const items = {
         rarity: "legendary",
         type: "armor",
         requiredLevel: 50,
-        armor: 36,
-        endurance: 75,
-        strength: 14,
-        luck: 5,
+        armor: 8,
         value: 32000
     },
 
@@ -1912,7 +1858,7 @@ const items = {
         rarity: "common",
         type: "pants",
         requiredLevel: 35,
-        armor: 5,
+        armor: 3,
         value: 650
     },
 
@@ -1922,7 +1868,7 @@ const items = {
         rarity: "common",
         type: "pants",
         requiredLevel: 50,
-        armor: 14,
+        armor: 4,
         value: 2600
     },
 
@@ -1932,7 +1878,7 @@ const items = {
         rarity: "common",
         type: "pants",
         requiredLevel: 75,
-        armor: 14,
+        armor: 6,
         value: 2600
     },
 
@@ -1942,7 +1888,7 @@ const items = {
         rarity: "common",
         type: "pants",
         requiredLevel: 100,
-        armor: 18,
+        armor: 9,
         value: 11000
     },
 
@@ -1956,9 +1902,6 @@ const items = {
         type: "pants",
         requiredLevel: 1,
         armor: 1,
-        endurance: 2,
-        dexterity: 2,
-        luck: 1,
         value: 130
     },
 
@@ -1971,9 +1914,6 @@ const items = {
         type: "pants",
         requiredLevel: 10,
         armor: 2,
-        endurance: 5,
-        dexterity: 2,
-        strength: 1,
         value: 420
     },
 
@@ -1984,10 +1924,7 @@ const items = {
         rarity: "rare",
         type: "pants",
         requiredLevel: 20,
-        armor: 5,
-        endurance: 10,
-        dexterity: 3,
-        strength: 2,
+        armor: 3,
         value: 1300
     },
 
@@ -1997,7 +1934,7 @@ const items = {
         rarity: "common",
         type: "pants",
         requiredLevel: 25,
-        armor: 9,
+        armor: 4,
         value: 3000
     },
 
@@ -2007,7 +1944,7 @@ const items = {
         rarity: "rare",
         type: "pants",
         requiredLevel: 30,
-        armor: 9,
+        armor: 5,
         endurance: 12,
         dexterity: 4,
         value: 5500
@@ -2021,11 +1958,7 @@ const items = {
         rarity: "epic",
         type: "pants",
         requiredLevel: 40,
-        armor: 14,
-        endurance: 21,
-        dexterity: 6,
-        strength: 4,
-        luck: 2,
+        armor: 6,
         value: 5600
     },
 
@@ -2036,11 +1969,7 @@ const items = {
         rarity: "legendary",
         type: "pants",
         requiredLevel: 50,
-        armor: 24,
-        endurance: 46,
-        dexterity: 12,
-        strength: 8,
-        luck: 5,
+        armor: 8,
         value: 23000
     },
 
@@ -2052,7 +1981,7 @@ const items = {
         rarity: "common",
         type: "boots",
         requiredLevel: 1,
-        armor: 1,
+        armor: 0,
         value: 30
     },
 
@@ -2083,10 +2012,7 @@ const items = {
         rarity: "uncommon",
         type: "boots",
         requiredLevel: 1,
-        armor: 1,
-        endurance: 2,
-        dexterity: 3,
-        luck: 1,
+        armor: 0,
         value: 120
     },
 
@@ -2096,7 +2022,7 @@ const items = {
         rarity: "common",
         type: "boots",
         requiredLevel: 35,
-        armor: 4,
+        armor: 3,
         value: 600
     },
 
@@ -2106,7 +2032,7 @@ const items = {
         rarity: "common",
         type: "boots",
         requiredLevel: 50,
-        armor: 11,
+        armor: 4,
         value: 2400
     },
 
@@ -2116,7 +2042,7 @@ const items = {
         rarity: "common",
         type: "boots",
         requiredLevel: 75,
-        armor: 14,
+        armor: 6,
         value: 10000
     },
 
@@ -2126,7 +2052,7 @@ const items = {
         rarity: "common",
         type: "boots",
         requiredLevel: 100,
-        armor: 14,
+        armor: 8,
         value: 10000
     },
 
@@ -2137,10 +2063,7 @@ const items = {
         rarity: "rare",
         type: "boots",
         requiredLevel: 10,
-        armor: 2,
-        endurance: 4,
-        dexterity: 4,
-        strength: 1,
+        armor: 1,
         value: 380
     },
 
@@ -2152,10 +2075,7 @@ const items = {
         rarity: "rare",
         type: "boots",
         requiredLevel: 20,
-        armor: 4,
-        endurance: 8,
-        dexterity: 6,
-        strength: 2,
+        armor: 2,
         value: 1200
     },
 
@@ -2165,7 +2085,7 @@ const items = {
         rarity: "common",
         type: "boots",
         requiredLevel: 25,
-        armor: 7,
+        armor: 3,
         value: 2600
     },
 
@@ -2189,11 +2109,7 @@ const items = {
         rarity: "epic",
         type: "boots",
         requiredLevel: 40,
-        armor: 11,
-        endurance: 17,
-        dexterity: 12,
-        strength: 4,
-        luck: 2,
+        armor: 5,
         value: 5200
     },
 
@@ -2205,11 +2121,7 @@ const items = {
         rarity: "legendary",
         type: "boots",
         requiredLevel: 50,
-        armor: 18,
-        endurance: 38,
-        dexterity: 24,
-        strength: 7,
-        luck: 5,
+        armor: 6,
         value: 21000
     },
 
@@ -2221,7 +2133,7 @@ const items = {
         rarity: "common",
         type: "gloves",
         requiredLevel: 1,
-        armor: 1,
+        armor: 0,
         value: 35
     },
 
@@ -2252,7 +2164,7 @@ const items = {
         rarity: "common",
         type: "gloves",
         requiredLevel: 35,
-        armor: 4,
+        armor: 3,
         value: 620
     },
 
@@ -2262,7 +2174,7 @@ const items = {
         rarity: "common",
         type: "gloves",
         requiredLevel: 50,
-        armor: 11,
+        armor: 4,
         value: 2500
     },
 
@@ -2272,7 +2184,7 @@ const items = {
         rarity: "common",
         type: "gloves",
         requiredLevel: 75,
-        armor: 11,
+        armor: 6,
         value: 2500
     },
 
@@ -2282,7 +2194,7 @@ const items = {
         rarity: "common",
         type: "gloves",
         requiredLevel: 100,
-        armor: 14,
+        armor: 8,
         value: 10500
     },
 
@@ -2294,10 +2206,7 @@ const items = {
         rarity: "uncommon",
         type: "gloves",
         requiredLevel: 1,
-        armor: 1,
-        strength: 2,
-        dexterity: 2,
-        luck: 1,
+        armor: 0,
         value: 120
     },
 
@@ -2308,10 +2217,7 @@ const items = {
         rarity: "rare",
         type: "gloves",
         requiredLevel: 10,
-        armor: 2,
-        strength: 4,
-        dexterity: 2,
-        endurance: 1,
+        armor: 1,
         value: 400
     },
 
@@ -2322,10 +2228,7 @@ const items = {
         rarity: "rare",
         type: "gloves",
         requiredLevel: 20,
-        armor: 4,
-        strength: 8,
-        endurance: 3,
-        dexterity: 2,
+        armor: 2,
         value: 1250
     },
 
@@ -2335,7 +2238,7 @@ const items = {
         rarity: "common",
         type: "gloves",
         requiredLevel: 25,
-        armor: 7,
+        armor: 3,
         value: 2700
     },
 
@@ -2345,7 +2248,7 @@ const items = {
         rarity: "rare",
         type: "gloves",
         requiredLevel: 30,
-        armor: 7,
+        armor: 4,
         endurance: 10,
         strength: 4,
         value: 5000
@@ -2359,11 +2262,7 @@ const items = {
         rarity: "epic",
         type: "gloves",
         requiredLevel: 40,
-        armor: 11,
-        strength: 17,
-        endurance: 6,
-        dexterity: 5,
-        luck: 2,
+        armor: 5,
         value: 5400
     },
 
@@ -2374,11 +2273,7 @@ const items = {
         rarity: "legendary",
         type: "gloves",
         requiredLevel: 50,
-        armor: 18,
-        strength: 38,
-        endurance: 12,
-        dexterity: 10,
-        luck: 5,
+        armor: 6,
         value: 22000
     },
 
@@ -2924,7 +2819,7 @@ const items = {
         weaponType: "ranged",
         weaponClass: "bow",
         requiredLevel: 1,
-        damage: 5,
+        damage: 10,
         value: 50
     },
 
@@ -2936,7 +2831,7 @@ const items = {
         weaponType: "ranged",
         weaponClass: "bow",
         requiredLevel: 10,
-        damage: 15,
+        damage: 30,
         value: 140
     },
 
@@ -2948,7 +2843,7 @@ const items = {
         weaponType: "ranged",
         weaponClass: "bow",
         requiredLevel: 20,
-        damage: 32,
+        damage: 55,
         value: 450
     },
 
@@ -2960,7 +2855,7 @@ const items = {
         weaponType: "ranged",
         weaponClass: "bow",
         requiredLevel: 35,
-        damage: 60,
+        damage: 90,
         value: 1500
     },
 
@@ -2973,7 +2868,7 @@ const items = {
         weaponType: "ranged",
         weaponClass: "bow",
         requiredLevel: 50,
-        damage: 100,
+        damage: 180,
         value: 5500
     },
     war_bow: {
@@ -2984,7 +2879,7 @@ const items = {
         weaponType: "ranged",
         weaponClass: "bow",
         requiredLevel: 75,
-        damage: 175,
+        damage: 240,
         value: 10500
     },
 
@@ -2996,7 +2891,7 @@ const items = {
         weaponType: "ranged",
         weaponClass: "bow",
         requiredLevel: 100,
-        damage: 250,
+        damage: 300,
         value: 21000
     },
 
@@ -3008,9 +2903,7 @@ const items = {
         weaponType: "ranged",
         weaponClass: "bow",
         requiredLevel: 1,
-        damage: 6,
-        dexterity: 2,
-        luck: 1,
+        damage: 10,
         value: 150
     },
 
@@ -3022,9 +2915,7 @@ const items = {
         weaponType: "ranged",
         weaponClass: "bow",
         requiredLevel: 10,
-        damage: 18,
-        dexterity: 3,
-        endurance: 1,
+        damage: 30,
         value: 300
     },
 
@@ -3036,9 +2927,7 @@ const items = {
         weaponType: "ranged",
         weaponClass: "bow",
         requiredLevel: 20,
-        damage: 34,
-        dexterity: 6,
-        luck: 2,
+        damage: 55,
         value: 850
     },
 
@@ -3050,7 +2939,7 @@ const items = {
         weaponType: "ranged",
         weaponClass: "bow",
         requiredLevel: 25,
-        damage: 50,
+        damage: 70,
         value: 900
     },
 
@@ -3062,9 +2951,7 @@ const items = {
         weaponType: "ranged",
         weaponClass: "bow",
         requiredLevel: 30,
-        damage: 50,
-        dexterity: 10,
-        endurance: 4,
+        damage: 90,
         value: 1800
     },
 
@@ -3076,9 +2963,7 @@ const items = {
         weaponType: "ranged",
         weaponClass: "bow",
         requiredLevel: 40,
-        damage: 95,
-        dexterity: 12,
-        luck: 5,
+        damage: 120,
         value: 3200
     },
 
@@ -3090,9 +2975,7 @@ const items = {
         weaponType: "ranged",
         weaponClass: "bow",
         requiredLevel: 50,
-        damage: 165,
-        dexterity: 28,
-        luck: 8,
+        damage: 180,
         value: 14000
     },
 
@@ -3104,7 +2987,7 @@ const items = {
         weaponType: "ranged",
         weaponClass: "crossbow",
         requiredLevel: 1,
-        damage: 7,
+        damage: 10,
         value: 120
     },
     light_crossbow: {
@@ -3115,7 +2998,7 @@ const items = {
         weaponType: "ranged",
         weaponClass: "crossbow",
         requiredLevel: 10,
-        damage: 16,
+        damage: 30,
         value: 175
     },
 
@@ -3127,7 +3010,7 @@ const items = {
         weaponType: "ranged",
         weaponClass: "crossbow",
         requiredLevel: 20,
-        damage: 30,
+        damage: 55,
         value: 550
     },
 
@@ -3139,7 +3022,7 @@ const items = {
         weaponType: "ranged",
         weaponClass: "crossbow",
         requiredLevel: 35,
-        damage: 60,
+        damage: 90,
         value: 1750
     },
 
@@ -3151,7 +3034,7 @@ const items = {
         weaponType: "ranged",
         weaponClass: "crossbow",
         requiredLevel: 50,
-        damage: 100,
+        damage: 180,
         value: 5500
     },
     heavy_crossbow: {
@@ -3162,7 +3045,7 @@ const items = {
         weaponType: "ranged",
         weaponClass: "crossbow",
         requiredLevel: 75,
-        damage: 175,
+        damage: 240,
         value: 11000
     },
 
@@ -3174,7 +3057,7 @@ const items = {
         weaponType: "ranged",
         weaponClass: "crossbow",
         requiredLevel: 100,
-        damage: 250,
+        damage: 300,
         value: 22000
     },
 
@@ -3188,7 +3071,7 @@ const items = {
         weaponType: "ranged",
         weaponClass: "crossbow",
         requiredLevel: 1,
-        damage: 6,
+        damage: 10,
         value: 150
     },
 
@@ -3200,7 +3083,7 @@ const items = {
         weaponType: "ranged",
         weaponClass: "crossbow",
         requiredLevel: 10,
-        damage: 18,
+        damage: 30,
         value: 300
     },
 
@@ -3212,7 +3095,7 @@ const items = {
         weaponType: "ranged",
         weaponClass: "crossbow",
         requiredLevel: 20,
-        damage: 34,
+        damage: 55,
         value: 850
     },
 
@@ -3224,7 +3107,7 @@ const items = {
         weaponType: "ranged",
         weaponClass: "crossbow",
         requiredLevel: 25,
-        damage: 50,
+        damage: 70,
         value: 1800
     },
 
@@ -3236,7 +3119,7 @@ const items = {
         weaponType: "ranged",
         weaponClass: "crossbow",
         requiredLevel: 30,
-        damage: 65,
+        damage: 90,
         value: 4000
     },
 
@@ -3248,7 +3131,7 @@ const items = {
         weaponType: "ranged",
         weaponClass: "crossbow",
         requiredLevel: 40,
-        damage: 95,
+        damage: 120,
         value: 8000
     },
 
@@ -3260,7 +3143,7 @@ const items = {
         weaponType: "ranged",
         weaponClass: "crossbow",
         requiredLevel: 50,
-        damage: 165,
+        damage: 180,
         value: 14000
     },
 
@@ -3274,7 +3157,7 @@ const items = {
         weaponType: "magic",
         weaponClass: "wand",
         requiredLevel: 1,
-        damage: 4,
+        damage: 10,
         value: 100
     },
 
@@ -3286,7 +3169,7 @@ const items = {
         weaponType: "magic",
         weaponClass: "wand",
         requiredLevel: 10,
-        damage: 18,
+        damage: 30,
         value: 300
     },
 
@@ -3298,7 +3181,7 @@ const items = {
         weaponType: "magic",
         weaponClass: "wand",
         requiredLevel: 20,
-        damage: 30,
+        damage: 55,
         value: 900
     },
     arcane_wand: {
@@ -3309,7 +3192,7 @@ const items = {
         weaponType: "magic",
         weaponClass: "wand",
         requiredLevel: 35,
-        damage: 60,
+        damage: 90,
         value: 2100
     },
 
@@ -3321,7 +3204,7 @@ const items = {
         weaponType: "magic",
         weaponClass: "wand",
         requiredLevel: 50,
-        damage: 100,
+        damage: 180,
         value: 6000
     },
 
@@ -3333,7 +3216,7 @@ const items = {
         weaponType: "magic",
         weaponClass: "wand",
         requiredLevel: 75,
-        damage: 175,
+        damage: 240,
         value: 11000
     },
 
@@ -3346,7 +3229,7 @@ const items = {
         weaponType: "magic",
         weaponClass: "wand",
         requiredLevel: 100,
-        damage: 250,
+        damage: 300,
         value: 22000
     },
     simple_staff: {
@@ -3368,7 +3251,7 @@ const items = {
         weaponType: "magic",
         weaponClass: "staff",
         requiredLevel: 10,
-        damage: 18,
+        damage: 30,
         value: 250
     },
 
@@ -3380,7 +3263,7 @@ const items = {
         weaponType: "magic",
         weaponClass: "staff",
         requiredLevel: 20,
-        damage: 35,
+        damage: 55,
         value: 850
     },
 
@@ -3392,7 +3275,7 @@ const items = {
         weaponType: "magic",
         weaponClass: "staff",
         requiredLevel: 35,
-        damage: 60,
+        damage: 90,
         value: 2500
     },
 
@@ -3406,7 +3289,7 @@ const items = {
         weaponType: "magic",
         weaponClass: "staff",
         requiredLevel: 50,
-        damage: 100,
+        damage: 180,
         value: 6000
     },
 
@@ -3419,7 +3302,7 @@ const items = {
         weaponType: "magic",
         weaponClass: "staff",
         requiredLevel: 75,
-        damage: 175,
+        damage: 240,
         value: 12000
     },
 
@@ -3431,7 +3314,7 @@ const items = {
         weaponType: "magic",
         weaponClass: "staff",
         requiredLevel: 100,
-        damage: 250,
+        damage: 300,
         value: 24000
     },
 
@@ -3444,9 +3327,7 @@ const items = {
         weaponType: "magic",
         weaponClass: "staff",
         requiredLevel: 10,
-        damage: 12,
-        intelligence: 3,
-        endurance: 1,
+        damage: 30,
         value: 300
     },
 
@@ -3458,9 +3339,7 @@ const items = {
         weaponType: "magic",
         weaponClass: "staff",
         requiredLevel: 20,
-        damage: 21,
-        intelligence: 6,
-        endurance: 2,
+        damage: 55,
         value: 850
     },
 
@@ -3472,7 +3351,7 @@ const items = {
         weaponType: "magic",
         weaponClass: "staff",
         requiredLevel: 30,
-        damage: 50,
+        damage: 90,
         value: 900
     },
 
@@ -3484,9 +3363,7 @@ const items = {
         weaponType: "magic",
         weaponClass: "wand",
         requiredLevel: 30,
-        damage: 50,
-        intelligence: 10,
-        endurance: 4,
+        damage: 90,
         value: 1800
     },
 
@@ -3498,7 +3375,7 @@ const items = {
         weaponType: "magic",
         weaponClass: "wand",
         requiredLevel: 20,
-        damage: 36,
+        damage: 70,
         value: 3200
     },
 
@@ -3512,10 +3389,7 @@ const items = {
         weaponType: "magic",
         weaponClass: "wand",
         requiredLevel: 40,
-        damage: 95,
-        intelligence: 12,
-        endurance: 4,
-        luck: 3,
+        damage: 120,
         value: 3200
     },
 
@@ -3527,7 +3401,7 @@ const items = {
         weaponType: "magic",
         weaponClass: "wand",
         requiredLevel: 50,
-        damage: 165,
+        damage: 180,
         value: 14000
     },
 
@@ -3539,9 +3413,7 @@ const items = {
         weaponType: "magic",
         weaponClass: "staff",
         requiredLevel: 1,
-        damage: 6,
-        intelligence: 2,
-        endurance: 1,
+        damage: 10,
         value: 150
     },
 
@@ -3554,7 +3426,7 @@ const items = {
         weaponType: "magic",
         weaponClass: "staff",
         requiredLevel: 30,
-        damage: 65,
+        damage: 90,
         value: 14000
     },
 
@@ -3567,9 +3439,7 @@ const items = {
         weaponType: "magic",
         weaponClass: "staff",
         requiredLevel: 40,
-        damage: 95,
-        intelligence: 12,
-        luck: 5,
+        damage: 120,
         value: 3200
     },
 
@@ -3581,10 +3451,7 @@ const items = {
         weaponType: "magic",
         weaponClass: "staff",
         requiredLevel: 50,
-        damage: 165,
-        intelligence: 28,
-        endurance: 6,
-        luck: 8,
+        damage: 180,
         value: 14000
     },
 
@@ -3596,9 +3463,7 @@ const items = {
         weaponType: "magic",
         weaponClass: "wand",
         requiredLevel: 1,
-        damage: 6,
-        intelligence: 2,
-        luck: 1,
+        damage: 10,
         value: 150
     },
 
@@ -3612,9 +3477,7 @@ const items = {
         weaponType: "magic",
         weaponClass: "wand",
         requiredLevel: 10,
-        damage: 14,
-        intelligence: 3,
-        luck: 1,
+        damage: 30,
         value: 300
     },
 
@@ -3626,9 +3489,7 @@ const items = {
         weaponType: "magic",
         weaponClass: "wand",
         requiredLevel: 20,
-        damage: 24,
-        intelligence: 6,
-        endurance: 2,
+        damage: 55,
         value: 850
     },
 
@@ -4202,7 +4063,7 @@ const items = {
     },
 
     ancient_chitin_plate: {
-        id: "ancient_chitin_plate",
+        id: "chitin_plate",
         name: "Pradawna płyta chitynowa",
         rarity: "rare",
         type: "processed_material",

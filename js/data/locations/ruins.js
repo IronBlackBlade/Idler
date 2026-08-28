@@ -16,8 +16,8 @@ const ruins = {
         name:
             "👑 Pradawny Strażnik",
 
-        hp: 9000,
-        attack: 100,
+        hp: 2500,
+        attack: 72,
         gold: 1300,
         exp: 2000,
         firstKillReward: {
@@ -60,8 +60,8 @@ const ruins = {
             id: "ruins_scarab",
             name: "Skarabeusz ruin",
 
-            hp: 700,
-            attack: 37,
+            hp: 160,
+            attack: 20,
 
             gold: 90,
             exp: 145,
@@ -92,8 +92,8 @@ const ruins = {
             id: "ruin_scavenger",
             name: "Zbieracz z ruin",
 
-            hp: 900,
-            attack: 43,
+            hp: 190,
+            attack: 24,
 
             gold: 115,
             exp: 185,
@@ -124,8 +124,8 @@ const ruins = {
             id: "animated_armor",
             name: "Ożywiona zbroja",
 
-            hp: 1150,
-            attack: 50,
+            hp: 230,
+            attack: 28,
 
             gold: 150,
             exp: 235,
@@ -156,8 +156,8 @@ const ruins = {
             id: "ruin_sentinel",
             name: "Strażnik ruin",
 
-            hp: 1500,
-            attack: 58,
+            hp: 270,
+            attack: 32,
 
             gold: 200,
             exp: 310,
@@ -188,8 +188,8 @@ const ruins = {
             id: "spectral_knight",
             name: "Widmowy rycerz",
 
-            hp: 1900,
-            attack: 67,
+            hp: 320,
+            attack: 36,
 
             gold: 270,
             exp: 410,

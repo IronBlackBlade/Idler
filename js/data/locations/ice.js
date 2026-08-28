@@ -13,8 +13,8 @@ const ice = {
         id: "frost_queen",
         name: "👑 Królowa Mrozu",
 
-        hp: 34000,
-        attack: 180,
+        hp: 6500,
+        attack: 120,
 
         gold: 4000,
         exp: 5800,
@@ -60,8 +60,8 @@ const ice = {
             id: "frost_wisp",
             name: "Mroźny ognik",
 
-            hp: 2600,
-            attack: 78,
+            hp: 300,
+            attack: 35,
 
             gold: 350,
             exp: 520,
@@ -86,8 +86,8 @@ const ice = {
             id: "ice_wolf",
             name: "Lodowy wilk",
 
-            hp: 3300,
-            attack: 88,
+            hp: 360,
+            attack: 42,
 
             gold: 430,
             exp: 650,
@@ -112,8 +112,8 @@ const ice = {
             id: "frozen_warrior",
             name: "Zamarznięty wojownik",
 
-            hp: 4200,
-            attack: 99,
+            hp: 430,
+            attack: 49,
 
             gold: 550,
             exp: 820,
@@ -144,8 +144,8 @@ const ice = {
             id: "frost_giant",
             name: "Lodowy olbrzym",
 
-            hp: 5400,
-            attack: 112,
+            hp: 520,
+            attack: 56,
 
             gold: 720,
             exp: 1050,
@@ -176,8 +176,8 @@ const ice = {
             id: "ice_elemental",
             name: "Żywiołak lodu",
 
-            hp: 7000,
-            attack: 126,
+            hp: 620,
+            attack: 64,
 
             gold: 950,
             exp: 1380,

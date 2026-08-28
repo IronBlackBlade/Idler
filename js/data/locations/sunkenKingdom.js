@@ -8,8 +8,8 @@ const sunkenKingdom = {
     boss: {
         id: "crown_leviathan",
         name: "👑 Lewiatan Korony",
-        hp: 390000,
-        attack: 510,
+        hp: 24000,
+        attack: 240,
         gold: 28000,
         exp: 40500,
         firstKillReward: {
@@ -45,8 +45,8 @@ const sunkenKingdom = {
         {
             id: "drowned_royal_guard",
             name: "Topielec Królewskiej Gwardii",
-            hp: 72000,
-            attack: 335,
+            hp: 1100,
+            attack: 125,
             gold: 14500,
             exp: 20400,
             loot: [
@@ -67,8 +67,8 @@ const sunkenKingdom = {
         {
             id: "deep_hunter",
             name: "Głębinowy Łowca",
-            hp: 90000,
-            attack: 365,
+            hp: 1280,
+            attack: 138,
             gold: 17600,
             exp: 24800,
             loot: [
@@ -89,8 +89,8 @@ const sunkenKingdom = {
         {
             id: "abyss_siren",
             name: "Syrena Otchłani",
-            hp: 110000,
-            attack: 400,
+            hp: 1500,
+            attack: 152,
             gold: 21300,
             exp: 30000,
             loot: [
@@ -111,8 +111,8 @@ const sunkenKingdom = {
         {
             id: "coral_colossus",
             name: "Koralowy Kolos",
-            hp: 138000,
-            attack: 440,
+            hp: 1750,
+            attack: 166,
             gold: 25800,
             exp: 36300,
             loot: [
@@ -133,8 +133,8 @@ const sunkenKingdom = {
         {
             id: "sunken_throne_priest",
             name: "Kapłan Zatopionego Tronu",
-            hp: 172000,
-            attack: 480,
+            hp: 2050,
+            attack: 182,
             gold: 31200,
             exp: 44000,
             loot: [

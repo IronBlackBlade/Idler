@@ -13,8 +13,8 @@ const volcano = {
         id: "volcanic_dragon",
         name: "🐉 Pradawny Smok Wulkanu",
 
-        hp: 75000,
-        attack: 240,
+        hp: 10000,
+        attack: 165,
 
         gold: 9000,
         exp: 13000,
@@ -59,8 +59,8 @@ const volcano = {
             id: "ash_scorpion",
             name: "Popielny skorpion",
 
-            hp: 8500,
-            attack: 140,
+            hp: 560,
+            attack: 60,
 
             gold: 1300,
             exp: 1850,
@@ -85,8 +85,8 @@ const volcano = {
             id: "lava_hound",
             name: "Ogar lawy",
 
-            hp: 10500,
-            attack: 152,
+            hp: 650,
+            attack: 68,
 
             gold: 1650,
             exp: 2350,
@@ -111,8 +111,8 @@ const volcano = {
             id: "charred_skeleton",
             name: "Zwęglony szkielet",
 
-            hp: 13000,
-            attack: 165,
+            hp: 760,
+            attack: 76,
 
             gold: 2100,
             exp: 3000,
@@ -143,8 +143,8 @@ const volcano = {
             id: "magma_golem",
             name: "Magmowy golem",
 
-            hp: 16500,
-            attack: 180,
+            hp: 900,
+            attack: 84,
 
             gold: 2750,
             exp: 3900,
@@ -175,8 +175,8 @@ const volcano = {
             id: "fire_elemental",
             name: "Żywiołak ognia",
 
-            hp: 21000,
-            attack: 198,
+            hp: 1050,
+            attack: 92,
 
             gold: 3600,
             exp: 5100,

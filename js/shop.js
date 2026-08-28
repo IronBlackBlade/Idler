@@ -1,162 +1,3 @@
-const shopItems = [
-    { itemId: "old_sword", price: 100, category: "weapon" },
-    { itemId: "iron_sword", price: 300, category: "weapon" },
-    { itemId: "steel_sword", price: 900, category: "weapon" },
-    { itemId: "guard_sword", price: 1800, category: "weapon" },
-    { itemId: "knight_sword", price: 5400, category: "weapon" },
-    { itemId: "captain_sword", price: 10800, category: "weapon" },
-    { itemId: "master_sword", price: 21600, category: "weapon" },
-
-    { itemId: "club", price: 100, category: "blunt" },
-    { itemId: "kobold_mace", price: 280, category: "blunt" },
-    { itemId: "battle_club", price: 850, category: "blunt" },
-    { itemId: "iron_club", price: 1600, category: "blunt" },
-    { itemId: "war_hammer", price: 5000, category: "blunt" },
-    { itemId: "mace", price: 10000, category: "blunt" },
-    { itemId: "heavy_war_hammer", price: 21000, category: "blunt" },
-
-
-    // BROŃ DYSTANSOWA
-
-    { itemId: "old_bow", price: 100, category: "bow" },
-    { itemId: "hunter_bow", price: 280, category: "bow" },
-    { itemId: "long_bow", price: 450, category: "bow" },
-    { itemId: "oak_bow", price: 1500, category: "bow" },
-    { itemId: "ranger_bow", price: 5500, category: "bow" },
-    { itemId: "war_bow", price: 10500, category: "bow" },
-    { itemId: "master_bow", price: 21000, category: "bow" },
-
-    { itemId: "simple_crossbow", price: 120, category: "crossbow" },
-    { itemId: "light_crossbow", price: 175, category: "crossbow" },
-    { itemId: "hunting_crossbow", price: 550, category: "crossbow" },
-    { itemId: "steel_crossbow", price: 1750, category: "crossbow" },
-    { itemId: "battle_crossbow", price: 5500, category: "crossbow" },
-    { itemId: "heavy_crossbow", price: 11000, category: "crossbow" },
-    { itemId: "master_crossbow", price: 22000, category: "crossbow" },
-
-
-    // BROŃ MAGICZNA
-
-    { itemId: "wooden_wand", price: 100, category: "wand" },
-    { itemId: "simple_wand", price: 300, category: "wand" },
-    { itemId: "apprentice_wand", price: 900, category: "wand" },
-    { itemId: "arcane_wand", price: 2100, category: "wand" },
-    { itemId: "magic_wand", price: 6000, category: "wand" },
-    { itemId: "master_wand", price: 12000, category: "wand" },
-    { itemId: "archmaster_wand", price: 24000, category: "wand" },
-
-    { itemId: "simple_staff", price: 120, category: "staff" },
-    { itemId: "apprentice_staff", price: 250, category: "staff" },
-    { itemId: "adept_staff", price: 850, category: "staff" },
-    { itemId: "battle_staff", price: 2500, category: "staff" },
-    { itemId: "mage_staff", price: 6000, category: "staff" },
-    { itemId: "heavy_battle_staff", price: 12000, category: "staff" },
-    { itemId: "master_staff", price: 24000, category: "staff" },
-
-    { itemId: "simple_shield", price: 80, category: "shield" },
-    { itemId: "wooden_shield", price: 80, category: "shield" },
-    { itemId: "iron_shield", price: 300, category: "shield" },
-    { itemId: "steel_shield", price: 950, category: "shield" },
-    { itemId: "knight_shield", price: 3800, category: "shield" },
-    { itemId: "captain_shield", price: 3800, category: "shield" },
-    { itemId: "master_shield", price: 14000, category: "shield" },
-
-    { itemId: "simple_helmet", price: 60, category: "helmet" },
-    { itemId: "leather_helmet", price: 60, category: "helmet" },
-    { itemId: "iron_helmet", price: 260, category: "helmet" },
-    { itemId: "steel_helmet", price: 800, category: "helmet" },
-    { itemId: "knight_helmet", price: 3000, category: "helmet" },
-    { itemId: "captain_helmet", price: 11000, category: "helmet" },
-    { itemId: "master_helmet", price: 11000, category: "helmet" },
-
-    { itemId: "simple_armor", price: 140, category: "armor" },
-    { itemId: "leather_armor", price: 140, category: "armor" },
-    { itemId: "iron_armor", price: 650, category: "armor" },
-    { itemId: "steel_armor", price: 1800, category: "armor" },
-    { itemId: "knight_armor", price: 7000, category: "armor" },
-    { itemId: "captain_armor", price: 7000, category: "armor" },
-    { itemId: "master_armor", price: 26000, category: "armor" },
-
-    { itemId: "simple_pants", price: 90, category: "pants" },
-    { itemId: "leather_pants", price: 90, category: "pants" },
-    { itemId: "iron_pants", price: 360, category: "pants" },
-    { itemId: "steel_pants", price: 1200, category: "pants" },
-    { itemId: "knight_pants", price: 4600, category: "pants" },
-    { itemId: "captain_pants", price: 4600, category: "pants" },
-    { itemId: "master_pants", price: 17000, category: "pants" },
-
-    { itemId: "simple_boots", price: 60, category: "boots" },
-    { itemId: "old_boots", price: 60, category: "boots" },
-    { itemId: "iron_boots", price: 320, category: "boots" },
-    { itemId: "steel_boots", price: 1050, category: "boots" },
-    { itemId: "knight_boots", price: 4200, category: "boots" },
-    { itemId: "captain_boots", price: 15500, category: "boots" },
-    { itemId: "master_boots", price: 15500, category: "boots" },
-
-    { itemId: "simple_gloves", price: 70, category: "gloves" },
-    { itemId: "leather_gloves", price: 70, category: "gloves" },
-    { itemId: "iron_gloves", price: 340, category: "gloves" },
-    { itemId: "steel_gloves", price: 1100, category: "gloves" },
-    { itemId: "knight_gloves", price: 4400, category: "gloves" },
-    { itemId: "captain_gloves", price: 70, category: "gloves" },
-    { itemId: "master_gloves", price: 16000, category: "gloves" },
-
-    { itemId: "simple_ring", price: 120, category: "ring" },
-    { itemId: "lucky_ring", price: 180, category: "ring" },
-    { itemId: "iron_ring", price: 450, category: "ring" },
-    { itemId: "steel_ring", price: 1500, category: "ring" },
-    { itemId: "knight_ring", price: 6200, category: "ring" },
-    { itemId: "magic_ring", price: 120, category: "ring" },
-    { itemId: "master_ring", price: 23000, category: "ring" },
-
-    { itemId: "simple_amulet", price: 140, category: "amulet" },
-    { itemId: "lucky_amulet", price: 500, category: "amulet" },
-    { itemId: "iron_amulet", price: 500, category: "amulet" },
-    { itemId: "steel_amulet", price: 1600, category: "amulet" },
-    { itemId: "knight_amulet", price: 6500, category: "amulet" },
-    { itemId: "magic_amulet", price: 24000, category: "amulet" },
-    { itemId: "master_amulet", price: 24000, category: "amulet" },
-
-    { itemId: "simple_talisman", price: 160, category: "talisman" },
-    { itemId: "lucky_talisman", price: 160, category: "talisman" },
-    { itemId: "iron_talisman", price: 600, category: "talisman" },
-    { itemId: "steel_talisman", price: 1900, category: "talisman" },
-    { itemId: "knight_talisman", price: 7200, category: "talisman" },
-    { itemId: "magic_talisman", price: 7200, category: "talisman" },
-    { itemId: "master_talisman", price: 27000, category: "talisman" },
-    
-    // NARZĘDZIA PROFESJI — 6 TYPÓW × 5 RANG
-
-    ...Object.values(
-        professionToolItems
-    )
-        .filter(item => {
-            return item.toolTier === 1;
-        })
-        .map(item => {
-            return {
-                itemId: item.id,
-                price: item.shopPrice,
-                category: "profession",
-                subcategory: "profession_tools"
-            };
-        }),
-    {
-        itemId: "worm_bait", price: 8,
-        category: "profession",
-        subcategory: "fishing_supplies"
-    },
-    {
-        itemId: "royal_grub", price: 30,
-        category: "profession",
-        subcategory: "fishing_supplies"
-    },
-    {
-        itemId: "magnetic_lure", price: 80,
-        category: "profession",
-        subcategory: "fishing_supplies"
-    },
-];
 
 const shopCategories = [
 
@@ -520,6 +361,345 @@ function getShopItemCategoryData(
         )
     };
 
+}
+
+let shopItems = [];
+
+function rebuildShopItems() {
+
+    const generatedItems =
+        window.idlerGeneratedItems || {};
+
+    const merchantPrices =
+        window.idlerMerchantPrices || {};
+
+    const rebuiltShopItems = [];
+
+    // ==================================================
+    // 1. WYPOSAŻENIE KUPCA — Excel / generator
+    // ==================================================
+
+    Object.entries(merchantPrices).forEach(
+        ([itemId, price]) => {
+
+            const item =
+                generatedItems[itemId] ||
+                (
+                    typeof items !== "undefined"
+                        ? items[itemId]
+                        : null
+                );
+
+            if (!item) {
+                console.warn(
+                    "Brak itemu kupca:",
+                    itemId
+                );
+
+                return;
+            }
+
+            let category = "equipment";
+            let subcategory = null;
+            let type = null;
+
+            // ------------------------------
+            // BROŃ
+            // ------------------------------
+
+            if (item.type === "weapon") {
+
+                subcategory = "weapon";
+
+                if (
+                    item.weaponClass ===
+                    "slashing"
+                ) {
+                    type = "sword";
+                }
+                else if (
+                    item.weaponClass ===
+                    "blunt"
+                ) {
+                    type = "blunt";
+                }
+                else if (
+                    item.weaponClass ===
+                    "bow"
+                ) {
+                    type = "bow";
+                }
+                else if (
+                    item.weaponClass ===
+                    "crossbow"
+                ) {
+                    type = "crossbow";
+                }
+                else if (
+                    item.weaponClass ===
+                    "wand"
+                ) {
+                    type = "wand";
+                }
+                else if (
+                    item.weaponClass ===
+                    "staff"
+                ) {
+                    type = "staff";
+                }
+            }
+
+            // ------------------------------
+            // PANCERZ
+            // ------------------------------
+
+            else if (
+                [
+                    "shield",
+                    "helmet",
+                    "armor",
+                    "pants",
+                    "boots",
+                    "gloves"
+                ].includes(item.type)
+            ) {
+
+                subcategory = "armor";
+                type = item.type;
+            }
+
+            // ------------------------------
+            // BIŻUTERIA
+            // ------------------------------
+
+            else if (
+                [
+                    "ring",
+                    "amulet",
+                    "talisman"
+                ].includes(item.type)
+            ) {
+
+                category = "equipment";
+                subcategory = "jewelry";
+                type = item.type;
+            }
+            // Jeżeli generator podał item,
+            // którego sklep jeszcze nie rozpoznaje,
+            // pomijamy go zamiast wrzucać
+            // do złej kategorii.
+
+            if (
+                !subcategory ||
+                !type
+            ) {
+
+                console.warn(
+                    "Nie można ustalić kategorii sklepu:",
+                    itemId
+                );
+
+                return;
+            }
+
+            rebuiltShopItems.push({
+                itemId,
+                price: Number(price) || 0,
+                category,
+                subcategory,
+                type
+            });
+        }
+    );
+
+
+    // ==================================================
+    // 2. NARZĘDZIA PROFESJI
+    //    professionTools.js
+    // ==================================================
+
+    if (
+        typeof professionToolItems !==
+        "undefined"
+    ) {
+
+        Object.values(
+            professionToolItems
+        ).forEach(item => {
+
+            if (
+                !item ||
+                item.type !==
+                "profession_tool"
+            ) {
+                return;
+            }
+
+            const price =
+                Number(item.shopPrice);
+
+            if (
+                !Number.isFinite(price) ||
+                price <= 0
+            ) {
+                console.warn(
+                    "Brak prawidłowej ceny narzędzia:",
+                    item.id
+                );
+
+                return;
+            }
+
+            rebuiltShopItems.push({
+                itemId: item.id,
+                price,
+                category: "profession",
+                subcategory:
+                    "profession_tools",
+                type: "profession_tool",
+
+                // Zachowujemy dodatkowe dane
+                // na wypadek przyszłych potrzeb.
+                toolType: item.toolType,
+                toolTier: item.toolTier
+            });
+        });
+    }
+
+
+    // ==================================================
+    // 3. PRZYNĘTY WĘDKARSKIE
+    //
+    // fishingData.js nie posiada obecnie
+    // pola ceny sklepowej.
+    //
+    // Dlatego NIE nadajemy im ceny na siłę.
+    // ==================================================
+
+    if (
+        typeof fishingBaits !==
+        "undefined"
+    ) {
+
+        fishingBaits.forEach(
+            bait => {
+
+                const item =
+                    typeof items !== "undefined"
+                        ? items[bait.itemId]
+                        : null;
+
+                if (!item) {
+                    return;
+                }
+
+                if (
+                    typeof bait.shopPrice !==
+                    "number"
+                ) {
+
+                    console.warn(
+                        "Przynęta nie ma shopPrice:",
+                        bait.itemId
+                    );
+
+                    return;
+                }
+
+                rebuiltShopItems.push({
+                    itemId: bait.itemId,
+                    price: bait.shopPrice,
+                    category: "profession",
+                    subcategory:
+                        "fishing_supplies",
+                    type: "fishing_bait"
+                });
+            }
+        );
+    }
+
+
+    // ==================================================
+    // 4. USUWANIE DUPLIKATÓW
+    // ==================================================
+
+    const uniqueItems =
+        new Map();
+
+    rebuiltShopItems.forEach(
+        shopItem => {
+
+            uniqueItems.set(
+                shopItem.itemId,
+                shopItem
+            );
+        }
+    );
+
+
+    shopItems =
+        Array.from(
+            uniqueItems.values()
+        );
+
+}
+
+function getShopItemCategoryDataFromItem(item) {
+
+    if (item.type === "weapon") {
+
+        return {
+            category: "equipment",
+            subcategory: "weapon",
+            type:
+                item.weaponClass === "slashing"
+                    ? "sword"
+                    : item.weaponClass === "blunt"
+                        ? "blunt"
+                        : item.weaponClass === "bow"
+                            ? "bow"
+                            : item.weaponClass === "crossbow"
+                                ? "crossbow"
+                                : item.weaponClass === "wand"
+                                    ? "wand"
+                                    : item.weaponClass === "staff"
+                                        ? "staff"
+                                        : null
+        };
+    }
+
+    if (
+        [
+            "helmet",
+            "armor",
+            "pants",
+            "boots",
+            "gloves",
+            "shield"
+        ].includes(item.type)
+    ) {
+        return {
+            category: "equipment",
+            subcategory: "armor",
+            type: item.type
+        };
+    }
+
+    if (
+        [
+            "ring",
+            "amulet",
+            "talisman"
+        ].includes(item.type)
+    ) {
+        return {
+            category: "equipment",
+            subcategory: "jewelry",
+            type: item.type
+        };
+    }
+
+    return null;
 }
 
 function getShopItemType(itemId) {
