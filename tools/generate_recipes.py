@@ -1507,195 +1507,7 @@ def analyze_balance(recipes, items, merchant_prices, monster_balance, combat_mod
 
     return {"combat": combat, "economy": economy, "warnings": warnings}
 
-def find_companion_workbook(explicit_path: Path | None, candidates: list[str]) -> Path | None:
-    """Resolve an optional companion workbook.
-
-    Priority:
-      1. Explicit --*-workbook path.
-      2. Current working directory.
-      3. The crafting/ directory.
-    """
-    if explicit_path:
-        return explicit_path if explicit_path.exists() else None
-
-    roots = [Path.cwd(), Path.cwd() / "crafting"]
-    for root in roots:
-        for name in candidates:
-            candidate = root / name
-            if candidate.exists():
-                return candidate
-    return None
-
-
-def merge_merchant_reference_items(
-    merchant_workbook: Path | None,
-    armor_workbook: Path | None,
-    existing_items: dict[str, dict],
-    name_to_id: dict[str, str],
-    warnings: list[str],
-) -> dict[str, dict]:
-    """Load authoritative merchant IDs/stats from the dedicated Excel sources.
-
-    The balance workbook remains the source of merchant prices. These companion
-    workbooks are used to make ID/name/type/stat mappings reliable when recipe
-    sheets contain legacy labels such as "pancerz kupca lvl 40".
-    """
-    merchant_refs: dict[str, dict] = {}
-
-    def to_number(value):
-        try:
-            text = str(value).strip().replace(",", ".")
-            if not text:
-                return None
-            num = float(text)
-            return int(num) if num.is_integer() else num
-        except (TypeError, ValueError):
-            return None
-
-    def row_value(row, *cols):
-        for col in cols:
-            if row.get(col, "") not in ("", None):
-                return row.get(col)
-        return ""
-
-    # Weapon merchant workbook: Podsumowanie + per-type sheets.
-    if merchant_workbook:
-        try:
-            sheets = load_xlsm(merchant_workbook)
-            for sheet_name, rows in sheets.items():
-                if sheet_name in {
-                    "Miecze", "Obuchy", "Łuki", "Kusze", "Różdżki", "Kostury"
-                }:
-                    for row_no in sorted(rows):
-                        if row_no < 2:
-                            continue
-                        row = rows[row_no]
-                        item_id = str(row_value(row, "B", "C")).strip()
-                        name = str(row_value(row, "C", "D")).strip()
-                        if not item_id or not name or item_id.lower() == "id":
-                            continue
-                        level = to_number(row_value(row, "A", "B"))
-                        new_damage = to_number(row_value(row, "E", "F"))
-                        if sheet_name == "Miecze":
-                            weapon_class = "slashing"
-                        elif sheet_name == "Obuchy":
-                            weapon_class = "blunt"
-                        elif sheet_name == "Łuki":
-                            weapon_class = "bow"
-                        elif sheet_name == "Kusze":
-                            weapon_class = "crossbow"
-                        elif sheet_name == "Różdżki":
-                            weapon_class = "wand"
-                        else:
-                            weapon_class = "staff"
-                        item = {
-                            "id": item_id,
-                            "name": name,
-                            "rarity": "common",
-                            "type": "weapon",
-                            "weaponType": (
-                                "melee" if weapon_class in {"slashing", "blunt"}
-                                else "ranged" if weapon_class in {"bow", "crossbow"}
-                                else "magic" if weapon_class in {"wand", "staff"}
-                                else None
-                            ),
-                            "weaponClass": weapon_class,
-                        }
-                        if level is not None:
-                            item["requiredLevel"] = int(level)
-                        if new_damage is not None:
-                            item["damage"] = new_damage
-                        merchant_refs[item_id] = item
-                        name_to_id[norm(name)] = item_id
-                        existing_items.setdefault(item_id, {}).update(item)
-        except Exception as exc:
-            warnings.append(
-                f"Nie udało się wczytać itemy_kupca.xlsx ({merchant_workbook}): {exc}"
-            )
-
-    # Armor merchant workbook: six slot sheets, rows marked "Kupiec".
-    if armor_workbook:
-        try:
-            sheets = load_xlsm(armor_workbook)
-            armor_sheet_map = {
-                "Pancerz": "armor",
-                "Hełm": "helmet",
-                "Spodnie": "pants",
-                "Rękawice": "gloves",
-                "Buty": "boots",
-                "Tarcza": "shield",
-            }
-            for sheet_name, item_type in armor_sheet_map.items():
-                rows = sheets.get(sheet_name) or {}
-                for row_no in sorted(rows):
-                    if row_no < 4:
-                        continue
-                    row = rows[row_no]
-                    if norm(row.get("A", "")) != "kupiec":
-                        continue
-                    item_id = str(row.get("C", "")).strip()
-                    name = str(row.get("D", "")).strip()
-                    level = to_number(row.get("B", ""))
-                    new_armor = to_number(row.get("F", ""))
-                    if not item_id or not name:
-                        continue
-                    item = {
-                        "id": item_id,
-                        "name": name,
-                        "rarity": "common",
-                        "type": item_type,
-                    }
-                    if level is not None:
-                        item["requiredLevel"] = int(level)
-                    if new_armor is not None:
-                        item["armor"] = new_armor
-                    merchant_refs[item_id] = item
-                    name_to_id[norm(name)] = item_id
-                    existing_items.setdefault(item_id, {}).update(item)
-        except Exception as exc:
-            warnings.append(
-                f"Nie udało się wczytać itemy_pancerz.xlsx ({armor_workbook}): {exc}"
-            )
-
-    return merchant_refs
-
-
-def build_merchant_legacy_aliases(armor_workbook: Path | None) -> dict[str, str]:
-    """Build aliases for legacy recipe labels like 'pancerz kupca lvl 40'.
-
-    Current merchant progression is 1/10/20/35/50/75/100. The old Lv40
-    crafting label maps to the current Lv35 merchant item.
-    """
-    if not armor_workbook:
-        return {}
-
-    try:
-        sheets = load_xlsm(armor_workbook)
-    except Exception:
-        return {}
-
-    rows = sheets.get("Pancerz") or {}
-    by_level: dict[int, str] = {}
-    for row_no in sorted(rows):
-        if row_no < 4 or norm(rows[row_no].get("A", "")) != "kupiec":
-            continue
-        try:
-            level = int(float(str(rows[row_no].get("B", "")).strip()))
-        except Exception:
-            continue
-        item_id = str(rows[row_no].get("C", "")).strip()
-        if item_id:
-            by_level[level] = item_id
-
-    aliases = {}
-    for legacy_level, current_level in ((1, 1), (10, 10), (20, 20), (40, 35), (50, 50)):
-        item_id = by_level.get(current_level)
-        if item_id:
-            aliases[f"pancerz kupca lvl {legacy_level}"] = item_id
-    return aliases
-
-
-def load_merchant_items(sheets, companion_refs=None):
+def load_merchant_items(sheets):
     """Extract merchant-only equipment definitions from the balance workbook.
 
     Rows marked ``Kupiec`` are authoritative for merchant equipment. These rows
@@ -1768,12 +1580,6 @@ def load_merchant_items(sheets, companion_refs=None):
             elif item_type in {"armor", "helmet", "pants", "gloves", "boots", "shield"} and stat is not None:
                 item["armor"] = stat
             merchant_items[item_id] = item
-
-    # Dedicated merchant workbooks are authoritative for IDs/stats.
-    # Keep balance-workbook prices as the only price source.
-    for item_id, ref_item in (companion_refs or {}).items():
-        if item_id not in merchant_items:
-            merchant_items[item_id] = dict(ref_item)
 
     return merchant_items
 
@@ -2092,12 +1898,6 @@ def main():
     ap.add_argument("--balance-workbook", type=Path, default=None,
                     help="Optional master workbook containing equipment balance sheets. "
                          "If omitted, the recipe workbook itself is checked.")
-    ap.add_argument("--merchant-workbook", type=Path, default=None,
-                    help="Optional workbook with the authoritative merchant weapon list (e.g. itemy_kupca.xlsx). "
-                         "If omitted, the generator searches the project root and crafting/ for itemy_kupca.xlsx.")
-    ap.add_argument("--armor-workbook", type=Path, default=None,
-                    help="Optional workbook with the authoritative merchant armor list (e.g. itemy_pancerz.xlsx). "
-                         "If omitted, the generator searches the project root and crafting/ for itemy_pancerz.xlsx.")
     ap.add_argument("--combat-workbook", type=Path, default=None,
                     help="Optional workbook containing Postać/DPS_Bronie/Kontrola_Mobow reference data.")
     ap.add_argument("--output", type=Path, default=Path("js/generated"))
@@ -2122,31 +1922,8 @@ def main():
     existing_items, name_to_id = load_existing_items(args.items_js)
     warnings: list[str] = []
     locations = load_location_loot(args.locations_dir, existing_items, warnings)
-
-    merchant_workbook = find_companion_workbook(
-        args.merchant_workbook,
-        ["itemy_kupca.xlsx", "itemy_kupca(1).xlsx"]
-    )
-    armor_workbook = find_companion_workbook(
-        args.armor_workbook,
-        ["itemy_pancerz.xlsx", "itemy_pancerz(1).xlsx", "itemy_pancerz(2).xlsx"]
-    )
-
-    companion_refs = merge_merchant_reference_items(
-        merchant_workbook,
-        armor_workbook,
-        existing_items,
-        name_to_id,
-        warnings,
-    )
-
-    # Legacy armor labels in crafting recipes resolve against the current
-    # merchant progression (1/10/20/35/50/75/100), including old Lv40 -> Lv35.
-    legacy_aliases = build_merchant_legacy_aliases(armor_workbook)
-    name_to_id.update(legacy_aliases)
-
     balance_overrides, merchant_prices, monster_balance = load_balance_overrides(balance_sheets)
-    merchant_items = load_merchant_items(balance_sheets, companion_refs)
+    merchant_items = load_merchant_items(balance_sheets)
     # V20: cost/EXP/time are read directly from each Recipes_* sheet.
     recipe_costs = {}
     generator_config = load_generator_config(sheets)
@@ -2393,6 +2170,17 @@ def main():
         "window.idlerMonsterBalance = " + json.dumps(monster_balance, ensure_ascii=False) + ";\n"
         "window.idlerCombatBalance = " + json.dumps(balance_analysis["combat"], ensure_ascii=False) + ";\n"
         "window.idlerEconomyBalance = " + json.dumps(balance_analysis["economy"], ensure_ascii=False) + ";\n"
+        "window.idlerClassDpsBalance = " + json.dumps({row["location"]: row.get("classDpsReference", {}) for row in balance_analysis["combat"]}, ensure_ascii=False) + ";\n"
+        "window.applyGeneratedMonsterBalance = function(enemy) {\n"
+        "    if (!enemy || !window.idlerMonsterBalance) return enemy;\n"
+        "    const key = enemy.id || enemy.monsterId || enemy.name;\n"
+        "    const data = window.idlerMonsterBalance[key];\n"
+        "    if (!data) return enemy;\n"
+        "    if (Number.isFinite(Number(data.hp))) { enemy.hp = Number(data.hp); enemy.maxHp = Number(data.hp); }\n"
+        "    if (Number.isFinite(Number(data.attack))) enemy.attack = Number(data.attack);\n"
+        "    if (data.encounterType) enemy.encounterType = data.encounterType;\n"
+        "    return enemy;\n"
+        "};\n"
     )
     (args.output / "balance.generated.js").write_text(balance_js, encoding="utf-8")
 
@@ -2428,10 +2216,6 @@ def main():
     print(f"Combat balance rows: {len(balance_analysis['combat'])}")
     print(f"Economy balance rows: {len(balance_analysis['economy'])}")
     print(f"Merchant items: {len(merchant_items)}")
-    if merchant_workbook:
-        print(f"Merchant reference workbook: {merchant_workbook}")
-    if armor_workbook:
-        print(f"Armor reference workbook: {armor_workbook}")
     print(f"Warnings: {len(warnings)}")
     for warning in warnings[:25]:
         print("WARNING:", warning)

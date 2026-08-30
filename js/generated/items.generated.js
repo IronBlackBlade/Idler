@@ -258,7 +258,7 @@ window.idlerGeneratedItems = {
         rarity: "common",
         type: "boots",
         requiredLevel: 1,
-        armor: 0,
+        armor: 1,
         value: 15,
     },
 
@@ -358,7 +358,7 @@ window.idlerGeneratedItems = {
         rarity: "common",
         type: "boots",
         requiredLevel: 50,
-        armor: 4,
+        armor: 5,
         value: 1650,
     },
 
@@ -378,7 +378,7 @@ window.idlerGeneratedItems = {
         rarity: "common",
         type: "boots",
         requiredLevel: 75,
-        armor: 6,
+        armor: 7,
         value: 3250,
     },
 
@@ -388,7 +388,7 @@ window.idlerGeneratedItems = {
         rarity: "common",
         type: "boots",
         requiredLevel: 100,
-        armor: 8,
+        armor: 10,
         value: 6500,
     },
 
@@ -398,7 +398,7 @@ window.idlerGeneratedItems = {
         rarity: "common",
         type: "helmet",
         requiredLevel: 1,
-        armor: 1,
+        armor: 2,
         value: 20,
     },
 
@@ -418,7 +418,7 @@ window.idlerGeneratedItems = {
         rarity: "common",
         type: "helmet",
         requiredLevel: 10,
-        armor: 1,
+        armor: 3,
         value: 60,
     },
 
@@ -438,7 +438,7 @@ window.idlerGeneratedItems = {
         rarity: "common",
         type: "helmet",
         requiredLevel: 20,
-        armor: 1,
+        armor: 5,
         value: 160,
     },
 
@@ -478,7 +478,7 @@ window.idlerGeneratedItems = {
         rarity: "common",
         type: "helmet",
         requiredLevel: 35,
-        armor: 2,
+        armor: 7,
         value: 550,
     },
 
@@ -498,7 +498,7 @@ window.idlerGeneratedItems = {
         rarity: "common",
         type: "helmet",
         requiredLevel: 50,
-        armor: 2,
+        armor: 10,
         value: 2500,
     },
 
@@ -518,7 +518,7 @@ window.idlerGeneratedItems = {
         rarity: "common",
         type: "helmet",
         requiredLevel: 75,
-        armor: 3,
+        armor: 15,
         value: 4500,
     },
 
@@ -528,7 +528,7 @@ window.idlerGeneratedItems = {
         rarity: "common",
         type: "helmet",
         requiredLevel: 100,
-        armor: 5,
+        armor: 20,
         value: 9000,
     },
 
@@ -1210,7 +1210,7 @@ window.idlerGeneratedItems = {
         rarity: "common",
         type: "armor",
         requiredLevel: 1,
-        armor: 1,
+        armor: 4,
         value: 35,
     },
 
@@ -1230,7 +1230,7 @@ window.idlerGeneratedItems = {
         rarity: "common",
         type: "armor",
         requiredLevel: 10,
-        armor: 2,
+        armor: 6,
         value: 90,
     },
 
@@ -1250,7 +1250,7 @@ window.idlerGeneratedItems = {
         rarity: "common",
         type: "armor",
         requiredLevel: 20,
-        armor: 3,
+        armor: 9,
         value: 250,
     },
 
@@ -1290,7 +1290,7 @@ window.idlerGeneratedItems = {
         rarity: "common",
         type: "armor",
         requiredLevel: 35,
-        armor: 5,
+        armor: 14,
         value: 900,
     },
 
@@ -1310,7 +1310,7 @@ window.idlerGeneratedItems = {
         rarity: "common",
         type: "armor",
         requiredLevel: 50,
-        armor: 6,
+        armor: 20,
         value: 4500,
     },
 
@@ -1330,7 +1330,7 @@ window.idlerGeneratedItems = {
         rarity: "common",
         type: "armor",
         requiredLevel: 75,
-        armor: 9,
+        armor: 29,
         value: 7500,
     },
 
@@ -1340,7 +1340,7 @@ window.idlerGeneratedItems = {
         rarity: "common",
         type: "armor",
         requiredLevel: 100,
-        armor: 15,
+        armor: 40,
         value: 14000,
     },
 
@@ -1518,7 +1518,7 @@ window.idlerGeneratedItems = {
         rarity: "common",
         type: "gloves",
         requiredLevel: 1,
-        armor: 0,
+        armor: 1,
         value: 18,
     },
 
@@ -1538,7 +1538,7 @@ window.idlerGeneratedItems = {
         rarity: "common",
         type: "gloves",
         requiredLevel: 10,
-        armor: 1,
+        armor: 2,
         value: 45,
     },
 
@@ -1598,7 +1598,7 @@ window.idlerGeneratedItems = {
         rarity: "common",
         type: "gloves",
         requiredLevel: 35,
-        armor: 3,
+        armor: 4,
         value: 400,
     },
 
@@ -1618,7 +1618,7 @@ window.idlerGeneratedItems = {
         rarity: "common",
         type: "gloves",
         requiredLevel: 50,
-        armor: 4,
+        armor: 5,
         value: 1750,
     },
 
@@ -1638,7 +1638,7 @@ window.idlerGeneratedItems = {
         rarity: "common",
         type: "gloves",
         requiredLevel: 75,
-        armor: 6,
+        armor: 7,
         value: 3250,
     },
 
@@ -1648,7 +1648,7 @@ window.idlerGeneratedItems = {
         rarity: "common",
         type: "gloves",
         requiredLevel: 100,
-        armor: 8,
+        armor: 10,
         value: 6500,
     },
 
@@ -1658,7 +1658,7 @@ window.idlerGeneratedItems = {
         rarity: "common",
         type: "pants",
         requiredLevel: 1,
-        armor: 1,
+        armor: 2,
         value: 22,
     },
 
@@ -1678,7 +1678,7 @@ window.idlerGeneratedItems = {
         rarity: "common",
         type: "pants",
         requiredLevel: 10,
-        armor: 1,
+        armor: 3,
         value: 60,
     },
 
@@ -1698,7 +1698,7 @@ window.idlerGeneratedItems = {
         rarity: "common",
         type: "pants",
         requiredLevel: 20,
-        armor: 2,
+        armor: 5,
         value: 160,
     },
 
@@ -1738,7 +1738,7 @@ window.idlerGeneratedItems = {
         rarity: "common",
         type: "pants",
         requiredLevel: 35,
-        armor: 3,
+        armor: 7,
         value: 600,
     },
 
@@ -1758,7 +1758,7 @@ window.idlerGeneratedItems = {
         rarity: "common",
         type: "pants",
         requiredLevel: 50,
-        armor: 4,
+        armor: 10,
         value: 2600,
     },
 
@@ -1778,7 +1778,7 @@ window.idlerGeneratedItems = {
         rarity: "common",
         type: "pants",
         requiredLevel: 75,
-        armor: 6,
+        armor: 15,
         value: 4750,
     },
 
@@ -1788,7 +1788,7 @@ window.idlerGeneratedItems = {
         rarity: "common",
         type: "pants",
         requiredLevel: 100,
-        armor: 9,
+        armor: 20,
         value: 9500,
     },
 
@@ -1798,7 +1798,7 @@ window.idlerGeneratedItems = {
         rarity: "common",
         type: "shield",
         requiredLevel: 1,
-        armor: 1,
+        armor: 3,
         value: 20,
     },
 
@@ -1818,7 +1818,7 @@ window.idlerGeneratedItems = {
         rarity: "common",
         type: "shield",
         requiredLevel: 10,
-        armor: 1,
+        armor: 5,
         value: 50,
     },
 
@@ -1838,7 +1838,7 @@ window.idlerGeneratedItems = {
         rarity: "common",
         type: "shield",
         requiredLevel: 20,
-        armor: 2,
+        armor: 7,
         value: 150,
     },
 
@@ -1878,7 +1878,7 @@ window.idlerGeneratedItems = {
         rarity: "common",
         type: "shield",
         requiredLevel: 35,
-        armor: 5,
+        armor: 10,
         value: 500,
     },
 
@@ -1898,7 +1898,7 @@ window.idlerGeneratedItems = {
         rarity: "common",
         type: "shield",
         requiredLevel: 50,
-        armor: 6,
+        armor: 15,
         value: 2400,
     },
 
@@ -1918,7 +1918,7 @@ window.idlerGeneratedItems = {
         rarity: "common",
         type: "shield",
         requiredLevel: 75,
-        armor: 10,
+        armor: 22,
         value: 4250,
     },
 
@@ -1928,7 +1928,7 @@ window.idlerGeneratedItems = {
         rarity: "common",
         type: "shield",
         requiredLevel: 100,
-        armor: 15,
+        armor: 30,
         value: 8500,
     },
 
@@ -2098,210 +2098,6 @@ window.idlerGeneratedItems = {
         requiredLevel: 100,
         damage: 240,
         value: 11500,
-    },
-
-    guard_sword: {
-        id: "guard_sword",
-        name: "Miecz strażnika",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "melee",
-        weaponClass: "slashing",
-        requiredLevel: 35,
-        damage: 72,
-        value: 1500,
-    },
-
-    captain_sword: {
-        id: "captain_sword",
-        name: "Miecz kapitana",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "melee",
-        weaponClass: "slashing",
-        requiredLevel: 75,
-        damage: 200,
-        value: 12000,
-    },
-
-    master_sword: {
-        id: "master_sword",
-        name: "Mistrzowski miecz",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "melee",
-        weaponClass: "slashing",
-        requiredLevel: 100,
-        damage: 240,
-        value: 18000,
-    },
-
-    wooden_wand: {
-        id: "wooden_wand",
-        name: "Drewniana różdżka",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "magic",
-        weaponClass: "wand",
-        requiredLevel: 1,
-        damage: 8,
-        value: 100,
-    },
-
-    simple_wand: {
-        id: "simple_wand",
-        name: "Prosta różdżka",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "magic",
-        weaponClass: "wand",
-        requiredLevel: 10,
-        damage: 24,
-        value: 300,
-    },
-
-    apprentice_wand: {
-        id: "apprentice_wand",
-        name: "Uczniowska różdżka",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "magic",
-        weaponClass: "wand",
-        requiredLevel: 20,
-        damage: 44,
-        value: 900,
-    },
-
-    arcane_wand: {
-        id: "arcane_wand",
-        name: "Arkaniczna różdżka",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "magic",
-        weaponClass: "wand",
-        requiredLevel: 35,
-        damage: 72,
-        value: 2100,
-    },
-
-    magic_wand: {
-        id: "magic_wand",
-        name: "Magiczna różdżka",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "magic",
-        weaponClass: "wand",
-        requiredLevel: 50,
-        damage: 120,
-        value: 6000,
-    },
-
-    master_wand: {
-        id: "master_wand",
-        name: "Mistrzowska różdżka",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "magic",
-        weaponClass: "wand",
-        requiredLevel: 75,
-        damage: 200,
-        value: 11000,
-    },
-
-    archmaster_wand: {
-        id: "archmaster_wand",
-        name: "Arcymistrzowska różdżka",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "magic",
-        weaponClass: "wand",
-        requiredLevel: 100,
-        damage: 240,
-        value: 22000,
-    },
-
-    simple_staff: {
-        id: "simple_staff",
-        name: "Prosty kostur",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "magic",
-        weaponClass: "staff",
-        requiredLevel: 1,
-        damage: 8,
-        value: 120,
-    },
-
-    apprentice_staff: {
-        id: "apprentice_staff",
-        name: "Kostur ucznia",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "magic",
-        weaponClass: "staff",
-        requiredLevel: 10,
-        damage: 24,
-        value: 250,
-    },
-
-    adept_staff: {
-        id: "adept_staff",
-        name: "Kostur adepta",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "magic",
-        weaponClass: "staff",
-        requiredLevel: 20,
-        damage: 44,
-        value: 850,
-    },
-
-    battle_staff: {
-        id: "battle_staff",
-        name: "Bojowy kostur",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "magic",
-        weaponClass: "staff",
-        requiredLevel: 35,
-        damage: 72,
-        value: 2500,
-    },
-
-    mage_staff: {
-        id: "mage_staff",
-        name: "Kostur maga",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "magic",
-        weaponClass: "staff",
-        requiredLevel: 50,
-        damage: 120,
-        value: 6000,
-    },
-
-    heavy_battle_staff: {
-        id: "heavy_battle_staff",
-        name: "Ciężki bojowy kostur",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "magic",
-        weaponClass: "staff",
-        requiredLevel: 75,
-        damage: 200,
-        value: 12000,
-    },
-
-    master_staff: {
-        id: "master_staff",
-        name: "Mistrzowski kostur",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "magic",
-        weaponClass: "staff",
-        requiredLevel: 100,
-        damage: 240,
-        value: 24000,
     },
 
 };

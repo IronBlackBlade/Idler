@@ -60,7 +60,10 @@ function renderDungeonCard(dungeonId, index) {
         "Drugi",
         "Trzeci",
         "Czwarty",
-        "Piąty"
+        "Piąty",
+        "Szósty",
+        "Siódmy",
+        "Ósmy"
     ][index] || (index + 1) + ".";
     const bossName = dungeon.rooms[dungeon.rooms.length - 1].name;
 

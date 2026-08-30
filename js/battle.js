@@ -7,2640 +7,1988 @@ var isRespawning = false;
 var respawnTimeLeft = 0;
 var explorationRespawnShieldHp = 0;
 
-const COMBAT_REENTRY_COOLDOWN_MS =
-    15 * 1000;
+const COMBAT_REENTRY_COOLDOWN_MS = 15 * 1000;
+
+function applyGeneratedMonsterBalance() {
+  if (typeof enemy === "undefined" || !enemy) {
+    return;
+  }
+
+  if (typeof window === "undefined" || !window.idlerMonsterBalance) {
+    return;
+  }
+
+  const balance = window.idlerMonsterBalance[enemy.id];
+
+  if (!balance) {
+    return;
+  }
+
+  if (Number.isFinite(Number(balance.hp))) {
+    enemy.hp = Number(balance.hp);
+    enemy.maxHp = Number(balance.hp);
+  }
+
+  if (Number.isFinite(Number(balance.attack))) {
+    enemy.attack = Number(balance.attack);
+  }
+
+  if (balance.encounterType) {
+    enemy.encounterType = balance.encounterType;
+  }
+}
 
 function resetExplorationRespawnShield() {
-    explorationRespawnShieldHp = 0;
+  explorationRespawnShieldHp = 0;
 }
 
-function grantExplorationRespawnShield(
-    maximumHp
-) {
-    const safeMaximumHp = Math.max(
-        0,
-        Number(maximumHp) || 0
-    );
+function grantExplorationRespawnShield(maximumHp) {
+  const safeMaximumHp = Math.max(0, Number(maximumHp) || 0);
 
-    const shieldPercent =
-        typeof getExplorationRespawnShieldPercent ===
-            "function"
-            ? getExplorationRespawnShieldPercent()
-            : 0;
+  const shieldPercent =
+    typeof getExplorationRespawnShieldPercent === "function"
+      ? getExplorationRespawnShieldPercent()
+      : 0;
 
-    const shieldHp = Math.max(
-        0,
-        Math.floor(
-            safeMaximumHp *
-            shieldPercent /
-            100
-        )
-    );
+  const shieldHp = Math.max(
+    0,
+    Math.floor((safeMaximumHp * shieldPercent) / 100),
+  );
 
-    explorationRespawnShieldHp =
-        shieldHp;
+  explorationRespawnShieldHp = shieldHp;
 
-    return shieldHp;
+  return shieldHp;
 }
 
-function absorbExplorationRespawnShieldDamage(
-    damage
-) {
-    const safeDamage = Math.max(
-        0,
-        Math.floor(
-            Number(damage) || 0
-        )
-    );
+function absorbExplorationRespawnShieldDamage(damage) {
+  const safeDamage = Math.max(0, Math.floor(Number(damage) || 0));
 
-    const safeShield = Math.max(
-        0,
-        Math.floor(
-            Number(
-                explorationRespawnShieldHp
-            ) || 0
-        )
-    );
+  const safeShield = Math.max(
+    0,
+    Math.floor(Number(explorationRespawnShieldHp) || 0),
+  );
 
-    const absorbedDamage = Math.min(
-        safeDamage,
-        safeShield
-    );
+  const absorbedDamage = Math.min(safeDamage, safeShield);
 
-    explorationRespawnShieldHp =
-        safeShield -
-        absorbedDamage;
+  explorationRespawnShieldHp = safeShield - absorbedDamage;
 
-    return {
-        damage:
-            safeDamage -
-            absorbedDamage,
+  return {
+    damage: safeDamage - absorbedDamage,
 
-        absorbedDamage,
+    absorbedDamage,
 
-        remainingShield:
-            explorationRespawnShieldHp
-    };
+    remainingShield: explorationRespawnShieldHp,
+  };
 }
 
 function getCombatCooldownMillisecondsLeft() {
-    const cooldownUntil =
-        Number(
-            player.combatCooldownUntil
-        ) || 0;
+  const cooldownUntil = Number(player.combatCooldownUntil) || 0;
 
-    return Math.max(
-        0,
-        cooldownUntil -
-        Date.now()
-    );
+  return Math.max(0, cooldownUntil - Date.now());
 }
 
 function getCombatCooldownSecondsLeft() {
-    return Math.ceil(
-        getCombatCooldownMillisecondsLeft() /
-        1000
-    );
+  return Math.ceil(getCombatCooldownMillisecondsLeft() / 1000);
 }
 
 function startCombatReentryCooldown() {
-    player.combatCooldownUntil =
-        Date.now() +
-        COMBAT_REENTRY_COOLDOWN_MS;
+  player.combatCooldownUntil = Date.now() + COMBAT_REENTRY_COOLDOWN_MS;
 }
 
 var combatLogMessages = window.combatLogMessages || [];
 window.combatLogMessages = combatLogMessages;
 
 function addCombatLog(message) {
-    combatLogMessages.push(message);
+  combatLogMessages.push(message);
 
-    if (
-        combatLogMessages.length > 30
-    ) {
-        combatLogMessages.shift();
-    }
+  if (combatLogMessages.length > 30) {
+    combatLogMessages.shift();
+  }
 
-    renderCombatLog();
+  renderCombatLog();
 }
 
 function renderCombatLog() {
-    const logContainer = document.getElementById("combat-log");
-    if (!logContainer) return;
+  const logContainer = document.getElementById("combat-log");
+  if (!logContainer) return;
 
-    logContainer.innerHTML = "";
+  logContainer.innerHTML = "";
 
-    combatLogMessages.forEach(message => {
-        const div = document.createElement("div");
-        div.className = "combat-log-entry";
+  combatLogMessages.forEach((message) => {
+    const div = document.createElement("div");
+    div.className = "combat-log-entry";
 
-        if (
-            message.includes(
-                "Niezłomna obrona"
-            ) ||
-            message.includes(
-                "Smoczy gniew"
-            )
-        ) {
-            div.classList.add(
-                "set-effect"
-            );
-        } else if (message.includes("Krytyczne")) {
-            div.classList.add("crit");
-        } else if (
-            message.includes(
-                "Zadałeś"
-            ) ||
-            message.includes(
-                "zadaje"
-            ) ||
-            message.includes(
-                "zadają"
-            ) ||
-            message.includes(
-                "uderza za"
-            )
-        ) {
-            div.classList.add("damage");
-        } else if (message.includes("EXP") || message.includes("złota") || message.includes("Awans")) {
-            div.classList.add("reward");
-        } else if (message.includes("Zdobyto przedmiot")) {
-            div.classList.add("loot");
-        } else if (message.includes("pokonany") || message.includes("Odrodzenie")) {
-            div.classList.add("death");
-        } else if (message.includes("Boss") || message.includes("boss") || message.includes("👑")) {
-            div.classList.add("boss");
-        } else {
-            div.classList.add("system");
-        }
+    if (
+      message.includes("Niezłomna obrona") ||
+      message.includes("Smoczy gniew")
+    ) {
+      div.classList.add("set-effect");
+    } else if (message.includes("Krytyczne")) {
+      div.classList.add("crit");
+    } else if (
+      message.includes("Zadałeś") ||
+      message.includes("zadaje") ||
+      message.includes("zadają") ||
+      message.includes("uderza za")
+    ) {
+      div.classList.add("damage");
+    } else if (
+      message.includes("EXP") ||
+      message.includes("złota") ||
+      message.includes("Awans")
+    ) {
+      div.classList.add("reward");
+    } else if (message.includes("Zdobyto przedmiot")) {
+      div.classList.add("loot");
+    } else if (message.includes("pokonany") || message.includes("Odrodzenie")) {
+      div.classList.add("death");
+    } else if (
+      message.includes("Boss") ||
+      message.includes("boss") ||
+      message.includes("👑")
+    ) {
+      div.classList.add("boss");
+    } else {
+      div.classList.add("system");
+    }
 
-        div.textContent = message;
+    div.textContent = message;
 
-        logContainer.appendChild(div);
-    });
+    logContainer.appendChild(div);
+  });
 
-    logContainer.scrollTop = logContainer.scrollHeight;
+  logContainer.scrollTop = logContainer.scrollHeight;
 }
 
 function clearCombatLog() {
-    combatLogMessages = [];
-    window.combatLogMessages = combatLogMessages;
+  combatLogMessages = [];
+  window.combatLogMessages = combatLogMessages;
 
-    renderCombatLog();
+  renderCombatLog();
 
-    if (
-        typeof saveGame ===
-        "function"
-    ) {
-        saveGame();
-    }
+  if (typeof saveGame === "function") {
+    saveGame();
+  }
 }
 
 function ensureGoblinHideoutKeyProgress() {
-    if (
-        !player.dungeonKeyProgress ||
-        typeof player.dungeonKeyProgress !==
-        "object" ||
-        Array.isArray(
-            player.dungeonKeyProgress
-        )
-    ) {
-        player.dungeonKeyProgress = {};
-    }
+  if (
+    !player.dungeonKeyProgress ||
+    typeof player.dungeonKeyProgress !== "object" ||
+    Array.isArray(player.dungeonKeyProgress)
+  ) {
+    player.dungeonKeyProgress = {};
+  }
 
-    if (
-        !player.dungeonKeyProgress
-            .goblinHideout ||
-        typeof player
-            .dungeonKeyProgress
-            .goblinHideout !==
-        "object"
-    ) {
-        player.dungeonKeyProgress
-            .goblinHideout = {
-            firstKeyGranted: false,
-            bossKillsSinceKey: 0
-        };
-    }
+  if (
+    !player.dungeonKeyProgress.goblinHideout ||
+    typeof player.dungeonKeyProgress.goblinHideout !== "object"
+  ) {
+    player.dungeonKeyProgress.goblinHideout = {
+      firstKeyGranted: false,
+      bossKillsSinceKey: 0,
+    };
+  }
 
-    const progress =
-        player.dungeonKeyProgress
-            .goblinHideout;
+  const progress = player.dungeonKeyProgress.goblinHideout;
 
-    progress.firstKeyGranted =
-        progress.firstKeyGranted ===
-        true;
+  progress.firstKeyGranted = progress.firstKeyGranted === true;
 
-    progress.bossKillsSinceKey =
-        Math.max(
-            0,
-            Math.floor(
-                Number(
-                    progress
-                        .bossKillsSinceKey
-                ) || 0
-            )
-        );
+  progress.bossKillsSinceKey = Math.max(
+    0,
+    Math.floor(Number(progress.bossKillsSinceKey) || 0),
+  );
 
-    return progress;
+  return progress;
 }
 
-function getGoblinHideoutKeyDropChance(
-    bossKillsSinceKey
-) {
-    const safeBossKills =
-        Math.max(
-            1,
-            Math.floor(
-                Number(
-                    bossKillsSinceKey
-                ) || 1
-            )
-        );
+function getGoblinHideoutKeyDropChance(bossKillsSinceKey) {
+  const safeBossKills = Math.max(1, Math.floor(Number(bossKillsSinceKey) || 1));
 
-    if (safeBossKills <= 5) {
-        return 5;
-    }
+  if (safeBossKills <= 5) {
+    return 5;
+  }
 
-    if (safeBossKills <= 10) {
-        return 10;
-    }
+  if (safeBossKills <= 10) {
+    return 10;
+  }
 
-    if (safeBossKills <= 15) {
-        return 25;
-    }
+  if (safeBossKills <= 15) {
+    return 25;
+  }
 
-    return 50;
+  return 50;
 }
 
-function tryGrantGoblinHideoutKey(
-    defeatedEnemy,
-    locationId = player.location
-) {
-    if (
-        locationId !== "forest" ||
-        defeatedEnemy?.id !==
-        "goblin_chief"
-    ) {
-        return null;
-    }
+function tryGrantGoblinHideoutKey(defeatedEnemy, locationId = player.location) {
+  if (locationId !== "forest" || defeatedEnemy?.id !== "goblin_chief") {
+    return null;
+  }
 
-    const progress =
-        ensureGoblinHideoutKeyProgress();
+  const progress = ensureGoblinHideoutKeyProgress();
 
-    /*
-     * Pierwszy klucz jest zawsze
-     * gwarantowany.
-     */
-    if (
-        progress.firstKeyGranted !==
-        true
-    ) {
-        const itemGranted =
-            addItemToInventory(
-                "goblin_hideout_key",
-                1
-            );
-
-        if (!itemGranted) {
-            return null;
-        }
-
-        progress.firstKeyGranted =
-            true;
-
-        progress.bossKillsSinceKey =
-            0;
-
-        const message =
-            "🗝️ Pierwsze zwycięstwo nad Goblinim Hersztem zapewniło Klucz do Kryjówki Goblinów!";
-
-        if (
-            typeof addCombatLog ===
-            "function"
-        ) {
-            addCombatLog(message);
-        }
-
-        if (
-            typeof addSystemLog ===
-            "function"
-        ) {
-            addSystemLog(
-                message,
-                "dungeon"
-            );
-        }
-
-        if (
-            typeof showNotification ===
-            "function"
-        ) {
-            showNotification(
-                "Zdobyto Klucz do Kryjówki Goblinów!",
-                "success"
-            );
-        }
-
-        return {
-            granted: true,
-            guaranteed: true,
-            chance: 100
-        };
-    }
-
-    /*
-     * Każdy kolejny pokonany Herszt
-     * zwiększa licznik.
-     */
-    progress.bossKillsSinceKey++;
-
-    const chance =
-        getGoblinHideoutKeyDropChance(
-            progress.bossKillsSinceKey
-        );
-
-    const roll =
-        Math.random() * 100;
-
-    if (roll > chance) {
-        const nextChance =
-            getGoblinHideoutKeyDropChance(
-                progress
-                    .bossKillsSinceKey +
-                1
-            );
-
-        addCombatLog(
-            "🗝️ Goblini Herszt nie pozostawił klucza. " +
-            "Szansa wynosiła " +
-            chance +
-            "%. Szansa przy następnym bossie: " +
-            nextChance +
-            "%."
-        );
-
-        return {
-            granted: false,
-            guaranteed: false,
-            chance: chance,
-            roll: roll
-        };
-    }
-
-    const itemGranted =
-        addItemToInventory(
-            "goblin_hideout_key",
-            1
-        );
+  /*
+   * Pierwszy klucz jest zawsze
+   * gwarantowany.
+   */
+  if (progress.firstKeyGranted !== true) {
+    const itemGranted = addItemToInventory("goblin_hideout_key", 1);
 
     if (!itemGranted) {
-        return null;
+      return null;
     }
 
-    progress.bossKillsSinceKey =
-        0;
+    progress.firstKeyGranted = true;
+
+    progress.bossKillsSinceKey = 0;
 
     const message =
-        "🗝️ Goblini Herszt pozostawił Klucz do Kryjówki Goblinów! Szansa wynosiła " +
-        chance +
-        "%.";
+      "🗝️ Pierwsze zwycięstwo nad Goblinim Hersztem zapewniło Klucz do Kryjówki Goblinów!";
 
-    if (
-        typeof addCombatLog ===
-        "function"
-    ) {
-        addCombatLog(message);
+    if (typeof addCombatLog === "function") {
+      addCombatLog(message);
     }
 
-    if (
-        typeof addSystemLog ===
-        "function"
-    ) {
-        addSystemLog(
-            message,
-            "dungeon"
-        );
+    if (typeof addSystemLog === "function") {
+      addSystemLog(message, "dungeon");
     }
 
-    if (
-        typeof showNotification ===
-        "function"
-    ) {
-        showNotification(
-            "Zdobyto Klucz do Kryjówki Goblinów!",
-            "success"
-        );
+    if (typeof showNotification === "function") {
+      showNotification("Zdobyto Klucz do Kryjówki Goblinów!", "success");
     }
 
     return {
-        granted: true,
-        guaranteed: false,
-        chance: chance,
-        roll: roll
+      granted: true,
+      guaranteed: true,
+      chance: 100,
     };
+  }
+
+  /*
+   * Każdy kolejny pokonany Herszt
+   * zwiększa licznik.
+   */
+  progress.bossKillsSinceKey++;
+
+  const chance = getGoblinHideoutKeyDropChance(progress.bossKillsSinceKey);
+
+  const roll = Math.random() * 100;
+
+  if (roll > chance) {
+    const nextChance = getGoblinHideoutKeyDropChance(
+      progress.bossKillsSinceKey + 1,
+    );
+
+    addCombatLog(
+      "🗝️ Goblini Herszt nie pozostawił klucza. " +
+        "Szansa wynosiła " +
+        chance +
+        "%. Szansa przy następnym bossie: " +
+        nextChance +
+        "%.",
+    );
+
+    return {
+      granted: false,
+      guaranteed: false,
+      chance: chance,
+      roll: roll,
+    };
+  }
+
+  const itemGranted = addItemToInventory("goblin_hideout_key", 1);
+
+  if (!itemGranted) {
+    return null;
+  }
+
+  progress.bossKillsSinceKey = 0;
+
+  const message =
+    "🗝️ Goblini Herszt pozostawił Klucz do Kryjówki Goblinów! Szansa wynosiła " +
+    chance +
+    "%.";
+
+  if (typeof addCombatLog === "function") {
+    addCombatLog(message);
+  }
+
+  if (typeof addSystemLog === "function") {
+    addSystemLog(message, "dungeon");
+  }
+
+  if (typeof showNotification === "function") {
+    showNotification("Zdobyto Klucz do Kryjówki Goblinów!", "success");
+  }
+
+  return {
+    granted: true,
+    guaranteed: false,
+    chance: chance,
+    roll: roll,
+  };
 }
 
 function ensureKoboldTunnelsKeyProgress() {
-    if (
-        !player.dungeonKeyProgress ||
-        typeof player.dungeonKeyProgress !== "object" ||
-        Array.isArray(player.dungeonKeyProgress)
-    ) {
-        player.dungeonKeyProgress = {};
-    }
+  if (
+    !player.dungeonKeyProgress ||
+    typeof player.dungeonKeyProgress !== "object" ||
+    Array.isArray(player.dungeonKeyProgress)
+  ) {
+    player.dungeonKeyProgress = {};
+  }
 
-    if (
-        !player.dungeonKeyProgress.koboldTunnels ||
-        typeof player.dungeonKeyProgress.koboldTunnels !== "object"
-    ) {
-        player.dungeonKeyProgress.koboldTunnels = {
-            firstKeyGranted: false,
-            bossKillsSinceKey: 0
-        };
-    }
+  if (
+    !player.dungeonKeyProgress.koboldTunnels ||
+    typeof player.dungeonKeyProgress.koboldTunnels !== "object"
+  ) {
+    player.dungeonKeyProgress.koboldTunnels = {
+      firstKeyGranted: false,
+      bossKillsSinceKey: 0,
+    };
+  }
 
-    const progress = player.dungeonKeyProgress.koboldTunnels;
+  const progress = player.dungeonKeyProgress.koboldTunnels;
 
-    progress.firstKeyGranted = progress.firstKeyGranted === true;
-    progress.bossKillsSinceKey = Math.max(
-        0,
-        Math.floor(Number(progress.bossKillsSinceKey) || 0)
-    );
+  progress.firstKeyGranted = progress.firstKeyGranted === true;
+  progress.bossKillsSinceKey = Math.max(
+    0,
+    Math.floor(Number(progress.bossKillsSinceKey) || 0),
+  );
 
-    return progress;
+  return progress;
 }
 
-function tryGrantKoboldTunnelsKey(
-    defeatedEnemy,
-    locationId = player.location
-) {
-    if (
-        locationId !== "cave" ||
-        defeatedEnemy?.id !== "kobold_king"
-    ) {
-        return null;
+function tryGrantKoboldTunnelsKey(defeatedEnemy, locationId = player.location) {
+  if (locationId !== "cave" || defeatedEnemy?.id !== "kobold_king") {
+    return null;
+  }
+
+  const progress = ensureKoboldTunnelsKeyProgress();
+  let chance = 100;
+  let guaranteed = false;
+
+  if (progress.firstKeyGranted !== true) {
+    guaranteed = true;
+  } else {
+    progress.bossKillsSinceKey++;
+    chance = getGoblinHideoutKeyDropChance(progress.bossKillsSinceKey);
+
+    if (Math.random() * 100 > chance) {
+      const nextChance = getGoblinHideoutKeyDropChance(
+        progress.bossKillsSinceKey + 1,
+      );
+
+      addCombatLog(
+        "⛏️ Król Koboldów nie pozostawił klucza. " +
+          "Szansa wynosiła " +
+          chance +
+          "%. Szansa przy następnym bossie: " +
+          nextChance +
+          "%.",
+      );
+
+      return {
+        granted: false,
+        guaranteed: false,
+        chance,
+      };
     }
+  }
 
-    const progress = ensureKoboldTunnelsKeyProgress();
-    let chance = 100;
-    let guaranteed = false;
+  if (!addItemToInventory("kobold_tunnels_key", 1)) {
+    return null;
+  }
 
-    if (progress.firstKeyGranted !== true) {
-        guaranteed = true;
-    } else {
-        progress.bossKillsSinceKey++;
-        chance = getGoblinHideoutKeyDropChance(
-            progress.bossKillsSinceKey
-        );
+  progress.firstKeyGranted = true;
+  progress.bossKillsSinceKey = 0;
 
-        if (Math.random() * 100 > chance) {
-            const nextChance = getGoblinHideoutKeyDropChance(
-                progress.bossKillsSinceKey + 1
-            );
+  const message = guaranteed
+    ? "⛏️ Pierwsze zwycięstwo nad Królem Koboldów zapewniło Klucz do Tuneli Koboldów!"
+    : "⛏️ Król Koboldów pozostawił Klucz do Tuneli Koboldów! Szansa wynosiła " +
+      chance +
+      "%.";
 
-            addCombatLog(
-                "⛏️ Król Koboldów nie pozostawił klucza. " +
-                "Szansa wynosiła " + chance +
-                "%. Szansa przy następnym bossie: " +
-                nextChance + "%."
-            );
+  addCombatLog(message);
 
-            return {
-                granted: false,
-                guaranteed: false,
-                chance
-            };
-        }
-    }
+  if (typeof addSystemLog === "function") {
+    addSystemLog(message, "dungeon");
+  }
 
-    if (!addItemToInventory("kobold_tunnels_key", 1)) {
-        return null;
-    }
+  if (typeof showNotification === "function") {
+    showNotification("Zdobyto Klucz do Tuneli Koboldów!", "success");
+  }
 
-    progress.firstKeyGranted = true;
-    progress.bossKillsSinceKey = 0;
-
-    const message = guaranteed
-        ? "⛏️ Pierwsze zwycięstwo nad Królem Koboldów zapewniło Klucz do Tuneli Koboldów!"
-        : "⛏️ Król Koboldów pozostawił Klucz do Tuneli Koboldów! Szansa wynosiła " +
-        chance + "%.";
-
-    addCombatLog(message);
-
-    if (typeof addSystemLog === "function") {
-        addSystemLog(message, "dungeon");
-    }
-
-    if (typeof showNotification === "function") {
-        showNotification(
-            "Zdobyto Klucz do Tuneli Koboldów!",
-            "success"
-        );
-    }
-
-    return {
-        granted: true,
-        guaranteed,
-        chance
-    };
+  return {
+    granted: true,
+    guaranteed,
+    chance,
+  };
 }
 
 function ensureGuardianSanctumKeyProgress() {
-    if (
-        !player.dungeonKeyProgress ||
-        typeof player.dungeonKeyProgress !== "object" ||
-        Array.isArray(player.dungeonKeyProgress)
-    ) {
-        player.dungeonKeyProgress = {};
-    }
+  if (
+    !player.dungeonKeyProgress ||
+    typeof player.dungeonKeyProgress !== "object" ||
+    Array.isArray(player.dungeonKeyProgress)
+  ) {
+    player.dungeonKeyProgress = {};
+  }
 
-    if (
-        !player.dungeonKeyProgress.guardianSanctum ||
-        typeof player.dungeonKeyProgress.guardianSanctum !== "object"
-    ) {
-        player.dungeonKeyProgress.guardianSanctum = {
-            firstKeyGranted: false,
-            bossKillsSinceKey: 0
-        };
-    }
+  if (
+    !player.dungeonKeyProgress.guardianSanctum ||
+    typeof player.dungeonKeyProgress.guardianSanctum !== "object"
+  ) {
+    player.dungeonKeyProgress.guardianSanctum = {
+      firstKeyGranted: false,
+      bossKillsSinceKey: 0,
+    };
+  }
 
-    const progress = player.dungeonKeyProgress.guardianSanctum;
+  const progress = player.dungeonKeyProgress.guardianSanctum;
 
-    progress.firstKeyGranted = progress.firstKeyGranted === true;
-    progress.bossKillsSinceKey = Math.max(
-        0,
-        Math.floor(Number(progress.bossKillsSinceKey) || 0)
-    );
+  progress.firstKeyGranted = progress.firstKeyGranted === true;
+  progress.bossKillsSinceKey = Math.max(
+    0,
+    Math.floor(Number(progress.bossKillsSinceKey) || 0),
+  );
 
-    return progress;
+  return progress;
 }
 
 function tryGrantGuardianSanctumKey(
-    defeatedEnemy,
-    locationId = player.location
+  defeatedEnemy,
+  locationId = player.location,
 ) {
-    if (
-        locationId !== "ruins" ||
-        defeatedEnemy?.id !== "ancient_guardian"
-    ) {
-        return null;
+  if (locationId !== "ruins" || defeatedEnemy?.id !== "ancient_guardian") {
+    return null;
+  }
+
+  const progress = ensureGuardianSanctumKeyProgress();
+  let chance = 100;
+  let guaranteed = false;
+
+  if (progress.firstKeyGranted !== true) {
+    guaranteed = true;
+  } else {
+    progress.bossKillsSinceKey++;
+    chance = getGoblinHideoutKeyDropChance(progress.bossKillsSinceKey);
+
+    if (Math.random() * 100 > chance) {
+      const nextChance = getGoblinHideoutKeyDropChance(
+        progress.bossKillsSinceKey + 1,
+      );
+
+      addCombatLog(
+        "🏛️ Pradawny Strażnik nie pozostawił klucza. " +
+          "Szansa wynosiła " +
+          chance +
+          "%. Szansa przy następnym bossie: " +
+          nextChance +
+          "%.",
+      );
+
+      return {
+        granted: false,
+        guaranteed: false,
+        chance,
+      };
     }
+  }
 
-    const progress = ensureGuardianSanctumKeyProgress();
-    let chance = 100;
-    let guaranteed = false;
+  if (!addItemToInventory("guardian_sanctum_key", 1)) {
+    return null;
+  }
 
-    if (progress.firstKeyGranted !== true) {
-        guaranteed = true;
-    } else {
-        progress.bossKillsSinceKey++;
-        chance = getGoblinHideoutKeyDropChance(
-            progress.bossKillsSinceKey
-        );
+  progress.firstKeyGranted = true;
+  progress.bossKillsSinceKey = 0;
 
-        if (Math.random() * 100 > chance) {
-            const nextChance = getGoblinHideoutKeyDropChance(
-                progress.bossKillsSinceKey + 1
-            );
+  const message = guaranteed
+    ? "🏛️ Pierwsze zwycięstwo nad Pradawnym Strażnikiem zapewniło Klucz do Sanktuarium Strażnika!"
+    : "🏛️ Pradawny Strażnik pozostawił Klucz do Sanktuarium Strażnika! Szansa wynosiła " +
+      chance +
+      "%.";
 
-            addCombatLog(
-                "🏛️ Pradawny Strażnik nie pozostawił klucza. " +
-                "Szansa wynosiła " + chance +
-                "%. Szansa przy następnym bossie: " +
-                nextChance + "%."
-            );
+  addCombatLog(message);
 
-            return {
-                granted: false,
-                guaranteed: false,
-                chance
-            };
-        }
-    }
+  if (typeof addSystemLog === "function") {
+    addSystemLog(message, "dungeon");
+  }
 
-    if (!addItemToInventory("guardian_sanctum_key", 1)) {
-        return null;
-    }
+  if (typeof showNotification === "function") {
+    showNotification("Zdobyto Klucz do Sanktuarium Strażnika!", "success");
+  }
 
-    progress.firstKeyGranted = true;
-    progress.bossKillsSinceKey = 0;
-
-    const message = guaranteed
-        ? "🏛️ Pierwsze zwycięstwo nad Pradawnym Strażnikiem zapewniło Klucz do Sanktuarium Strażnika!"
-        : "🏛️ Pradawny Strażnik pozostawił Klucz do Sanktuarium Strażnika! Szansa wynosiła " +
-        chance + "%.";
-
-    addCombatLog(message);
-
-    if (typeof addSystemLog === "function") {
-        addSystemLog(message, "dungeon");
-    }
-
-    if (typeof showNotification === "function") {
-        showNotification(
-            "Zdobyto Klucz do Sanktuarium Strażnika!",
-            "success"
-        );
-    }
-
-    return {
-        granted: true,
-        guaranteed,
-        chance
-    };
+  return {
+    granted: true,
+    guaranteed,
+    chance,
+  };
 }
 
 function ensureFrostCitadelKeyProgress() {
-    if (
-        !player.dungeonKeyProgress ||
-        typeof player.dungeonKeyProgress !== "object" ||
-        Array.isArray(player.dungeonKeyProgress)
-    ) {
-        player.dungeonKeyProgress = {};
-    }
+  if (
+    !player.dungeonKeyProgress ||
+    typeof player.dungeonKeyProgress !== "object" ||
+    Array.isArray(player.dungeonKeyProgress)
+  ) {
+    player.dungeonKeyProgress = {};
+  }
 
-    if (
-        !player.dungeonKeyProgress.frostCitadel ||
-        typeof player.dungeonKeyProgress.frostCitadel !== "object"
-    ) {
-        player.dungeonKeyProgress.frostCitadel = {
-            firstKeyGranted: false,
-            bossKillsSinceKey: 0
-        };
-    }
+  if (
+    !player.dungeonKeyProgress.frostCitadel ||
+    typeof player.dungeonKeyProgress.frostCitadel !== "object"
+  ) {
+    player.dungeonKeyProgress.frostCitadel = {
+      firstKeyGranted: false,
+      bossKillsSinceKey: 0,
+    };
+  }
 
-    const progress = player.dungeonKeyProgress.frostCitadel;
+  const progress = player.dungeonKeyProgress.frostCitadel;
 
-    progress.firstKeyGranted = progress.firstKeyGranted === true;
-    progress.bossKillsSinceKey = Math.max(
-        0,
-        Math.floor(Number(progress.bossKillsSinceKey) || 0)
-    );
+  progress.firstKeyGranted = progress.firstKeyGranted === true;
+  progress.bossKillsSinceKey = Math.max(
+    0,
+    Math.floor(Number(progress.bossKillsSinceKey) || 0),
+  );
 
-    return progress;
+  return progress;
 }
 
-function tryGrantFrostCitadelKey(
-    defeatedEnemy,
-    locationId = player.location
-) {
-    if (
-        locationId !== "ice" ||
-        defeatedEnemy?.id !== "frost_queen"
-    ) {
-        return null;
+function tryGrantFrostCitadelKey(defeatedEnemy, locationId = player.location) {
+  if (locationId !== "ice" || defeatedEnemy?.id !== "frost_queen") {
+    return null;
+  }
+
+  const progress = ensureFrostCitadelKeyProgress();
+  let chance = 100;
+  let guaranteed = false;
+
+  if (progress.firstKeyGranted !== true) {
+    guaranteed = true;
+  } else {
+    progress.bossKillsSinceKey++;
+    chance = getGoblinHideoutKeyDropChance(progress.bossKillsSinceKey);
+
+    if (Math.random() * 100 > chance) {
+      const nextChance = getGoblinHideoutKeyDropChance(
+        progress.bossKillsSinceKey + 1,
+      );
+
+      addCombatLog(
+        "❄️ Królowa Mrozu nie pozostawiła klucza. " +
+          "Szansa wynosiła " +
+          chance +
+          "%. Szansa przy następnym bossie: " +
+          nextChance +
+          "%.",
+      );
+
+      return {
+        granted: false,
+        guaranteed: false,
+        chance,
+      };
     }
+  }
 
-    const progress = ensureFrostCitadelKeyProgress();
-    let chance = 100;
-    let guaranteed = false;
+  if (!addItemToInventory("frost_citadel_key", 1)) {
+    return null;
+  }
 
-    if (progress.firstKeyGranted !== true) {
-        guaranteed = true;
-    } else {
-        progress.bossKillsSinceKey++;
-        chance = getGoblinHideoutKeyDropChance(
-            progress.bossKillsSinceKey
-        );
+  progress.firstKeyGranted = true;
+  progress.bossKillsSinceKey = 0;
 
-        if (Math.random() * 100 > chance) {
-            const nextChance = getGoblinHideoutKeyDropChance(
-                progress.bossKillsSinceKey + 1
-            );
+  const message = guaranteed
+    ? "❄️ Pierwsze zwycięstwo nad Królową Mrozu zapewniło Klucz do Twierdzy Szronu!"
+    : "❄️ Królowa Mrozu pozostawiła Klucz do Twierdzy Szronu! Szansa wynosiła " +
+      chance +
+      "%.";
 
-            addCombatLog(
-                "❄️ Królowa Mrozu nie pozostawiła klucza. " +
-                "Szansa wynosiła " + chance +
-                "%. Szansa przy następnym bossie: " +
-                nextChance + "%."
-            );
+  addCombatLog(message);
 
-            return {
-                granted: false,
-                guaranteed: false,
-                chance
-            };
-        }
-    }
+  if (typeof addSystemLog === "function") {
+    addSystemLog(message, "dungeon");
+  }
 
-    if (!addItemToInventory("frost_citadel_key", 1)) {
-        return null;
-    }
+  if (typeof showNotification === "function") {
+    showNotification("Zdobyto Klucz do Twierdzy Szronu!", "success");
+  }
 
-    progress.firstKeyGranted = true;
-    progress.bossKillsSinceKey = 0;
-
-    const message = guaranteed
-        ? "❄️ Pierwsze zwycięstwo nad Królową Mrozu zapewniło Klucz do Twierdzy Szronu!"
-        : "❄️ Królowa Mrozu pozostawiła Klucz do Twierdzy Szronu! Szansa wynosiła " +
-        chance + "%.";
-
-    addCombatLog(message);
-
-    if (typeof addSystemLog === "function") {
-        addSystemLog(message, "dungeon");
-    }
-
-    if (typeof showNotification === "function") {
-        showNotification(
-            "Zdobyto Klucz do Twierdzy Szronu!",
-            "success"
-        );
-    }
-
-    return {
-        granted: true,
-        guaranteed,
-        chance
-    };
+  return {
+    granted: true,
+    guaranteed,
+    chance,
+  };
 }
 
 function ensureVolcanoHeartKeyProgress() {
-    if (
-        !player.dungeonKeyProgress ||
-        typeof player.dungeonKeyProgress !== "object" ||
-        Array.isArray(player.dungeonKeyProgress)
-    ) {
-        player.dungeonKeyProgress = {};
-    }
+  if (
+    !player.dungeonKeyProgress ||
+    typeof player.dungeonKeyProgress !== "object" ||
+    Array.isArray(player.dungeonKeyProgress)
+  ) {
+    player.dungeonKeyProgress = {};
+  }
 
-    if (
-        !player.dungeonKeyProgress.volcanoHeart ||
-        typeof player.dungeonKeyProgress.volcanoHeart !== "object"
-    ) {
-        player.dungeonKeyProgress.volcanoHeart = {
-            firstKeyGranted: false,
-            bossKillsSinceKey: 0
-        };
-    }
+  if (
+    !player.dungeonKeyProgress.volcanoHeart ||
+    typeof player.dungeonKeyProgress.volcanoHeart !== "object"
+  ) {
+    player.dungeonKeyProgress.volcanoHeart = {
+      firstKeyGranted: false,
+      bossKillsSinceKey: 0,
+    };
+  }
 
-    const progress = player.dungeonKeyProgress.volcanoHeart;
+  const progress = player.dungeonKeyProgress.volcanoHeart;
 
-    progress.firstKeyGranted = progress.firstKeyGranted === true;
-    progress.bossKillsSinceKey = Math.max(
-        0,
-        Math.floor(Number(progress.bossKillsSinceKey) || 0)
-    );
+  progress.firstKeyGranted = progress.firstKeyGranted === true;
+  progress.bossKillsSinceKey = Math.max(
+    0,
+    Math.floor(Number(progress.bossKillsSinceKey) || 0),
+  );
 
-    return progress;
+  return progress;
 }
 
-function tryGrantVolcanoHeartKey(
-    defeatedEnemy,
-    locationId = player.location
-) {
-    if (
-        locationId !== "volcano" ||
-        defeatedEnemy?.id !== "volcanic_dragon"
-    ) {
-        return null;
+function tryGrantVolcanoHeartKey(defeatedEnemy, locationId = player.location) {
+  if (locationId !== "volcano" || defeatedEnemy?.id !== "volcanic_dragon") {
+    return null;
+  }
+
+  const progress = ensureVolcanoHeartKeyProgress();
+  let chance = 100;
+  let guaranteed = false;
+
+  if (progress.firstKeyGranted !== true) {
+    guaranteed = true;
+  } else {
+    progress.bossKillsSinceKey++;
+    chance = getGoblinHideoutKeyDropChance(progress.bossKillsSinceKey);
+
+    if (Math.random() * 100 > chance) {
+      const nextChance = getGoblinHideoutKeyDropChance(
+        progress.bossKillsSinceKey + 1,
+      );
+
+      addCombatLog(
+        "🌋 Pradawny Smok Wulkanu nie pozostawił klucza. " +
+          "Szansa wynosiła " +
+          chance +
+          "%. Szansa przy następnym bossie: " +
+          nextChance +
+          "%.",
+      );
+
+      return {
+        granted: false,
+        guaranteed: false,
+        chance,
+      };
     }
+  }
 
-    const progress = ensureVolcanoHeartKeyProgress();
-    let chance = 100;
-    let guaranteed = false;
+  if (!addItemToInventory("volcano_heart_key", 1)) {
+    return null;
+  }
 
-    if (progress.firstKeyGranted !== true) {
-        guaranteed = true;
-    } else {
-        progress.bossKillsSinceKey++;
-        chance = getGoblinHideoutKeyDropChance(
-            progress.bossKillsSinceKey
-        );
+  progress.firstKeyGranted = true;
+  progress.bossKillsSinceKey = 0;
 
-        if (Math.random() * 100 > chance) {
-            const nextChance = getGoblinHideoutKeyDropChance(
-                progress.bossKillsSinceKey + 1
-            );
+  const message = guaranteed
+    ? "🌋 Pierwsze zwycięstwo nad Pradawnym Smokiem Wulkanu zapewniło Klucz do Serca Wulkanu!"
+    : "🌋 Pradawny Smok Wulkanu pozostawił Klucz do Serca Wulkanu! Szansa wynosiła " +
+      chance +
+      "%.";
 
-            addCombatLog(
-                "🌋 Pradawny Smok Wulkanu nie pozostawił klucza. " +
-                "Szansa wynosiła " + chance +
-                "%. Szansa przy następnym bossie: " +
-                nextChance + "%."
-            );
+  addCombatLog(message);
 
-            return {
-                granted: false,
-                guaranteed: false,
-                chance
-            };
-        }
-    }
+  if (typeof addSystemLog === "function") {
+    addSystemLog(message, "dungeon");
+  }
 
-    if (!addItemToInventory("volcano_heart_key", 1)) {
-        return null;
-    }
+  if (typeof showNotification === "function") {
+    showNotification("Zdobyto Klucz do Serca Wulkanu!", "success");
+  }
 
-    progress.firstKeyGranted = true;
-    progress.bossKillsSinceKey = 0;
-
-    const message = guaranteed
-        ? "🌋 Pierwsze zwycięstwo nad Pradawnym Smokiem Wulkanu zapewniło Klucz do Serca Wulkanu!"
-        : "🌋 Pradawny Smok Wulkanu pozostawił Klucz do Serca Wulkanu! Szansa wynosiła " +
-        chance + "%.";
-
-    addCombatLog(message);
-
-    if (typeof addSystemLog === "function") {
-        addSystemLog(message, "dungeon");
-    }
-
-    if (typeof showNotification === "function") {
-        showNotification(
-            "Zdobyto Klucz do Serca Wulkanu!",
-            "success"
-        );
-    }
-
-    return {
-        granted: true,
-        guaranteed,
-        chance
-    };
+  return {
+    granted: true,
+    guaranteed,
+    chance,
+  };
 }
 
 const dungeonKeyDropConfigs = {
-    goblinHideout: {
-        locationId: "forest",
-        bossId: "goblin_chief",
-        keyItemId: "goblin_hideout_key",
-        bossName: "Goblini Herszt",
-        keyName: "Klucz do Kryjówki Goblinów",
-        icon: "🗝️"
-    },
+  goblinHideout: {
+    locationId: "forest",
+    bossId: "goblin_chief",
+    keyItemId: "goblin_hideout_key",
+    bossName: "Goblini Herszt",
+    keyName: "Klucz do Kryjówki Goblinów",
+    icon: "🗝️",
+  },
 
-    koboldTunnels: {
-        locationId: "cave",
-        bossId: "kobold_king",
-        keyItemId: "kobold_tunnels_key",
-        bossName: "Król Koboldów",
-        keyName: "Klucz do Tuneli Koboldów",
-        icon: "⛏️"
-    },
+  koboldTunnels: {
+    locationId: "cave",
+    bossId: "kobold_king",
+    keyItemId: "kobold_tunnels_key",
+    bossName: "Król Koboldów",
+    keyName: "Klucz do Tuneli Koboldów",
+    icon: "⛏️",
+  },
 
-    guardianSanctum: {
-        locationId: "ruins",
-        bossId: "ancient_guardian",
-        keyItemId: "guardian_sanctum_key",
-        bossName: "Pradawny Strażnik",
-        keyName: "Klucz do Sanktuarium Strażnika",
-        icon: "🏛️"
-    },
+  guardianSanctum: {
+    locationId: "ruins",
+    bossId: "ancient_guardian",
+    keyItemId: "guardian_sanctum_key",
+    bossName: "Pradawny Strażnik",
+    keyName: "Klucz do Sanktuarium Strażnika",
+    icon: "🏛️",
+  },
 
-    frostCitadel: {
-        locationId: "ice",
-        bossId: "frost_queen",
-        keyItemId: "frost_citadel_key",
-        bossName: "Królowa Mrozu",
-        keyName: "Klucz do Twierdzy Szronu",
-        icon: "❄️"
-    },
+  frostCitadel: {
+    locationId: "ice",
+    bossId: "frost_queen",
+    keyItemId: "frost_citadel_key",
+    bossName: "Królowa Mrozu",
+    keyName: "Klucz do Twierdzy Szronu",
+    icon: "❄️",
+  },
 
-    volcanoHeart: {
-        locationId: "volcano",
-        bossId: "volcanic_dragon",
-        keyItemId: "volcano_heart_key",
-        bossName: "Pradawny Smok Wulkanu",
-        keyName: "Klucz do Serca Wulkanu",
-        icon: "🌋"
-    },
+  volcanoHeart: {
+    locationId: "volcano",
+    bossId: "volcanic_dragon",
+    keyItemId: "volcano_heart_key",
+    bossName: "Pradawny Smok Wulkanu",
+    keyName: "Klucz do Serca Wulkanu",
+    icon: "🌋",
+  },
 
-    abyssCitadel: {
-        locationId: "abyss",
-        bossId: "abyss_lord",
-        keyItemId: "abyss_citadel_key",
-        bossName: "Władca Otchłani",
-        keyName: "Klucz do Cytadeli Otchłani",
-        icon: "🌌"
-    },
+  abyssCitadel: {
+    locationId: "abyss",
+    bossId: "abyss_lord",
+    keyItemId: "abyss_citadel_key",
+    bossName: "Władca Otchłani",
+    keyName: "Klucz do Cytadeli Otchłani",
+    icon: "🌌",
+  },
 
-    prismaticSpire: {
-        locationId: "crystalPeaks",
-        bossId: "heart_of_the_mountain",
-        keyItemId: "crystal_spire_key",
-        bossName: "Serce Góry",
-        keyName: "Klucz do Pryzmatycznej Iglicy",
-        icon: "💎"
-    },
+  prismaticSpire: {
+    locationId: "crystalPeaks",
+    bossId: "heart_of_the_mountain",
+    keyItemId: "crystal_spire_key",
+    bossName: "Serce Góry",
+    keyName: "Klucz do Pryzmatycznej Iglicy",
+    icon: "💎",
+  },
 
-    deepPalace: {
-        locationId: "sunkenKingdom",
-        bossId: "crown_leviathan",
-        keyItemId: "deep_palace_key",
-        bossName: "Lewiatan Korony",
-        keyName: "Klucz do Pałacu Głębin",
-        icon: "🏛️"
-    }
+  deepPalace: {
+    locationId: "sunkenKingdom",
+    bossId: "crown_leviathan",
+    keyItemId: "deep_palace_key",
+    bossName: "Lewiatan Korony",
+    keyName: "Klucz do Pałacu Głębin",
+    icon: "🏛️",
+  },
 };
 
 function ensureDungeonKeyProgress(dungeonId) {
-    if (
-        !player.dungeonKeyProgress ||
-        typeof player.dungeonKeyProgress !== "object" ||
-        Array.isArray(player.dungeonKeyProgress)
-    ) {
-        player.dungeonKeyProgress = {};
-    }
+  if (
+    !player.dungeonKeyProgress ||
+    typeof player.dungeonKeyProgress !== "object" ||
+    Array.isArray(player.dungeonKeyProgress)
+  ) {
+    player.dungeonKeyProgress = {};
+  }
 
-    if (
-        !player.dungeonKeyProgress[dungeonId] ||
-        typeof player.dungeonKeyProgress[dungeonId] !== "object"
-    ) {
-        player.dungeonKeyProgress[dungeonId] = {
-            firstKeyGranted: false,
-            bossKillsSinceKey: 0
-        };
-    }
+  if (
+    !player.dungeonKeyProgress[dungeonId] ||
+    typeof player.dungeonKeyProgress[dungeonId] !== "object"
+  ) {
+    player.dungeonKeyProgress[dungeonId] = {
+      firstKeyGranted: false,
+      bossKillsSinceKey: 0,
+    };
+  }
 
-    const progress = player.dungeonKeyProgress[dungeonId];
+  const progress = player.dungeonKeyProgress[dungeonId];
 
-    progress.firstKeyGranted =
-        progress.firstKeyGranted === true;
+  progress.firstKeyGranted = progress.firstKeyGranted === true;
 
-    progress.bossKillsSinceKey = Math.max(
-        0,
-        Math.floor(Number(progress.bossKillsSinceKey) || 0)
-    );
+  progress.bossKillsSinceKey = Math.max(
+    0,
+    Math.floor(Number(progress.bossKillsSinceKey) || 0),
+  );
 
-    return progress;
+  return progress;
 }
 
 function tryGrantDungeonKey(defeatedEnemy, locationId = player.location) {
-    const matchedEntry = Object.entries(dungeonKeyDropConfigs).find(
-        ([dungeonId, config]) => {
-            return (
-                config.locationId === locationId &&
-                config.bossId === defeatedEnemy?.id
-            );
-        }
-    );
-    if (!matchedEntry) {
-        return null;
-    }
+  const matchedEntry = Object.entries(dungeonKeyDropConfigs).find(
+    ([dungeonId, config]) => {
+      return (
+        config.locationId === locationId && config.bossId === defeatedEnemy?.id
+      );
+    },
+  );
+  if (!matchedEntry) {
+    return null;
+  }
 
-    const [dungeonId, config] = matchedEntry;
-    const progress = ensureDungeonKeyProgress(dungeonId);
+  const [dungeonId, config] = matchedEntry;
+  const progress = ensureDungeonKeyProgress(dungeonId);
 
-    let chance = 100;
-    let guaranteed = false;
+  let chance = 100;
+  let guaranteed = false;
 
-    if (progress.firstKeyGranted !== true) {
-        guaranteed = true;
-    } else {
-        progress.bossKillsSinceKey++;
+  if (progress.firstKeyGranted !== true) {
+    guaranteed = true;
+  } else {
+    progress.bossKillsSinceKey++;
 
-        chance = getGoblinHideoutKeyDropChance(
-            progress.bossKillsSinceKey
-        );
+    chance = getGoblinHideoutKeyDropChance(progress.bossKillsSinceKey);
 
-        if (Math.random() * 100 > chance) {
-            const nextChance = getGoblinHideoutKeyDropChance(
-                progress.bossKillsSinceKey + 1
-            );
+    if (Math.random() * 100 > chance) {
+      const nextChance = getGoblinHideoutKeyDropChance(
+        progress.bossKillsSinceKey + 1,
+      );
 
-            addCombatLog(
-                config.icon + " " +
-                config.bossName +
-                " nie pozostawił klucza. Szansa wynosiła " +
-                chance +
-                "%. Szansa przy następnym bossie: " +
-                nextChance +
-                "%."
-            );
+      addCombatLog(
+        config.icon +
+          " " +
+          config.bossName +
+          " nie pozostawił klucza. Szansa wynosiła " +
+          chance +
+          "%. Szansa przy następnym bossie: " +
+          nextChance +
+          "%.",
+      );
 
-            return {
-                granted: false,
-                guaranteed: false,
-                chance,
-                dungeonId
-            };
-        }
-    }
-
-    if (!addItemToInventory(config.keyItemId, 1)) {
-        return null;
-    }
-
-    progress.firstKeyGranted = true;
-    progress.bossKillsSinceKey = 0;
-
-    const message = guaranteed
-        ? config.icon + " Pierwsze zwycięstwo nad " +
-        config.bossName +
-        " zapewniło " +
-        config.keyName +
-        "!"
-        : config.icon + " " +
-        config.bossName +
-        " pozostawił " +
-        config.keyName +
-        "! Szansa wynosiła " +
-        chance +
-        "%.";
-
-    addCombatLog(message);
-
-    if (typeof addSystemLog === "function") {
-        addSystemLog(message, "dungeon");
-    }
-
-    if (typeof showNotification === "function") {
-        showNotification(
-            "Zdobyto " + config.keyName + "!",
-            "success"
-        );
-    }
-
-    return {
-        granted: true,
-        guaranteed,
+      return {
+        granted: false,
+        guaranteed: false,
         chance,
-        dungeonId
-    };
+        dungeonId,
+      };
+    }
+  }
+
+  if (!addItemToInventory(config.keyItemId, 1)) {
+    return null;
+  }
+
+  progress.firstKeyGranted = true;
+  progress.bossKillsSinceKey = 0;
+
+  const message = guaranteed
+    ? config.icon +
+      " Pierwsze zwycięstwo nad " +
+      config.bossName +
+      " zapewniło " +
+      config.keyName +
+      "!"
+    : config.icon +
+      " " +
+      config.bossName +
+      " pozostawił " +
+      config.keyName +
+      "! Szansa wynosiła " +
+      chance +
+      "%.";
+
+  addCombatLog(message);
+
+  if (typeof addSystemLog === "function") {
+    addSystemLog(message, "dungeon");
+  }
+
+  if (typeof showNotification === "function") {
+    showNotification("Zdobyto " + config.keyName + "!", "success");
+  }
+
+  return {
+    granted: true,
+    guaranteed,
+    chance,
+    dungeonId,
+  };
 }
 
 function applyEnemySlow(durationSeconds, skipChance) {
-    enemySlowUntil =
-        Date.now() + durationSeconds * 1000;
+  enemySlowUntil = Date.now() + durationSeconds * 1000;
 
-    enemyAttackSkipChance = Math.max(
-        0,
-        Math.min(90, skipChance || 0)
-    );
+  enemyAttackSkipChance = Math.max(0, Math.min(90, skipChance || 0));
 }
 
 function isEnemySlowed() {
-    return enemySlowUntil > Date.now();
+  return enemySlowUntil > Date.now();
 }
 
 function shouldSlowedEnemySkipAttack() {
-    if (!isEnemySlowed()) {
-        return false;
-    }
+  if (!isEnemySlowed()) {
+    return false;
+  }
 
-    const roll = Math.random() * 100;
+  const roll = Math.random() * 100;
 
-    return roll <= enemyAttackSkipChance;
+  return roll <= enemyAttackSkipChance;
 }
 
 function clearEnemyCombatEffects() {
-    enemySlowUntil = 0;
-    enemyAttackSkipChance = 0;
+  enemySlowUntil = 0;
+  enemyAttackSkipChance = 0;
 
-    if (
-        typeof clearEquipmentSetEnemyEffects ===
-        "function"
-    ) {
-        clearEquipmentSetEnemyEffects();
-    }
+  if (typeof clearEquipmentSetEnemyEffects === "function") {
+    clearEquipmentSetEnemyEffects();
+  }
 
-    if (
-        typeof clearWarriorBleeds ===
-        "function"
-    ) {
-        clearWarriorBleeds();
-    }
+  if (typeof clearWarriorBleeds === "function") {
+    clearWarriorBleeds();
+  }
 
-    if (
-        typeof clearIgnite ===
-        "function"
-    ) {
-        clearIgnite();
-    }
+  if (typeof clearIgnite === "function") {
+    clearIgnite();
+  }
 
-    if (
-        typeof clearRoguePoisons ===
-        "function"
-    ) {
-        clearRoguePoisons();
-    }
+  if (typeof clearRoguePoisons === "function") {
+    clearRoguePoisons();
+  }
 }
 
-function getPlayerAttackIntervalMs(
-    includeWarriorBonuses = true
-) {
-    const weaponId =
-        player.equipment.weapon;
+function getPlayerAttackIntervalMs(includeWarriorBonuses = true) {
+  const weaponId = player.equipment.weapon;
 
-    const weapon =
-        weaponId
-            ? items[weaponId]
-            : null;
+  const weapon = weaponId ? items[weaponId] : null;
 
-    const combatSettings =
-        getWeaponCombatSettings(
-            weapon
-        );
+  const combatSettings = getWeaponCombatSettings(weapon);
 
-    const warriorAttackSpeed =
-        includeWarriorBonuses &&
-            typeof getWarriorBerserkerAttackSpeedPercent ===
-            "function"
-            ? getWarriorBerserkerAttackSpeedPercent()
-            : 0;
+  const warriorAttackSpeed =
+    includeWarriorBonuses &&
+    typeof getWarriorBerserkerAttackSpeedPercent === "function"
+      ? getWarriorBerserkerAttackSpeedPercent()
+      : 0;
 
-    const hunterAttackSpeed =
-        includeWarriorBonuses &&
-            typeof getHunterAttackSpeedPercent ===
-            "function"
-            ? getHunterAttackSpeedPercent()
-            : 0;
+  const hunterAttackSpeed =
+    includeWarriorBonuses && typeof getHunterAttackSpeedPercent === "function"
+      ? getHunterAttackSpeedPercent()
+      : 0;
 
-    const rogueAttackSpeed =
-        includeWarriorBonuses &&
-            typeof getRogueAttackSpeedPercent ===
-            "function"
-            ? getRogueAttackSpeedPercent()
-            : 0;
+  const rogueAttackSpeed =
+    includeWarriorBonuses && typeof getRogueAttackSpeedPercent === "function"
+      ? getRogueAttackSpeedPercent()
+      : 0;
 
-    return Math.max(
-        100,
-        Math.floor(
-            combatSettings.attackIntervalMs /
-            (
-                1 +
-                (
-                    warriorAttackSpeed +
-                    hunterAttackSpeed +
-                    rogueAttackSpeed
-                ) /
-                100
-            )
-        )
-    );
+  return Math.max(
+    100,
+    Math.floor(
+      combatSettings.attackIntervalMs /
+        (1 + (warriorAttackSpeed + hunterAttackSpeed + rogueAttackSpeed) / 100),
+    ),
+  );
 }
 
 function schedulePlayerAttack() {
+  if (!isFighting) {
+    return;
+  }
+
+  const attackInterval = getPlayerAttackIntervalMs();
+
+  intervalId = setTimeout(() => {
     if (!isFighting) {
-        return;
+      return;
     }
 
-    const attackInterval =
-        getPlayerAttackIntervalMs();
-
-    intervalId = setTimeout(() => {
-        if (!isFighting) {
-            return;
-        }
-
-        autoAttack();
-        schedulePlayerAttack();
-    }, attackInterval);
+    autoAttack();
+    schedulePlayerAttack();
+  }, attackInterval);
 }
 
 function autoAttack() {
-    if (isRespawning) {
-        return;
+  if (isRespawning) {
+    return;
+  }
+
+  const attackResult = calculatePlayerDamage();
+
+  const bleedDamage =
+    typeof collectWarriorBleedDamage === "function"
+      ? collectWarriorBleedDamage()
+      : 0;
+
+  const igniteDamage =
+    typeof collectIgniteDamage === "function" ? collectIgniteDamage() : 0;
+
+  const poisonDamage =
+    typeof collectRoguePoisonDamage === "function"
+      ? collectRoguePoisonDamage()
+      : 0;
+
+  const dragonBurnDamage =
+    typeof collectDragonWrathBurnDamage === "function"
+      ? collectDragonWrathBurnDamage()
+      : 0;
+
+  enemy.hp -=
+    attackResult.damage +
+    bleedDamage +
+    igniteDamage +
+    poisonDamage +
+    dragonBurnDamage;
+
+  if (attackResult.isCritical) {
+    addCombatLog(
+      "💥 Krytyczne trafienie! Zadałeś " + attackResult.damage + " obrażeń.",
+    );
+  } else {
+    addCombatLog("⚔️ Zadałeś " + attackResult.damage + " obrażeń.");
+  }
+
+  if (attackResult.warriorPowerStrike) {
+    addCombatLog("💪 Potężne uderzenie zwiększyło obrażenia!");
+  }
+
+  if (attackResult.hunterSniperShot) {
+    addCombatLog("🎯 Snajper: precyzyjny strzał trafił w słaby punkt!");
+  }
+
+  if (attackResult.hunterDoubleShot) {
+    addCombatLog(
+      "🏹 " +
+        (attackResult.hunterAdditionalArrowCount > 1
+          ? "Grad strzał"
+          : "Podwójny strzał") +
+        " zadał dodatkowo " +
+        attackResult.hunterAdditionalArrowDamage +
+        " obrażeń.",
+    );
+  }
+
+  if (attackResult.hunterCounterShot) {
+    addCombatLog("💨 Strzał odwetowy zwiększył obrażenia.");
+  }
+
+  if (attackResult.rogueShadowstep) {
+    addCombatLog("💨 Krok cienia wzmocnił atak.");
+  }
+
+  if (attackResult.rogueExecutioner) {
+    addCombatLog(
+      "🗡️ Egzekutor zwiększył obrażenia przeciwko osłabionemu przeciwnikowi.",
+    );
+  }
+
+  if (attackResult.rogueBladeDance) {
+    addCombatLog(
+      "⚔️ Taniec ostrzy zadał dodatkowo " +
+        attackResult.rogueBladeDanceDamage +
+        " obrażeń.",
+    );
+  }
+
+  if (bleedDamage > 0) {
+    addCombatLog("🩸 Krwawienie zadało " + bleedDamage + " obrażeń.");
+  }
+
+  if (igniteDamage > 0) {
+    addCombatLog("🔥 Podpalenie zadało " + igniteDamage + " obrażeń.");
+  }
+
+  if (poisonDamage > 0) {
+    addCombatLog("☠️ Trucizna zadała " + poisonDamage + " obrażeń.");
+  }
+
+  if (dragonBurnDamage > 0) {
+    addCombatLog(
+      "🔥 Smoczy gniew zadaje " + dragonBurnDamage + " obrażeń od podpalenia.",
+    );
+  }
+
+  if (
+    enemy.hp > 0 &&
+    typeof tryApplyWarriorBleed === "function" &&
+    tryApplyWarriorBleed(attackResult.damage)
+  ) {
+    addCombatLog("🩸 Przeciwnik zaczyna krwawić.");
+  }
+
+  if (
+    enemy.hp > 0 &&
+    typeof tryApplyRoguePoison === "function" &&
+    tryApplyRoguePoison(attackResult.damage)
+  ) {
+    addCombatLog("☠️ Ostrze zatruło przeciwnika.");
+  }
+
+  if (
+    enemy.hp > 0 &&
+    attackResult.isCritical &&
+    typeof applyDragonWrathBurn === "function"
+  ) {
+    const dragonBurnResult = applyDragonWrathBurn(attackResult.damage);
+
+    if (dragonBurnResult.applied) {
+      addCombatLog(
+        "🔥 Smoczy gniew " +
+          (dragonBurnResult.refreshed
+            ? "odnawia podpalenie"
+            : "podpala przeciwnika") +
+          " na " +
+          dragonBurnResult.ticksRemaining +
+          " tury (" +
+          dragonBurnResult.damagePerTick +
+          " obrażeń na turę).",
+      );
+    }
+  }
+
+  if (enemy.hp > 0 && typeof castSelectedOffensiveSpell === "function") {
+    castSelectedOffensiveSpell();
+  }
+
+  if (enemy.hp <= 0) {
+    clearEnemyCombatEffects();
+
+    addCombatLog("☠️ Pokonałeś: " + enemy.name + ".");
+
+    player.gold += enemy.gold;
+
+    player.exp += enemy.exp;
+
+    addCombatLog(
+      "⭐ Zdobyto " + enemy.exp + " EXP i " + enemy.gold + " złota.",
+    );
+
+    const defeatedEnemyWasBoss = player.isBossFight === true;
+
+    const defeatedDungeonEnemy =
+      enemy.isDungeonEncounter === true &&
+      typeof isDungeonRunActive === "function" &&
+      isDungeonRunActive();
+
+    const defeatedEnemyType = defeatedEnemyWasBoss
+      ? "boss"
+      : enemy.encounterType || "normal";
+
+    if (typeof recordBestiaryKill === "function") {
+      recordBestiaryKill(enemy, defeatedEnemyType, player.location);
     }
 
-    const attackResult = calculatePlayerDamage();
+    rollLoot(enemy);
 
-    const bleedDamage =
-        typeof collectWarriorBleedDamage ===
-            "function"
-            ? collectWarriorBleedDamage()
-            : 0;
+    if (defeatedDungeonEnemy) {
+      updateQuests(enemy.name);
 
-    const igniteDamage =
-        typeof collectIgniteDamage ===
-            "function"
-            ? collectIgniteDamage()
-            : 0;
+      if (typeof handleDungeonEnemyDefeat === "function") {
+        handleDungeonEnemyDefeat(enemy);
+      }
 
-    const poisonDamage =
-        typeof collectRoguePoisonDamage ===
-            "function"
-            ? collectRoguePoisonDamage()
-            : 0;
+      checkLevelUp();
+      saveGame();
+      refreshCombatInterface();
 
-    const dragonBurnDamage =
-        typeof collectDragonWrathBurnDamage ===
-            "function"
-            ? collectDragonWrathBurnDamage()
-            : 0;
+      return;
+    }
 
-    enemy.hp -=
-        attackResult.damage +
-        bleedDamage +
-        igniteDamage +
-        poisonDamage +
-        dragonBurnDamage;
+    if (typeof tryOpenAutomaticHuntingChest === "function") {
+      tryOpenAutomaticHuntingChest(enemy, defeatedEnemyType);
+    }
 
-    if (attackResult.isCritical) {
-        addCombatLog("💥 Krytyczne trafienie! Zadałeś " + attackResult.damage + " obrażeń.");
+    if (defeatedEnemyWasBoss && typeof tryGrantDungeonKey === "function") {
+      tryGrantDungeonKey(enemy, player.location);
+    }
+
+    updateQuests(enemy.name);
+
+    if (typeof updateLocationMasteryAfterKill === "function") {
+      updateLocationMasteryAfterKill(defeatedEnemyWasBoss, defeatedEnemyType);
+    }
+
+    if (player.isBossFight) {
+      const defeatedBossName = enemy.name;
+      const progress = getCurrentLocationProgress();
+
+      progress.bossKillsCounter = 0;
+      progress.bossChance = 0;
+
+      player.isBossFight = false;
+      player.bossKillsCounter = 0;
+      player.bossChance = 0;
+
+      addCombatLog("👑 Boss został pokonany!");
+      spawnEnemy();
+      applyGeneratedMonsterBalance();
+      addCombatLog("👹 Pojawił się nowy przeciwnik: " + enemy.name + ".");
     } else {
-        addCombatLog("⚔️ Zadałeś " + attackResult.damage + " obrażeń.");
+      updateBossChanceAfterKill();
+
+      const bossSpawned = trySpawnBoss();
+
+      if (!bossSpawned) {
+        spawnEnemy();
+        applyGeneratedMonsterBalance();
+        addCombatLog("👹 Pojawił się nowy przeciwnik: " + enemy.name + ".");
+      }
+    }
+    if (typeof refreshLocationProgressInterface === "function") {
+      refreshLocationProgressInterface(player.location);
     }
 
-    if (
-        attackResult
-            .warriorPowerStrike
-    ) {
-        addCombatLog(
-            "💪 Potężne uderzenie zwiększyło obrażenia!"
-        );
+    if (typeof refreshJournalLocationInterface === "function") {
+      refreshJournalLocationInterface();
     }
 
-    if (
-        attackResult
-            .hunterSniperShot
-    ) {
-        addCombatLog(
-            "🎯 Snajper: precyzyjny strzał trafił w słaby punkt!"
-        );
-    }
-
-    if (
-        attackResult
-            .hunterDoubleShot
-    ) {
-        addCombatLog(
-            "🏹 " +
-            (
-                attackResult
-                    .hunterAdditionalArrowCount >
-                    1
-                    ? "Grad strzał"
-                    : "Podwójny strzał"
-            ) +
-            " zadał dodatkowo " +
-            attackResult
-                .hunterAdditionalArrowDamage +
-            " obrażeń."
-        );
-    }
-
-    if (
-        attackResult
-            .hunterCounterShot
-    ) {
-        addCombatLog(
-            "💨 Strzał odwetowy zwiększył obrażenia."
-        );
-    }
-
-    if (
-        attackResult
-            .rogueShadowstep
-    ) {
-        addCombatLog(
-            "💨 Krok cienia wzmocnił atak."
-        );
-    }
-
-    if (
-        attackResult
-            .rogueExecutioner
-    ) {
-        addCombatLog(
-            "🗡️ Egzekutor zwiększył obrażenia przeciwko osłabionemu przeciwnikowi."
-        );
-    }
-
-    if (
-        attackResult
-            .rogueBladeDance
-    ) {
-        addCombatLog(
-            "⚔️ Taniec ostrzy zadał dodatkowo " +
-            attackResult
-                .rogueBladeDanceDamage +
-            " obrażeń."
-        );
-    }
-
-    if (bleedDamage > 0) {
-        addCombatLog(
-            "🩸 Krwawienie zadało " +
-            bleedDamage +
-            " obrażeń."
-        );
-    }
-
-    if (igniteDamage > 0) {
-        addCombatLog(
-            "🔥 Podpalenie zadało " +
-            igniteDamage +
-            " obrażeń."
-        );
-    }
-
-    if (poisonDamage > 0) {
-        addCombatLog(
-            "☠️ Trucizna zadała " +
-            poisonDamage +
-            " obrażeń."
-        );
-    }
-
-    if (dragonBurnDamage > 0) {
-        addCombatLog(
-            "🔥 Smoczy gniew zadaje " +
-            dragonBurnDamage +
-            " obrażeń od podpalenia."
-        );
-    }
-
-    if (
-        enemy.hp > 0 &&
-        typeof tryApplyWarriorBleed ===
-        "function" &&
-        tryApplyWarriorBleed(
-            attackResult.damage
-        )
-    ) {
-        addCombatLog(
-            "🩸 Przeciwnik zaczyna krwawić."
-        );
-    }
-
-    if (
-        enemy.hp > 0 &&
-        typeof tryApplyRoguePoison ===
-        "function" &&
-        tryApplyRoguePoison(
-            attackResult.damage
-        )
-    ) {
-        addCombatLog(
-            "☠️ Ostrze zatruło przeciwnika."
-        );
-    }
-
-    if (
-        enemy.hp > 0 &&
-        attackResult.isCritical &&
-        typeof applyDragonWrathBurn ===
-        "function"
-    ) {
-        const dragonBurnResult =
-            applyDragonWrathBurn(
-                attackResult.damage
-            );
-
-        if (dragonBurnResult.applied) {
-            addCombatLog(
-                "🔥 Smoczy gniew " +
-                (
-                    dragonBurnResult.refreshed
-                        ? "odnawia podpalenie"
-                        : "podpala przeciwnika"
-                ) +
-                " na " +
-                dragonBurnResult
-                    .ticksRemaining +
-                " tury (" +
-                dragonBurnResult
-                    .damagePerTick +
-                " obrażeń na turę)."
-            );
-        }
-    }
-
-    if (
-        enemy.hp > 0 &&
-        typeof castSelectedOffensiveSpell === "function"
-    ) {
-        castSelectedOffensiveSpell();
-    }
-
-    if (enemy.hp <= 0) {
-        clearEnemyCombatEffects();
-
-        addCombatLog(
-            "☠️ Pokonałeś: " +
-            enemy.name +
-            "."
-        );
-
-        player.gold +=
-            enemy.gold;
-
-        player.exp +=
-            enemy.exp;
-
-        addCombatLog(
-            "⭐ Zdobyto " +
-            enemy.exp +
-            " EXP i " +
-            enemy.gold +
-            " złota."
-        );
-
-        const defeatedEnemyWasBoss =
-            player.isBossFight === true;
-
-        const defeatedDungeonEnemy =
-            enemy.isDungeonEncounter === true &&
-            typeof isDungeonRunActive === "function" &&
-            isDungeonRunActive();
-
-        const defeatedEnemyType =
-            defeatedEnemyWasBoss
-                ? "boss"
-                : (
-                    enemy.encounterType ||
-                    "normal"
-                );
-
-        if (
-            typeof recordBestiaryKill ===
-            "function"
-        ) {
-            recordBestiaryKill(
-                enemy,
-                defeatedEnemyType,
-                player.location
-            );
-        }
-
-        rollLoot(enemy);
-
-        if (defeatedDungeonEnemy) {
-            updateQuests(enemy.name);
-
-            if (
-                typeof handleDungeonEnemyDefeat ===
-                "function"
-            ) {
-                handleDungeonEnemyDefeat(enemy);
-            }
-
-            checkLevelUp();
-            saveGame();
-            refreshCombatInterface();
-
-            return;
-        }
-
-        if (
-            typeof tryOpenAutomaticHuntingChest ===
-            "function"
-        ) {
-            tryOpenAutomaticHuntingChest(
-                enemy,
-                defeatedEnemyType
-            );
-        }
-
-        if (
-            defeatedEnemyWasBoss &&
-            typeof tryGrantDungeonKey === "function"
-        ) {
-            tryGrantDungeonKey(enemy, player.location);
-        }
-
-        updateQuests(enemy.name);
-
-        if (
-            typeof updateLocationMasteryAfterKill ===
-            "function"
-        ) {
-            updateLocationMasteryAfterKill(
-                defeatedEnemyWasBoss,
-                defeatedEnemyType
-            );
-        }
-
-        if (player.isBossFight) {
-            const defeatedBossName = enemy.name;
-            const progress = getCurrentLocationProgress();
-
-            progress.bossKillsCounter = 0;
-            progress.bossChance = 0;
-
-            player.isBossFight = false;
-            player.bossKillsCounter = 0;
-            player.bossChance = 0;
-
-            addCombatLog("👑 Boss został pokonany!");
-            spawnEnemy();
-            addCombatLog("👹 Pojawił się nowy przeciwnik: " + enemy.name + ".");
-        } else {
-            updateBossChanceAfterKill();
-
-            const bossSpawned = trySpawnBoss();
-
-            if (!bossSpawned) {
-                spawnEnemy();
-                addCombatLog("👹 Pojawił się nowy przeciwnik: " + enemy.name + ".");
-            }
-        }
-        if (
-            typeof refreshLocationProgressInterface ===
-            "function"
-        ) {
-            refreshLocationProgressInterface(
-                player.location
-            );
-        }
-
-        if (
-            typeof refreshJournalLocationInterface ===
-            "function"
-        ) {
-            refreshJournalLocationInterface();
-        }
-
-        checkLevelUp();
-        saveGame();
-        refreshCombatInterface();
-
-        return;
-    }
-
-
+    checkLevelUp();
     saveGame();
     refreshCombatInterface();
+
+    return;
+  }
+
+  saveGame();
+  refreshCombatInterface();
 }
 
 function autoEnemyAttack() {
-    if (
-        !isFighting ||
-        isRespawning
-    ) {
-        return;
-    }
+  if (!isFighting || isRespawning) {
+    return;
+  }
 
-    if (
-        !enemy ||
-        enemy.hp <= 0
-    ) {
-        return;
-    }
+  if (!enemy || enemy.hp <= 0) {
+    return;
+  }
 
-    enemyAttackPlayer();
+  enemyAttackPlayer();
 
-    saveGame();
-    refreshCombatInterface();
+  saveGame();
+  refreshCombatInterface();
 }
 
 function enemyAttackPlayer() {
-    const derived = getDerivedStats();
+  const derived = getDerivedStats();
 
-    if (
-        typeof castSelectedDefensiveSpell === "function"
-    ) {
-        castSelectedDefensiveSpell();
-    }
+  if (typeof castSelectedDefensiveSpell === "function") {
+    castSelectedDefensiveSpell();
+  }
 
-    const regenerationHealing =
-        typeof collectRegenerationHealing ===
-            "function"
-            ? collectRegenerationHealing()
-            : 0;
+  const regenerationHealing =
+    typeof collectRegenerationHealing === "function"
+      ? collectRegenerationHealing()
+      : 0;
 
-    if (regenerationHealing > 0) {
-        addCombatLog(
-            "🌿 Regeneracja przywraca " +
-            regenerationHealing +
-            " HP."
-        );
-    }
+  if (regenerationHealing > 0) {
+    addCombatLog("🌿 Regeneracja przywraca " + regenerationHealing + " HP.");
+  }
 
-    const foodRegenerationHealing =
-        typeof collectFoodRegenerationHealing ===
-            "function"
-            ? collectFoodRegenerationHealing()
-            : 0;
+  const foodRegenerationHealing =
+    typeof collectFoodRegenerationHealing === "function"
+      ? collectFoodRegenerationHealing()
+      : 0;
 
-    if (
-        foodRegenerationHealing > 0
-    ) {
-        addCombatLog(
-            "🍲 Aktywny posiłek przywraca " +
-            foodRegenerationHealing +
-            " HP."
-        );
-    }
-
-    if (
-        typeof shouldSlowedEnemySkipAttack === "function" &&
-        shouldSlowedEnemySkipAttack()
-    ) {
-        addCombatLog(
-            "❄️ Spowolniony przeciwnik nie zdążył zaatakować."
-        );
-
-        return;
-    }
-
-    if (
-        typeof consumeMirrorImageCharge ===
-        "function" &&
-        consumeMirrorImageCharge()
-    ) {
-        addCombatLog(
-            "🪞 Lustrzane odbicie przyjęło atak przeciwnika."
-        );
-
-        return;
-    }
-
-    const dodgeRoll = Math.random() * 100;
-    const didDodge =
-        dodgeRoll <= derived.dodgeChance;
-
-    if (didDodge) {
-        addCombatLog(
-            "💨 Uniknąłeś ataku potwora."
-        );
-
-        const counterCharges =
-            typeof registerHunterDodge ===
-                "function"
-                ? registerHunterDodge()
-                : 0;
-
-        if (counterCharges > 0) {
-            addCombatLog(
-                "🏹 Unik przygotował " +
-                (
-                    counterCharges === 1
-                        ? "strzał odwetowy."
-                        : counterCharges +
-                        " strzały odwetowe."
-                )
-            );
-        }
-
-        const shadowstepCharges =
-            typeof registerRogueDodge ===
-                "function"
-                ? registerRogueDodge()
-                : 0;
-
-        if (shadowstepCharges > 0) {
-            addCombatLog(
-                "💨 Unik przygotował Krok cienia."
-            );
-        }
-
-        return;
-    }
-
-    const rawDamage =
-        enemy.attack || 1;
-
-    const flatArmor =
-        Math.max(
-            0,
-            Number(
-                derived.armor
-            ) || 0
-        );
-
-    const damageAfterArmor =
-        Math.max(
-            1,
-            rawDamage - flatArmor
-        );
-
-    const enduranceDamageReduction =
-        Math.max(
-            0,
-            Math.min(
-                95,
-                Number(
-                    derived.defense
-                ) || 0
-            )
-        );
-
-    let reducedDamage = Math.max(
-        1,
-        Math.floor(
-            damageAfterArmor *
-            (
-                1 -
-                enduranceDamageReduction /
-                100
-            )
-        )
+  if (foodRegenerationHealing > 0) {
+    addCombatLog(
+      "🍲 Aktywny posiłek przywraca " + foodRegenerationHealing + " HP.",
     );
+  }
 
-    const barrierReduction =
-        typeof getArcaneBarrierDamageReduction ===
-            "function"
-            ? getArcaneBarrierDamageReduction()
-            : 0;
+  if (
+    typeof shouldSlowedEnemySkipAttack === "function" &&
+    shouldSlowedEnemySkipAttack()
+  ) {
+    addCombatLog("❄️ Spowolniony przeciwnik nie zdążył zaatakować.");
 
-    if (barrierReduction > 0) {
-        reducedDamage = Math.max(
-            1,
-            Math.floor(
-                reducedDamage *
-                (1 - barrierReduction / 100)
-            )
-        );
+    return;
+  }
+
+  if (
+    typeof consumeMirrorImageCharge === "function" &&
+    consumeMirrorImageCharge()
+  ) {
+    addCombatLog("🪞 Lustrzane odbicie przyjęło atak przeciwnika.");
+
+    return;
+  }
+
+  const dodgeRoll = Math.random() * 100;
+  const didDodge = dodgeRoll <= derived.dodgeChance;
+
+  if (didDodge) {
+    addCombatLog("💨 Uniknąłeś ataku potwora.");
+
+    const counterCharges =
+      typeof registerHunterDodge === "function" ? registerHunterDodge() : 0;
+
+    if (counterCharges > 0) {
+      addCombatLog(
+        "🏹 Unik przygotował " +
+          (counterCharges === 1
+            ? "strzał odwetowy."
+            : counterCharges + " strzały odwetowe."),
+      );
     }
 
-    const potionDefenseReduction =
-        typeof getActivePotionEffectValue ===
-            "function"
-            ? getActivePotionEffectValue(
-                "combat_defense"
-            )
-            : 0;
+    const shadowstepCharges =
+      typeof registerRogueDodge === "function" ? registerRogueDodge() : 0;
 
-    if (
-        potionDefenseReduction > 0 &&
-        typeof applyCombatDefensePotionReduction ===
-        "function"
-    ) {
-        reducedDamage =
-            applyCombatDefensePotionReduction(
-                reducedDamage
-            );
+    if (shadowstepCharges > 0) {
+      addCombatLog("💨 Unik przygotował Krok cienia.");
     }
 
-    const warriorDamageReduction =
-        typeof getWarriorReceivedDamageReduction ===
-            "function"
-            ? getWarriorReceivedDamageReduction()
-            : 0;
+    return;
+  }
 
-    if (
-        warriorDamageReduction > 0
-    ) {
-        reducedDamage = Math.max(
-            1,
-            Math.floor(
-                reducedDamage *
-                (
-                    1 -
-                    warriorDamageReduction /
-                    100
-                )
-            )
-        );
-    }
+  const rawDamage = enemy.attack || 1;
 
-    const guardianDamageReduction =
-        typeof getGuardianReceivedDamageReduction ===
-            "function"
-            ? getGuardianReceivedDamageReduction()
-            : 0;
+  const flatArmor = Math.max(0, Number(derived.armor) || 0);
 
-    if (
-        guardianDamageReduction > 0
-    ) {
-        reducedDamage = Math.max(
-            1,
-            Math.floor(
-                reducedDamage *
-                (
-                    1 -
-                    guardianDamageReduction /
-                    100
-                )
-            )
-        );
-    }
+  const damageAfterArmor = Math.max(1, rawDamage - flatArmor);
 
-    const commanderDefenseResult =
-        typeof applyCommanderDefenseToDamage ===
-            "function"
-            ? applyCommanderDefenseToDamage(
-                reducedDamage,
-                derived.maxHp
-            )
-            : {
-                damage: reducedDamage,
-                triggered: false,
-                active: false,
-                reducedBy: 0,
-                chargesRemaining: 0
-            };
+  const enduranceDamageReduction = Math.max(
+    0,
+    Math.min(95, Number(derived.defense) || 0),
+  );
 
-    reducedDamage =
-        commanderDefenseResult.damage;
+  let reducedDamage = Math.max(
+    1,
+    Math.floor(damageAfterArmor * (1 - enduranceDamageReduction / 100)),
+  );
 
-    if (commanderDefenseResult.triggered) {
-        addCombatLog(
-            "🛡️ Niezłomna obrona aktywowała się: obrażenia -20% przez 3 ataki przeciwnika."
-        );
-    }
+  const barrierReduction =
+    typeof getArcaneBarrierDamageReduction === "function"
+      ? getArcaneBarrierDamageReduction()
+      : 0;
 
-    const manaShieldResult =
-        typeof applyManaShieldToDamage ===
-            "function"
-            ? applyManaShieldToDamage(
-                reducedDamage
-            )
-            : {
-                damage:
-                    reducedDamage,
-                absorbed:
-                    0,
-                manaSpent:
-                    0
-            };
+  if (barrierReduction > 0) {
+    reducedDamage = Math.max(
+      1,
+      Math.floor(reducedDamage * (1 - barrierReduction / 100)),
+    );
+  }
 
-    reducedDamage =
-        manaShieldResult.damage;
+  const potionDefenseReduction =
+    typeof getActivePotionEffectValue === "function"
+      ? getActivePotionEffectValue("combat_defense")
+      : 0;
 
-    const explorationShieldResult =
-        typeof absorbExplorationRespawnShieldDamage ===
-            "function"
-            ? absorbExplorationRespawnShieldDamage(
-                reducedDamage
-            )
-            : {
-                damage:
-                    reducedDamage,
+  if (
+    potionDefenseReduction > 0 &&
+    typeof applyCombatDefensePotionReduction === "function"
+  ) {
+    reducedDamage = applyCombatDefensePotionReduction(reducedDamage);
+  }
 
-                absorbedDamage:
-                    0,
+  const warriorDamageReduction =
+    typeof getWarriorReceivedDamageReduction === "function"
+      ? getWarriorReceivedDamageReduction()
+      : 0;
 
-                remainingShield:
-                    0
-            };
+  if (warriorDamageReduction > 0) {
+    reducedDamage = Math.max(
+      1,
+      Math.floor(reducedDamage * (1 - warriorDamageReduction / 100)),
+    );
+  }
 
-    reducedDamage =
-        explorationShieldResult.damage;
+  const guardianDamageReduction =
+    typeof getGuardianReceivedDamageReduction === "function"
+      ? getGuardianReceivedDamageReduction()
+      : 0;
 
-    if (
-        explorationShieldResult
-            .absorbedDamage > 0
-    ) {
-        addCombatLog(
-            "🧭 Tarcza odkrywcy pochłonęła " +
-            explorationShieldResult
-                .absorbedDamage +
-            " obrażeń." +
-            (
-                explorationShieldResult
-                    .remainingShield > 0
-                    ? " Pozostało " +
-                    explorationShieldResult
-                        .remainingShield +
-                    " punktów tarczy."
-                    : " Tarcza została zniszczona."
-            )
-        );
-    }
+  if (guardianDamageReduction > 0) {
+    reducedDamage = Math.max(
+      1,
+      Math.floor(reducedDamage * (1 - guardianDamageReduction / 100)),
+    );
+  }
 
-    player.hp -= reducedDamage;
+  const commanderDefenseResult =
+    typeof applyCommanderDefenseToDamage === "function"
+      ? applyCommanderDefenseToDamage(reducedDamage, derived.maxHp)
+      : {
+          damage: reducedDamage,
+          triggered: false,
+          active: false,
+          reducedBy: 0,
+          chargesRemaining: 0,
+        };
 
-    if (
-        typeof consumeGuardianGuardCharge ===
-        "function"
-    ) {
-        consumeGuardianGuardCharge();
-    }
+  reducedDamage = commanderDefenseResult.damage;
 
-    const guardianHitResult =
-        typeof resolveGuardianReceivedHit ===
-            "function"
-            ? resolveGuardianReceivedHit()
-            : {
-                retaliationTriggered:
-                    false,
-                retaliationDamage:
-                    0,
-                healing:
-                    0
-            };
+  if (commanderDefenseResult.triggered) {
+    addCombatLog(
+      "🛡️ Niezłomna obrona aktywowała się: obrażenia -20% przez 3 ataki przeciwnika.",
+    );
+  }
 
-    if (
-        guardianHitResult.healing > 0
-    ) {
-        addCombatLog(
-            "💚 Bojowa regeneracja przywraca " +
-            guardianHitResult.healing +
-            " HP."
-        );
-    }
+  const manaShieldResult =
+    typeof applyManaShieldToDamage === "function"
+      ? applyManaShieldToDamage(reducedDamage)
+      : {
+          damage: reducedDamage,
+          absorbed: 0,
+          manaSpent: 0,
+        };
 
-    if (
-        guardianHitResult
-            .retaliationTriggered &&
-        enemy
-    ) {
-        enemy.hp -=
-            guardianHitResult
-                .retaliationDamage;
+  reducedDamage = manaShieldResult.damage;
 
-        addCombatLog(
-            (
-                guardianHitResult
-                    .forcedRetaliation
-                    ? "🛡️ Kolczasty bastion"
-                    : "⚔️ Cios odwetowy"
-            ) +
-            " zadaje " +
-            guardianHitResult
-                .retaliationDamage +
-            " obrażeń."
-        );
-    }
+  const explorationShieldResult =
+    typeof absorbExplorationRespawnShieldDamage === "function"
+      ? absorbExplorationRespawnShieldDamage(reducedDamage)
+      : {
+          damage: reducedDamage,
 
-    const activeProtections = [];
+          absorbedDamage: 0,
 
-    if (barrierReduction > 0) {
-        activeProtections.push(
-            "Magiczna bariera"
-        );
-    }
+          remainingShield: 0,
+        };
 
-    if (potionDefenseReduction > 0) {
-        activeProtections.push(
-            "Mikstura ochrony"
-        );
-    }
+  reducedDamage = explorationShieldResult.damage;
 
-    if (warriorDamageReduction > 0) {
-        activeProtections.push(
-            "Żelazna skóra"
-        );
-    }
+  if (explorationShieldResult.absorbedDamage > 0) {
+    addCombatLog(
+      "🧭 Tarcza odkrywcy pochłonęła " +
+        explorationShieldResult.absorbedDamage +
+        " obrażeń." +
+        (explorationShieldResult.remainingShield > 0
+          ? " Pozostało " +
+            explorationShieldResult.remainingShield +
+            " punktów tarczy."
+          : " Tarcza została zniszczona."),
+    );
+  }
 
-    if (guardianDamageReduction > 0) {
-        activeProtections.push(
-            "Obrona Strażnika"
-        );
-    }
+  player.hp -= reducedDamage;
 
-    if (
-        commanderDefenseResult.active
-    ) {
-        activeProtections.push(
-            "Niezłomna obrona (" +
-            commanderDefenseResult
-                .chargesRemaining +
-            " pozostałe)"
-        );
-    }
+  if (typeof consumeGuardianGuardCharge === "function") {
+    consumeGuardianGuardCharge();
+  }
 
-    if (
-        manaShieldResult.absorbed >
-        0
-    ) {
-        activeProtections.push(
-            "Tarcza many"
-        );
+  const guardianHitResult =
+    typeof resolveGuardianReceivedHit === "function"
+      ? resolveGuardianReceivedHit()
+      : {
+          retaliationTriggered: false,
+          retaliationDamage: 0,
+          healing: 0,
+        };
 
-        addCombatLog(
-            "🔷 Tarcza many pochłonęła " +
-            manaShieldResult.absorbed +
-            " obrażeń. Mana: -" +
-            manaShieldResult.manaSpent +
-            "."
-        );
-    }
+  if (guardianHitResult.healing > 0) {
+    addCombatLog(
+      "💚 Bojowa regeneracja przywraca " + guardianHitResult.healing + " HP.",
+    );
+  }
 
-    if (activeProtections.length > 0) {
-        addCombatLog(
-            "🛡️ " +
-            activeProtections.join(" + ") +
-            ": " +
-            enemy.name +
-            " zadaje " +
-            reducedDamage +
-            " obrażeń."
-        );
-    } else {
-        addCombatLog(
-            "👹 " +
-            enemy.name +
-            " zadaje " +
-            reducedDamage +
-            " obrażeń."
-        );
-    }
+  if (guardianHitResult.retaliationTriggered && enemy) {
+    enemy.hp -= guardianHitResult.retaliationDamage;
 
-    const secondWindHealing =
-        typeof tryTriggerWarriorSecondWind ===
-            "function"
-            ? tryTriggerWarriorSecondWind()
-            : 0;
+    addCombatLog(
+      (guardianHitResult.forcedRetaliation
+        ? "🛡️ Kolczasty bastion"
+        : "⚔️ Cios odwetowy") +
+        " zadaje " +
+        guardianHitResult.retaliationDamage +
+        " obrażeń.",
+    );
+  }
 
-    if (secondWindHealing > 0) {
-        addCombatLog(
-            "❤️ Drugi oddech przywrócił " +
-            secondWindHealing +
-            " HP."
-        );
-    }
+  const activeProtections = [];
 
-    const arcaneRebirth =
-        typeof tryTriggerMageArcaneRebirth ===
-            "function"
-            ? tryTriggerMageArcaneRebirth()
-            : {
-                triggered:
-                    false
-            };
+  if (barrierReduction > 0) {
+    activeProtections.push("Magiczna bariera");
+  }
 
-    if (arcaneRebirth.triggered) {
-        addCombatLog(
-            "💠 Arkaniczne odrodzenie przywróciło " +
-            arcaneRebirth.healing +
-            " HP kosztem " +
-            arcaneRebirth.manaSpent +
-            " many."
-        );
-    }
+  if (potionDefenseReduction > 0) {
+    activeProtections.push("Mikstura ochrony");
+  }
 
-    const guardianUnyielding =
-        typeof tryTriggerGuardianUnyielding ===
-            "function"
-            ? tryTriggerGuardianUnyielding()
-            : {
-                triggered:
-                    false
-            };
+  if (warriorDamageReduction > 0) {
+    activeProtections.push("Żelazna skóra");
+  }
 
-    if (guardianUnyielding.triggered) {
-        addCombatLog(
-            "🛡️ Niezłomność przywróciła " +
-            guardianUnyielding.healing +
-            " HP i wzmocniła obronę na " +
-            guardianUnyielding.guardCharges +
-            " kolejne ciosy."
-        );
-    }
+  if (guardianDamageReduction > 0) {
+    activeProtections.push("Obrona Strażnika");
+  }
 
-    if (
-        player.hp > 0 &&
-        typeof tryUseAutoHealingPotion ===
-        "function"
-    ) {
-        tryUseAutoHealingPotion();
-    }
+  if (commanderDefenseResult.active) {
+    activeProtections.push(
+      "Niezłomna obrona (" +
+        commanderDefenseResult.chargesRemaining +
+        " pozostałe)",
+    );
+  }
 
-    if (player.hp <= 0) {
-        startRespawnCooldown();
-    }
+  if (manaShieldResult.absorbed > 0) {
+    activeProtections.push("Tarcza many");
+
+    addCombatLog(
+      "🔷 Tarcza many pochłonęła " +
+        manaShieldResult.absorbed +
+        " obrażeń. Mana: -" +
+        manaShieldResult.manaSpent +
+        ".",
+    );
+  }
+
+  if (activeProtections.length > 0) {
+    addCombatLog(
+      "🛡️ " +
+        activeProtections.join(" + ") +
+        ": " +
+        enemy.name +
+        " zadaje " +
+        reducedDamage +
+        " obrażeń.",
+    );
+  } else {
+    addCombatLog("👹 " + enemy.name + " zadaje " + reducedDamage + " obrażeń.");
+  }
+
+  const secondWindHealing =
+    typeof tryTriggerWarriorSecondWind === "function"
+      ? tryTriggerWarriorSecondWind()
+      : 0;
+
+  if (secondWindHealing > 0) {
+    addCombatLog("❤️ Drugi oddech przywrócił " + secondWindHealing + " HP.");
+  }
+
+  const arcaneRebirth =
+    typeof tryTriggerMageArcaneRebirth === "function"
+      ? tryTriggerMageArcaneRebirth()
+      : {
+          triggered: false,
+        };
+
+  if (arcaneRebirth.triggered) {
+    addCombatLog(
+      "💠 Arkaniczne odrodzenie przywróciło " +
+        arcaneRebirth.healing +
+        " HP kosztem " +
+        arcaneRebirth.manaSpent +
+        " many.",
+    );
+  }
+
+  const guardianUnyielding =
+    typeof tryTriggerGuardianUnyielding === "function"
+      ? tryTriggerGuardianUnyielding()
+      : {
+          triggered: false,
+        };
+
+  if (guardianUnyielding.triggered) {
+    addCombatLog(
+      "🛡️ Niezłomność przywróciła " +
+        guardianUnyielding.healing +
+        " HP i wzmocniła obronę na " +
+        guardianUnyielding.guardCharges +
+        " kolejne ciosy.",
+    );
+  }
+
+  if (player.hp > 0 && typeof tryUseAutoHealingPotion === "function") {
+    tryUseAutoHealingPotion();
+  }
+
+  if (player.hp <= 0) {
+    startRespawnCooldown();
+  }
 }
 
 function handleBossEscapeAfterPlayerDefeat() {
-    if (
-        player.isBossFight !== true
-    ) {
-        return;
-    }
+  if (player.isBossFight !== true) {
+    return;
+  }
 
-    const escapedBossName =
-        enemy.name;
+  const escapedBossName = enemy.name;
 
-    const progress =
-        getCurrentLocationProgress();
+  const progress = getCurrentLocationProgress();
 
-    /*
-     * Zerujemy wyłącznie postęp
-     * prowadzący do kolejnego bossa.
-     */
-    progress.bossKillsCounter = 0;
-    progress.bossChance = 0;
+  /*
+   * Zerujemy wyłącznie postęp
+   * prowadzący do kolejnego bossa.
+   */
+  progress.bossKillsCounter = 0;
+  progress.bossChance = 0;
 
-    player.bossKillsCounter = 0;
-    player.bossChance = 0;
-    player.isBossFight = false;
+  player.bossKillsCounter = 0;
+  player.bossChance = 0;
+  player.isBossFight = false;
 
-    if (
-        typeof clearEnemyCombatEffects ===
-        "function"
-    ) {
-        clearEnemyCombatEffects();
-    }
+  if (typeof clearEnemyCombatEffects === "function") {
+    clearEnemyCombatEffects();
+  }
 
-    addCombatLog(
-        "💨 " +
+  addCombatLog("💨 " + escapedBossName + " uciekł po pokonaniu bohatera!");
+
+  if (typeof addSystemLog === "function") {
+    addSystemLog(
+      "💨 Boss " +
         escapedBossName +
-        " uciekł po pokonaniu bohatera!"
+        " uciekł. Licznik i szansa bossa zostały wyzerowane.",
+      "boss",
     );
+  }
 
-    if (
-        typeof addSystemLog ===
-        "function"
-    ) {
-        addSystemLog(
-            "💨 Boss " +
-            escapedBossName +
-            " uciekł. Licznik i szansa bossa zostały wyzerowane.",
-            "boss"
-        );
-    }
+  spawnEnemy();
+  applyGeneratedMonsterBalance();
 
-    spawnEnemy();
+  addCombatLog("👹 Pojawił się nowy przeciwnik: " + enemy.name + ".");
 
-    addCombatLog(
-        "👹 Pojawił się nowy przeciwnik: " +
-        enemy.name +
-        "."
-    );
+  if (typeof refreshLocationProgressInterface === "function") {
+    refreshLocationProgressInterface(player.location);
+  }
 
-    if (
-        typeof refreshLocationProgressInterface ===
-        "function"
-    ) {
-        refreshLocationProgressInterface(
-            player.location
-        );
-    }
-
-    if (
-        typeof refreshJournalLocationInterface ===
-        "function"
-    ) {
-        refreshJournalLocationInterface();
-    }
+  if (typeof refreshJournalLocationInterface === "function") {
+    refreshJournalLocationInterface();
+  }
 }
 
 function startRespawnCooldown() {
-    if (isRespawning) return;
+  if (isRespawning) return;
 
-    isRespawning = true;
+  isRespawning = true;
 
-    const respawnDurationSeconds =
-        typeof getPlayerRespawnDurationSeconds ===
-            "function"
-            ? getPlayerRespawnDurationSeconds(10)
-            : 10;
+  const respawnDurationSeconds =
+    typeof getPlayerRespawnDurationSeconds === "function"
+      ? getPlayerRespawnDurationSeconds(10)
+      : 10;
 
-    const respawnDurationMs =
-        respawnDurationSeconds * 1000;
+  const respawnDurationMs = respawnDurationSeconds * 1000;
 
-    const respawnEndsAt =
-        Date.now() + respawnDurationMs;
+  const respawnEndsAt = Date.now() + respawnDurationMs;
 
-    const respawnDurationText =
-        String(respawnDurationSeconds)
-            .replace(".", ",");
+  const respawnDurationText = String(respawnDurationSeconds).replace(".", ",");
 
-    respawnTimeLeft =
-        respawnDurationSeconds;
+  respawnTimeLeft = respawnDurationSeconds;
 
-    player.hp = 0;
+  player.hp = 0;
 
-    addCombatLog("☠️ Bohater został pokonany.");
+  addCombatLog("☠️ Bohater został pokonany.");
 
-    if (
-        typeof isDungeonRunActive === "function" &&
-        isDungeonRunActive() &&
-        typeof abandonDungeonRun === "function"
-    ) {
-        abandonDungeonRun(
-            "Bohater poległ. Wyprawa do lochu dobiegła końca."
-        );
-    } else {
-        handleBossEscapeAfterPlayerDefeat();
-    }
-    addCombatLog(
-        "⏳ Odrodzenie za " +
+  if (
+    typeof isDungeonRunActive === "function" &&
+    isDungeonRunActive() &&
+    typeof abandonDungeonRun === "function"
+  ) {
+    abandonDungeonRun("Bohater poległ. Wyprawa do lochu dobiegła końca.");
+  } else {
+    handleBossEscapeAfterPlayerDefeat();
+  }
+  addCombatLog("⏳ Odrodzenie za " + respawnDurationText + " sekundy...");
+
+  if (typeof addSystemLog === "function") {
+    addSystemLog(
+      "☠️ Bohater został pokonany. Odrodzenie za " +
         respawnDurationText +
-        " sekundy..."
+        " sekundy.",
+      "death",
     );
+  }
 
-    if (typeof addSystemLog === "function") {
-        addSystemLog(
-            "☠️ Bohater został pokonany. Odrodzenie za " +
-            respawnDurationText +
-            " sekundy.",
-            "death"
-        );
-    }
+  refreshCombatInterface();
+  saveGame();
+
+  const respawnInterval = setInterval(() => {
+    const millisecondsLeft = Math.max(0, respawnEndsAt - Date.now());
+
+    respawnTimeLeft = Math.ceil(millisecondsLeft / 100) / 10;
 
     refreshCombatInterface();
-    saveGame();
 
-    const respawnInterval = setInterval(() => {
-        const millisecondsLeft = Math.max(
-            0,
-            respawnEndsAt - Date.now()
+    if (millisecondsLeft <= 0) {
+      clearInterval(respawnInterval);
+
+      const derived = getDerivedStats();
+
+      player.hp = derived.maxHp;
+      player.mana = derived.maxMana;
+      const respawnShieldHp =
+        typeof grantExplorationRespawnShield === "function"
+          ? grantExplorationRespawnShield(derived.maxHp)
+          : 0;
+
+      if (typeof resetWarriorAfterRespawn === "function") {
+        resetWarriorAfterRespawn();
+      }
+
+      if (typeof resetHunterAfterRespawn === "function") {
+        resetHunterAfterRespawn();
+      }
+
+      if (typeof resetMageAfterRespawn === "function") {
+        resetMageAfterRespawn();
+      }
+
+      if (typeof resetGuardianAfterRespawn === "function") {
+        resetGuardianAfterRespawn();
+      }
+
+      if (typeof resetRogueAfterRespawn === "function") {
+        resetRogueAfterRespawn();
+      }
+
+      if (typeof resetSpellCombatState === "function") {
+        resetSpellCombatState();
+      }
+
+      if (typeof resetEquipmentSetCombatState === "function") {
+        resetEquipmentSetCombatState();
+      }
+
+      isRespawning = false;
+      respawnTimeLeft = 0;
+
+      addCombatLog("✨ Bohater odrodził się i wraca do walki.");
+      if (respawnShieldHp > 0) {
+        addCombatLog(
+          "🧭 Nieugięty odkrywca zapewnia tarczę o wartości " +
+            respawnShieldHp +
+            " HP.",
         );
+      }
 
-        respawnTimeLeft =
-            Math.ceil(
-                millisecondsLeft / 100
-            ) / 10;
+      if (typeof addSystemLog === "function") {
+        addSystemLog("✨ Bohater odrodził się z pełnym HP i maną.", "revive");
+      }
 
-        refreshCombatInterface();
-
-        if (millisecondsLeft <= 0) {
-            clearInterval(respawnInterval);
-
-            const derived = getDerivedStats();
-
-            player.hp = derived.maxHp;
-            player.mana = derived.maxMana;
-            const respawnShieldHp =
-                typeof grantExplorationRespawnShield ===
-                    "function"
-                    ? grantExplorationRespawnShield(
-                        derived.maxHp
-                    )
-                    : 0;
-
-            if (
-                typeof resetWarriorAfterRespawn ===
-                "function"
-            ) {
-                resetWarriorAfterRespawn();
-            }
-
-            if (
-                typeof resetHunterAfterRespawn ===
-                "function"
-            ) {
-                resetHunterAfterRespawn();
-            }
-
-            if (
-                typeof resetMageAfterRespawn ===
-                "function"
-            ) {
-                resetMageAfterRespawn();
-            }
-
-            if (
-                typeof resetGuardianAfterRespawn ===
-                "function"
-            ) {
-                resetGuardianAfterRespawn();
-            }
-
-            if (
-                typeof resetRogueAfterRespawn ===
-                "function"
-            ) {
-                resetRogueAfterRespawn();
-            }
-
-            if (
-                typeof resetSpellCombatState ===
-                "function"
-            ) {
-                resetSpellCombatState();
-            }
-
-            if (
-                typeof resetEquipmentSetCombatState ===
-                "function"
-            ) {
-                resetEquipmentSetCombatState();
-            }
-
-            isRespawning = false;
-            respawnTimeLeft = 0;
-
-            addCombatLog("✨ Bohater odrodził się i wraca do walki.");
-            if (respawnShieldHp > 0) {
-                addCombatLog(
-                    "🧭 Nieugięty odkrywca zapewnia tarczę o wartości " +
-                    respawnShieldHp +
-                    " HP."
-                );
-            }
-
-            if (typeof addSystemLog === "function") {
-                addSystemLog(
-                    "✨ Bohater odrodził się z pełnym HP i maną.",
-                    "revive"
-                );
-            }
-
-            saveGame();
-            refreshCombatInterface();
-        }
-    }, 100);
+      saveGame();
+      refreshCombatInterface();
+    }
+  }, 100);
 }
 
 function updateBossChanceAfterKill() {
-    if (player.isBossFight) return;
+  if (player.isBossFight) return;
 
+  const progress = getCurrentLocationProgress();
 
-    const progress = getCurrentLocationProgress();
+  progress.bossKillsCounter++;
 
-    progress.bossKillsCounter++;
+  const startAfterKills = 26;
+  const chancePerKill = 0.25;
+  const maxBossChance = 20;
 
-    const startAfterKills = 26;
-    const chancePerKill = 0.25;
-    const maxBossChance = 20;
+  if (progress.bossKillsCounter < startAfterKills) {
+    progress.bossChance = 0;
+  } else {
+    progress.bossChance = Math.min(
+      maxBossChance,
+      (progress.bossKillsCounter - startAfterKills + 1) * chancePerKill,
+    );
+  }
 
-    if (progress.bossKillsCounter < startAfterKills) {
-        progress.bossChance = 0;
-    } else {
-        progress.bossChance = Math.min(
-            maxBossChance,
-            (progress.bossKillsCounter - startAfterKills + 1) * chancePerKill
-        );
-    }
-
-    player.bossKillsCounter = progress.bossKillsCounter;
-    player.bossChance = progress.bossChance;
+  player.bossKillsCounter = progress.bossKillsCounter;
+  player.bossChance = progress.bossChance;
 }
 
-
 function trySpawnBoss() {
-    if (player.isBossFight) return false;
+  if (player.isBossFight) return false;
 
-    const progress = getCurrentLocationProgress();
+  const progress = getCurrentLocationProgress();
 
-    if (progress.bossChance <= 0) return false;
+  if (progress.bossChance <= 0) return false;
 
-    const roll = Math.random() * 100;
+  const roll = Math.random() * 100;
 
-    if (roll <= progress.bossChance) {
-        spawnBoss();
-        return true;
-    }
+  if (roll <= progress.bossChance) {
+    spawnBoss();
+    return true;
+  }
 
-    return false;
+  return false;
 }
 
 function startFight() {
-    console.log("START");
-    const cooldownSeconds =
-        getCombatCooldownSecondsLeft();
+  console.log("START");
+  const cooldownSeconds = getCombatCooldownSecondsLeft();
 
-    if (cooldownSeconds > 0) {
-        if (
-            typeof showNotification ===
-            "function"
-        ) {
-            showNotification(
-                "Możesz rozpocząć walkę za " +
-                cooldownSeconds +
-                " s.",
-                "error"
-            );
-        }
-
-        refreshCombatInterface();
-
-        return;
+  if (cooldownSeconds > 0) {
+    if (typeof showNotification === "function") {
+      showNotification(
+        "Możesz rozpocząć walkę za " + cooldownSeconds + " s.",
+        "error",
+      );
     }
 
-    if (
-        intervalId ||
-        enemyIntervalId
-    ) {
-        return;
-    }
-
-    const activityCanStart =
-        prepareActivityStart(
-            ACTIVITY_TYPES.COMBAT
-        );
-
-    if (!activityCanStart) {
-        return;
-    }
-
-    if (
-        typeof resetWarriorCombatState ===
-        "function"
-    ) {
-        resetWarriorCombatState();
-    }
-
-    if (
-        typeof resetHunterCombatState ===
-        "function"
-    ) {
-        resetHunterCombatState();
-    }
-
-    if (
-        typeof resetMageCombatState ===
-        "function"
-    ) {
-        resetMageCombatState();
-    }
-
-    if (
-        typeof resetGuardianCombatState ===
-        "function"
-    ) {
-        resetGuardianCombatState();
-    }
-
-    if (
-        typeof resetRogueCombatState ===
-        "function"
-    ) {
-        resetRogueCombatState();
-    }
-
-    if (
-        typeof resetSpellCombatState ===
-        "function"
-    ) {
-        resetSpellCombatState();
-    }
-
-    if (
-        typeof resetEquipmentSetCombatState ===
-        "function"
-    ) {
-        resetEquipmentSetCombatState();
-    }
-    if (
-        typeof resetExplorationRespawnShield ===
-        "function"
-    ) {
-        resetExplorationRespawnShield();
-    }
-
-    isFighting = true;
-    player.isFighting = true;
-
-    schedulePlayerAttack();
-
-    enemyIntervalId =
-        setInterval(() => {
-            autoEnemyAttack();
-        }, 1000);
-
-    saveGame();
     refreshCombatInterface();
+
+    return;
+  }
+
+  if (intervalId || enemyIntervalId) {
+    return;
+  }
+
+  const activityCanStart = prepareActivityStart(ACTIVITY_TYPES.COMBAT);
+
+  if (!activityCanStart) {
+    return;
+  }
+
+  if (typeof resetWarriorCombatState === "function") {
+    resetWarriorCombatState();
+  }
+
+  if (typeof resetHunterCombatState === "function") {
+    resetHunterCombatState();
+  }
+
+  if (typeof resetMageCombatState === "function") {
+    resetMageCombatState();
+  }
+
+  if (typeof resetGuardianCombatState === "function") {
+    resetGuardianCombatState();
+  }
+
+  if (typeof resetRogueCombatState === "function") {
+    resetRogueCombatState();
+  }
+
+  if (typeof resetSpellCombatState === "function") {
+    resetSpellCombatState();
+  }
+
+  if (typeof resetEquipmentSetCombatState === "function") {
+    resetEquipmentSetCombatState();
+  }
+  if (typeof resetExplorationRespawnShield === "function") {
+    resetExplorationRespawnShield();
+  }
+
+  isFighting = true;
+  player.isFighting = true;
+
+  schedulePlayerAttack();
+
+  enemyIntervalId = setInterval(() => {
+    autoEnemyAttack();
+  }, 1000);
+
+  saveGame();
+  refreshCombatInterface();
 }
 
-function stopFight(
-    resetCurrentEnemy = true
-) {
-    console.log("STOP");
+function stopFight(resetCurrentEnemy = true) {
+  console.log("STOP");
 
-    if (
-        resetCurrentEnemy &&
-        typeof isDungeonRunActive === "function" &&
-        isDungeonRunActive() &&
-        typeof abandonDungeonRun === "function"
-    ) {
-        abandonDungeonRun(
-            "Opuściłeś loch przed jego ukończeniem."
+  if (
+    resetCurrentEnemy &&
+    typeof isDungeonRunActive === "function" &&
+    isDungeonRunActive() &&
+    typeof abandonDungeonRun === "function"
+  ) {
+    abandonDungeonRun("Opuściłeś loch przed jego ukończeniem.");
+    return;
+  }
+
+  const stoppedEnemyName = enemy?.name || "przeciwnik";
+
+  const stoppedEnemyWasBoss = player.isBossFight === true;
+
+  isFighting = false;
+  player.isFighting = false;
+
+  clearTimeout(intervalId);
+
+  clearInterval(enemyIntervalId);
+
+  intervalId = null;
+  enemyIntervalId = null;
+
+  if (typeof resetWarriorCombatState === "function") {
+    resetWarriorCombatState();
+  }
+
+  if (typeof resetHunterCombatState === "function") {
+    resetHunterCombatState();
+  }
+
+  if (typeof resetMageCombatState === "function") {
+    resetMageCombatState();
+  }
+
+  if (typeof resetGuardianCombatState === "function") {
+    resetGuardianCombatState();
+  }
+
+  if (typeof resetRogueCombatState === "function") {
+    resetRogueCombatState();
+  }
+
+  if (typeof resetSpellCombatState === "function") {
+    resetSpellCombatState();
+  }
+
+  if (typeof resetEquipmentSetCombatState === "function") {
+    resetEquipmentSetCombatState();
+  }
+  if (typeof resetExplorationRespawnShield === "function") {
+    resetExplorationRespawnShield();
+  }
+
+  if (resetCurrentEnemy) {
+    if (stoppedEnemyWasBoss) {
+      const progress = getCurrentLocationProgress();
+
+      progress.bossKillsCounter = 0;
+
+      progress.bossChance = 0;
+
+      player.bossKillsCounter = 0;
+
+      player.bossChance = 0;
+
+      player.isBossFight = false;
+
+      addCombatLog("💨 " + stoppedEnemyName + " uciekł po przerwaniu walki!");
+
+      if (typeof addSystemLog === "function") {
+        addSystemLog(
+          "💨 Przerwano walkę z bossem " +
+            stoppedEnemyName +
+            ". Licznik i szansa bossa zostały wyzerowane.",
+          "boss",
         );
-        return;
+      }
+
+      if (typeof refreshLocationProgressInterface === "function") {
+        refreshLocationProgressInterface(player.location);
+      }
+    } else {
+      addCombatLog(
+        "⏹️ Przerwano walkę z przeciwnikiem: " + stoppedEnemyName + ".",
+      );
     }
 
-    const stoppedEnemyName =
-        enemy?.name ||
-        "przeciwnik";
-
-    const stoppedEnemyWasBoss =
-        player.isBossFight ===
-        true;
-
-    isFighting = false;
-    player.isFighting = false;
-
-    clearTimeout(
-        intervalId
-    );
-
-    clearInterval(
-        enemyIntervalId
-    );
-
-    intervalId = null;
-    enemyIntervalId = null;
-
-    if (
-        typeof resetWarriorCombatState ===
-        "function"
-    ) {
-        resetWarriorCombatState();
+    if (typeof clearEnemyCombatEffects === "function") {
+      clearEnemyCombatEffects();
     }
 
-    if (
-        typeof resetHunterCombatState ===
-        "function"
-    ) {
-        resetHunterCombatState();
-    }
+    /*
+     * Tworzymy świeżego przeciwnika
+     * z pełnym HP.
+     */
+    spawnEnemy();
+    applyGeneratedMonsterBalance();
 
-    if (
-        typeof resetMageCombatState ===
-        "function"
-    ) {
-        resetMageCombatState();
-    }
+    addCombatLog("👹 Przygotowano nowego przeciwnika: " + enemy.name + ".");
+    startCombatReentryCooldown();
+  }
 
-    if (
-        typeof resetGuardianCombatState ===
-        "function"
-    ) {
-        resetGuardianCombatState();
-    }
-
-    if (
-        typeof resetRogueCombatState ===
-        "function"
-    ) {
-        resetRogueCombatState();
-    }
-
-    if (
-        typeof resetSpellCombatState ===
-        "function"
-    ) {
-        resetSpellCombatState();
-    }
-
-    if (
-        typeof resetEquipmentSetCombatState ===
-        "function"
-    ) {
-        resetEquipmentSetCombatState();
-    }
-    if (
-        typeof resetExplorationRespawnShield ===
-        "function"
-    ) {
-        resetExplorationRespawnShield();
-    }
-
-    if (resetCurrentEnemy) {
-
-        if (stoppedEnemyWasBoss) {
-            const progress =
-                getCurrentLocationProgress();
-
-            progress.bossKillsCounter =
-                0;
-
-            progress.bossChance =
-                0;
-
-            player.bossKillsCounter =
-                0;
-
-            player.bossChance =
-                0;
-
-            player.isBossFight =
-                false;
-
-            addCombatLog(
-                "💨 " +
-                stoppedEnemyName +
-                " uciekł po przerwaniu walki!"
-            );
-
-            if (
-                typeof addSystemLog ===
-                "function"
-            ) {
-                addSystemLog(
-                    "💨 Przerwano walkę z bossem " +
-                    stoppedEnemyName +
-                    ". Licznik i szansa bossa zostały wyzerowane.",
-                    "boss"
-                );
-            }
-
-            if (
-                typeof refreshLocationProgressInterface ===
-                "function"
-            ) {
-                refreshLocationProgressInterface(
-                    player.location
-                );
-            }
-        } else {
-            addCombatLog(
-                "⏹️ Przerwano walkę z przeciwnikiem: " +
-                stoppedEnemyName +
-                "."
-            );
-        }
-
-        if (
-            typeof clearEnemyCombatEffects ===
-            "function"
-        ) {
-            clearEnemyCombatEffects();
-        }
-
-        /*
-         * Tworzymy świeżego przeciwnika
-         * z pełnym HP.
-         */
-        spawnEnemy();
-
-        addCombatLog(
-            "👹 Przygotowano nowego przeciwnika: " +
-            enemy.name +
-            "."
-        );
-        startCombatReentryCooldown();
-    }
-
-    saveGame();
-    refreshCombatInterface();
+  saveGame();
+  refreshCombatInterface();
 }
 
 function toggleFight() {
-    if (isFighting) {
-        stopFight();
-    } else {
-        startFight();
-    }
+  if (isFighting) {
+    stopFight();
+  } else {
+    startFight();
+  }
 
-    refreshCombatInterface();
+  refreshCombatInterface();
 }

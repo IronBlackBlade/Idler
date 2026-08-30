@@ -432,7 +432,6 @@ function renderCraftingQueue(container) {
       sideStatus.textContent =
         "Pozostało: x" + remainingItems;
     }
-    ``
 
     const cancelButton =
       document.createElement("button");
