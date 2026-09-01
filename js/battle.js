@@ -9,7 +9,7 @@ var explorationRespawnShieldHp = 0;
 
 const COMBAT_REENTRY_COOLDOWN_MS = 15 * 1000;
 
-function applyGeneratedMonsterBalance() {
+function applyCombatMonsterBalance() {
   if (typeof enemy === "undefined" || !enemy) {
     return;
   }
@@ -1219,7 +1219,7 @@ function autoAttack() {
 
       addCombatLog("👑 Boss został pokonany!");
       spawnEnemy();
-      applyGeneratedMonsterBalance();
+      applyCombatMonsterBalance();
       addCombatLog("👹 Pojawił się nowy przeciwnik: " + enemy.name + ".");
     } else {
       updateBossChanceAfterKill();
@@ -1228,7 +1228,7 @@ function autoAttack() {
 
       if (!bossSpawned) {
         spawnEnemy();
-        applyGeneratedMonsterBalance();
+        applyCombatMonsterBalance();
         addCombatLog("👹 Pojawił się nowy przeciwnik: " + enemy.name + ".");
       }
     }
@@ -1458,7 +1458,9 @@ function enemyAttackPlayer() {
           : " Tarcza została zniszczona."),
     );
   }
-
+  
+  // Minimalne obrażenia nie mogą niwelować wartości pełnego pancerza.
+  reducedDamage = Math.max(1, reducedDamage);
   player.hp -= reducedDamage;
 
   if (typeof consumeGuardianGuardCharge === "function") {
@@ -1633,7 +1635,7 @@ function handleBossEscapeAfterPlayerDefeat() {
   }
 
   spawnEnemy();
-  applyGeneratedMonsterBalance();
+  applyCombatMonsterBalance();
 
   addCombatLog("👹 Pojawił się nowy przeciwnik: " + enemy.name + ".");
 
@@ -1973,7 +1975,7 @@ function stopFight(resetCurrentEnemy = true) {
      * z pełnym HP.
      */
     spawnEnemy();
-    applyGeneratedMonsterBalance();
+    applyCombatMonsterBalance();
 
     addCombatLog("👹 Przygotowano nowego przeciwnika: " + enemy.name + ".");
     startCombatReentryCooldown();

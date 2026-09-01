@@ -307,8 +307,7 @@ const player = {
         pants: null,
         boots: null,
         gloves: null,
-        ring1: null,
-        ring2: null,
+        ring: null,
         amulet: null,
         talisman: null
     },
@@ -651,8 +650,7 @@ function resetPlayer() {
         pants: null,
         boots: null,
         gloves: null,
-        ring1: null,
-        ring2: null,
+        ring: null,
         amulet: null,
         talisman: null
     };

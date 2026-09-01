@@ -424,9 +424,8 @@
 .slot-weapon,
 .slot-armor,
 .slot-shield,
-.slot-ring1,
+.slot-ring,
 .slot-pants,
-.slot-ring2,
 .slot-gloves,
 .slot-boots {
     grid-column: auto;

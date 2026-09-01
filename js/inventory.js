@@ -859,8 +859,7 @@ function getItemTypeForEquipmentSlot(
         boots: "boots",
         gloves: "gloves",
 
-        ring1: "ring",
-        ring2: "ring",
+        ring: "ring",
 
         amulet: "amulet",
         talisman: "talisman"
@@ -891,101 +890,57 @@ function canEquipItemInSlot(
     );
 }
 
-function getOtherRingSlot(
-    slot
-) {
-    if (slot === "ring1") {
-        return "ring2";
-    }
-
-    if (slot === "ring2") {
-        return "ring1";
-    }
-
-    return null;
-}
-
-function isSameRingEquippedInOtherSlot(
-    itemId,
-    slot
-) {
-    const item =
-        items[itemId];
-
-    if (
-        !item ||
-        item.type !== "ring"
-    ) {
-        return false;
-    }
-
-    const otherRingSlot =
-        getOtherRingSlot(
-            slot
-        );
-
-    if (!otherRingSlot) {
-        return false;
-    }
-
-    return (
-        player.equipment?.[
-        otherRingSlot
-        ] === itemId
-    );
-}
-function normalizeDuplicateEquippedRings() {
+function migrateToSingleRingSlot() {
     if (!player.equipment) {
         return false;
     }
 
-    const firstRingId =
-        player.equipment.ring1;
+    const currentRingId = player.equipment.ring || null;
+    const firstLegacyRingId = player.equipment.ring1 || null;
+    const secondLegacyRingId = player.equipment.ring2 || null;
+    const equippedRing = currentRingId || firstLegacyRingId || secondLegacyRingId || null;
+    const returnedRingIds = [];
+    let changed = false;
 
-    const secondRingId =
-        player.equipment.ring2;
-
-    if (
-        !firstRingId ||
-        !secondRingId ||
-        firstRingId !== secondRingId
-    ) {
-        return false;
+    if (currentRingId && firstLegacyRingId) {
+        returnedRingIds.push(firstLegacyRingId);
     }
 
-    /*
-     * Pierścień z drugiego slotu
-     * wraca do plecaka.
-     */
-    addItemToInventory(
-        secondRingId,
-        1
-    );
-
-    player.equipment.ring2 =
-        null;
-
-    const ringItem =
-        items[secondRingId];
-
     if (
-        typeof addSystemLog ===
-        "function"
+        secondLegacyRingId &&
+        (currentRingId || firstLegacyRingId)
     ) {
+        returnedRingIds.push(secondLegacyRingId);
+    }
+
+    if (player.equipment.ring !== equippedRing) {
+        player.equipment.ring = equippedRing;
+        changed = true;
+    }
+
+    returnedRingIds.forEach(ringId => {
+        addItemToInventory(ringId, 1);
+        changed = true;
+    });
+
+    delete player.equipment.ring1;
+    delete player.equipment.ring2;
+
+    if (changed && typeof addSystemLog === "function") {
+        const returnedRingNames = returnedRingIds
+            .map(ringId => items[ringId]?.name || ringId)
+            .join(", ");
         addSystemLog(
-            "💍 Zdjęto zduplikowany pierścień" +
-            (
-                ringItem
-                    ? ": " +
-                    ringItem.name
-                    : ""
-            ) +
-            ". Przedmiot wrócił do plecaka.",
+            returnedRingNames
+                ? "💍 Przeniesiono pierścień z usuniętego drugiego slotu: " +
+                    returnedRingNames +
+                    ". Przedmiot wrócił do plecaka."
+                : "💍 Zaktualizowano slot pierścienia.",
             "equipment"
         );
     }
 
-    return true;
+    return changed;
 }
 
 
@@ -1071,42 +1026,6 @@ function equipItem(
         return;
     }
 
-    /*
-     * Nie pozwalamy założyć dwóch
-     * identycznych pierścieni.
-     */
-    if (
-        item.type === "ring" &&
-        isSameRingEquippedInOtherSlot(
-            itemId,
-            slot
-        )
-    ) {
-        if (
-            typeof showNotification ===
-            "function"
-        ) {
-            showNotification(
-                "Nie możesz założyć dwóch takich samych pierścieni.",
-                "error"
-            );
-        }
-
-        if (
-            typeof addSystemLog ===
-            "function"
-        ) {
-            addSystemLog(
-                "💍 Nie można założyć drugiego egzemplarza pierścienia: " +
-                item.name +
-                ".",
-                "equipment"
-            );
-        }
-
-        return false;
-    }
-
     const oldItemInSlot =
         player.equipment[slot];
 
@@ -1185,10 +1104,7 @@ function getSlotForItem(item) {
     if (item.type === "talisman") return "talisman";
 
     if (item.type === "ring") {
-        if (!player.equipment.ring1) return "ring1";
-        if (!player.equipment.ring2) return "ring2";
-
-        return "ring1";
+        return "ring";
     }
 
     return null;

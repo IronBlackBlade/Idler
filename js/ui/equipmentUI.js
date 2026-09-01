@@ -6,8 +6,7 @@ const equipmentLoadoutSlots = [
     "pants",
     "boots",
     "gloves",
-    "ring1",
-    "ring2",
+    "ring",
     "amulet",
     "talisman"
 ];
@@ -84,8 +83,9 @@ function ensureEquipmentLoadouts() {
 
             equipmentLoadoutSlots.forEach(
                 slot => {
-                    const itemId =
-                        savedLoadout[slot];
+                    const itemId = slot === "ring"
+                        ? savedLoadout.ring || savedLoadout.ring1 || savedLoadout.ring2
+                        : savedLoadout[slot];
 
                     if (
                         typeof itemId ===
@@ -178,8 +178,7 @@ function isEquipmentLoadoutItemCompatible(
         pants: "pants",
         boots: "boots",
         gloves: "gloves",
-        ring1: "ring",
-        ring2: "ring",
+        ring: "ring",
         amulet: "amulet",
         talisman: "talisman"
     };
@@ -1598,8 +1597,7 @@ function renderEquipmentSlots() {
         pants: "slot-pants",
         boots: "slot-boots",
         gloves: "slot-gloves",
-        ring1: "slot-ring1",
-        ring2: "slot-ring2",
+        ring: "slot-ring",
         amulet: "slot-amulet",
         talisman: "slot-talisman"
     };

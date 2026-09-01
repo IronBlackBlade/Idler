@@ -755,10 +755,10 @@ function loadGame() {
     }
 
     if (
-        typeof normalizeDuplicateEquippedRings ===
+        typeof migrateToSingleRingSlot ===
         "function"
     ) {
-        normalizeDuplicateEquippedRings();
+        migrateToSingleRingSlot();
     }
 
     if (

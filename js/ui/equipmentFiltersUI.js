@@ -113,14 +113,9 @@ const equipmentSlotDefinitions = {
         label: "Rękawice"
     },
 
-    ring1: {
+    ring: {
         itemType: "ring",
-        label: "Pierścień 1"
-    },
-
-    ring2: {
-        itemType: "ring",
-        label: "Pierścień 2"
+        label: "Pierścień"
     },
 
     amulet: {

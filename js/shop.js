@@ -367,11 +367,7 @@ let shopItems = [];
 
 function rebuildShopItems() {
 
-    const generatedItems =
-        window.idlerGeneratedItems || {};
-
-    const merchantPrices =
-        window.idlerMerchantPrices || {};
+const merchantPrices = merchantItems;
 
     const rebuiltShopItems = [];
 
@@ -382,13 +378,10 @@ function rebuildShopItems() {
     Object.entries(merchantPrices).forEach(
         ([itemId, price]) => {
 
-            const item =
-                generatedItems[itemId] ||
-                (
-                    typeof items !== "undefined"
-                        ? items[itemId]
-                        : null
-                );
+const item =
+    typeof items !== "undefined"
+        ? items[itemId]
+        : null;
 
             if (!item) {
                 console.warn(

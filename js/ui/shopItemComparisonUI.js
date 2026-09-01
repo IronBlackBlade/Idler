@@ -178,47 +178,7 @@ function getShopComparisonSlot(
         );
     }
 
-    /*
-     * Pierścienie mają dwa sloty.
-     * Najpierw wybieramy pusty slot.
-     */
-    if (!player.equipment?.ring1) {
-        return "ring1";
-    }
-
-    if (!player.equipment?.ring2) {
-        return "ring2";
-    }
-
-    /*
-     * Jeżeli oba są zajęte,
-     * porównujemy nowy pierścień
-     * ze słabszym z nich.
-     */
-    const firstRing =
-        items[
-        player.equipment.ring1
-        ];
-
-    const secondRing =
-        items[
-        player.equipment.ring2
-        ];
-
-    const firstRingScore =
-        getShopEquipmentItemScore(
-            firstRing
-        );
-
-    const secondRingScore =
-        getShopEquipmentItemScore(
-            secondRing
-        );
-
-    return firstRingScore <=
-        secondRingScore
-        ? "ring1"
-        : "ring2";
+    return "ring";
 }
 
 function formatShopComparisonNumber(
@@ -416,8 +376,7 @@ const shopEquipmentSlotNames = {
     pants: "Spodnie",
     boots: "Buty",
     gloves: "Rękawice",
-    ring1: "Pierścień 1",
-    ring2: "Pierścień 2",
+    ring: "Pierścień",
     amulet: "Amulet",
     talisman: "Talizman",
     pickaxe: "Kopalnia",
