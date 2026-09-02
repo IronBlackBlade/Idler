@@ -1072,17 +1072,7 @@ const items = {
         value: 380
     },
 
-    guard_sword: {
-        id: "guard_sword",
-        name: "Miecz strażnika",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "melee",
-        weaponClass: "slashing",
-        requiredLevel: 35,
-        damage: 90,
-        value: 1500
-    },
+
     knight_sword: {
         id: "knight_sword",
         name: "Rycerski miecz",

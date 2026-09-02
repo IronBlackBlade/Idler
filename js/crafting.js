@@ -1,81 +1,49 @@
 var craftingIntervalId = null;
 
-const DEFAULT_CRAFTING_DURATION_SECONDS = 10;
-const MAX_CRAFTING_QUEUE_SIZE = 10;
-
-
-
 function getRecipeRequiredCraftingLevel(recipe) {
   return Math.max(1, Math.floor(Number(recipe?.requiredCraftingLevel) || 1));
 }
 
 function getRecipeProfessionRequirement(recipe) {
   const resultItem =
-    typeof items !== "undefined"
-      ? items[recipe?.resultItemId]
-      : null;
+    typeof items !== "undefined" ? items[recipe?.resultItemId] : null;
 
-  if (
-    resultItem?.type !== "profession_tool" ||
-    !resultItem.toolType
-  ) {
+  if (resultItem?.type !== "profession_tool" || !resultItem.toolType) {
     return null;
   }
 
   const requiredLevel = Math.max(
     1,
-    Math.floor(
-      Number(
-        resultItem.requiredProfessionLevel,
-      ) || 1,
-    ),
+    Math.floor(Number(resultItem.requiredProfessionLevel) || 1),
   );
   const currentLevel =
     typeof getProfessionLevelForTool === "function"
-      ? getProfessionLevelForTool(
-        resultItem.toolType,
-      )
+      ? getProfessionLevelForTool(resultItem.toolType)
       : 1;
   const professionDefinition =
     typeof professionToolTypeConfig !== "undefined"
-      ? professionToolTypeConfig.find(
-        (definition) => {
-          return (
-            definition.toolType ===
-            resultItem.toolType
-          );
-        },
-      )
+      ? professionToolTypeConfig.find((definition) => {
+          return definition.toolType === resultItem.toolType;
+        })
       : null;
 
   return {
     toolType: resultItem.toolType,
-    professionName:
-      professionDefinition?.professionName ||
-      "Profesja",
+    professionName: professionDefinition?.professionName || "Profesja",
     requiredLevel,
     currentLevel,
     met: currentLevel >= requiredLevel,
   };
 }
 
-function hasRequiredProfessionLevelForRecipe(
-  recipe,
-) {
-  const requirement =
-    getRecipeProfessionRequirement(recipe);
+function hasRequiredProfessionLevelForRecipe(recipe) {
+  const requirement = getRecipeProfessionRequirement(recipe);
 
   return !requirement || requirement.met;
 }
 
 function getRecipeCraftingExp(recipe) {
-  return Math.max(
-    1,
-    Math.floor(
-      Number(recipe?.craftingExp) ||
-      10,
-    ),
-  );
+  return Math.max(1, Math.floor(Number(recipe?.craftingExp) || 10));
 }
 
 function hasRequiredCraftingLevel(recipe) {
@@ -85,16 +53,9 @@ function hasRequiredCraftingLevel(recipe) {
 }
 
 function getCraftingExpToNextLevel(level) {
-  const normalizedLevel =
-    Math.max(
-      1,
-      Math.floor(
-        Number(level) || 1,
-      ),
-    );
+  const normalizedLevel = Math.max(1, Math.floor(Number(level) || 1));
 
-  const levelIndex =
-    normalizedLevel - 1;
+  const levelIndex = normalizedLevel - 1;
 
   /*
    * Krzywa jest dostrojona do pełnych
@@ -107,14 +68,7 @@ function getCraftingExpToNextLevel(level) {
    * - materiały pozostają głównym
    *   ograniczeniem późnej gry.
    */
-  return Math.floor(
-    300 +
-    levelIndex * 110 +
-    Math.pow(
-      levelIndex,
-      1.65,
-    ) * 28,
-  );
+  return Math.floor(300 + levelIndex * 110 + Math.pow(levelIndex, 1.65) * 28);
 }
 
 function getDefaultCraftingStatistics() {
@@ -145,10 +99,9 @@ function ensureCraftingState() {
     Math.floor(Number(player.crafting.exp) || 0),
   );
 
-  player.crafting.expToNextLevel =
-    getCraftingExpToNextLevel(
-      player.crafting.level,
-    );
+  player.crafting.expToNextLevel = getCraftingExpToNextLevel(
+    player.crafting.level,
+  );
 
   /*
    * Zachowujemy całe EXP zdobyte przed
@@ -157,105 +110,63 @@ function ensureCraftingState() {
    * krzywa, należne poziomy są przyznawane
    * automatycznie przy wczytaniu gry.
    */
-  while (
-    player.crafting.exp >=
-    player.crafting.expToNextLevel
-  ) {
-    player.crafting.exp -=
-      player.crafting.expToNextLevel;
+  while (player.crafting.exp >= player.crafting.expToNextLevel) {
+    player.crafting.exp -= player.crafting.expToNextLevel;
     player.crafting.level++;
-    player.crafting.expToNextLevel =
-      getCraftingExpToNextLevel(
-        player.crafting.level,
-      );
+    player.crafting.expToNextLevel = getCraftingExpToNextLevel(
+      player.crafting.level,
+    );
   }
 
   if (
     !player.crafting.statistics ||
     typeof player.crafting.statistics !== "object"
   ) {
-    player.crafting.statistics =
-      getDefaultCraftingStatistics();
+    player.crafting.statistics = getDefaultCraftingStatistics();
   }
 
-  player.crafting.statistics.totalCrafted =
-    Math.max(
-      0,
-      Math.floor(
-        Number(
-          player.crafting.statistics.totalCrafted
-        ) || 0,
-      ),
-    );
+  player.crafting.statistics.totalCrafted = Math.max(
+    0,
+    Math.floor(Number(player.crafting.statistics.totalCrafted) || 0),
+  );
 
-  player.crafting.statistics.totalCycles =
-    Math.max(
-      0,
-      Math.floor(
-        Number(
-          player.crafting.statistics.totalCycles
-        ) || 0,
-      ),
-    );
+  player.crafting.statistics.totalCycles = Math.max(
+    0,
+    Math.floor(Number(player.crafting.statistics.totalCycles) || 0),
+  );
 
   if (!Array.isArray(player.crafting.queue)) {
     player.crafting.queue = [];
   }
-
 }
 
-function recordCraftingProgress(
-  amount = 1,
-) {
+function recordCraftingProgress(amount = 1) {
   ensureCraftingState();
 
-  const craftedAmount =
-    Math.max(
-      0,
-      Math.floor(
-        Number(amount) || 0,
-      ),
-    );
+  const craftedAmount = Math.max(0, Math.floor(Number(amount) || 0));
 
   if (craftedAmount <= 0) {
     return;
   }
 
-  player.crafting
-    .statistics
-    .totalCrafted +=
-    craftedAmount;
+  player.crafting.statistics.totalCrafted += craftedAmount;
 
-  if (
-    typeof updateQuestMenuHighlight ===
-    "function"
-  ) {
+  if (typeof updateQuestMenuHighlight === "function") {
     updateQuestMenuHighlight();
   }
 }
 
-function getRecipeCraftingDurationMs(
-  recipe
-) {
-  const durationSeconds =
-    Math.max(
-      1,
-      Number(
-        recipe
-          ?.craftingTimeSeconds
-      ) ||
-      DEFAULT_CRAFTING_DURATION_SECONDS
-    );
+function getRecipeCraftingDurationMs(recipe) {
+  const durationSeconds = Math.max(
+    1,
+    Number(recipe?.craftingTimeSeconds) ||
+      craftingBalance.timing.defaultDurationSeconds,
+  );
 
-  const baseDurationMs =
-    Math.round(
-      durationSeconds *
-      1000
-    );
+  const baseDurationMs = Math.round(durationSeconds * 1000);
 
   const speedReduction =
-    typeof getCraftingSpeedReduction ===
-      "function"
+    typeof getCraftingSpeedReduction === "function"
       ? getCraftingSpeedReduction()
       : 0;
 
@@ -265,24 +176,13 @@ function getRecipeCraftingDurationMs(
    * 10 sekund i 15% premii:
    * 10000 × 0,85 = 8500 ms
    */
-  const finalDurationMs =
-    baseDurationMs *
-    (
-      1 -
-      speedReduction /
-      100
-    );
+  const finalDurationMs = baseDurationMs * (1 - speedReduction / 100);
 
   /*
    * Jedno wykonanie nie może
    * trwać krócej niż sekundę.
    */
-  return Math.max(
-    1000,
-    Math.round(
-      finalDurationMs
-    )
-  );
+  return Math.max(1000, Math.round(finalDurationMs));
 }
 
 function createCraftingQueueJob(recipe, craftCount) {
@@ -290,18 +190,14 @@ function createCraftingQueueJob(recipe, craftCount) {
     typeof isProfessionToolUpgradeRecipe === "function" &&
     isProfessionToolUpgradeRecipe(recipe);
 
-  const safeCraftCount = isToolUpgrade
-    ? 1
-    : normalizeCraftCount(craftCount);
+  const safeCraftCount = isToolUpgrade ? 1 : normalizeCraftCount(craftCount);
 
   const resultItem = items[recipe.resultItemId];
-  const sourceItemId = isToolUpgrade
-    ? recipe.upgradeFromItemId
-    : null;
+  const sourceItemId = isToolUpgrade ? recipe.upgradeFromItemId : null;
   const sourceMaterial = isToolUpgrade
     ? recipe.materials.find((material) => {
-      return material.itemId === sourceItemId;
-    })
+        return material.itemId === sourceItemId;
+      })
     : null;
   const sourceQuantityBeforeReservation = sourceItemId
     ? getInventoryItemQuantity(sourceItemId)
@@ -329,10 +225,7 @@ function createCraftingQueueJob(recipe, craftCount) {
     totalCraftCount: safeCraftCount,
     completedCraftCount: 0,
 
-    reservedGoldCost: getRecipeTotalGoldCost(
-      recipe,
-      safeCraftCount,
-    ),
+    reservedGoldCost: getRecipeTotalGoldCost(recipe, safeCraftCount),
 
     reservedMaterials: recipe.materials.map((material) => {
       return {
@@ -343,11 +236,11 @@ function createCraftingQueueJob(recipe, craftCount) {
 
     professionToolUpgrade: isToolUpgrade
       ? {
-        toolType: resultItem?.toolType || null,
-        sourceItemId,
-        resultItemId: recipe.resultItemId,
-        shouldReplaceActiveTool,
-      }
+          toolType: resultItem?.toolType || null,
+          sourceItemId,
+          resultItemId: recipe.resultItemId,
+          shouldReplaceActiveTool,
+        }
       : null,
 
     craftingDurationMs: getRecipeCraftingDurationMs(recipe),
@@ -357,56 +250,39 @@ function createCraftingQueueJob(recipe, craftCount) {
 }
 
 function getCraftingJobRefund(job) {
-  const totalCount = Math.max(
-    1,
-    Number(job.totalCraftCount) || 1,
-  );
+  const totalCount = Math.max(1, Number(job.totalCraftCount) || 1);
 
   const completedCount = Math.max(
     0,
-    Math.min(
-      totalCount,
-      Number(job.completedCraftCount) || 0,
-    ),
+    Math.min(totalCount, Number(job.completedCraftCount) || 0),
   );
 
   const remainingCount = totalCount - completedCount;
 
-  const goldPerCraft =
-    job.reservedGoldCost / totalCount;
+  const goldPerCraft = job.reservedGoldCost / totalCount;
 
   const materials = job.reservedMaterials.map((material) => {
-    const quantityPerCraft =
-      material.quantity / totalCount;
+    const quantityPerCraft = material.quantity / totalCount;
 
     return {
       itemId: material.itemId,
-      quantity: Math.round(
-        quantityPerCraft * remainingCount,
-      ),
+      quantity: Math.round(quantityPerCraft * remainingCount),
     };
   });
 
   return {
     remainingCount,
-    gold: Math.round(
-      goldPerCraft * remainingCount,
-    ),
+    gold: Math.round(goldPerCraft * remainingCount),
     materials,
   };
 }
 
 function reserveCraftingJobResources(job) {
-  const hasEnoughGold =
-    player.gold >= job.reservedGoldCost;
+  const hasEnoughGold = player.gold >= job.reservedGoldCost;
 
-  const hasEnoughMaterials =
-    job.reservedMaterials.every((material) => {
-      return (
-        getCraftingItemQuantity(material.itemId) >=
-        material.quantity
-      );
-    });
+  const hasEnoughMaterials = job.reservedMaterials.every((material) => {
+    return getCraftingItemQuantity(material.itemId) >= material.quantity;
+  });
 
   if (!hasEnoughGold || !hasEnoughMaterials) {
     return false;
@@ -415,28 +291,19 @@ function reserveCraftingJobResources(job) {
   player.gold -= job.reservedGoldCost;
 
   job.reservedMaterials.forEach((material) => {
-    removeCraftingItem(
-      material.itemId,
-      material.quantity,
-    );
+    removeCraftingItem(material.itemId, material.quantity);
   });
 
-  const professionToolUpgrade =
-    job.professionToolUpgrade;
+  const professionToolUpgrade = job.professionToolUpgrade;
 
   if (
     professionToolUpgrade?.shouldReplaceActiveTool &&
     professionToolUpgrade.toolType &&
-    player.professionTools?.[
-    professionToolUpgrade.toolType
-    ] === professionToolUpgrade.sourceItemId &&
-    getInventoryItemQuantity(
-      professionToolUpgrade.sourceItemId,
-    ) <= 0
+    player.professionTools?.[professionToolUpgrade.toolType] ===
+      professionToolUpgrade.sourceItemId &&
+    getInventoryItemQuantity(professionToolUpgrade.sourceItemId) <= 0
   ) {
-    player.professionTools[
-      professionToolUpgrade.toolType
-    ] = null;
+    player.professionTools[professionToolUpgrade.toolType] = null;
   }
 
   normalizePlayerResourcesAfterCrafting();
@@ -454,28 +321,19 @@ function refundCraftingJobResources(job) {
       return;
     }
 
-    addItemToInventory(
-      material.itemId,
-      material.quantity,
-    );
+    addItemToInventory(material.itemId, material.quantity);
   });
 
-  const professionToolUpgrade =
-    job.professionToolUpgrade;
+  const professionToolUpgrade = job.professionToolUpgrade;
 
   if (
     professionToolUpgrade?.shouldReplaceActiveTool &&
     professionToolUpgrade.toolType &&
-    !player.professionTools?.[
-    professionToolUpgrade.toolType
-    ] &&
-    getInventoryItemQuantity(
-      professionToolUpgrade.sourceItemId,
-    ) > 0
+    !player.professionTools?.[professionToolUpgrade.toolType] &&
+    getInventoryItemQuantity(professionToolUpgrade.sourceItemId) > 0
   ) {
-    player.professionTools[
-      professionToolUpgrade.toolType
-    ] = professionToolUpgrade.sourceItemId;
+    player.professionTools[professionToolUpgrade.toolType] =
+      professionToolUpgrade.sourceItemId;
   }
 
   return refund;
@@ -494,8 +352,7 @@ function cancelCraftingQueueJob(jobId) {
 
   const job = queue[jobIndex];
 
-  const refund =
-    refundCraftingJobResources(job);
+  const refund = refundCraftingJobResources(job);
 
   queue.splice(jobIndex, 1);
 
@@ -509,9 +366,7 @@ function cancelCraftingQueueJob(jobId) {
 
   if (typeof showNotification === "function") {
     showNotification(
-      "Anulowano zadanie. Zwrócono " +
-      refund.gold +
-      " złota.",
+      "Anulowano zadanie. Zwrócono " + refund.gold + " złota.",
       "success",
     );
   }
@@ -531,23 +386,17 @@ function getActiveCraftingQueueJob() {
   return queue[0] || null;
 }
 
-function moveCraftingQueueJob(
-  jobId,
-  targetIndex,
-) {
+function moveCraftingQueueJob(jobId, targetIndex) {
   const queue = getCraftingQueue();
 
-  const sourceIndex = queue.findIndex(
-    job => job.id === jobId,
-  );
+  const sourceIndex = queue.findIndex((job) => job.id === jobId);
 
   // Aktywnego zadania nie przeciągamy.
   if (sourceIndex <= 0) {
     return false;
   }
 
-  const normalizedTargetIndex =
-    Math.floor(Number(targetIndex));
+  const normalizedTargetIndex = Math.floor(Number(targetIndex));
 
   if (!Number.isFinite(normalizedTargetIndex)) {
     return false;
@@ -555,10 +404,7 @@ function moveCraftingQueueJob(
 
   const safeTargetIndex = Math.max(
     0,
-    Math.min(
-      queue.length - 1,
-      normalizedTargetIndex,
-    ),
+    Math.min(queue.length - 1, normalizedTargetIndex),
   );
 
   if (sourceIndex === safeTargetIndex) {
@@ -567,22 +413,12 @@ function moveCraftingQueueJob(
 
   const previousActiveJob = queue[0];
 
-  const [movedJob] = queue.splice(
-    sourceIndex,
-    1,
-  );
+  const [movedJob] = queue.splice(sourceIndex, 1);
 
-  queue.splice(
-    safeTargetIndex,
-    0,
-    movedJob,
-  );
+  queue.splice(safeTargetIndex, 0, movedJob);
 
   if (safeTargetIndex === 0) {
-    if (
-      previousActiveJob &&
-      previousActiveJob !== movedJob
-    ) {
+    if (previousActiveJob && previousActiveJob !== movedJob) {
       previousActiveJob.cycleStartedAt = 0;
       previousActiveJob.cycleFinishesAt = 0;
     }
@@ -590,12 +426,9 @@ function moveCraftingQueueJob(
     movedJob.cycleStartedAt = 0;
     movedJob.cycleFinishesAt = 0;
 
-    startNextCraftingQueueJob(
-      Date.now(),
-      {
-        persist: false,
-      },
-    );
+    startNextCraftingQueueJob(Date.now(), {
+      persist: false,
+    });
   }
 
   if (typeof saveGame === "function") {
@@ -607,9 +440,7 @@ function moveCraftingQueueJob(
 function prioritizeCraftingQueueJob(jobId) {
   const queue = getCraftingQueue();
 
-  const jobIndex = queue.findIndex(
-    job => job.id === jobId
-  );
+  const jobIndex = queue.findIndex((job) => job.id === jobId);
 
   if (jobIndex <= 0) {
     return false;
@@ -625,26 +456,13 @@ function prioritizeCraftingQueueJob(jobId) {
 function getCraftingQueueProgressPercent() {
   const job = getActiveCraftingQueueJob();
 
-  if (
-    !job ||
-    job.cycleStartedAt <= 0 ||
-    job.craftingDurationMs <= 0
-  ) {
+  if (!job || job.cycleStartedAt <= 0 || job.craftingDurationMs <= 0) {
     return 0;
   }
 
-  const elapsed =
-    Date.now() - job.cycleStartedAt;
+  const elapsed = Date.now() - job.cycleStartedAt;
 
-  return Math.max(
-    0,
-    Math.min(
-      100,
-      elapsed /
-      job.craftingDurationMs *
-      100,
-    ),
-  );
+  return Math.max(0, Math.min(100, (elapsed / job.craftingDurationMs) * 100));
 }
 
 function getCraftingQueueRemainingSeconds() {
@@ -654,36 +472,23 @@ function getCraftingQueueRemainingSeconds() {
     return 0;
   }
 
-  const currentCycleRemaining =
-    Math.max(
-      0,
-      job.cycleFinishesAt - Date.now(),
-    );
+  const currentCycleRemaining = Math.max(0, job.cycleFinishesAt - Date.now());
 
   const laterCycles = Math.max(
     0,
-    job.totalCraftCount -
-    job.completedCraftCount -
-    1,
+    job.totalCraftCount - job.completedCraftCount - 1,
   );
 
   const totalRemainingMilliseconds =
-    currentCycleRemaining +
-    laterCycles * job.craftingDurationMs;
+    currentCycleRemaining + laterCycles * job.craftingDurationMs;
 
-  return Math.ceil(
-    totalRemainingMilliseconds / 1000,
-  );
+  return Math.ceil(totalRemainingMilliseconds / 1000);
 }
 
 function getCraftingTotalQueueRemainingSeconds() {
-  const queue =
-    getCraftingQueue();
+  const queue = getCraftingQueue();
 
-  if (
-    !Array.isArray(queue) ||
-    queue.length === 0
-  ) {
+  if (!Array.isArray(queue) || queue.length === 0) {
     return 0;
   }
 
@@ -694,43 +499,28 @@ function getCraftingTotalQueueRemainingSeconds() {
       return;
     }
 
-    const craftingDurationMs =
-      Math.max(
-        1000,
-        Number(
-          job.craftingDurationMs
-        ) || 1000,
-      );
+    const craftingDurationMs = Math.max(
+      1000,
+      Number(job.craftingDurationMs) || 1000,
+    );
 
-    const totalCraftCount =
-      Math.max(
-        1,
-        Math.floor(
-          Number(
-            job.totalCraftCount
-          ) || 1,
-        ),
-      );
+    const totalCraftCount = Math.max(
+      1,
+      Math.floor(Number(job.totalCraftCount) || 1),
+    );
 
-    const completedCraftCount =
-      Math.max(
-        0,
-        Math.min(
-          totalCraftCount,
-          Math.floor(
-            Number(
-              job.completedCraftCount
-            ) || 0,
-          ),
-        ),
-      );
+    const completedCraftCount = Math.max(
+      0,
+      Math.min(
+        totalCraftCount,
+        Math.floor(Number(job.completedCraftCount) || 0),
+      ),
+    );
 
-    const remainingCraftCount =
-      Math.max(
-        0,
-        totalCraftCount -
-        completedCraftCount,
-      );
+    const remainingCraftCount = Math.max(
+      0,
+      totalCraftCount - completedCraftCount,
+    );
 
     if (remainingCraftCount <= 0) {
       return;
@@ -744,23 +534,13 @@ function getCraftingTotalQueueRemainingSeconds() {
     if (index === 0) {
       const currentCycleRemaining =
         job.cycleFinishesAt > 0
-          ? Math.max(
-            0,
-            job.cycleFinishesAt -
-            Date.now(),
-          )
+          ? Math.max(0, job.cycleFinishesAt - Date.now())
           : craftingDurationMs;
 
-      const laterCycleCount =
-        Math.max(
-          0,
-          remainingCraftCount - 1,
-        );
+      const laterCycleCount = Math.max(0, remainingCraftCount - 1);
 
       totalRemainingMilliseconds +=
-        currentCycleRemaining +
-        laterCycleCount *
-        craftingDurationMs;
+        currentCycleRemaining + laterCycleCount * craftingDurationMs;
 
       return;
     }
@@ -770,29 +550,14 @@ function getCraftingTotalQueueRemainingSeconds() {
      * nie rozpoczęły, więc liczymy
      * wszystkie ich cykle.
      */
-    totalRemainingMilliseconds +=
-      remainingCraftCount *
-      craftingDurationMs;
+    totalRemainingMilliseconds += remainingCraftCount * craftingDurationMs;
   });
 
-  return Math.max(
-    0,
-    Math.ceil(
-      totalRemainingMilliseconds /
-      1000,
-    ),
-  );
+  return Math.max(0, Math.ceil(totalRemainingMilliseconds / 1000));
 }
 
-function getDueCraftingCycleCount(
-  job,
-  currentTime = Date.now(),
-) {
-  if (
-    !job ||
-    job.craftingDurationMs <= 0 ||
-    job.cycleFinishesAt <= 0
-  ) {
+function getDueCraftingCycleCount(job, currentTime = Date.now()) {
+  if (!job || job.craftingDurationMs <= 0 || job.cycleFinishesAt <= 0) {
     return 0;
   }
 
@@ -800,56 +565,34 @@ function getDueCraftingCycleCount(
     return 0;
   }
 
-  const remainingCraftCount =
-    job.totalCraftCount -
-    job.completedCraftCount;
+  const remainingCraftCount = job.totalCraftCount - job.completedCraftCount;
 
-  const overdueTime =
-    currentTime - job.cycleFinishesAt;
+  const overdueTime = currentTime - job.cycleFinishesAt;
 
-  const finishedCycles =
-    Math.floor(
-      overdueTime /
-      job.craftingDurationMs,
-    ) + 1;
+  const finishedCycles = Math.floor(overdueTime / job.craftingDurationMs) + 1;
 
-  return Math.min(
-    remainingCraftCount,
-    finishedCycles,
-  );
+  return Math.min(remainingCraftCount, finishedCycles);
 }
 
-function startNextCraftingQueueJob(
-  startTime = Date.now(),
-  options = {},
-) {
+function startNextCraftingQueueJob(startTime = Date.now(), options = {}) {
   const job = getActiveCraftingQueueJob();
 
   if (!job) {
     return null;
   }
 
-  const cycleAlreadyStarted =
-    job.cycleStartedAt > 0 &&
-    job.cycleFinishesAt > 0;
+  const cycleAlreadyStarted = job.cycleStartedAt > 0 && job.cycleFinishesAt > 0;
 
   if (cycleAlreadyStarted) {
     return job;
   }
 
-  const now = Math.max(
-    0,
-    Number(startTime) || Date.now(),
-  );
+  const now = Math.max(0, Number(startTime) || Date.now());
 
   job.cycleStartedAt = now;
-  job.cycleFinishesAt =
-    now + job.craftingDurationMs;
+  job.cycleFinishesAt = now + job.craftingDurationMs;
 
-  if (
-    options.persist !== false &&
-    typeof saveGame === "function"
-  ) {
+  if (options.persist !== false && typeof saveGame === "function") {
     saveGame();
   }
 
@@ -859,45 +602,32 @@ function startNextCraftingQueueJob(
 function addCraftingQueueJob(recipe, craftCount) {
   const safeCraftCount =
     typeof isProfessionToolUpgradeRecipe === "function" &&
-      isProfessionToolUpgradeRecipe(recipe)
+    isProfessionToolUpgradeRecipe(recipe)
       ? 1
       : normalizeCraftCount(craftCount);
 
   const queue = getCraftingQueue();
 
-
-  if (
-    queue.length >=
-    MAX_CRAFTING_QUEUE_SIZE
-  ) {
+  if (queue.length >= craftingBalance.queue.maxSize) {
     if (typeof showNotification === "function") {
-      showNotification(
-        "Kolejka jest pełna. Maksymalnie 10 zadań.",
-        "error"
-      );
+      showNotification("Kolejka jest pełna. Maksymalnie 10 zadań.", "error");
     }
 
     return null;
   }
 
-  const professionRequirement =
-    getRecipeProfessionRequirement(
-      recipe
-    );
+  const professionRequirement = getRecipeProfessionRequirement(recipe);
 
-  if (
-    professionRequirement &&
-    !professionRequirement.met
-  ) {
+  if (professionRequirement && !professionRequirement.met) {
     if (typeof showNotification === "function") {
       showNotification(
         "Wymaga: " +
-        professionRequirement.professionName +
-        " Lv. " +
-        professionRequirement.requiredLevel +
-        ". Obecny poziom: " +
-        professionRequirement.currentLevel +
-        ".",
+          professionRequirement.professionName +
+          " Lv. " +
+          professionRequirement.requiredLevel +
+          ". Obecny poziom: " +
+          professionRequirement.currentLevel +
+          ".",
         "error",
       );
     }
@@ -916,24 +646,18 @@ function addCraftingQueueJob(recipe, craftCount) {
     return null;
   }
 
-  const equipmentUsageConfirmed =
-    confirmCraftingQueueEquipmentUsage(
-      recipe,
-      safeCraftCount,
-    );
+  const equipmentUsageConfirmed = confirmCraftingQueueEquipmentUsage(
+    recipe,
+    safeCraftCount,
+  );
 
   if (!equipmentUsageConfirmed) {
     return null;
   }
 
+  const job = createCraftingQueueJob(recipe, safeCraftCount);
 
-  const job = createCraftingQueueJob(
-    recipe,
-    safeCraftCount,
-  );
-
-  const resourcesReserved =
-    reserveCraftingJobResources(job);
+  const resourcesReserved = reserveCraftingJobResources(job);
 
   if (!resourcesReserved) {
     return null;
@@ -952,47 +676,28 @@ function addCraftingQueueJob(recipe, craftCount) {
   return job;
 }
 
-function upgradeProfessionToolImmediately(
-  recipe,
-) {
+function upgradeProfessionToolImmediately(recipe) {
   const isToolUpgrade =
-    typeof isProfessionToolUpgradeRecipe ===
-    "function" &&
+    typeof isProfessionToolUpgradeRecipe === "function" &&
     isProfessionToolUpgradeRecipe(recipe);
 
-  if (
-    !isToolUpgrade ||
-    !canCraftRecipe(recipe, 1)
-  ) {
+  if (!isToolUpgrade || !canCraftRecipe(recipe, 1)) {
     return false;
   }
 
-  const job = createCraftingQueueJob(
-    recipe,
-    1,
-  );
+  const job = createCraftingQueueJob(recipe, 1);
 
   if (!reserveCraftingJobResources(job)) {
     return false;
   }
 
-  const completionResult =
-    addCompletedCraftingResults(
-      recipe,
-      1,
-    );
+  const completionResult = addCompletedCraftingResults(recipe, 1);
 
   job.completedCraftCount = 1;
 
-  activateCompletedProfessionToolUpgrade(
-    recipe,
-    job,
-  );
+  activateCompletedProfessionToolUpgrade(recipe, job);
 
-  notifyCraftingQueueJobCompleted(
-    recipe,
-    job,
-  );
+  notifyCraftingQueueJobCompleted(recipe, job);
 
   if (typeof saveGame === "function") {
     saveGame();
@@ -1002,10 +707,7 @@ function upgradeProfessionToolImmediately(
     render();
   }
 
-  if (
-    typeof refreshCraftingView ===
-    "function"
-  ) {
+  if (typeof refreshCraftingView === "function") {
     refreshCraftingView();
   }
 
@@ -1016,51 +718,24 @@ function upgradeProfessionToolImmediately(
   };
 }
 
-function getFinalCraftingExperience(
-  baseAmount
-) {
-  const safeBaseAmount =
-    Math.max(
-      0,
-      Number(baseAmount) || 0
-    );
+function getFinalCraftingExperience(baseAmount) {
+  const safeBaseAmount = Math.max(0, Number(baseAmount) || 0);
 
   const experienceBonus =
-    typeof getCraftingExperienceBonus ===
-      "function"
+    typeof getCraftingExperienceBonus === "function"
       ? getCraftingExperienceBonus()
       : 0;
 
-  return Math.max(
-    0,
-    Math.floor(
-      safeBaseAmount *
-      (
-        1 +
-        experienceBonus /
-        100
-      )
-    )
-  );
+  return Math.max(0, Math.floor(safeBaseAmount * (1 + experienceBonus / 100)));
 }
 
-function addCraftingExp(
-  amount
-) {
+function addCraftingExp(amount) {
   ensureCraftingState();
 
   const expGain =
-    typeof getFinalCraftingExperience ===
-      "function"
-      ? getFinalCraftingExperience(
-        amount
-      )
-      : Math.max(
-        0,
-        Math.floor(
-          Number(amount) || 0
-        )
-      );
+    typeof getFinalCraftingExperience === "function"
+      ? getFinalCraftingExperience(amount)
+      : Math.max(0, Math.floor(Number(amount) || 0));
 
   if (expGain <= 0) {
     return;
@@ -1089,7 +764,6 @@ function addCraftingExp(
     );
   }
 }
-
 
 function getFinalCraftingGoldCost(recipe) {
   if (!recipe) {
@@ -1182,11 +856,7 @@ function getMaxRecipeCraftCount(recipe) {
     return 0;
   }
 
-  if (
-    !hasRequiredProfessionLevelForRecipe(
-      recipe
-    )
-  ) {
+  if (!hasRequiredProfessionLevelForRecipe(recipe)) {
     return 0;
   }
 
@@ -1207,24 +877,18 @@ function getMaxRecipeCraftCount(recipe) {
    */
   const maximumAllowedCount =
     typeof isProfessionToolUpgradeRecipe === "function" &&
-      isProfessionToolUpgradeRecipe(recipe)
+    isProfessionToolUpgradeRecipe(recipe)
       ? 1
       : 9999;
 
   return Math.max(
     0,
-    Math.min(
-      maximumAllowedCount,
-      Math.floor(maximumCraftCount),
-    ),
+    Math.min(maximumAllowedCount, Math.floor(maximumCraftCount)),
   );
 }
 
 function getEquippedCraftingItemSlots(itemId) {
-  if (
-    !player.equipment ||
-    typeof player.equipment !== "object"
-  ) {
+  if (!player.equipment || typeof player.equipment !== "object") {
     return [];
   }
 
@@ -1238,8 +902,7 @@ function getEquippedCraftingItemSlots(itemId) {
         return true;
       }
 
-      const equippedItem =
-        items[equippedItemId];
+      const equippedItem = items[equippedItemId];
 
       return (
         equippedItem?.customEquipment === true &&
@@ -1254,41 +917,24 @@ function getEquippedCraftingItemQuantity(itemId) {
 }
 
 function getCraftingItemQuantity(itemId) {
-  const inventoryQuantity =
-    getInventoryItemQuantity(itemId);
+  const inventoryQuantity = getInventoryItemQuantity(itemId);
 
-  const customInventoryQuantity =
-    player.inventory.reduce(
-      (total, entry) => {
-        const inventoryItem =
-          items[entry.itemId];
+  const customInventoryQuantity = player.inventory.reduce((total, entry) => {
+    const inventoryItem = items[entry.itemId];
 
-        if (
-          inventoryItem?.customEquipment === true &&
-          inventoryItem?.baseItemId === itemId
-        ) {
-          return (
-            total +
-            (
-              Number(entry.quantity) ||
-              0
-            )
-          );
-        }
+    if (
+      inventoryItem?.customEquipment === true &&
+      inventoryItem?.baseItemId === itemId
+    ) {
+      return total + (Number(entry.quantity) || 0);
+    }
 
-        return total;
-      },
-      0
-    );
+    return total;
+  }, 0);
 
-  const equippedQuantity =
-    getEquippedCraftingItemQuantity(itemId);
+  const equippedQuantity = getEquippedCraftingItemQuantity(itemId);
 
-  return (
-    inventoryQuantity +
-    customInventoryQuantity +
-    equippedQuantity
-  );
+  return inventoryQuantity + customInventoryQuantity + equippedQuantity;
 }
 
 function getRecipeEquippedMaterials(recipe, craftCount = 1) {
@@ -1337,38 +983,25 @@ function getRecipeEquippedMaterials(recipe, craftCount = 1) {
     .filter(Boolean);
 }
 
-function confirmCraftingQueueEquipmentUsage(
-  recipe,
-  craftCount,
-) {
-  const equippedMaterials =
-    getRecipeEquippedMaterials(
-      recipe,
-      craftCount,
-    );
+function confirmCraftingQueueEquipmentUsage(recipe, craftCount) {
+  const equippedMaterials = getRecipeEquippedMaterials(recipe, craftCount);
 
   if (equippedMaterials.length === 0) {
     return true;
   }
 
-  const materialsText =
-    equippedMaterials
-      .map((material) => {
-        const item = items[material.itemId];
+  const materialsText = equippedMaterials
+    .map((material) => {
+      const item = items[material.itemId];
 
-        return (
-          "• " +
-          (item?.name || material.itemId) +
-          " x" +
-          material.quantity
-        );
-      })
-      .join("\n");
+      return "• " + (item?.name || material.itemId) + " x" + material.quantity;
+    })
+    .join("\n");
 
   return window.confirm(
     "To zadanie zużyje założone wyposażenie:\n\n" +
-    materialsText +
-    "\n\nKontynuować?",
+      materialsText +
+      "\n\nKontynuować?",
   );
 }
 
@@ -1379,52 +1012,38 @@ function removeCraftingItem(itemId, requestedAmount) {
     return true;
   }
 
-  const inventoryQuantity =
-    getInventoryItemQuantity(itemId);
+  const inventoryQuantity = getInventoryItemQuantity(itemId);
 
-  const inventoryAmount =
-    Math.min(
-      inventoryQuantity,
-      remainingAmount
-    );
+  const inventoryAmount = Math.min(inventoryQuantity, remainingAmount);
 
   if (inventoryAmount > 0) {
-    removeItemFromInventory(
-      itemId,
-      inventoryAmount
-    );
+    removeItemFromInventory(itemId, inventoryAmount);
 
     remainingAmount -= inventoryAmount;
   }
 
   if (remainingAmount > 0) {
-    const customEntries =
-      player.inventory.filter(entry => {
-        const inventoryItem =
-          items[entry.itemId];
+    const customEntries = player.inventory.filter((entry) => {
+      const inventoryItem = items[entry.itemId];
 
-        return (
-          inventoryItem?.customEquipment === true &&
-          inventoryItem?.baseItemId === itemId &&
-          Number(entry.quantity) > 0
-        );
-      });
+      return (
+        inventoryItem?.customEquipment === true &&
+        inventoryItem?.baseItemId === itemId &&
+        Number(entry.quantity) > 0
+      );
+    });
 
     for (const entry of customEntries) {
       if (remainingAmount <= 0) {
         break;
       }
 
-      const amountToRemove =
-        Math.min(
-          Number(entry.quantity) || 0,
-          remainingAmount
-        );
-
-      removeItemFromInventory(
-        entry.itemId,
-        amountToRemove
+      const amountToRemove = Math.min(
+        Number(entry.quantity) || 0,
+        remainingAmount,
       );
+
+      removeItemFromInventory(entry.itemId, amountToRemove);
 
       remainingAmount -= amountToRemove;
     }
@@ -1504,11 +1123,7 @@ function canCraftRecipe(recipe, craftCount = 1) {
     return false;
   }
 
-  if (
-    !hasRequiredProfessionLevelForRecipe(
-      recipe
-    )
-  ) {
+  if (!hasRequiredProfessionLevelForRecipe(recipe)) {
     return false;
   }
 
@@ -1531,10 +1146,7 @@ function canCraftRecipe(recipe, craftCount = 1) {
   });
 }
 
-function refundCraftingMaterialsFromTool(
-  recipe,
-  completedCraftCount,
-) {
+function refundCraftingMaterialsFromTool(recipe, completedCraftCount) {
   if (
     !recipe ||
     !Array.isArray(recipe.materials) ||
@@ -1548,47 +1160,32 @@ function refundCraftingMaterialsFromTool(
    * młota rzemieślniczego.
    */
   const refundChance =
-    typeof getProfessionToolBonus ===
-      "function"
-      ? getProfessionToolBonus(
-        "craftingHammer",
-        "materialRefundChancePercent",
-      )
+    typeof getProfessionToolBonus === "function"
+      ? getProfessionToolBonus("craftingHammer", "materialRefundChancePercent")
       : 0;
 
-  const safeRefundChance =
-    Math.min(
-      100,
-      Math.max(
-        0,
-        Number(refundChance) || 0,
-      ),
-    );
+  const safeRefundChance = Math.min(
+    100,
+    Math.max(0, Number(refundChance) || 0),
+  );
 
   if (safeRefundChance <= 0) {
     return [];
   }
 
-  const safeCompletedCraftCount =
-    Math.max(
-      0,
-      Math.floor(
-        Number(completedCraftCount) || 0,
-      ),
-    );
+  const safeCompletedCraftCount = Math.max(
+    0,
+    Math.floor(Number(completedCraftCount) || 0),
+  );
 
-  const validMaterials =
-    recipe.materials.filter(
-      material => {
-        return (
-          material &&
-          material.itemId &&
-          Number(material.quantity) > 0 &&
-          material.itemId !==
-          recipe.upgradeFromItemId
-        );
-      },
+  const validMaterials = recipe.materials.filter((material) => {
+    return (
+      material &&
+      material.itemId &&
+      Number(material.quantity) > 0 &&
+      material.itemId !== recipe.upgradeFromItemId
     );
+  });
 
   if (validMaterials.length === 0) {
     return [];
@@ -1604,90 +1201,45 @@ function refundCraftingMaterialsFromTool(
    * sztukę losowego materiału
    * wykorzystanego w recepturze.
    */
-  for (
-    let craftIndex = 0;
-    craftIndex <
-    safeCompletedCraftCount;
-    craftIndex++
-  ) {
-    const didRefundMaterial =
-      Math.random() * 100 <
-      safeRefundChance;
+  for (let craftIndex = 0; craftIndex < safeCompletedCraftCount; craftIndex++) {
+    const didRefundMaterial = Math.random() * 100 < safeRefundChance;
 
     if (!didRefundMaterial) {
       continue;
     }
 
-    const randomMaterialIndex =
-      Math.floor(
-        Math.random() *
-        validMaterials.length,
-      );
+    const randomMaterialIndex = Math.floor(
+      Math.random() * validMaterials.length,
+    );
 
-    const selectedMaterial =
-      validMaterials[
-      randomMaterialIndex
-      ];
+    const selectedMaterial = validMaterials[randomMaterialIndex];
 
-    refundedByItem[
-      selectedMaterial.itemId
-    ] =
-      (
-        refundedByItem[
-        selectedMaterial.itemId
-        ] || 0
-      ) + 1;
+    refundedByItem[selectedMaterial.itemId] =
+      (refundedByItem[selectedMaterial.itemId] || 0) + 1;
   }
 
-  const refundedMaterials =
-    Object.entries(refundedByItem)
-      .map(
-        ([itemId, quantity]) => {
-          return {
-            itemId,
-            quantity,
-          };
-        },
-      );
-
-  refundedMaterials.forEach(
-    material => {
-      addItemToInventory(
-        material.itemId,
-        material.quantity,
-      );
+  const refundedMaterials = Object.entries(refundedByItem).map(
+    ([itemId, quantity]) => {
+      return {
+        itemId,
+        quantity,
+      };
     },
   );
+
+  refundedMaterials.forEach((material) => {
+    addItemToInventory(material.itemId, material.quantity);
+  });
 
   return refundedMaterials;
 }
 
+function getCraftingOccurrenceCount(attemptCount, chancePercent) {
+  const safeAttemptCount = Math.max(0, Math.floor(Number(attemptCount) || 0));
 
-function getCraftingOccurrenceCount(
-  attemptCount,
-  chancePercent
-) {
-  const safeAttemptCount =
-    Math.max(
-      0,
-      Math.floor(
-        Number(attemptCount) || 0
-      )
-    );
+  const safeChance = Math.max(0, Math.min(100, Number(chancePercent) || 0));
 
-  const safeChance =
-    Math.max(
-      0,
-      Math.min(
-        100,
-        Number(chancePercent) || 0
-      )
-    );
-
-  if (
-    safeAttemptCount <= 0 ||
-    safeChance <= 0
-  ) {
+  if (safeAttemptCount <= 0 || safeChance <= 0) {
     return 0;
   }
 
@@ -1697,15 +1249,8 @@ function getCraftingOccurrenceCount(
 
   let occurrenceCount = 0;
 
-  for (
-    let attemptIndex = 0;
-    attemptIndex < safeAttemptCount;
-    attemptIndex++
-  ) {
-    if (
-      Math.random() * 100 <
-      safeChance
-    ) {
+  for (let attemptIndex = 0; attemptIndex < safeAttemptCount; attemptIndex++) {
+    if (Math.random() * 100 < safeChance) {
       occurrenceCount++;
     }
   }
@@ -1713,32 +1258,23 @@ function getCraftingOccurrenceCount(
   return occurrenceCount;
 }
 
-function recoverLosslessWorkshopMaterials(
-  recipe,
-  completedCraftCount
-) {
-  if (
-    !recipe ||
-    !Array.isArray(
-      recipe.materials
-    )
-  ) {
+function recoverLosslessWorkshopMaterials(recipe, completedCraftCount) {
+  if (!recipe || !Array.isArray(recipe.materials)) {
     return {
       recoveryCount: 0,
-      returnedMaterials: []
+      returnedMaterials: [],
     };
   }
 
   const recoveryChance =
-    typeof getCraftingLosslessWorkshopChance ===
-      "function"
+    typeof getCraftingLosslessWorkshopChance === "function"
       ? getCraftingLosslessWorkshopChance()
       : 0;
 
   if (recoveryChance <= 0) {
     return {
       recoveryCount: 0,
-      returnedMaterials: []
+      returnedMaterials: [],
     };
   }
 
@@ -1746,69 +1282,114 @@ function recoverLosslessWorkshopMaterials(
    * Każde ukończone wykonanie
    * otrzymuje osobne losowanie.
    */
-  const recoveryCount =
-    getCraftingOccurrenceCount(
-      completedCraftCount,
-      recoveryChance
-    );
+  const recoveryCount = getCraftingOccurrenceCount(
+    completedCraftCount,
+    recoveryChance,
+  );
 
   if (recoveryCount <= 0) {
     return {
       recoveryCount: 0,
-      returnedMaterials: []
+      returnedMaterials: [],
     };
   }
 
   const returnedMaterials = [];
 
-  recipe.materials.forEach(
-    material => {
-      const materialId =
-        material.itemId;
+  recipe.materials.forEach((material) => {
+    const materialId = material.itemId;
 
-      const quantityPerCraft =
-        Math.max(
-          1,
-          Math.floor(
-            Number(
-              material.quantity ??
-              material.amount ??
-              1
-            ) || 1
-          )
-        );
+    const quantityPerCraft = Math.max(
+      1,
+      Math.floor(Number(material.quantity ?? material.amount ?? 1) || 1),
+    );
 
-      const returnedQuantity =
-        quantityPerCraft *
-        recoveryCount;
+    const returnedQuantity = quantityPerCraft * recoveryCount;
 
-      if (
-        !materialId ||
-        returnedQuantity <= 0
-      ) {
-        return;
-      }
-
-      addItemToInventory(
-        materialId,
-        returnedQuantity
-      );
-
-      returnedMaterials.push({
-        itemId: materialId,
-        quantity: returnedQuantity
-      });
+    if (!materialId || returnedQuantity <= 0) {
+      return;
     }
-  );
+
+    addItemToInventory(materialId, returnedQuantity);
+
+    returnedMaterials.push({
+      itemId: materialId,
+      quantity: returnedQuantity,
+    });
+  });
 
   return {
-    recoveryCount:
-      recoveryCount,
+    recoveryCount: recoveryCount,
 
-    returnedMaterials:
-      returnedMaterials
+    returnedMaterials: returnedMaterials,
   };
 }
+
+function initializeEquipmentUpgradeData() {
+  if (typeof recipes === "undefined" || typeof items === "undefined") {
+    return;
+  }
+
+  recipes.forEach((recipe) => {
+    const resultItem = items[recipe.resultItemId];
+
+    if (!resultItem) {
+      return;
+    }
+
+    const equipmentTypes = [
+      "weapon",
+      "shield",
+      "helmet",
+      "armor",
+      "pants",
+      "boots",
+      "gloves",
+      "ring",
+      "amulet",
+      "talisman",
+    ];
+
+    if (!equipmentTypes.includes(resultItem.type)) {
+      return;
+    }
+
+    const sourceMaterial = (recipe.materials || []).find((material) => {
+      const materialItem = items[material.itemId];
+
+      if (!materialItem) {
+        return false;
+      }
+
+      if (resultItem.type === "weapon") {
+        return materialItem.type === "weapon";
+      }
+
+      return materialItem.type === resultItem.type;
+    });
+
+    if (!sourceMaterial) {
+      return;
+    }
+
+    const presentation = craftingBalance.upgradePresentation[
+      resultItem.requiredLevel
+    ] || {
+      rank: "special",
+      rankLabel: "Specjalne ulepszenie",
+    };
+
+    recipe.upgradeFromItemId =
+      recipe.upgradeFromItemId || sourceMaterial.itemId;
+
+    recipe.equipmentUpgradeRank =
+      recipe.equipmentUpgradeRank || presentation.rank;
+
+    recipe.equipmentUpgradeRankLabel =
+      recipe.equipmentUpgradeRankLabel || presentation.rankLabel;
+  });
+}
+
 
 function getEquipmentUpgradeMainStat(resultItem) {
   if (!resultItem) {
@@ -1852,138 +1433,71 @@ const equipmentUpgradeRandomStats = [
   "dexterity",
   "intelligence",
   "endurance",
-  "luck"
+  "luck",
 ];
 
-function getRandomEquipmentUpgradeStats(
-  mainStat,
-  itemType
-) {
+function getRandomEquipmentUpgradeStats(mainStat, itemType) {
   const allStats = [
     "strength",
     "dexterity",
     "intelligence",
     "endurance",
-    "luck"
+    "luck",
   ];
 
   if (itemType === "ring") {
-    const firstStats = [
-      "strength",
-      "dexterity",
-      "intelligence"
-    ];
+    const firstStats = ["strength", "dexterity", "intelligence"];
 
-    const firstStat =
-      firstStats[
-      Math.floor(
-        Math.random() * firstStats.length
-      )
-      ];
+    const firstStat = firstStats[Math.floor(Math.random() * firstStats.length)];
 
-    const availableStats =
-      allStats.filter(
-        stat => stat !== firstStat
-      );
+    const availableStats = allStats.filter((stat) => stat !== firstStat);
 
     const shuffledStats = [...availableStats];
 
-    for (
-      let index = shuffledStats.length - 1;
-      index > 0;
-      index--
-    ) {
-      const randomIndex =
-        Math.floor(
-          Math.random() * (index + 1)
-        );
+    for (let index = shuffledStats.length - 1; index > 0; index--) {
+      const randomIndex = Math.floor(Math.random() * (index + 1));
 
-      [
+      [shuffledStats[index], shuffledStats[randomIndex]] = [
+        shuffledStats[randomIndex],
         shuffledStats[index],
-        shuffledStats[randomIndex]
-      ] = [
-          shuffledStats[randomIndex],
-          shuffledStats[index]
-        ];
+      ];
     }
 
-    return [
-      firstStat,
-      shuffledStats[0],
-      shuffledStats[1]
-    ];
+    return [firstStat, shuffledStats[0], shuffledStats[1]];
   }
 
   if (itemType === "amulet") {
-    const firstStats = [
-      "endurance",
-      "luck"
-    ];
+    const firstStats = ["endurance", "luck"];
 
-    const firstStat =
-      firstStats[
-      Math.floor(
-        Math.random() * firstStats.length
-      )
-      ];
+    const firstStat = firstStats[Math.floor(Math.random() * firstStats.length)];
 
-    const availableStats =
-      allStats.filter(
-        stat => stat !== firstStat
-      );
+    const availableStats = allStats.filter((stat) => stat !== firstStat);
 
     const shuffledStats = [...availableStats];
 
-    for (
-      let index = shuffledStats.length - 1;
-      index > 0;
-      index--
-    ) {
-      const randomIndex =
-        Math.floor(
-          Math.random() * (index + 1)
-        );
+    for (let index = shuffledStats.length - 1; index > 0; index--) {
+      const randomIndex = Math.floor(Math.random() * (index + 1));
 
-      [
+      [shuffledStats[index], shuffledStats[randomIndex]] = [
+        shuffledStats[randomIndex],
         shuffledStats[index],
-        shuffledStats[randomIndex]
-      ] = [
-          shuffledStats[randomIndex],
-          shuffledStats[index]
-        ];
+      ];
     }
 
-    return [
-      firstStat,
-      shuffledStats[0],
-      shuffledStats[1]
-    ];
+    return [firstStat, shuffledStats[0], shuffledStats[1]];
   }
 
-  const availableStats =
-    allStats.filter(
-      stat => stat !== mainStat
-    );
+  const availableStats = allStats.filter((stat) => stat !== mainStat);
 
   const shuffledStats = [...availableStats];
 
-  for (
-    let index = shuffledStats.length - 1;
-    index > 0;
-    index--
-  ) {
-    const randomIndex =
-      Math.floor(
-        Math.random() * (index + 1)
-      );
+  for (let index = shuffledStats.length - 1; index > 0; index--) {
+    const randomIndex = Math.floor(Math.random() * (index + 1));
 
-    [
+    [shuffledStats[index], shuffledStats[randomIndex]] = [
+      shuffledStats[randomIndex],
       shuffledStats[index],
-      shuffledStats[randomIndex]
-    ] = [
-        shuffledStats[randomIndex],
-        shuffledStats[index]
-      ];
+    ];
   }
 
   return shuffledStats.slice(0, 2);
@@ -1992,121 +1506,51 @@ function getRandomEquipmentUpgradeStats(
 function getEquipmentUpgradeStatRange(
   requiredLevel,
   isMainStat,
-  itemType = null
+  itemType = null,
 ) {
-  const statRanges = {
-    1: {
-      main: [2, 4],
-      random: [1, 2],
-      jewelryRandom: [1, 2]
-    },
-
-    5: {
-      main: [2, 4],
-      random: [1, 2],
-      jewelryRandom: [1, 2]
-    },
-
-    10: {
-      main: [4, 7],
-      random: [2, 4],
-      jewelryRandom: [2, 3]
-    },
-
-    20: {
-      main: [7, 11],
-      random: [3, 6],
-      jewelryRandom: [3, 5]
-    },
-
-    25: {
-      main: [9, 13],
-      random: [4, 7],
-      jewelryRandom: [3, 6]
-    },
-
-    30: {
-      main: [11, 16],
-      random: [5, 9],
-      jewelryRandom: [4, 7]
-    },
-
-    40: {
-      main: [16, 22],
-      random: [7, 13],
-      jewelryRandom: [6, 9]
-    },
-
-    50: {
-      main: [22, 30],
-      random: [9, 17],
-      jewelryRandom: [8, 12]
-    }
-  };
-
   const levelSettings =
-    statRanges[requiredLevel];
+    craftingBalance.equipmentUpgrade.statRanges[requiredLevel];
 
   if (!levelSettings) {
-    console.warn(
-      "Brak zakresu statystyk dla ulepszenia:",
-      {
-        requiredLevel,
-        isMainStat,
-        itemType
-      }
-    );
+    console.warn("Brak zakresu statystyk dla ulepszenia:", {
+      requiredLevel,
+      isMainStat,
+      itemType,
+    });
 
     return null;
   }
 
-  const isJewelry =
-    itemType === "ring" ||
-    itemType === "amulet";
+  const isJewelry = itemType === "ring" || itemType === "amulet";
 
   if (isJewelry) {
     return levelSettings.jewelryRandom;
   }
 
-  return isMainStat
-    ? levelSettings.main
-    : levelSettings.random;
+  return isMainStat ? levelSettings.main : levelSettings.random;
 }
 
 function getEquipmentUpgradeStatValue(
   requiredLevel,
   isMainStat,
-  itemType = null
+  itemType = null,
 ) {
-  const range =
-    getEquipmentUpgradeStatRange(
-      requiredLevel,
-      isMainStat,
-      itemType
-    );
+  const range = getEquipmentUpgradeStatRange(
+    requiredLevel,
+    isMainStat,
+    itemType,
+  );
 
   if (!range) {
     return 0;
   }
 
-  return (
-    Math.floor(
-      Math.random() *
-      (range[1] - range[0] + 1)
-    ) + range[0]
-  );
+  return Math.floor(Math.random() * (range[1] - range[0] + 1)) + range[0];
 }
 
-function isStackableCraftingResult(
-  recipe
-) {
+function isStackableCraftingResult(recipe) {
   const resultItem =
-    typeof items !==
-      "undefined"
-      ? items[
-      recipe?.resultItemId
-      ]
-      : null;
+    typeof items !== "undefined" ? items[recipe?.resultItemId] : null;
 
   if (!resultItem) {
     return false;
@@ -2127,55 +1571,38 @@ function isStackableCraftingResult(
     "ring",
     "amulet",
     "talisman",
-    "shield"
+    "shield",
   ];
 
-  return !equipmentTypes.includes(
-    resultItem.type
-  );
+  return !equipmentTypes.includes(resultItem.type);
 }
 
-function getCraftingMasterpieceSuccessCount(
-  completedCraftCount
-) {
+function getCraftingMasterpieceSuccessCount(completedCraftCount) {
   const masterpieceChance =
-    typeof getCraftingMasterpieceChance ===
-      "function"
+    typeof getCraftingMasterpieceChance === "function"
       ? getCraftingMasterpieceChance()
       : 0;
 
-  return getCraftingOccurrenceCount(
-    completedCraftCount,
-    masterpieceChance
-  );
+  return getCraftingOccurrenceCount(completedCraftCount, masterpieceChance);
 }
 
-function recoverCraftingMaterials(
-  recipe,
-  completedCraftCount
-) {
-  if (
-    !recipe ||
-    !Array.isArray(
-      recipe.materials
-    )
-  ) {
+function recoverCraftingMaterials(recipe, completedCraftCount) {
+  if (!recipe || !Array.isArray(recipe.materials)) {
     return {
       recoveryCount: 0,
-      fullRecoveryCount: 0
+      fullRecoveryCount: 0,
     };
   }
 
   const recoveryChance =
-    typeof getCraftingMaterialRecoveryChance ===
-      "function"
+    typeof getCraftingMaterialRecoveryChance === "function"
       ? getCraftingMaterialRecoveryChance()
       : 0;
 
   if (recoveryChance <= 0) {
     return {
       recoveryCount: 0,
-      fullRecoveryCount: 0
+      fullRecoveryCount: 0,
     };
   }
 
@@ -2183,22 +1610,20 @@ function recoverCraftingMaterials(
    * Liczba wykonań, w których
    * zadziałał zwykły odzysk.
    */
-  const recoveryCount =
-    getCraftingOccurrenceCount(
-      completedCraftCount,
-      recoveryChance
-    );
+  const recoveryCount = getCraftingOccurrenceCount(
+    completedCraftCount,
+    recoveryChance,
+  );
 
   if (recoveryCount <= 0) {
     return {
       recoveryCount: 0,
-      fullRecoveryCount: 0
+      fullRecoveryCount: 0,
     };
   }
 
   const fullRecoveryChance =
-    typeof getCraftingFullRecoveryChance ===
-      "function"
+    typeof getCraftingFullRecoveryChance === "function"
       ? getCraftingFullRecoveryChance()
       : 0;
 
@@ -2206,105 +1631,70 @@ function recoverCraftingMaterials(
    * Spośród udanych odzysków losujemy,
    * które staną się pełnym odzyskiem.
    */
-  const fullRecoveryCount =
-    getCraftingOccurrenceCount(
-      recoveryCount,
-      fullRecoveryChance
-    );
-
-  const normalRecoveryCount =
-    recoveryCount -
-    fullRecoveryCount;
-
-  recipe.materials.forEach(
-    material => {
-      const materialId =
-        material.itemId;
-
-      /*
-       * Obsługujemy obie możliwe nazwy:
-       *
-       * quantity
-       * amount
-       */
-      const recipeMaterialQuantity =
-        Math.max(
-          1,
-          Math.floor(
-            Number(
-              material.quantity ??
-              material.amount ??
-              1
-            ) || 1
-          )
-        );
-
-      /*
-       * Zwykły odzysk:
-       * jedna sztuka materiału.
-       *
-       * Pełny odzysk:
-       * pełny koszt tego materiału.
-       */
-      const returnedQuantity =
-        normalRecoveryCount +
-        (
-          fullRecoveryCount *
-          recipeMaterialQuantity
-        );
-
-      if (
-        materialId &&
-        returnedQuantity > 0
-      ) {
-        addItemToInventory(
-          materialId,
-          returnedQuantity
-        );
-      }
-    }
+  const fullRecoveryCount = getCraftingOccurrenceCount(
+    recoveryCount,
+    fullRecoveryChance,
   );
 
-  return {
-    recoveryCount:
-      recoveryCount,
+  const normalRecoveryCount = recoveryCount - fullRecoveryCount;
 
-    fullRecoveryCount:
-      fullRecoveryCount
+  recipe.materials.forEach((material) => {
+    const materialId = material.itemId;
+
+    /*
+     * Obsługujemy obie możliwe nazwy:
+     *
+     * quantity
+     * amount
+     */
+    const recipeMaterialQuantity = Math.max(
+      1,
+      Math.floor(Number(material.quantity ?? material.amount ?? 1) || 1),
+    );
+
+    /*
+     * Zwykły odzysk:
+     * jedna sztuka materiału.
+     *
+     * Pełny odzysk:
+     * pełny koszt tego materiału.
+     */
+    const returnedQuantity =
+      normalRecoveryCount + fullRecoveryCount * recipeMaterialQuantity;
+
+    if (materialId && returnedQuantity > 0) {
+      addItemToInventory(materialId, returnedQuantity);
+    }
+  });
+
+  return {
+    recoveryCount: recoveryCount,
+
+    fullRecoveryCount: fullRecoveryCount,
   };
 }
 
-function getAdditionalCraftingResultCount(
-  completedCraftCount
-) {
+function getAdditionalCraftingResultCount(completedCraftCount) {
   const extraResultChance =
-    typeof getCraftingExtraResultChance ===
-      "function"
+    typeof getCraftingExtraResultChance === "function"
       ? getCraftingExtraResultChance()
       : 0;
 
-  const successfulQualityChecks =
-    getCraftingOccurrenceCount(
-      completedCraftCount,
-      extraResultChance
-    );
+  const successfulQualityChecks = getCraftingOccurrenceCount(
+    completedCraftCount,
+    extraResultChance,
+  );
 
-  if (
-    successfulQualityChecks <= 0
-  ) {
+  if (successfulQualityChecks <= 0) {
     return 0;
   }
 
   const resultQuantityPerSuccess =
-    typeof getCraftingExtraResultQuantity ===
-      "function"
+    typeof getCraftingExtraResultQuantity === "function"
       ? getCraftingExtraResultQuantity()
       : 1;
 
-  return (
-    successfulQualityChecks *
-    resultQuantityPerSuccess
-  );
+  return successfulQualityChecks * resultQuantityPerSuccess;
 }
 
 function createEquipmentUpgradeInstance(resultItemId) {
@@ -2314,38 +1704,31 @@ function createEquipmentUpgradeInstance(resultItemId) {
     return null;
   }
 
-  const mainStat =
-    getEquipmentUpgradeMainStat(resultItem);
+  const mainStat = getEquipmentUpgradeMainStat(resultItem);
 
-  const randomStats =
-    getRandomEquipmentUpgradeStats(
-      mainStat,
-      resultItem.type
-    );
+  const randomStats = getRandomEquipmentUpgradeStats(mainStat, resultItem.type);
 
   const upgradedStats = {};
 
   if (mainStat) {
-    upgradedStats[mainStat] =
-      getEquipmentUpgradeStatValue(
-        resultItem.requiredLevel,
-        true,
-        resultItem.type
-      );
+    upgradedStats[mainStat] = getEquipmentUpgradeStatValue(
+      resultItem.requiredLevel,
+      true,
+      resultItem.type,
+    );
   }
 
-  randomStats.forEach(stat => {
-    upgradedStats[stat] =
-      getEquipmentUpgradeStatValue(
-        resultItem.requiredLevel,
-        false,
-        resultItem.type
-      );
+  randomStats.forEach((stat) => {
+    upgradedStats[stat] = getEquipmentUpgradeStatValue(
+      resultItem.requiredLevel,
+      false,
+      resultItem.type,
+    );
   });
 
   return {
     itemId: resultItemId,
-    stats: upgradedStats
+    stats: upgradedStats,
   };
 }
 
@@ -2353,10 +1736,7 @@ function createCustomEquipmentItem(resultItemId) {
   const resultItem = items[resultItemId];
 
   if (!resultItem) {
-    console.warn(
-      "Nie można utworzyć ulepszonego przedmiotu:",
-      resultItemId
-    );
+    console.warn("Nie można utworzyć ulepszonego przedmiotu:", resultItemId);
 
     return null;
   }
@@ -2365,42 +1745,33 @@ function createCustomEquipmentItem(resultItemId) {
     player.customEquipment = {};
   }
 
-  const mainStat =
-    getEquipmentUpgradeMainStat(resultItem);
+  const mainStat = getEquipmentUpgradeMainStat(resultItem);
 
-  const randomStats =
-    getRandomEquipmentUpgradeStats(
-      mainStat,
-      resultItem.type
-    );
+  const randomStats = getRandomEquipmentUpgradeStats(mainStat, resultItem.type);
 
   const upgradedStats = {};
 
   if (mainStat) {
-    upgradedStats[mainStat] =
-      getEquipmentUpgradeStatValue(
-        resultItem.requiredLevel,
-        true,
-        resultItem.type
-      );
+    upgradedStats[mainStat] = getEquipmentUpgradeStatValue(
+      resultItem.requiredLevel,
+      true,
+      resultItem.type,
+    );
   }
 
-  randomStats.forEach(stat => {
-    upgradedStats[stat] =
-      getEquipmentUpgradeStatValue(
-        resultItem.requiredLevel,
-        false,
-        resultItem.type
-      );
+  randomStats.forEach((stat) => {
+    upgradedStats[stat] = getEquipmentUpgradeStatValue(
+      resultItem.requiredLevel,
+      false,
+      resultItem.type,
+    );
   });
 
   const customItemId =
     "custom_equipment_" +
     Date.now() +
     "_" +
-    Math.floor(
-      Math.random() * 1000000
-    );
+    Math.floor(Math.random() * 1000000);
 
   const customItem = {
     ...resultItem,
@@ -2411,267 +1782,158 @@ function createCustomEquipmentItem(resultItemId) {
 
     baseItemId: resultItemId,
 
-    upgradeStats: upgradedStats
+    upgradeStats: upgradedStats,
   };
 
-  Object.entries(upgradedStats).forEach(
-    ([stat, value]) => {
-      customItem[stat] =
-        (
-          Number(customItem[stat]) || 0
-        ) + value;
-    }
-  );
+  Object.entries(upgradedStats).forEach(([stat, value]) => {
+    customItem[stat] = (Number(customItem[stat]) || 0) + value;
+  });
 
-  player.customEquipment[customItemId] =
-    customItem;
+  player.customEquipment[customItemId] = customItem;
 
-  items[customItemId] =
-    customItem;
+  items[customItemId] = customItem;
 
   return customItemId;
 }
 
-function addCompletedCraftingResults(
-  recipe,
-  completedCraftCount
-) {
-  const safeCompletedCraftCount =
-    Math.max(
-      0,
-      Math.floor(
-        Number(
-          completedCraftCount
-        ) || 0
-      )
-    );
+function addCompletedCraftingResults(recipe, completedCraftCount) {
+  const safeCompletedCraftCount = Math.max(
+    0,
+    Math.floor(Number(completedCraftCount) || 0),
+  );
 
-  if (
-    !recipe ||
-    safeCompletedCraftCount <= 0
-  ) {
+  if (!recipe || safeCompletedCraftCount <= 0) {
     return {
       baseResultQuantity: 0,
       extraResultQuantity: 0,
-      recoveredCraftCount: 0
+      recoveredCraftCount: 0,
     };
   }
 
   const baseResultQuantity =
-    getRecipeResultQuantity(
-      recipe
-    ) *
-    safeCompletedCraftCount;
+    getRecipeResultQuantity(recipe) * safeCompletedCraftCount;
 
-  const extraResultQuantity =
-    getAdditionalCraftingResultCount(
-      safeCompletedCraftCount
-    );
+  const extraResultQuantity = getAdditionalCraftingResultCount(
+    safeCompletedCraftCount,
+  );
   const masterpieceSuccessCount =
-    typeof getCraftingMasterpieceSuccessCount ===
-      "function"
-      ? getCraftingMasterpieceSuccessCount(
-        safeCompletedCraftCount
-      )
+    typeof getCraftingMasterpieceSuccessCount === "function"
+      ? getCraftingMasterpieceSuccessCount(safeCompletedCraftCount)
       : 0;
 
   const stackableMasterpieceBonus =
-    masterpieceSuccessCount > 0 &&
-      isStackableCraftingResult(
-        recipe
-      )
-      ? (
-        masterpieceSuccessCount *
-        (
-          typeof getCraftingMasterpieceStackBonusQuantity ===
-            "function"
-            ? getCraftingMasterpieceStackBonusQuantity()
-            : 0
-        )
-      )
+    masterpieceSuccessCount > 0 && isStackableCraftingResult(recipe)
+      ? masterpieceSuccessCount *
+        (typeof getCraftingMasterpieceStackBonusQuantity === "function"
+          ? getCraftingMasterpieceStackBonusQuantity()
+          : 0)
       : 0;
 
   const totalResultQuantity =
-    baseResultQuantity +
-    extraResultQuantity +
-    stackableMasterpieceBonus;
+    baseResultQuantity + extraResultQuantity + stackableMasterpieceBonus;
 
-  const isEquipmentUpgrade =
-    Boolean(
-      recipe.upgradeFromItemId &&
-      recipe.equipmentUpgradeRank
-    );
+  const isEquipmentUpgrade = Boolean(
+    recipe.upgradeFromItemId && recipe.equipmentUpgradeRank,
+  );
 
   if (isEquipmentUpgrade) {
-    for (
-      let craftIndex = 0;
-      craftIndex < totalResultQuantity;
-      craftIndex++
-    ) {
-      const customItemId =
-        createCustomEquipmentItem(
-          recipe.resultItemId
-        );
+    for (let craftIndex = 0; craftIndex < totalResultQuantity; craftIndex++) {
+      const customItemId = createCustomEquipmentItem(recipe.resultItemId);
 
       if (customItemId) {
-        addItemToInventory(
-          customItemId,
-          1
-        );
+        addItemToInventory(customItemId, 1);
       }
     }
   } else {
-    addItemToInventory(
-      recipe.resultItemId,
-      totalResultQuantity
-    );
+    addItemToInventory(recipe.resultItemId, totalResultQuantity);
   }
 
-  const recoveryResult =
-    recoverCraftingMaterials(
-      recipe,
-      safeCompletedCraftCount
-    );
-  const losslessWorkshopResult =
-    recoverLosslessWorkshopMaterials(
-      recipe,
-      safeCompletedCraftCount
-    );
-
-  const recoveredCraftCount =
-    recoveryResult.recoveryCount;
-
-  const fullRecoveryCount =
-    recoveryResult.fullRecoveryCount;
-
-  const craftingExp =
-    getRecipeCraftingExp(
-      recipe
-    ) *
-    safeCompletedCraftCount;
-
-  addCraftingExp(
-    craftingExp
+  const recoveryResult = recoverCraftingMaterials(
+    recipe,
+    safeCompletedCraftCount,
+  );
+  const losslessWorkshopResult = recoverLosslessWorkshopMaterials(
+    recipe,
+    safeCompletedCraftCount,
   );
 
-  if (
-    extraResultQuantity > 0 &&
-    typeof addSystemLog ===
-    "function"
-  ) {
+  const recoveredCraftCount = recoveryResult.recoveryCount;
+
+  const fullRecoveryCount = recoveryResult.fullRecoveryCount;
+
+  const craftingExp = getRecipeCraftingExp(recipe) * safeCompletedCraftCount;
+
+  addCraftingExp(craftingExp);
+
+  if (extraResultQuantity > 0 && typeof addSystemLog === "function") {
     addSystemLog(
-      "✨ Kontrola jakości: dodatkowy rezultat x" +
-      extraResultQuantity +
-      ".",
-      "crafting"
+      "✨ Kontrola jakości: dodatkowy rezultat x" + extraResultQuantity + ".",
+      "crafting",
     );
   }
 
-  if (
-    recoveredCraftCount > 0 &&
-    typeof addSystemLog ===
-    "function"
-  ) {
+  if (recoveredCraftCount > 0 && typeof addSystemLog === "function") {
     addSystemLog(
       "📦 Odzyskano materiały z " +
-      recoveredCraftCount +
-      (
-        recoveredCraftCount === 1
-          ? " wykonania."
-          : " wykonań."
-      ),
-      "crafting"
+        recoveredCraftCount +
+        (recoveredCraftCount === 1 ? " wykonania." : " wykonań."),
+      "crafting",
     );
   }
 
-  if (
-    fullRecoveryCount > 0 &&
-    typeof addSystemLog ===
-    "function"
-  ) {
+  if (fullRecoveryCount > 0 && typeof addSystemLog === "function") {
     addSystemLog(
       "♻️ Pełny odzysk materiałów z " +
-      fullRecoveryCount +
-      (
-        fullRecoveryCount === 1
-          ? " wykonania."
-          : " wykonań."
-      ),
-      "crafting"
+        fullRecoveryCount +
+        (fullRecoveryCount === 1 ? " wykonania." : " wykonań."),
+      "crafting",
     );
   }
   if (
-    losslessWorkshopResult
-      .recoveryCount >
-    0 &&
-    typeof addSystemLog ===
-    "function"
+    losslessWorkshopResult.recoveryCount > 0 &&
+    typeof addSystemLog === "function"
   ) {
     addSystemLog(
       "📦 Warsztat bez strat: pełny zwrot materiałów z " +
-      losslessWorkshopResult
-        .recoveryCount +
-      (
-        losslessWorkshopResult
-          .recoveryCount === 1
+        losslessWorkshopResult.recoveryCount +
+        (losslessWorkshopResult.recoveryCount === 1
           ? " wykonania."
-          : " wykonań."
-      ),
-      "crafting"
+          : " wykonań."),
+      "crafting",
     );
   }
 
-  if (
-    stackableMasterpieceBonus > 0 &&
-    typeof addSystemLog ===
-    "function"
-  ) {
+  if (stackableMasterpieceBonus > 0 && typeof addSystemLog === "function") {
     addSystemLog(
-      "✨ Arcydzieło: dodatkowy rezultat x" +
-      stackableMasterpieceBonus +
-      ".",
-      "crafting"
+      "✨ Arcydzieło: dodatkowy rezultat x" + stackableMasterpieceBonus + ".",
+      "crafting",
     );
   }
 
   return {
-    baseResultQuantity:
-      baseResultQuantity,
+    baseResultQuantity: baseResultQuantity,
 
-    extraResultQuantity:
-      extraResultQuantity,
+    extraResultQuantity: extraResultQuantity,
 
-    recoveredCraftCount:
-      recoveredCraftCount,
+    recoveredCraftCount: recoveredCraftCount,
 
-    fullRecoveryCount:
-      fullRecoveryCount,
+    fullRecoveryCount: fullRecoveryCount,
 
-    masterpieceSuccessCount:
-      masterpieceSuccessCount,
+    masterpieceSuccessCount: masterpieceSuccessCount,
 
-    stackableMasterpieceBonus:
-      stackableMasterpieceBonus,
+    stackableMasterpieceBonus: stackableMasterpieceBonus,
 
-    losslessWorkshopRecoveryCount:
-      losslessWorkshopResult
-        .recoveryCount
+    losslessWorkshopRecoveryCount: losslessWorkshopResult.recoveryCount,
   };
 }
 
-function notifyCraftingQueueJobCompleted(
-  recipe,
-  job,
-) {
-  const resultItem =
-    items[recipe.resultItemId];
+function notifyCraftingQueueJobCompleted(recipe, job) {
+  const resultItem = items[recipe.resultItemId];
 
-  const resultName =
-    resultItem?.name || recipe.name;
+  const resultName = resultItem?.name || recipe.name;
 
   const totalResultQuantity =
-    getRecipeResultQuantity(recipe) *
-    job.totalCraftCount;
+    getRecipeResultQuantity(recipe) * job.totalCraftCount;
 
   const isToolUpgrade =
     typeof isProfessionToolUpgradeRecipe === "function" &&
@@ -2679,99 +1941,61 @@ function notifyCraftingQueueJobCompleted(
 
   const message = isToolUpgrade
     ? "Ulepszono narzędzie: " + resultName
-    : "Wytworzono: " +
-    resultName +
-    " x" +
-    totalResultQuantity;
+    : "Wytworzono: " + resultName + " x" + totalResultQuantity;
 
-  const logIcon = isToolUpgrade
-    ? "🧰 "
-    : "⚒️ ";
+  const logIcon = isToolUpgrade ? "🧰 " : "⚒️ ";
 
   if (typeof showNotification === "function") {
-    showNotification(
-      message,
-      "success",
-    );
+    showNotification(message, "success");
   }
 
   if (typeof addSystemLog === "function") {
-    addSystemLog(
-      logIcon + message + ".",
-      "crafting",
-    );
+    addSystemLog(logIcon + message + ".", "crafting");
   }
 
   if (typeof addCombatLog === "function") {
-    addCombatLog(
-      logIcon + message + ".",
-    );
+    addCombatLog(logIcon + message + ".");
   }
 }
 
-function activateCompletedProfessionToolUpgrade(
-  recipe,
-  job,
-) {
-  const upgrade =
-    job?.professionToolUpgrade;
+function activateCompletedProfessionToolUpgrade(recipe, job) {
+  const upgrade = job?.professionToolUpgrade;
 
   if (
     !upgrade?.shouldReplaceActiveTool ||
     !upgrade.toolType ||
-    player.professionTools?.[
-    upgrade.toolType
-    ]
+    player.professionTools?.[upgrade.toolType]
   ) {
     return false;
   }
 
-  const resultItem =
-    items[recipe.resultItemId];
+  const resultItem = items[recipe.resultItemId];
 
-  if (
-    !resultItem ||
-    getInventoryItemQuantity(
-      recipe.resultItemId,
-    ) <= 0
-  ) {
+  if (!resultItem || getInventoryItemQuantity(recipe.resultItemId) <= 0) {
     return false;
   }
 
   const professionLevel =
     typeof getProfessionLevelForTool === "function"
-      ? getProfessionLevelForTool(
-        upgrade.toolType,
-      )
+      ? getProfessionLevelForTool(upgrade.toolType)
       : 1;
-  const requiredProfessionLevel =
-    Math.max(
-      1,
-      Number(
-        resultItem.requiredProfessionLevel,
-      ) || 1,
-    );
+  const requiredProfessionLevel = Math.max(
+    1,
+    Number(resultItem.requiredProfessionLevel) || 1,
+  );
 
-  if (
-    professionLevel <
-    requiredProfessionLevel
-  ) {
+  if (professionLevel < requiredProfessionLevel) {
     return false;
   }
 
-  player.professionTools[
-    upgrade.toolType
-  ] = recipe.resultItemId;
+  player.professionTools[upgrade.toolType] = recipe.resultItemId;
 
   return true;
 }
 
-function getInstantCraftingCycleCount(
-  completedCraftCount
-) {
+function getInstantCraftingCycleCount(completedCraftCount) {
   const instantCycleChance =
-    typeof getCraftingInstantCycleChance ===
-      "function"
+    typeof getCraftingInstantCycleChance === "function"
       ? getCraftingInstantCycleChance()
       : 0;
 
@@ -2779,19 +2003,17 @@ function getInstantCraftingCycleCount(
    * Pierwsze darmowe cykle pochodzą
    * z Produkcji seryjnej.
    */
-  const baseInstantCycleCount =
-    getCraftingOccurrenceCount(
-      completedCraftCount,
-      instantCycleChance
-    );
+  const baseInstantCycleCount = getCraftingOccurrenceCount(
+    completedCraftCount,
+    instantCycleChance,
+  );
 
   if (baseInstantCycleCount <= 0) {
     return 0;
   }
 
   const secondCycleChance =
-    typeof getCraftingSecondInstantCycleChance ===
-      "function"
+    typeof getCraftingSecondInstantCycleChance === "function"
       ? getCraftingSecondInstantCycleChance()
       : 0;
 
@@ -2801,20 +2023,15 @@ function getInstantCraftingCycleCount(
    * drugi darmowy cykl.
    */
   if (
-    typeof isCraftingMassProductionActive !==
-    "function" ||
+    typeof isCraftingMassProductionActive !== "function" ||
     !isCraftingMassProductionActive()
   ) {
-    const secondInstantCycleCount =
-      getCraftingOccurrenceCount(
-        baseInstantCycleCount,
-        secondCycleChance
-      );
-
-    return (
-      baseInstantCycleCount +
-      secondInstantCycleCount
+    const secondInstantCycleCount = getCraftingOccurrenceCount(
+      baseInstantCycleCount,
+      secondCycleChance,
     );
+
+    return baseInstantCycleCount + secondInstantCycleCount;
   }
 
   /*
@@ -2824,18 +2041,16 @@ function getInstantCraftingCycleCount(
    * Łańcuch ma jednak twardy limit,
    * aby nie powstała nieskończona pętla.
    */
-  const maximumBonusCyclesPerBaseCycle =
-    Math.max(
-      1,
-      getCraftingMassProductionMaximumBonusCycles()
-    );
+  const maximumBonusCyclesPerBaseCycle = Math.max(
+    1,
+    getCraftingMassProductionMaximumBonusCycles(),
+  );
 
   let totalInstantCycleCount = 0;
 
   for (
     let baseCycleIndex = 0;
-    baseCycleIndex <
-    baseInstantCycleCount;
+    baseCycleIndex < baseInstantCycleCount;
     baseCycleIndex++
   ) {
     /*
@@ -2844,13 +2059,8 @@ function getInstantCraftingCycleCount(
      */
     let chainCycleCount = 1;
 
-    while (
-      chainCycleCount <
-      maximumBonusCyclesPerBaseCycle
-    ) {
-      const chainContinues =
-        Math.random() * 100 <
-        secondCycleChance;
+    while (chainCycleCount < maximumBonusCyclesPerBaseCycle) {
+      const chainContinues = Math.random() * 100 < secondCycleChance;
 
       if (!chainContinues) {
         break;
@@ -2859,8 +2069,7 @@ function getInstantCraftingCycleCount(
       chainCycleCount++;
     }
 
-    totalInstantCycleCount +=
-      chainCycleCount;
+    totalInstantCycleCount += chainCycleCount;
   }
 
   return totalInstantCycleCount;
@@ -2875,9 +2084,7 @@ function completeCraftingQueueCycle(
     return false;
   }
 
-  const remainingCraftCount =
-    job.totalCraftCount -
-    job.completedCraftCount;
+  const remainingCraftCount = job.totalCraftCount - job.completedCraftCount;
 
   if (remainingCraftCount <= 0) {
     return false;
@@ -2885,21 +2092,14 @@ function completeCraftingQueueCycle(
 
   const safeCompletedCycleCount = Math.min(
     remainingCraftCount,
-    Math.max(
-      1,
-      Math.floor(
-        Number(completedCycleCount) || 1,
-      ),
-    ),
+    Math.max(1, Math.floor(Number(completedCycleCount) || 1)),
   );
 
-  const firstCycleFinishesAt =
-    job.cycleFinishesAt;
+  const firstCycleFinishesAt = job.cycleFinishesAt;
 
   const lastCompletedCycleFinishesAt =
     firstCycleFinishesAt +
-    (safeCompletedCycleCount - 1) *
-    job.craftingDurationMs;
+    (safeCompletedCycleCount - 1) * job.craftingDurationMs;
 
   const recipe = recipes.find((recipeEntry) => {
     return recipeEntry.id === job.recipeId;
@@ -2910,125 +2110,83 @@ function completeCraftingQueueCycle(
     return false;
   }
   /*
- * Losujemy darmowe cykle na podstawie
- * liczby normalnie ukończonych cykli.
- */
+   * Losujemy darmowe cykle na podstawie
+   * liczby normalnie ukończonych cykli.
+   */
   const instantCycleCount =
-    typeof getInstantCraftingCycleCount ===
-      "function"
-      ? getInstantCraftingCycleCount(
-        safeCompletedCycleCount
-      )
+    typeof getInstantCraftingCycleCount === "function"
+      ? getInstantCraftingCycleCount(safeCompletedCycleCount)
       : 0;
 
   /*
    * Sprawdzamy, ile sztuk pozostanie
    * po zaliczeniu normalnych cykli.
    */
-  const remainingAfterNormalCycles =
-    Math.max(
-      0,
-      job.totalCraftCount -
-      job.completedCraftCount -
-      safeCompletedCycleCount
-    );
+  const remainingAfterNormalCycles = Math.max(
+    0,
+    job.totalCraftCount - job.completedCraftCount - safeCompletedCycleCount,
+  );
 
   /*
    * Nie możemy zastosować większej liczby
    * darmowych cykli, niż pozostało sztuk.
    */
-  const appliedInstantCycleCount =
-    Math.min(
-      instantCycleCount,
-      remainingAfterNormalCycles
-    );
+  const appliedInstantCycleCount = Math.min(
+    instantCycleCount,
+    remainingAfterNormalCycles,
+  );
 
   /*
    * Łączna liczba rezultatów przyznawanych
    * w tym wywołaniu funkcji.
    */
   const totalCompletedCycleCount =
-    safeCompletedCycleCount +
-    appliedInstantCycleCount;
+    safeCompletedCycleCount + appliedInstantCycleCount;
 
-  const completionResult =
-    addCompletedCraftingResults(
-      recipe,
-      totalCompletedCycleCount,
-    );
-
-  recordCraftingProgress(
+  const completionResult = addCompletedCraftingResults(
+    recipe,
     totalCompletedCycleCount,
   );
+
+  recordCraftingProgress(totalCompletedCycleCount);
 
   if (
     options.notify !== false &&
     completionResult &&
-    Array.isArray(
-      completionResult.refundedMaterials,
-    ) &&
-    completionResult
-      .refundedMaterials
-      .length > 0 &&
+    Array.isArray(completionResult.refundedMaterials) &&
+    completionResult.refundedMaterials.length > 0 &&
     typeof addSystemLog === "function"
   ) {
-    const refundedMaterialsText =
-      completionResult
-        .refundedMaterials
-        .map(material => {
-          const item =
-            items[material.itemId];
+    const refundedMaterialsText = completionResult.refundedMaterials
+      .map((material) => {
+        const item = items[material.itemId];
 
-          return (
-            (
-              item?.name ||
-              material.itemId
-            ) +
-            " x" +
-            material.quantity
-          );
-        })
-        .join(", ");
+        return (item?.name || material.itemId) + " x" + material.quantity;
+      })
+      .join(", ");
 
     addSystemLog(
-      "🔨 Młot rzemieślniczy zwrócił materiały: " +
-      refundedMaterialsText +
-      ".",
+      "🔨 Młot rzemieślniczy zwrócił materiały: " + refundedMaterialsText + ".",
       "crafting",
     );
   }
 
-  job.completedCraftCount +=
-    totalCompletedCycleCount;
+  job.completedCraftCount += totalCompletedCycleCount;
 
-  const priorityJobId =
-    player.crafting.priorityJobId;
+  const priorityJobId = player.crafting.priorityJobId;
 
-  const priorityJobIndex =
-    priorityJobId
-      ? player.crafting.queue.findIndex(
-        queueJob => {
-          return queueJob.id === priorityJobId;
-        }
-      )
-      : -1;
+  const priorityJobIndex = priorityJobId
+    ? player.crafting.queue.findIndex((queueJob) => {
+        return queueJob.id === priorityJobId;
+      })
+    : -1;
 
-  const jobFinished =
-    job.completedCraftCount >=
-    job.totalCraftCount;
+  const jobFinished = job.completedCraftCount >= job.totalCraftCount;
 
-  if (
-    !jobFinished &&
-    priorityJobIndex > 0
-  ) {
-    const [priorityJob] =
-      player.crafting.queue.splice(
-        priorityJobIndex,
-        1
-      );
+  if (!jobFinished && priorityJobIndex > 0) {
+    const [priorityJob] = player.crafting.queue.splice(priorityJobIndex, 1);
 
-    const currentJob =
-      player.crafting.queue.shift();
+    const currentJob = player.crafting.queue.shift();
 
     currentJob.cycleStartedAt = 0;
     currentJob.cycleFinishesAt = 0;
@@ -3036,22 +2194,13 @@ function completeCraftingQueueCycle(
     priorityJob.cycleStartedAt = 0;
     priorityJob.cycleFinishesAt = 0;
 
-    player.crafting.queue.unshift(
-      priorityJob
-    );
+    player.crafting.queue.unshift(priorityJob);
 
-    player.crafting.queue.splice(
-      1,
-      0,
-      currentJob
-    );
+    player.crafting.queue.splice(1, 0, currentJob);
 
     player.crafting.priorityJobId = null;
 
-    startNextCraftingQueueJob(
-      lastCompletedCycleFinishesAt,
-      { persist: false }
-    );
+    startNextCraftingQueueJob(lastCompletedCycleFinishesAt, { persist: false });
 
     saveGame?.();
     render?.();
@@ -3059,19 +2208,11 @@ function completeCraftingQueueCycle(
     return true;
   }
 
-
-
   if (jobFinished) {
-    activateCompletedProfessionToolUpgrade(
-      recipe,
-      job,
-    );
+    activateCompletedProfessionToolUpgrade(recipe, job);
 
     if (options.notify !== false) {
-      notifyCraftingQueueJobCompleted(
-        recipe,
-        job,
-      );
+      notifyCraftingQueueJobCompleted(recipe, job);
     }
 
     const queue = getCraftingQueue();
@@ -3086,92 +2227,62 @@ function completeCraftingQueueCycle(
   }
 
   if (jobFinished) {
-    startNextCraftingQueueJob(
-      lastCompletedCycleFinishesAt,
-      {
-        persist:
-          options.persist !== false,
-      },
-    );
+    startNextCraftingQueueJob(lastCompletedCycleFinishesAt, {
+      persist: options.persist !== false,
+    });
   } else {
-    job.cycleStartedAt =
-      lastCompletedCycleFinishesAt;
+    job.cycleStartedAt = lastCompletedCycleFinishesAt;
 
-    job.cycleFinishesAt =
-      lastCompletedCycleFinishesAt +
-      job.craftingDurationMs;
+    job.cycleFinishesAt = lastCompletedCycleFinishesAt + job.craftingDurationMs;
   }
 
-  if (
-    options.persist !== false &&
-    typeof saveGame === "function"
-  ) {
+  if (options.persist !== false && typeof saveGame === "function") {
     saveGame();
   }
 
-  if (
-    options.render !== false &&
-    typeof render === "function"
-  ) {
+  if (options.render !== false && typeof render === "function") {
     render();
   }
 
-  if (
-    options.render !== false &&
-    typeof refreshCraftingView ===
-    "function"
-  ) {
+  if (options.render !== false && typeof refreshCraftingView === "function") {
     refreshCraftingView();
   }
 
   return {
-    completedCycleCount:
-      safeCompletedCycleCount,
+    completedCycleCount: safeCompletedCycleCount,
     jobFinished,
     recipeId: recipe.id,
-    resultItemId:
-      recipe.resultItemId,
+    resultItemId: recipe.resultItemId,
     completionResult,
   };
 }
 
 function updateCraftingJob() {
-
-  const queueJob =
-    getActiveCraftingQueueJob();
+  const queueJob = getActiveCraftingQueueJob();
 
   if (queueJob) {
     const cycleNotStarted =
-      queueJob.cycleStartedAt <= 0 ||
-      queueJob.cycleFinishesAt <= 0;
+      queueJob.cycleStartedAt <= 0 || queueJob.cycleFinishesAt <= 0;
 
     if (cycleNotStarted) {
       startNextCraftingQueueJob();
       return;
     }
 
-    const dueCycleCount =
-      getDueCraftingCycleCount(queueJob);
+    const dueCycleCount = getDueCraftingCycleCount(queueJob);
 
     if (dueCycleCount > 0) {
-      completeCraftingQueueCycle(
-        queueJob,
-        dueCycleCount,
-      );
+      completeCraftingQueueCycle(queueJob, dueCycleCount);
 
       return;
     }
 
-    if (
-      typeof updateCraftingProgressUI ===
-      "function"
-    ) {
+    if (typeof updateCraftingProgressUI === "function") {
       updateCraftingProgressUI();
     }
 
     return;
   }
-
 }
 
 function startCraftingTimer() {
@@ -3179,10 +2290,7 @@ function startCraftingTimer() {
     return;
   }
 
-  craftingIntervalId = setInterval(
-    updateCraftingJob,
-    100,
-  );
+  craftingIntervalId = setInterval(updateCraftingJob, 100);
 }
 
 function unlockRecipe(recipeId) {
@@ -3262,10 +2370,10 @@ function unlockRecipe(recipeId) {
   if (typeof addSystemLog === "function") {
     addSystemLog(
       "📜 Odblokowano recepturę: " +
-      recipe.name +
-      " za " +
-      unlockCost +
-      " złota.",
+        recipe.name +
+        " za " +
+        unlockCost +
+        " złota.",
       "recipe",
     );
   }
@@ -3279,3 +2387,5 @@ function unlockRecipe(recipeId) {
 }
 
 startCraftingTimer();
+
+initializeEquipmentUpgradeData();

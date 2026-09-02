@@ -2044,7 +2044,7 @@ window.idlerGeneratedRecipes = [
         requiresScroll: false,
         unlockCost: 0,
         materials: [
-            {"itemId": "iron_sword", "quantity": 1},
+            {"itemId": "kobold_sword", "quantity": 1},
             {"itemId": "wolf_claw", "quantity": 5},
             {"itemId": "cave_crystal", "quantity": 5},
             {"itemId": "whetstone", "quantity": 3},
@@ -2068,7 +2068,7 @@ window.idlerGeneratedRecipes = [
         requiresScroll: false,
         unlockCost: 0,
         materials: [
-            {"itemId": "steel_sword", "quantity": 1},
+            {"itemId": "iron_sword", "quantity": 1},
             {"itemId": "cave_crystal", "quantity": 5},
             {"itemId": "prismatic_core", "quantity": 5},
             {"itemId": "whetstone", "quantity": 4},
@@ -2140,7 +2140,7 @@ window.idlerGeneratedRecipes = [
         requiresScroll: false,
         unlockCost: 0,
         materials: [
-            {"itemId": "guard_sword", "quantity": 1},
+            {"itemId": "steel_sword", "quantity": 1},
             {"itemId": "ice_elemental_core", "quantity": 7},
             {"itemId": "frost_essence", "quantity": 7},
             {"itemId": "obsidian_whetstone", "quantity": 4},

@@ -3538,7 +3538,7 @@
       "unlockCost": 0,
       "materials": [
         {
-          "itemId": "iron_sword",
+          "itemId": "kobold_sword",
           "quantity": 1
         },
         {
@@ -3706,7 +3706,7 @@
       "unlockCost": 0,
       "materials": [
         {
-          "itemId": "guard_sword",
+          "itemId": "war_sword",
           "quantity": 1
         },
         {
@@ -3730,7 +3730,7 @@
           "quantity": 7
         }
       ],
-      "_baseId": "guard_sword"
+      "_baseId": "war_sword"
     },
     {
       "id": "dragon_blade_recipe",

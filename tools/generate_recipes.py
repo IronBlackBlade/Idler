@@ -73,7 +73,7 @@ BASE_ALIASES = {
     "stary miecz": "old_sword",
     "żelazny miecz": "iron_sword",
     "stalowy miecz": "steel_sword",
-    "miecz strażnika": "guard_sword",
+    "miecz strażnika": "war_sword",
     "ostrze strażnika": "guardian_blade",
     "miecz stalowego strażnika": "steel_guardian_sword",
     "ostrze elitarnego strażnika": "elite_guardian_blade",
