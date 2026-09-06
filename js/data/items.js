@@ -1032,2457 +1032,6 @@ const items = {
     },
 
 
-
-
-    // BRONIE
-
-    old_sword: {
-        id: "old_sword",
-        name: "Stary miecz",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "melee",
-        weaponClass: "slashing",
-        requiredLevel: 1,
-        damage: 10,
-        value: 50
-    },
-
-    iron_sword: {
-        id: "iron_sword",
-        name: "Żelazny miecz",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "melee",
-        weaponClass: "slashing",
-        requiredLevel: 10,
-        damage: 30,
-        value: 140
-    },
-
-    steel_sword: {
-        id: "steel_sword",
-        name: "Stalowy miecz",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "melee",
-        weaponClass: "slashing",
-        requiredLevel: 20,
-        damage: 55,
-        value: 380
-    },
-
-
-    knight_sword: {
-        id: "knight_sword",
-        name: "Rycerski miecz",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "melee",
-        weaponClass: "slashing",
-        requiredLevel: 50,
-        damage: 180,
-        value: 3000
-    },
-    captain_sword: {
-        id: "captain_sword",
-        name: "Miecz kapitana",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "melee",
-        weaponClass: "slashing",
-        requiredLevel: 75,
-        damage: 240,
-        value: 12000
-    },
-
-    master_sword: {
-        id: "master_sword",
-        name: "Mistrzowski miecz",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "melee",
-        weaponClass: "slashing",
-        requiredLevel: 100,
-        damage: 300,
-        value: 18000
-    },
-
-
-    forest_blade: {
-        id: "forest_blade",
-        name: "Leśne ostrze",
-        rarity: "uncommon",
-        type: "weapon",
-        weaponType: "melee",
-        weaponClass: "slashing",
-        requiredLevel: 1,
-        damage: 10,
-        value: 150
-    },
-    cave_sword: {
-        id: "cave_sword",
-        name: "Zabójca Koboldów",
-        rarity: "rare",
-        type: "weapon",
-        weaponType: "melee",
-        weaponClass: "slashing",
-        requiredLevel: 10,
-        damage: 30,
-        value: 300
-    },
-
-
-
-    guardian_blade: {
-        id: "guardian_blade",
-        name: "Ostrze strażnika",
-        rarity: "rare",
-        type: "weapon",
-        weaponType: "melee",
-        weaponClass: "slashing",
-        requiredLevel: 20,
-        damage: 55,
-        value: 850
-    },
-
-    steel_guardian_sword: {
-        id: "steel_guardian_sword",
-        name: "Miecz stalowego strażnika",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "melee",
-        weaponClass: "slashing",
-        requiredLevel: 25,
-        damage: 70,
-        value: 900
-    },
-
-    elite_guardian_blade: {
-        id: "elite_guardian_blade",
-        name: "Ostrze elitarnego strażnika",
-        rarity: "rare",
-        type: "weapon",
-        weaponType: "melee",
-        weaponClass: "slashing",
-        requiredLevel: 30,
-        damage: 90,
-        value: 1800
-    },
-
-    commander_sword: {
-        id: "commander_sword",
-        name: "Miecz dowódcy",
-        rarity: "epic",
-        type: "weapon",
-        weaponType: "melee",
-        weaponClass: "slashing",
-        requiredLevel: 40,
-        damage: 120,
-        value: 6000
-    },
-
-
-    dragon_blade: {
-        id: "dragon_blade",
-        name: "Smocze ostrze",
-        rarity: "legendary",
-        type: "weapon",
-        weaponType: "melee",
-        weaponClass: "slashing",
-        requiredLevel: 50,
-        damage: 180,
-        value: 14000
-    },
-
-
-    club: {
-        id: "club",
-        name: "Pałka",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "melee",
-        weaponClass: "blunt",
-        requiredLevel: 1,
-        damage: 10,
-        value: 40
-    },
-
-    kobold_mace: {
-        id: "kobold_mace",
-        name: "Maczuga",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "melee",
-        weaponClass: "blunt",
-        requiredLevel: 10,
-        damage: 30,
-        value: 280
-    },
-
-    battle_club: {
-        id: "battle_club",
-        name: "Pałka bojowa",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "melee",
-        weaponClass: "blunt",
-        requiredLevel: 20,
-        damage: 55,
-        value: 850
-    },
-
-    iron_club: {
-        id: "iron_club",
-        name: "Żelazna maczuga",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "melee",
-        weaponClass: "blunt",
-        requiredLevel: 35,
-        damage: 90,
-        value: 3200
-    },
-
-    war_hammer: {
-        id: "war_hammer",
-        name: "Młot wojenny",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "melee",
-        weaponClass: "blunt",
-        requiredLevel: 50,
-        damage: 180,
-        value: 3200
-    },
-
-    mace: {
-        id: "mace",
-        name: "Buława",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "melee",
-        weaponClass: "blunt",
-        requiredLevel: 75,
-        damage: 240,
-        value: 12000
-    },
-
-    heavy_war_hammer: {
-        id: "heavy_war_hammer",
-        name: "Ciężki młot wojenny",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "melee",
-        weaponClass: "blunt",
-        requiredLevel: 100,
-        damage: 300,
-        value: 3200
-    },
-
-
-
-    forest_club: {
-        id: "forest_club",
-        name: "Leśna pałka",
-        rarity: "uncommon",
-        type: "weapon",
-        weaponType: "melee",
-        weaponClass: "blunt",
-        requiredLevel: 1,
-        damage: 10,
-        value: 150
-    },
-
-    kobold_slayer_mace: {
-        id: "kobold_slayer_mace",
-        name: "Maczuga pogromcy koboldów",
-        rarity: "rare",
-        type: "weapon",
-        weaponType: "melee",
-        weaponClass: "blunt",
-        requiredLevel: 10,
-        damage: 30,
-        value: 300
-    },
-
-    power_club: {
-        id: "power_club",
-        name: "Maczuga mocy",
-        rarity: "rare",
-        type: "weapon",
-        weaponType: "melee",
-        weaponClass: "blunt",
-        requiredLevel: 20,
-        damage: 55,
-        value: 850
-    },
-
-    steel_guardian_hammer: {
-        id: "steel_guardian_hammer",
-        name: "Młot stalowego strażnika",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "melee",
-        weaponClass: "blunt",
-        requiredLevel: 25,
-        damage: 70,
-        value: 900
-    },
-
-    elite_guardian_hammer: {
-        id: "elite_guardian_hammer",
-        name: "Młot elitarnego strażnika",
-        rarity: "rare",
-        type: "weapon",
-        weaponType: "melee",
-        weaponClass: "blunt",
-        requiredLevel: 30,
-        damage: 90,
-        value: 1800
-    },
-
-    shadow_hammer: {
-        id: "shadow_hammer",
-        name: "Młot cienia",
-        rarity: "epic",
-        type: "weapon",
-        weaponType: "melee",
-        weaponClass: "blunt",
-        requiredLevel: 40,
-        damage: 120,
-        value: 3200
-    },
-
-    dragon_hammer: {
-        id: "dragon_hammer",
-        name: "Smoczy młot",
-        rarity: "legendary",
-        type: "weapon",
-        weaponType: "melee",
-        weaponClass: "blunt",
-        requiredLevel: 50,
-        damage: 180,
-        value: 14000
-    },
-
-
-    // TARCZE
-
-    simple_shield: {
-        id: "simple_shield",
-        name: "Prosta tarcza",
-        rarity: "common",
-        type: "shield",
-        requiredLevel: 1,
-        armor: 1,
-        value: 40
-    },
-
-    wooden_shield: {
-        id: "wooden_shield",
-        name: "Drewniana tarcza",
-        rarity: "common",
-        type: "shield",
-        requiredLevel: 10,
-        armor: 1,
-        value: 40
-    },
-    iron_shield: {
-        id: "iron_shield",
-        name: "Żelazna tarcza",
-        rarity: "common",
-        type: "shield",
-        requiredLevel: 20,
-        armor: 2,
-        value: 160
-    },
-
-
-    steel_shield: {
-        id: "steel_shield",
-        name: "Stalowa tarcza",
-        rarity: "common",
-        type: "shield",
-        requiredLevel: 35,
-        armor: 5,
-        value: 500
-    },
-
-    knight_shield: {
-        id: "knight_shield",
-        name: "Rycerska tarcza",
-        rarity: "common",
-        type: "shield",
-        requiredLevel: 50,
-        armor: 6,
-        value: 1800
-    },
-
-
-    captain_shield: {
-        id: "captain_shield",
-        name: "Tarcza kapitana",
-        rarity: "common",
-        type: "shield",
-        requiredLevel: 75,
-        armor: 10,
-        value: 1800
-    },
-
-    master_shield: {
-        id: "master_shield",
-        name: "Mistrzowska tarcza",
-        rarity: "common",
-        type: "shield",
-        requiredLevel: 100,
-        armor: 15,
-        value: 7500
-    },
-
-    bark_shield: {
-        id: "bark_shield",
-        name: "Tarcza z kory",
-        rarity: "uncommon",
-        type: "shield",
-        requiredLevel: 1,
-        armor: 1,
-        value: 120
-    },
-    kobold_shield: {
-        id: "kobold_shield",
-        name: "Tarcza koboldów",
-        rarity: "rare",
-        type: "shield",
-        requiredLevel: 10,
-        armor: 2,
-        value: 360
-    },
-
-
-
-    guardian_shield: {
-        id: "guardian_shield",
-        name: "Tarcza strażnika",
-        rarity: "rare",
-        type: "shield",
-        requiredLevel: 20,
-        armor: 3,
-        value: 1050
-    },
-
-    steel_guardian_shield: {
-        id: "steel_guardian_shield",
-        name: "Stalowa tarcza strażnika",
-        rarity: "common",
-        type: "shield",
-        requiredLevel: 25,
-        armor: 4,
-        value: 2200
-    },
-
-    elite_guardian_shield: {
-        id: "elite_guardian_shield",
-        name: "Tarcza elitarnego strażnika",
-        rarity: "rare",
-        type: "shield",
-        requiredLevel: 30,
-        armor: 5,
-        value: 4000
-    },
-
-
-
-    commander_shield: {
-        id: "commander_shield",
-        name: "Tarcza dowódcy",
-        rarity: "epic",
-        type: "shield",
-        requiredLevel: 40,
-        armor: 6,
-        value: 4200
-    },
-
-
-
-    dragon_shield: {
-        id: "dragon_shield",
-        name: "Smocza tarcza",
-        rarity: "legendary",
-        type: "shield",
-        requiredLevel: 50,
-        armor: 8,
-        value: 16000
-    },
-
-    // HEŁMY
-
-    simple_helmet: {
-        id: "simple_helmet",
-        name: "Prosty hełm",
-        rarity: "common",
-        type: "helmet",
-        requiredLevel: 1,
-        armor: 1,
-        value: 6500
-    },
-
-    leather_helmet: {
-        id: "leather_helmet",
-        name: "Skórzany hełm",
-        rarity: "common",
-        type: "helmet",
-        requiredLevel: 10,
-        armor: 1,
-        value: 30
-    },
-
-    iron_helmet: {
-        id: "iron_helmet",
-        name: "Żelazny hełm",
-        rarity: "common",
-        type: "helmet",
-        requiredLevel: 20,
-        armor: 1,
-        value: 140
-    },
-
-    steel_helmet: {
-        id: "steel_helmet",
-        name: "Stalowy hełm",
-        rarity: "common",
-        type: "helmet",
-        requiredLevel: 35,
-        armor: 2,
-        value: 450
-    },
-
-    knight_helmet: {
-        id: "knight_helmet",
-        name: "Rycerski hełm",
-        rarity: "common",
-        type: "helmet",
-        requiredLevel: 50,
-        armor: 2,
-        value: 1500
-    },
-
-    captain_helmet: {
-        id: "captain_helmet",
-        name: "Hełm kapitana",
-        rarity: "common",
-        type: "helmet",
-        requiredLevel: 75,
-        armor: 3,
-        value: 6500
-    },
-
-
-    master_helmet: {
-        id: "master_helmet",
-        name: "Mistrzowski hełm",
-        rarity: "common",
-        type: "helmet",
-        requiredLevel: 100,
-        armor: 5,
-        value: 6500
-    },
-
-
-
-    beetle_helmet: {
-        id: "beetle_helmet",
-        name: "Hełm z pancerza chrząszcza",
-        rarity: "uncommon",
-        type: "helmet",
-        requiredLevel: 1,
-        armor: 1,
-        value: 100
-    },
-
-    kobold_helmet: {
-        id: "kobold_helmet",
-        name: "Hełm kobolda",
-        rarity: "rare",
-        type: "helmet",
-        requiredLevel: 10,
-        armor: 2,
-        value: 320
-    },
-
-    guardian_helmet: {
-        id: "guardian_helmet",
-        name: "Hełm strażnika",
-        rarity: "rare",
-        type: "helmet",
-        requiredLevel: 20,
-        armor: 3,
-        value: 900
-    },
-
-    steel_guardian_helmet: {
-        id: "steel_guardian_helmet",
-        name: "Hełm stalowego strażnika",
-        rarity: "common",
-        type: "helmet",
-        requiredLevel: 25,
-        armor: 4,
-        value: 1800
-    },
-
-    elite_guardian_helmet: {
-        id: "elite_guardian_helmet",
-        name: "Hełm elitarnego strażnika",
-        rarity: "rare",
-        type: "helmet",
-        requiredLevel: 30,
-        armor: 5,
-        value: 3200
-    },
-
-    commander_helmet: {
-        id: "commander_helmet",
-        name: "Hełm dowódcy",
-        rarity: "epic",
-        type: "helmet",
-        requiredLevel: 40,
-        armor: 6,
-        value: 3500
-    },
-
-    dragon_helmet: {
-        id: "dragon_helmet",
-        name: "Smoczy hełm",
-        rarity: "legendary",
-        type: "helmet",
-        requiredLevel: 50,
-        armor: 8,
-        value: 14500
-    },
-
-    // PANCERZE
-
-    simple_armor: {
-        id: "simple_armor",
-        name: "Prosty pancerz",
-        rarity: "common",
-        type: "armor",
-        requiredLevel: 1,
-        armor: 1,
-        value: 70
-    },
-
-    leather_armor: {
-        id: "leather_armor",
-        name: "Skórzany pancerz",
-        rarity: "common",
-        type: "armor",
-        requiredLevel: 10,
-        armor: 2,
-        value: 70
-    },
-
-    iron_armor: {
-        id: "iron_armor",
-        name: "Żelazny pancerz",
-        rarity: "common",
-        type: "armor",
-        requiredLevel: 20,
-        armor: 3,
-        value: 320
-    },
-
-    steel_armor: {
-        id: "steel_armor",
-        name: "Stalowy pancerz",
-        rarity: "common",
-        type: "armor",
-        requiredLevel: 35,
-        armor: 5,
-        value: 1100
-    },
-
-
-    knight_armor: {
-        id: "knight_armor",
-        name: "Rycerski pancerz",
-        rarity: "common",
-        type: "armor",
-        requiredLevel: 50,
-        armor: 6,
-        value: 4500
-    },
-
-    captain_armor: {
-        id: "captain_armor",
-        name: "Pancerz kapitana",
-        rarity: "common",
-        type: "armor",
-        requiredLevel: 75,
-        armor: 9,
-        value: 16000
-    },
-
-
-    master_armor: {
-        id: "master_armor",
-        name: "Mistrzowski pancerz",
-        rarity: "common",
-        type: "armor",
-        requiredLevel: 100,
-        armor: 15,
-        value: 16000
-    },
-
-    wolf_armor: {
-        id: "wolf_armor",
-        name: "Pancerz wilka",
-        rarity: "uncommon",
-        type: "armor",
-        requiredLevel: 1,
-        armor: 1,
-        value: 180
-    },
-
-
-    kobold_armor: {
-        id: "kobold_armor",
-        name: "Pancerz kobolda",
-        rarity: "rare",
-        type: "armor",
-        requiredLevel: 10,
-        armor: 3,
-        value: 700
-    },
-
-
-
-    guardian_armor: {
-        id: "guardian_armor",
-        name: "Pancerz strażnika",
-        rarity: "rare",
-        type: "armor",
-        requiredLevel: 20,
-        armor: 4,
-        value: 2200
-    },
-
-    steel_guardian_armor: {
-        id: "steel_guardian_armor",
-        name: "Pancerz stalowego strażnika",
-        rarity: "common",
-        type: "armor",
-        requiredLevel: 25,
-        armor: 5,
-        value: 4500
-    },
-
-    elite_guardian_armor: {
-        id: "elite_guardian_armor",
-        name: "Pancerz elitarnego strażnika",
-        rarity: "rare",
-        type: "armor",
-        requiredLevel: 30,
-        armor: 6,
-        value: 8000
-    },
-
-
-    commander_armor: {
-        id: "commander_armor",
-        name: "Pancerz dowódcy",
-        rarity: "epic",
-        type: "armor",
-        requiredLevel: 40,
-        armor: 7,
-        value: 8500
-    },
-
-
-
-    dragon_armor: {
-        id: "dragon_armor",
-        name: "Smoczy pancerz",
-        rarity: "legendary",
-        type: "armor",
-        requiredLevel: 50,
-        armor: 8,
-        value: 32000
-    },
-
-    // SPODNIE
-
-    simple_pants: {
-        id: "simple_pants",
-        name: "Proste spodnie",
-        rarity: "common",
-        type: "pants",
-        requiredLevel: 1,
-        armor: 1,
-        value: 45
-    },
-
-    leather_pants: {
-        id: "leather_pants",
-        name: "Skórzane spodnie",
-        rarity: "common",
-        type: "pants",
-        requiredLevel: 10,
-        armor: 1,
-        value: 45
-    },
-
-    iron_pants: {
-        id: "iron_pants",
-        name: "Żelazne nogawice",
-        rarity: "common",
-        type: "pants",
-        requiredLevel: 20,
-        armor: 2,
-        value: 180
-    },
-
-    steel_pants: {
-        id: "steel_pants",
-        name: "Stalowe nogawice",
-        rarity: "common",
-        type: "pants",
-        requiredLevel: 35,
-        armor: 3,
-        value: 650
-    },
-
-    knight_pants: {
-        id: "knight_pants",
-        name: "Rycerskie nogawice",
-        rarity: "common",
-        type: "pants",
-        requiredLevel: 50,
-        armor: 4,
-        value: 2600
-    },
-
-    captain_pants: {
-        id: "captain_pants",
-        name: "Nogawice kapitana",
-        rarity: "common",
-        type: "pants",
-        requiredLevel: 75,
-        armor: 6,
-        value: 2600
-    },
-
-    master_pants: {
-        id: "master_pants",
-        name: "Mistrzowskie nogawice",
-        rarity: "common",
-        type: "pants",
-        requiredLevel: 100,
-        armor: 9,
-        value: 11000
-    },
-
-
-
-
-    tracker_pants: {
-        id: "tracker_pants",
-        name: "Spodnie tropiciela",
-        rarity: "uncommon",
-        type: "pants",
-        requiredLevel: 1,
-        armor: 1,
-        value: 130
-    },
-
-
-
-    kobold_pants: {
-        id: "kobold_pants",
-        name: "Nogawice kobolda",
-        rarity: "rare",
-        type: "pants",
-        requiredLevel: 10,
-        armor: 2,
-        value: 420
-    },
-
-
-    guardian_pants: {
-        id: "guardian_pants",
-        name: "Nogawice strażnika",
-        rarity: "rare",
-        type: "pants",
-        requiredLevel: 20,
-        armor: 3,
-        value: 1300
-    },
-
-    steel_guardian_pants: {
-        id: "steel_guardian_pants",
-        name: "Stalowe spodnie strażnika",
-        rarity: "common",
-        type: "pants",
-        requiredLevel: 25,
-        armor: 4,
-        value: 3000
-    },
-
-    elite_guardian_pants: {
-        id: "elite_guardian_pants",
-        name: "Spodnie elitarnego strażnika",
-        rarity: "rare",
-        type: "pants",
-        requiredLevel: 30,
-        armor: 5,
-        endurance: 12,
-        dexterity: 4,
-        value: 5500
-    },
-
-
-
-    commander_pants: {
-        id: "commander_pants",
-        name: "Nogawice dowódcy",
-        rarity: "epic",
-        type: "pants",
-        requiredLevel: 40,
-        armor: 6,
-        value: 5600
-    },
-
-
-    dragon_pants: {
-        id: "dragon_pants",
-        name: "Smocze nogawice",
-        rarity: "legendary",
-        type: "pants",
-        requiredLevel: 50,
-        armor: 8,
-        value: 23000
-    },
-
-    // BUTY
-
-    simple_boots: {
-        id: "simple_boots",
-        name: "Proste buty",
-        rarity: "common",
-        type: "boots",
-        requiredLevel: 1,
-        armor: 0,
-        value: 30
-    },
-
-
-    old_boots: {
-        id: "old_boots",
-        name: "Stare buty",
-        rarity: "common",
-        type: "boots",
-        requiredLevel: 10,
-        armor: 1,
-        value: 30
-    },
-
-    iron_boots: {
-        id: "iron_boots",
-        name: "Żelazne buty",
-        rarity: "common",
-        type: "boots",
-        requiredLevel: 20,
-        armor: 2,
-        value: 160
-    },
-
-    wolf_boots: {
-        id: "wolf_boots",
-        name: "Buty wilka",
-        rarity: "uncommon",
-        type: "boots",
-        requiredLevel: 1,
-        armor: 0,
-        value: 120
-    },
-
-    steel_boots: {
-        id: "steel_boots",
-        name: "Stalowe buty",
-        rarity: "common",
-        type: "boots",
-        requiredLevel: 35,
-        armor: 3,
-        value: 600
-    },
-
-    knight_boots: {
-        id: "knight_boots",
-        name: "Rycerskie buty",
-        rarity: "common",
-        type: "boots",
-        requiredLevel: 50,
-        armor: 4,
-        value: 2400
-    },
-
-    captain_boots: {
-        id: "captain_boots",
-        name: "Buty kapitana",
-        rarity: "common",
-        type: "boots",
-        requiredLevel: 75,
-        armor: 6,
-        value: 10000
-    },
-
-    master_boots: {
-        id: "master_boots",
-        name: "Mistrzowskie buty",
-        rarity: "common",
-        type: "boots",
-        requiredLevel: 100,
-        armor: 8,
-        value: 10000
-    },
-
-
-    kobold_boots: {
-        id: "kobold_boots",
-        name: "Buty kobolda",
-        rarity: "rare",
-        type: "boots",
-        requiredLevel: 10,
-        armor: 1,
-        value: 380
-    },
-
-
-
-    guardian_boots: {
-        id: "guardian_boots",
-        name: "Buty strażnika",
-        rarity: "rare",
-        type: "boots",
-        requiredLevel: 20,
-        armor: 2,
-        value: 1200
-    },
-
-    steel_guardian_boots: {
-        id: "steel_guardian_boots",
-        name: "Stalowe buty strażnika",
-        rarity: "common",
-        type: "boots",
-        requiredLevel: 25,
-        armor: 3,
-        value: 2600
-    },
-
-    elite_guardian_boots: {
-        id: "elite_guardian_boots",
-        name: "Buty elitarnego strażnika",
-        rarity: "rare",
-        type: "boots",
-        requiredLevel: 30,
-        armor: 7,
-        endurance: 10,
-        dexterity: 5,
-        value: 4800
-    },
-
-
-
-    commander_boots: {
-        id: "commander_boots",
-        name: "Buty dowódcy",
-        rarity: "epic",
-        type: "boots",
-        requiredLevel: 40,
-        armor: 5,
-        value: 5200
-    },
-
-
-
-    dragon_boots: {
-        id: "dragon_boots",
-        name: "Smocze buty",
-        rarity: "legendary",
-        type: "boots",
-        requiredLevel: 50,
-        armor: 6,
-        value: 21000
-    },
-
-    // RĘKAWICE
-
-    simple_gloves: {
-        id: "simple_gloves",
-        name: "Proste rękawice",
-        rarity: "common",
-        type: "gloves",
-        requiredLevel: 1,
-        armor: 0,
-        value: 35
-    },
-
-    leather_gloves: {
-        id: "leather_gloves",
-        name: "Skórzane rękawice",
-        rarity: "common",
-        type: "gloves",
-        requiredLevel: 10,
-        armor: 1,
-        value: 35
-    },
-
-    iron_gloves: {
-        id: "iron_gloves",
-        name: "Żelazne rękawice",
-        rarity: "common",
-        type: "gloves",
-        requiredLevel: 20,
-        armor: 2,
-        value: 170
-    },
-
-
-    steel_gloves: {
-        id: "steel_gloves",
-        name: "Stalowe rękawice",
-        rarity: "common",
-        type: "gloves",
-        requiredLevel: 35,
-        armor: 3,
-        value: 620
-    },
-
-    knight_gloves: {
-        id: "knight_gloves",
-        name: "Rycerskie rękawice",
-        rarity: "common",
-        type: "gloves",
-        requiredLevel: 50,
-        armor: 4,
-        value: 2500
-    },
-
-    captain_gloves: {
-        id: "captain_gloves",
-        name: "Rękawice kaptiana",
-        rarity: "common",
-        type: "gloves",
-        requiredLevel: 75,
-        armor: 6,
-        value: 2500
-    },
-
-    master_gloves: {
-        id: "master_gloves",
-        name: "Mistrzowskie rękawice",
-        rarity: "common",
-        type: "gloves",
-        requiredLevel: 100,
-        armor: 8,
-        value: 10500
-    },
-
-
-
-    wolf_gloves: {
-        id: "wolf_gloves",
-        name: "Rękawice wilka",
-        rarity: "uncommon",
-        type: "gloves",
-        requiredLevel: 1,
-        armor: 0,
-        value: 120
-    },
-
-
-    kobold_gloves: {
-        id: "kobold_gloves",
-        name: "Rękawice kobolda",
-        rarity: "rare",
-        type: "gloves",
-        requiredLevel: 10,
-        armor: 1,
-        value: 400
-    },
-
-
-    guardian_gloves: {
-        id: "guardian_gloves",
-        name: "Rękawice strażnika",
-        rarity: "rare",
-        type: "gloves",
-        requiredLevel: 20,
-        armor: 2,
-        value: 1250
-    },
-
-    steel_guardian_gloves: {
-        id: "steel_guardian_gloves",
-        name: "Stalowe rękawice strażnika",
-        rarity: "common",
-        type: "gloves",
-        requiredLevel: 25,
-        armor: 3,
-        value: 2700
-    },
-
-    elite_guardian_gloves: {
-        id: "elite_guardian_gloves",
-        name: "Rękawice elitarnego strażnika",
-        rarity: "rare",
-        type: "gloves",
-        requiredLevel: 30,
-        armor: 4,
-        endurance: 10,
-        strength: 4,
-        value: 5000
-    },
-
-
-
-    commander_gloves: {
-        id: "commander_gloves",
-        name: "Rękawice dowódcy",
-        rarity: "epic",
-        type: "gloves",
-        requiredLevel: 40,
-        armor: 5,
-        value: 5400
-    },
-
-
-    dragon_gloves: {
-        id: "dragon_gloves",
-        name: "Smocze rękawice",
-        rarity: "legendary",
-        type: "gloves",
-        requiredLevel: 50,
-        armor: 6,
-        value: 22000
-    },
-
-    // PIERŚCIENIE
-
-    simple_ring: {
-        id: "simple_ring",
-        name: "Prosty pierścień",
-        rarity: "common",
-        type: "ring",
-        requiredLevel: 1,
-        luck: 1,
-        value: 60
-    },
-
-    mana_ring: {
-        id: "mana_ring",
-        name: "Pierścień many",
-        rarity: "common",
-        type: "ring",
-        requiredLevel: 5,
-        intelligence: 2,
-        value: 90
-    },
-
-    lucky_ring: {
-        id: "lucky_ring",
-        name: "Pierścień szczęścia",
-        rarity: "common",
-        type: "ring",
-        requiredLevel: 10,
-        luck: 3,
-        dexterity: 1,
-
-        value: 180
-    },
-
-    iron_ring: {
-        id: "iron_ring",
-        name: "Żelazny pierścień",
-        rarity: "common",
-        type: "ring",
-        requiredLevel: 20,
-        strength: 1,
-        endurance: 1,
-        luck: 1,
-        value: 220
-    },
-
-    steel_ring: {
-        id: "steel_ring",
-        name: "Stalowy pierścień",
-        rarity: "common",
-        type: "ring",
-        requiredLevel: 35,
-        strength: 2,
-        endurance: 2,
-        luck: 2,
-        value: 850
-    },
-
-    knight_ring: {
-        id: "knight_ring",
-        name: "Rycerski pierścień",
-        rarity: "common",
-        type: "ring",
-        requiredLevel: 50,
-        strength: 4,
-        endurance: 4,
-        dexterity: 2,
-        luck: 3,
-        value: 3600
-    },
-
-    magic_ring: {
-        id: "magic_ring",
-        name: "Magiczny pierścień",
-        rarity: "common",
-        type: "ring",
-        requiredLevel: 75,
-        strength: 8,
-        endurance: 8,
-        dexterity: 5,
-        luck: 6,
-        value: 15000
-    },
-
-    master_ring: {
-        id: "master_ring",
-        name: "Mistrzowski pierścień",
-        rarity: "common",
-        type: "ring",
-        requiredLevel: 100,
-        strength: 8,
-        endurance: 8,
-        dexterity: 5,
-        luck: 6,
-        value: 15000
-    },
-
-
-
-
-    kobold_ring: {
-        id: "kobold_ring",
-        name: "Pierścień kobolda",
-        rarity: "rare",
-        type: "ring",
-        requiredLevel: 10,
-        strength: 2,
-        dexterity: 2,
-        luck: 2,
-
-        value: 520
-    },
-
-
-    guardian_ring: {
-        id: "guardian_ring",
-        name: "Pierścień strażnika",
-        rarity: "rare",
-        type: "ring",
-        requiredLevel: 20,
-        strength: 3,
-        endurance: 3,
-        luck: 3,
-
-        value: 1700
-    },
-
-
-    steel_guardian_ring: {
-        id: "steel_guardian_ring",
-        name: "Pierścień stalowego strażnika",
-        rarity: "common",
-        type: "ring",
-        requiredLevel: 25,
-        strength: 3,
-        endurance: 3,
-        dexterity: 1,
-        luck: 2,
-        value: 2200
-    },
-
-    elite_guardian_ring: {
-        id: "elite_guardian_ring",
-        name: "Pierścień elitarnego strażnika",
-        rarity: "rare",
-        type: "ring",
-        requiredLevel: 30,
-        strength: 8,
-        dexterity: 6,
-        endurance: 4,
-        value: 5200
-    },
-
-
-    commander_ring: {
-        id: "commander_ring",
-        name: "Pierścień dowódcy",
-        rarity: "epic",
-        type: "ring",
-        requiredLevel: 40,
-        strength: 6,
-        endurance: 6,
-        dexterity: 4,
-        luck: 6,
-
-        value: 7800
-    },
-
-
-    dragon_ring: {
-        id: "dragon_ring",
-        name: "Smoczy pierścień",
-        rarity: "legendary",
-        type: "ring",
-        requiredLevel: 50,
-        strength: 13,
-        endurance: 13,
-        dexterity: 9,
-        luck: 12,
-
-        value: 31000
-    },
-
-    // AMULETY
-
-    simple_amulet: {
-        id: "simple_amulet",
-        name: "Prosty amulet",
-        rarity: "common",
-        type: "amulet",
-        requiredLevel: 1,
-        intelligence: 1,
-        luck: 1,
-        value: 70
-    },
-
-    lucky_amulet: {
-        id: "lucky_amulet",
-        name: "Amulet szczęścia",
-        rarity: "common",
-        type: "amulet",
-        requiredLevel: 10,
-        intelligence: 1,
-        luck: 1,
-        value: 70
-    },
-
-    iron_amulet: {
-        id: "iron_amulet",
-        name: "Żelazny amulet",
-        rarity: "common",
-        type: "amulet",
-        requiredLevel: 20,
-        intelligence: 2,
-        endurance: 1,
-        luck: 1,
-        value: 240
-    },
-
-
-
-    steel_amulet: {
-        id: "steel_amulet",
-        name: "Stalowy amulet",
-        rarity: "common",
-        type: "amulet",
-        requiredLevel: 35,
-        intelligence: 4,
-        endurance: 2,
-        luck: 2,
-        value: 900
-    },
-
-    knight_amulet: {
-        id: "knight_amulet",
-        name: "Rycerski amulet",
-        rarity: "common",
-        type: "amulet",
-        requiredLevel: 50,
-        intelligence: 8,
-        endurance: 4,
-        strength: 2,
-        luck: 3,
-        value: 3800
-    },
-
-    magic_amulet: {
-        id: "magic_amulet",
-        name: "Magiczny amulet",
-        rarity: "common",
-        type: "amulet",
-        requiredLevel: 75,
-        intelligence: 18,
-        endurance: 8,
-        strength: 5,
-        luck: 6,
-        value: 15500
-    },
-
-    master_amulet: {
-        id: "master_amulet",
-        name: "Mistrzowski amulet",
-        rarity: "common",
-        type: "amulet",
-        requiredLevel: 100,
-        intelligence: 18,
-        endurance: 8,
-        strength: 5,
-        luck: 6,
-        value: 15500
-    },
-
-    mana_amulet: {
-        id: "mana_amulet",
-        name: "Amulet many",
-        rarity: "uncommon",
-        type: "amulet",
-        requiredLevel: 1,
-        intelligence: 3,
-        luck: 1,
-        value: 190
-    },
-
-
-
-    kobold_amulet: {
-        id: "kobold_amulet",
-        name: "Amulet kobolda",
-        rarity: "rare",
-        type: "amulet",
-        requiredLevel: 10,
-        intelligence: 4,
-        dexterity: 1,
-        luck: 2,
-        value: 560
-    },
-
-
-
-    guardian_amulet: {
-        id: "guardian_amulet",
-        name: "Amulet strażnika",
-        rarity: "rare",
-        type: "amulet",
-        requiredLevel: 20,
-        intelligence: 6,
-        endurance: 3,
-        luck: 3,
-        value: 1800
-    },
-
-    steel_guardian_amulet: {
-        id: "steel_guardian_amulet",
-        name: "Amulet stalowego strażnika",
-        rarity: "common",
-        type: "amulet",
-        requiredLevel: 25,
-        intelligence: 6,
-        endurance: 3,
-        luck: 2,
-        value: 2000
-    },
-
-    elite_guardian_amulet: {
-        id: "elite_guardian_amulet",
-        name: "Amulet elitarnego strażnika",
-        rarity: "rare",
-        type: "amulet",
-        requiredLevel: 30,
-        intelligence: 9,
-        endurance: 6,
-        luck: 3,
-        value: 4200
-    },
-
-
-
-    commander_amulet: {
-        id: "commander_amulet",
-        name: "Amulet dowódcy",
-        rarity: "epic",
-        type: "amulet",
-        requiredLevel: 40,
-        intelligence: 12,
-        endurance: 6,
-        strength: 4,
-        luck: 6,
-        value: 8200
-    },
-
-
-
-    dragon_amulet: {
-        id: "dragon_amulet",
-        name: "Smoczy amulet",
-        rarity: "legendary",
-        type: "amulet",
-        requiredLevel: 50,
-        intelligence: 28,
-        endurance: 12,
-        strength: 8,
-        luck: 12,
-        value: 33000
-    },
-
-    // TALIZMANY
-
-    simple_talisman: {
-        id: "simple_talisman",
-        name: "Prosty talizman",
-        rarity: "common",
-        type: "talisman",
-        requiredLevel: 1,
-        luck: 2,
-        value: 80
-    },
-    lucky_talisman: {
-        id: "lucky_talisman",
-        name: "Talizman szczęścia",
-        rarity: "common",
-        type: "talisman",
-        requiredLevel: 10,
-        luck: 2,
-        value: 80
-    },
-
-    iron_talisman: {
-        id: "iron_talisman",
-        name: "Żelazny talizman",
-        rarity: "common",
-        type: "talisman",
-        requiredLevel: 20,
-        luck: 2,
-        endurance: 2,
-        value: 280
-    },
-
-    steel_talisman: {
-        id: "steel_talisman",
-        name: "Stalowy talizman",
-        rarity: "common",
-        type: "talisman",
-        requiredLevel: 35,
-        luck: 4,
-        endurance: 3,
-        value: 1000
-    },
-
-    knight_talisman: {
-        id: "knight_talisman",
-        name: "Rycerski talizman",
-        rarity: "common",
-        type: "talisman",
-        requiredLevel: 50,
-        luck: 6,
-        strength: 3,
-        endurance: 4,
-        intelligence: 3,
-        value: 4200
-    },
-
-    magic_talisman: {
-        id: "magic_talisman",
-        name: "Magiczny talizman",
-        rarity: "common",
-        type: "talisman",
-        requiredLevel: 75,
-        luck: 10,
-        strength: 6,
-        dexterity: 6,
-        intelligence: 8,
-        value: 17000
-    },
-
-    master_talisman: {
-        id: "master_talisman",
-        name: "Mistrzowski talizman",
-        rarity: "common",
-        type: "talisman",
-        requiredLevel: 100,
-        luck: 10,
-        strength: 6,
-        dexterity: 6,
-        intelligence: 8,
-        value: 17000
-    },
-
-    nature_talisman: {
-        id: "nature_talisman",
-        name: "Talizman natury",
-        rarity: "uncommon",
-        type: "talisman",
-        requiredLevel: 1,
-        luck: 4,
-        intelligence: 1,
-        value: 220
-    },
-
-    kobold_talisman: {
-        id: "kobold_talisman",
-        name: "Talizman kobolda",
-        rarity: "rare",
-        type: "talisman",
-        requiredLevel: 10,
-        luck: 4,
-        dexterity: 2,
-        intelligence: 2,
-        value: 650
-    },
-
-
-    guardian_talisman: {
-        id: "guardian_talisman",
-        name: "Talizman strażnika",
-        rarity: "rare",
-        type: "talisman",
-        requiredLevel: 20,
-        luck: 6,
-        endurance: 4,
-        intelligence: 3,
-        value: 2000
-    },
-
-    steel_guardian_talisman: {
-        id: "steel_guardian_talisman",
-        name: "Talizman stalowego strażnika",
-        rarity: "common",
-        type: "talisman",
-        requiredLevel: 25,
-        luck: 8,
-        value: 2100
-    },
-
-    elite_guardian_talisman: {
-        id: "elite_guardian_talisman",
-        name: "Talizman elitarnego strażnika",
-        rarity: "rare",
-        type: "talisman",
-        requiredLevel: 30,
-        luck: 12,
-        endurance: 6,
-        intelligence: 6,
-        value: 4400
-    },
-
-    commander_talisman: {
-        id: "commander_talisman",
-        name: "Talizman dowódcy",
-        rarity: "epic",
-        type: "talisman",
-        requiredLevel: 40,
-        luck: 10,
-        strength: 5,
-        dexterity: 5,
-        intelligence: 5,
-        value: 9000
-    },
-
-    dragon_talisman: {
-        id: "dragon_talisman",
-        name: "Smoczy talizman",
-        rarity: "legendary",
-        type: "talisman",
-        requiredLevel: 50,
-        luck: 20,
-        strength: 10,
-        dexterity: 10,
-        intelligence: 14,
-        endurance: 8,
-        value: 36000
-    },
-
-    // BRONIE DYSTANSOWE
-
-    old_bow: {
-        id: "old_bow",
-        name: "Stary łuk",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "ranged",
-        weaponClass: "bow",
-        requiredLevel: 1,
-        damage: 10,
-        value: 50
-    },
-
-    hunter_bow: {
-        id: "hunter_bow",
-        name: "Łuk myśliwski",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "ranged",
-        weaponClass: "bow",
-        requiredLevel: 10,
-        damage: 30,
-        value: 140
-    },
-
-    long_bow: {
-        id: "long_bow",
-        name: "Długi łuk",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "ranged",
-        weaponClass: "bow",
-        requiredLevel: 20,
-        damage: 55,
-        value: 450
-    },
-
-    oak_bow: {
-        id: "oak_bow",
-        name: "Łuk dębowy",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "ranged",
-        weaponClass: "bow",
-        requiredLevel: 35,
-        damage: 90,
-        value: 1500
-    },
-
-
-    ranger_bow: {
-        id: "ranger_bow",
-        name: "Łuk zwiadowcy",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "ranged",
-        weaponClass: "bow",
-        requiredLevel: 50,
-        damage: 180,
-        value: 5500
-    },
-    war_bow: {
-        id: "war_bow",
-        name: "Łuk wojenny",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "ranged",
-        weaponClass: "bow",
-        requiredLevel: 75,
-        damage: 240,
-        value: 10500
-    },
-
-    master_bow: {
-        id: "master_bow",
-        name: "Mistrzowski łuk",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "ranged",
-        weaponClass: "bow",
-        requiredLevel: 100,
-        damage: 300,
-        value: 21000
-    },
-
-    forest_bow: {
-        id: "forest_bow",
-        name: "Leśny łuk",
-        rarity: "uncommon",
-        type: "weapon",
-        weaponType: "ranged",
-        weaponClass: "bow",
-        requiredLevel: 1,
-        damage: 10,
-        value: 150
-    },
-
-    wolf_bow: {
-        id: "wolf_bow",
-        name: "Wilczy łuk",
-        rarity: "rare",
-        type: "weapon",
-        weaponType: "ranged",
-        weaponClass: "bow",
-        requiredLevel: 10,
-        damage: 30,
-        value: 300
-    },
-
-    guardian_bow: {
-        id: "guardian_bow",
-        name: "Łuk strażnika",
-        rarity: "rare",
-        type: "weapon",
-        weaponType: "ranged",
-        weaponClass: "bow",
-        requiredLevel: 20,
-        damage: 55,
-        value: 850
-    },
-
-    steel_guardian_bow: {
-        id: "steel_guardian_bow",
-        name: "Łuk stalowego strażnika",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "ranged",
-        weaponClass: "bow",
-        requiredLevel: 25,
-        damage: 70,
-        value: 900
-    },
-
-    elite_guardian_bow: {
-        id: "elite_guardian_bow",
-        name: "Łuk elitarnego strażnika",
-        rarity: "rare",
-        type: "weapon",
-        weaponType: "ranged",
-        weaponClass: "bow",
-        requiredLevel: 30,
-        damage: 90,
-        value: 1800
-    },
-
-    shadow_bow: {
-        id: "shadow_bow",
-        name: "Łuk cienia",
-        rarity: "epic",
-        type: "weapon",
-        weaponType: "ranged",
-        weaponClass: "bow",
-        requiredLevel: 40,
-        damage: 120,
-        value: 3200
-    },
-
-    dragon_bow: {
-        id: "dragon_bow",
-        name: "Smoczy łuk",
-        rarity: "legendary",
-        type: "weapon",
-        weaponType: "ranged",
-        weaponClass: "bow",
-        requiredLevel: 50,
-        damage: 180,
-        value: 14000
-    },
-
-    simple_crossbow: {
-        id: "simple_crossbow",
-        name: "Prosta kusza",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "ranged",
-        weaponClass: "crossbow",
-        requiredLevel: 1,
-        damage: 10,
-        value: 120
-    },
-    light_crossbow: {
-        id: "light_crossbow",
-        name: "Lekka kusza",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "ranged",
-        weaponClass: "crossbow",
-        requiredLevel: 10,
-        damage: 30,
-        value: 175
-    },
-
-    hunting_crossbow: {
-        id: "hunting_crossbow",
-        name: "Myśliwska kusza",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "ranged",
-        weaponClass: "crossbow",
-        requiredLevel: 20,
-        damage: 55,
-        value: 550
-    },
-
-    steel_crossbow: {
-        id: "steel_crossbow",
-        name: "Stalowa kusza",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "ranged",
-        weaponClass: "crossbow",
-        requiredLevel: 35,
-        damage: 90,
-        value: 1750
-    },
-
-    battle_crossbow: {
-        id: "battle_crossbow",
-        name: "Bojowa kusza",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "ranged",
-        weaponClass: "crossbow",
-        requiredLevel: 50,
-        damage: 180,
-        value: 5500
-    },
-    heavy_crossbow: {
-        id: "heavy_crossbow",
-        name: "Ciężka kusza",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "ranged",
-        weaponClass: "crossbow",
-        requiredLevel: 75,
-        damage: 240,
-        value: 11000
-    },
-
-    master_crossbow: {
-        id: "master_crossbow",
-        name: "Mistrzowska kusza",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "ranged",
-        weaponClass: "crossbow",
-        requiredLevel: 100,
-        damage: 300,
-        value: 22000
-    },
-
-
-
-    forest_crossbow: {
-        id: "forest_crossbow",
-        name: "Leśna kusza",
-        rarity: "uncommon",
-        type: "weapon",
-        weaponType: "ranged",
-        weaponClass: "crossbow",
-        requiredLevel: 1,
-        damage: 10,
-        value: 150
-    },
-
-    wolf_crossbow: {
-        id: "wolf_crossbow",
-        name: "Wilcza kusza",
-        rarity: "rare",
-        type: "weapon",
-        weaponType: "ranged",
-        weaponClass: "crossbow",
-        requiredLevel: 10,
-        damage: 30,
-        value: 300
-    },
-
-    guardian_crossbow: {
-        id: "guardian_crossbow",
-        name: "Kusza strażnika",
-        rarity: "rare",
-        type: "weapon",
-        weaponType: "ranged",
-        weaponClass: "crossbow",
-        requiredLevel: 20,
-        damage: 55,
-        value: 850
-    },
-
-    steel_guardian_crossbow: {
-        id: "steel_guardian_crossbow",
-        name: "Kusza stalowego strażnika",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "ranged",
-        weaponClass: "crossbow",
-        requiredLevel: 25,
-        damage: 70,
-        value: 1800
-    },
-
-    elite_guardian_crossbow: {
-        id: "elite_guardian_crossbow",
-        name: "Kusza elitarnego strażnika",
-        rarity: "rare",
-        type: "weapon",
-        weaponType: "ranged",
-        weaponClass: "crossbow",
-        requiredLevel: 30,
-        damage: 90,
-        value: 4000
-    },
-
-    shadow_crossbow: {
-        id: "shadow_crossbow",
-        name: "Kusza cienia",
-        rarity: "epic",
-        type: "weapon",
-        weaponType: "ranged",
-        weaponClass: "crossbow",
-        requiredLevel: 40,
-        damage: 120,
-        value: 8000
-    },
-
-    dragon_crossbow: {
-        id: "dragon_crossbow",
-        name: "Smocza kusza",
-        rarity: "legendary",
-        type: "weapon",
-        weaponType: "ranged",
-        weaponClass: "crossbow",
-        requiredLevel: 50,
-        damage: 180,
-        value: 14000
-    },
-
-    // BRONIE MAGICZNE
-
-    wooden_wand: {
-        id: "wooden_wand",
-        name: "Drewniana różdżka",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "magic",
-        weaponClass: "wand",
-        requiredLevel: 1,
-        damage: 10,
-        value: 100
-    },
-
-    simple_wand: {
-        id: "simple_wand",
-        name: "Prosta różdżka",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "magic",
-        weaponClass: "wand",
-        requiredLevel: 10,
-        damage: 30,
-        value: 300
-    },
-
-    apprentice_wand: {
-        id: "apprentice_wand",
-        name: "Uczniowska różdżka",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "magic",
-        weaponClass: "wand",
-        requiredLevel: 20,
-        damage: 55,
-        value: 900
-    },
-    arcane_wand: {
-        id: "arcane_wand",
-        name: "Arkaniczna różdżka",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "magic",
-        weaponClass: "wand",
-        requiredLevel: 35,
-        damage: 90,
-        value: 2100
-    },
-
-    magic_wand: {
-        id: "magic_wand",
-        name: "Magiczna różdżka",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "magic",
-        weaponClass: "wand",
-        requiredLevel: 50,
-        damage: 180,
-        value: 6000
-    },
-
-    master_wand: {
-        id: "master_wand",
-        name: "Mistrzowska różdżka",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "magic",
-        weaponClass: "wand",
-        requiredLevel: 75,
-        damage: 240,
-        value: 11000
-    },
-
-
-    archmaster_wand: {
-        id: "archmaster_wand",
-        name: "Arcymistrzowska różdżka",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "magic",
-        weaponClass: "wand",
-        requiredLevel: 100,
-        damage: 300,
-        value: 22000
-    },
-    simple_staff: {
-        id: "simple_staff",
-        name: "Prosty kostur",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "magic",
-        weaponClass: "staff",
-        requiredLevel: 1,
-        damage: 10,
-        value: 120
-    },
-    apprentice_staff: {
-        id: "apprentice_staff",
-        name: "Kostur ucznia",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "magic",
-        weaponClass: "staff",
-        requiredLevel: 10,
-        damage: 30,
-        value: 250
-    },
-
-    adept_staff: {
-        id: "adept_staff",
-        name: "Kostur adepta",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "magic",
-        weaponClass: "staff",
-        requiredLevel: 20,
-        damage: 55,
-        value: 850
-    },
-
-    battle_staff: {
-        id: "battle_staff",
-        name: "Bojowy kostur",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "magic",
-        weaponClass: "staff",
-        requiredLevel: 35,
-        damage: 90,
-        value: 2500
-    },
-
-
-
-    mage_staff: {
-        id: "mage_staff",
-        name: "Kostur maga",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "magic",
-        weaponClass: "staff",
-        requiredLevel: 50,
-        damage: 180,
-        value: 6000
-    },
-
-
-    heavy_battle_staff: {
-        id: "heavy_battle_staff",
-        name: "Ciężki bojowy kostur",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "magic",
-        weaponClass: "staff",
-        requiredLevel: 75,
-        damage: 240,
-        value: 12000
-    },
-
-    master_staff: {
-        id: "master_staff",
-        name: "Mistrzowski kostur",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "magic",
-        weaponClass: "staff",
-        requiredLevel: 100,
-        damage: 300,
-        value: 24000
-    },
-
-
-    crystal_staff: {
-        id: "crystal_staff",
-        name: "Kryształowy kostur",
-        rarity: "rare",
-        type: "weapon",
-        weaponType: "magic",
-        weaponClass: "staff",
-        requiredLevel: 10,
-        damage: 30,
-        value: 300
-    },
-
-    guardian_staff: {
-        id: "guardian_staff",
-        name: "Kostur strażnika",
-        rarity: "rare",
-        type: "weapon",
-        weaponType: "magic",
-        weaponClass: "staff",
-        requiredLevel: 20,
-        damage: 55,
-        value: 850
-    },
-
-    guardian_arcane_staff: {
-        id: "guardian_arcane_staff",
-        name: "Kostur arkanicznego strażnika",
-        rarity: "common",
-        type: "weapon",
-        weaponType: "magic",
-        weaponClass: "staff",
-        requiredLevel: 30,
-        damage: 90,
-        value: 900
-    },
-
-    elite_guardian_wand: {
-        id: "elite_guardian_wand",
-        name: "Różdżka elitarnego strażnika",
-        rarity: "rare",
-        type: "weapon",
-        weaponType: "magic",
-        weaponClass: "wand",
-        requiredLevel: 30,
-        damage: 90,
-        value: 1800
-    },
-
-    shadow_wand: {
-        id: "shadow_wand",
-        name: "Różdżka cienia",
-        rarity: "rare",
-        type: "weapon",
-        weaponType: "magic",
-        weaponClass: "wand",
-        requiredLevel: 20,
-        damage: 70,
-        value: 3200
-    },
-
-
-
-    commander_wand: {
-        id: "commander_wand",
-        name: "Różdżka dowódcy",
-        rarity: "epic",
-        type: "weapon",
-        weaponType: "magic",
-        weaponClass: "wand",
-        requiredLevel: 40,
-        damage: 120,
-        value: 3200
-    },
-
-    dragon_wand: {
-        id: "dragon_wand",
-        name: "Smocza różdżka",
-        rarity: "legendary",
-        type: "weapon",
-        weaponType: "magic",
-        weaponClass: "wand",
-        requiredLevel: 50,
-        damage: 180,
-        value: 14000
-    },
-
-    nature_staff: {
-        id: "nature_staff",
-        name: "Kostur natury",
-        rarity: "uncommon",
-        type: "weapon",
-        weaponType: "magic",
-        weaponClass: "staff",
-        requiredLevel: 1,
-        damage: 10,
-        value: 150
-    },
-
-
-    frost_giant_staff: {
-        id: "frost_giant_staff",
-        name: "Kostur lodowego giganta",
-        rarity: "epic",
-        type: "weapon",
-        weaponType: "magic",
-        weaponClass: "staff",
-        requiredLevel: 30,
-        damage: 90,
-        value: 14000
-    },
-
-
-    shadow_staff: {
-        id: "shadow_staff",
-        name: "Kostur cienia",
-        rarity: "epic",
-        type: "weapon",
-        weaponType: "magic",
-        weaponClass: "staff",
-        requiredLevel: 40,
-        damage: 120,
-        value: 3200
-    },
-
-    volcanic_staff: {
-        id: "volcanic_staff",
-        name: "Wulkaniczny kostur",
-        rarity: "legendary",
-        type: "weapon",
-        weaponType: "magic",
-        weaponClass: "staff",
-        requiredLevel: 50,
-        damage: 180,
-        value: 14000
-    },
-
-    nature_wand: {
-        id: "nature_wand",
-        name: "Różdżka natury",
-        rarity: "uncommon",
-        type: "weapon",
-        weaponType: "magic",
-        weaponClass: "wand",
-        requiredLevel: 1,
-        damage: 10,
-        value: 150
-    },
-
-
-
-    crystal_wand: {
-        id: "crystal_wand",
-        name: "Kryształowa różdżka",
-        rarity: "rare",
-        type: "weapon",
-        weaponType: "magic",
-        weaponClass: "wand",
-        requiredLevel: 10,
-        damage: 30,
-        value: 300
-    },
-
-    guardian_wand: {
-        id: "guardian_wand",
-        name: "Różdżka strażnika",
-        rarity: "rare",
-        type: "weapon",
-        weaponType: "magic",
-        weaponClass: "wand",
-        requiredLevel: 20,
-        damage: 55,
-        value: 850
-    },
-
     // SUROWCE Z KOPALNI
 
     stone: {
@@ -5291,7 +2840,2391 @@ const items = {
         rarity: "rare",
         type: "fishing_bait",
         value: 20
-    }
+    },
+    
+      // PIERŚCIENIE
+
+    simple_ring: {
+        id: "simple_ring",
+        name: "Prosty pierścień",
+        rarity: "common",
+        type: "ring",
+        requiredLevel: 1,
+        luck: 1,
+        value: 60
+    },
+
+    mana_ring: {
+        id: "mana_ring",
+        name: "Pierścień many",
+        rarity: "common",
+        type: "ring",
+        requiredLevel: 5,
+        intelligence: 2,
+        value: 90
+    },
+
+    lucky_ring: {
+        id: "lucky_ring",
+        name: "Pierścień szczęścia",
+        rarity: "common",
+        type: "ring",
+        requiredLevel: 10,
+        luck: 3,
+        dexterity: 1,
+
+        value: 180
+    },
+
+    iron_ring: {
+        id: "iron_ring",
+        name: "Żelazny pierścień",
+        rarity: "common",
+        type: "ring",
+        requiredLevel: 20,
+        strength: 1,
+        endurance: 1,
+        luck: 1,
+        value: 220
+    },
+
+    steel_ring: {
+        id: "steel_ring",
+        name: "Stalowy pierścień",
+        rarity: "common",
+        type: "ring",
+        requiredLevel: 35,
+        strength: 2,
+        endurance: 2,
+        luck: 2,
+        value: 850
+    },
+
+    knight_ring: {
+        id: "knight_ring",
+        name: "Rycerski pierścień",
+        rarity: "common",
+        type: "ring",
+        requiredLevel: 50,
+        strength: 4,
+        endurance: 4,
+        dexterity: 2,
+        luck: 3,
+        value: 3600
+    },
+
+    magic_ring: {
+        id: "magic_ring",
+        name: "Magiczny pierścień",
+        rarity: "common",
+        type: "ring",
+        requiredLevel: 75,
+        strength: 8,
+        endurance: 8,
+        dexterity: 5,
+        luck: 6,
+        value: 15000
+    },
+
+    master_ring: {
+        id: "master_ring",
+        name: "Mistrzowski pierścień",
+        rarity: "common",
+        type: "ring",
+        requiredLevel: 100,
+        strength: 8,
+        endurance: 8,
+        dexterity: 5,
+        luck: 6,
+        value: 15000
+    },
+
+
+
+
+    kobold_ring: {
+        id: "kobold_ring",
+        name: "Pierścień kobolda",
+        rarity: "rare",
+        type: "ring",
+        requiredLevel: 10,
+        strength: 2,
+        dexterity: 2,
+        luck: 2,
+
+        value: 520
+    },
+
+
+    guardian_ring: {
+        id: "guardian_ring",
+        name: "Pierścień strażnika",
+        rarity: "rare",
+        type: "ring",
+        requiredLevel: 20,
+        strength: 3,
+        endurance: 3,
+        luck: 3,
+
+        value: 1700
+    },
+
+
+    steel_guardian_ring: {
+        id: "steel_guardian_ring",
+        name: "Pierścień stalowego strażnika",
+        rarity: "common",
+        type: "ring",
+        requiredLevel: 25,
+        strength: 3,
+        endurance: 3,
+        dexterity: 1,
+        luck: 2,
+        value: 2200
+    },
+
+    elite_guardian_ring: {
+        id: "elite_guardian_ring",
+        name: "Pierścień elitarnego strażnika",
+        rarity: "rare",
+        type: "ring",
+        requiredLevel: 30,
+        strength: 8,
+        dexterity: 6,
+        endurance: 4,
+        value: 5200
+    },
+
+
+    commander_ring: {
+        id: "commander_ring",
+        name: "Pierścień dowódcy",
+        rarity: "epic",
+        type: "ring",
+        requiredLevel: 40,
+        strength: 6,
+        endurance: 6,
+        dexterity: 4,
+        luck: 6,
+
+        value: 7800
+    },
+
+
+    dragon_ring: {
+        id: "dragon_ring",
+        name: "Smoczy pierścień",
+        rarity: "legendary",
+        type: "ring",
+        requiredLevel: 50,
+        strength: 13,
+        endurance: 13,
+        dexterity: 9,
+        luck: 12,
+
+        value: 31000
+    },
+
+    // AMULETY
+
+    simple_amulet: {
+        id: "simple_amulet",
+        name: "Prosty amulet",
+        rarity: "common",
+        type: "amulet",
+        requiredLevel: 1,
+        intelligence: 1,
+        luck: 1,
+        value: 70
+    },
+
+    lucky_amulet: {
+        id: "lucky_amulet",
+        name: "Amulet szczęścia",
+        rarity: "common",
+        type: "amulet",
+        requiredLevel: 10,
+        intelligence: 1,
+        luck: 1,
+        value: 70
+    },
+
+    iron_amulet: {
+        id: "iron_amulet",
+        name: "Żelazny amulet",
+        rarity: "common",
+        type: "amulet",
+        requiredLevel: 20,
+        intelligence: 2,
+        endurance: 1,
+        luck: 1,
+        value: 240
+    },
+
+
+
+    steel_amulet: {
+        id: "steel_amulet",
+        name: "Stalowy amulet",
+        rarity: "common",
+        type: "amulet",
+        requiredLevel: 35,
+        intelligence: 4,
+        endurance: 2,
+        luck: 2,
+        value: 900
+    },
+
+    knight_amulet: {
+        id: "knight_amulet",
+        name: "Rycerski amulet",
+        rarity: "common",
+        type: "amulet",
+        requiredLevel: 50,
+        intelligence: 8,
+        endurance: 4,
+        strength: 2,
+        luck: 3,
+        value: 3800
+    },
+
+    magic_amulet: {
+        id: "magic_amulet",
+        name: "Magiczny amulet",
+        rarity: "common",
+        type: "amulet",
+        requiredLevel: 75,
+        intelligence: 18,
+        endurance: 8,
+        strength: 5,
+        luck: 6,
+        value: 15500
+    },
+
+    master_amulet: {
+        id: "master_amulet",
+        name: "Mistrzowski amulet",
+        rarity: "common",
+        type: "amulet",
+        requiredLevel: 100,
+        intelligence: 18,
+        endurance: 8,
+        strength: 5,
+        luck: 6,
+        value: 15500
+    },
+
+    mana_amulet: {
+        id: "mana_amulet",
+        name: "Amulet many",
+        rarity: "uncommon",
+        type: "amulet",
+        requiredLevel: 1,
+        intelligence: 3,
+        luck: 1,
+        value: 190
+    },
+
+
+
+    kobold_amulet: {
+        id: "kobold_amulet",
+        name: "Amulet kobolda",
+        rarity: "rare",
+        type: "amulet",
+        requiredLevel: 10,
+        intelligence: 4,
+        dexterity: 1,
+        luck: 2,
+        value: 560
+    },
+
+
+
+    guardian_amulet: {
+        id: "guardian_amulet",
+        name: "Amulet strażnika",
+        rarity: "rare",
+        type: "amulet",
+        requiredLevel: 20,
+        intelligence: 6,
+        endurance: 3,
+        luck: 3,
+        value: 1800
+    },
+
+    steel_guardian_amulet: {
+        id: "steel_guardian_amulet",
+        name: "Amulet stalowego strażnika",
+        rarity: "common",
+        type: "amulet",
+        requiredLevel: 25,
+        intelligence: 6,
+        endurance: 3,
+        luck: 2,
+        value: 2000
+    },
+
+    elite_guardian_amulet: {
+        id: "elite_guardian_amulet",
+        name: "Amulet elitarnego strażnika",
+        rarity: "rare",
+        type: "amulet",
+        requiredLevel: 30,
+        intelligence: 9,
+        endurance: 6,
+        luck: 3,
+        value: 4200
+    },
+
+
+
+    commander_amulet: {
+        id: "commander_amulet",
+        name: "Amulet dowódcy",
+        rarity: "epic",
+        type: "amulet",
+        requiredLevel: 40,
+        intelligence: 12,
+        endurance: 6,
+        strength: 4,
+        luck: 6,
+        value: 8200
+    },
+
+
+
+    dragon_amulet: {
+        id: "dragon_amulet",
+        name: "Smoczy amulet",
+        rarity: "legendary",
+        type: "amulet",
+        requiredLevel: 50,
+        intelligence: 28,
+        endurance: 12,
+        strength: 8,
+        luck: 12,
+        value: 33000
+    },
+
+    // TALIZMANY
+
+    simple_talisman: {
+        id: "simple_talisman",
+        name: "Prosty talizman",
+        rarity: "common",
+        type: "talisman",
+        requiredLevel: 1,
+        luck: 2,
+        value: 80
+    },
+    lucky_talisman: {
+        id: "lucky_talisman",
+        name: "Talizman szczęścia",
+        rarity: "common",
+        type: "talisman",
+        requiredLevel: 10,
+        luck: 2,
+        value: 80
+    },
+
+    iron_talisman: {
+        id: "iron_talisman",
+        name: "Żelazny talizman",
+        rarity: "common",
+        type: "talisman",
+        requiredLevel: 20,
+        luck: 2,
+        endurance: 2,
+        value: 280
+    },
+
+    steel_talisman: {
+        id: "steel_talisman",
+        name: "Stalowy talizman",
+        rarity: "common",
+        type: "talisman",
+        requiredLevel: 35,
+        luck: 4,
+        endurance: 3,
+        value: 1000
+    },
+
+    knight_talisman: {
+        id: "knight_talisman",
+        name: "Rycerski talizman",
+        rarity: "common",
+        type: "talisman",
+        requiredLevel: 50,
+        luck: 6,
+        strength: 3,
+        endurance: 4,
+        intelligence: 3,
+        value: 4200
+    },
+
+    magic_talisman: {
+        id: "magic_talisman",
+        name: "Magiczny talizman",
+        rarity: "common",
+        type: "talisman",
+        requiredLevel: 75,
+        luck: 10,
+        strength: 6,
+        dexterity: 6,
+        intelligence: 8,
+        value: 17000
+    },
+
+    master_talisman: {
+        id: "master_talisman",
+        name: "Mistrzowski talizman",
+        rarity: "common",
+        type: "talisman",
+        requiredLevel: 100,
+        luck: 10,
+        strength: 6,
+        dexterity: 6,
+        intelligence: 8,
+        value: 17000
+    },
+
+    nature_talisman: {
+        id: "nature_talisman",
+        name: "Talizman natury",
+        rarity: "uncommon",
+        type: "talisman",
+        requiredLevel: 1,
+        luck: 4,
+        intelligence: 1,
+        value: 220
+    },
+
+    kobold_talisman: {
+        id: "kobold_talisman",
+        name: "Talizman kobolda",
+        rarity: "rare",
+        type: "talisman",
+        requiredLevel: 10,
+        luck: 4,
+        dexterity: 2,
+        intelligence: 2,
+        value: 650
+    },
+
+
+    guardian_talisman: {
+        id: "guardian_talisman",
+        name: "Talizman strażnika",
+        rarity: "rare",
+        type: "talisman",
+        requiredLevel: 20,
+        luck: 6,
+        endurance: 4,
+        intelligence: 3,
+        value: 2000
+    },
+
+    steel_guardian_talisman: {
+        id: "steel_guardian_talisman",
+        name: "Talizman stalowego strażnika",
+        rarity: "common",
+        type: "talisman",
+        requiredLevel: 25,
+        luck: 8,
+        value: 2100
+    },
+
+    elite_guardian_talisman: {
+        id: "elite_guardian_talisman",
+        name: "Talizman elitarnego strażnika",
+        rarity: "rare",
+        type: "talisman",
+        requiredLevel: 30,
+        luck: 12,
+        endurance: 6,
+        intelligence: 6,
+        value: 4400
+    },
+
+    commander_talisman: {
+        id: "commander_talisman",
+        name: "Talizman dowódcy",
+        rarity: "epic",
+        type: "talisman",
+        requiredLevel: 40,
+        luck: 10,
+        strength: 5,
+        dexterity: 5,
+        intelligence: 5,
+        value: 9000
+    },
+
+    dragon_talisman: {
+        id: "dragon_talisman",
+        name: "Smoczy talizman",
+        rarity: "legendary",
+        type: "talisman",
+        requiredLevel: 50,
+        luck: 20,
+        strength: 10,
+        dexterity: 10,
+        intelligence: 14,
+        endurance: 8,
+        value: 36000
+    },
+
+    
+
+    simple_boots: {
+        id: "simple_boots",
+        name: "Proste buty",
+        rarity: "common",
+        type: "boots",
+        requiredLevel: 1,
+        armor: 1,
+        value: 15,
+    },
+
+    wolf_boots: {
+        id: "wolf_boots",
+        name: "Buty wilka",
+        rarity: "uncommon",
+        type: "boots",
+        requiredLevel: 1,
+        armor: 1,
+        value: 24,
+    },
+
+    old_boots: {
+        id: "old_boots",
+        name: "Stare buty",
+        rarity: "common",
+        type: "boots",
+        requiredLevel: 10,
+        armor: 1,
+        value: 38,
+    },
+
+    kobold_boots: {
+        id: "kobold_boots",
+        name: "Buty kobolda",
+        rarity: "rare",
+        type: "boots",
+        requiredLevel: 10,
+        armor: 1,
+        value: 72,
+    },
+
+    iron_boots: {
+        id: "iron_boots",
+        name: "Żelazne buty",
+        rarity: "common",
+        type: "boots",
+        requiredLevel: 20,
+        armor: 2,
+        value: 110,
+    },
+
+    guardian_boots: {
+        id: "guardian_boots",
+        name: "Buty strażnika",
+        rarity: "rare",
+        type: "boots",
+        requiredLevel: 20,
+        armor: 2,
+        value: 152,
+    },
+
+    steel_guardian_boots: {
+        id: "steel_guardian_boots",
+        name: "Stalowe buty strażnika",
+        rarity: "common",
+        type: "boots",
+        requiredLevel: 25,
+        armor: 3,
+        value: 240,
+    },
+
+    elite_guardian_boots: {
+        id: "elite_guardian_boots",
+        name: "Buty elitarnego strażnika",
+        rarity: "rare",
+        type: "boots",
+        requiredLevel: 30,
+        armor: 4,
+        value: 320,
+    },
+
+    steel_boots: {
+        id: "steel_boots",
+        name: "Stalowe buty",
+        rarity: "common",
+        type: "boots",
+        requiredLevel: 35,
+        armor: 3,
+        value: 375,
+    },
+
+    commander_boots: {
+        id: "commander_boots",
+        name: "Buty dowódcy",
+        rarity: "epic",
+        type: "boots",
+        requiredLevel: 40,
+        armor: 5,
+        value: 520,
+    },
+
+    knight_boots: {
+        id: "knight_boots",
+        name: "Rycerskie buty",
+        rarity: "common",
+        type: "boots",
+        requiredLevel: 50,
+        armor: 5,
+        value: 1650,
+    },
+
+    dragon_boots: {
+        id: "dragon_boots",
+        name: "Smocze buty",
+        rarity: "legendary",
+        type: "boots",
+        requiredLevel: 50,
+        armor: 6,
+        value: 1440,
+    },
+
+    captain_boots: {
+        id: "captain_boots",
+        name: "Buty kapitana",
+        rarity: "common",
+        type: "boots",
+        requiredLevel: 75,
+        armor: 7,
+        value: 3250,
+    },
+
+    master_boots: {
+        id: "master_boots",
+        name: "Mistrzowskie buty",
+        rarity: "common",
+        type: "boots",
+        requiredLevel: 100,
+        armor: 10,
+        value: 6500,
+    },
+
+    simple_helmet: {
+        id: "simple_helmet",
+        name: "Prosty hełm",
+        rarity: "common",
+        type: "helmet",
+        requiredLevel: 1,
+        armor: 2,
+        value: 20,
+    },
+
+    beetle_helmet: {
+        id: "beetle_helmet",
+        name: "Hełm z pancerza chrząszcza",
+        rarity: "uncommon",
+        type: "helmet",
+        requiredLevel: 1,
+        armor: 1,
+        value: 28,
+    },
+
+    leather_helmet: {
+        id: "leather_helmet",
+        name: "Skórzany hełm",
+        rarity: "common",
+        type: "helmet",
+        requiredLevel: 10,
+        armor: 3,
+        value: 60,
+    },
+
+    kobold_helmet: {
+        id: "kobold_helmet",
+        name: "Hełm kobolda",
+        rarity: "rare",
+        type: "helmet",
+        requiredLevel: 10,
+        armor: 2,
+        value: 88,
+    },
+
+    iron_helmet: {
+        id: "iron_helmet",
+        name: "Żelazny hełm",
+        rarity: "common",
+        type: "helmet",
+        requiredLevel: 20,
+        armor: 5,
+        value: 160,
+    },
+
+    guardian_helmet: {
+        id: "guardian_helmet",
+        name: "Hełm strażnika",
+        rarity: "rare",
+        type: "helmet",
+        requiredLevel: 20,
+        armor: 3,
+        value: 180,
+    },
+
+    steel_guardian_helmet: {
+        id: "steel_guardian_helmet",
+        name: "Hełm stalowego strażnika",
+        rarity: "common",
+        type: "helmet",
+        requiredLevel: 25,
+        armor: 4,
+        value: 280,
+    },
+
+    elite_guardian_helmet: {
+        id: "elite_guardian_helmet",
+        name: "Hełm elitarnego strażnika",
+        rarity: "rare",
+        type: "helmet",
+        requiredLevel: 30,
+        armor: 5,
+        value: 380,
+    },
+
+    steel_helmet: {
+        id: "steel_helmet",
+        name: "Stalowy hełm",
+        rarity: "common",
+        type: "helmet",
+        requiredLevel: 35,
+        armor: 7,
+        value: 550,
+    },
+
+    commander_helmet: {
+        id: "commander_helmet",
+        name: "Hełm dowódcy",
+        rarity: "epic",
+        type: "helmet",
+        requiredLevel: 40,
+        armor: 6,
+        value: 600,
+    },
+
+    knight_helmet: {
+        id: "knight_helmet",
+        name: "Rycerski hełm",
+        rarity: "common",
+        type: "helmet",
+        requiredLevel: 50,
+        armor: 10,
+        value: 2500,
+    },
+
+    dragon_helmet: {
+        id: "dragon_helmet",
+        name: "Smoczy hełm",
+        rarity: "legendary",
+        type: "helmet",
+        requiredLevel: 50,
+        armor: 8,
+        value: 2080,
+    },
+
+    captain_helmet: {
+        id: "captain_helmet",
+        name: "Hełm kapitana",
+        rarity: "common",
+        type: "helmet",
+        requiredLevel: 75,
+        armor: 15,
+        value: 4500,
+    },
+
+    master_helmet: {
+        id: "master_helmet",
+        name: "Mistrzowski hełm",
+        rarity: "common",
+        type: "helmet",
+        requiredLevel: 100,
+        armor: 20,
+        value: 9000,
+    },
+
+    nature_staff_base: {
+        id: "nature_staff_base",
+        name: "Kostur natury",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "magic",
+        weaponClass: "staff",
+        requiredLevel: 1,
+        damage: 10,
+        value: 45,
+    },
+
+    nature_staff: {
+        id: "nature_staff",
+        name: "Kostur natury",
+        rarity: "uncommon",
+        type: "weapon",
+        weaponType: "magic",
+        weaponClass: "staff",
+        requiredLevel: 1,
+        damage: 10,
+        value: 48,
+    },
+
+    crystal_staff_base: {
+        id: "crystal_staff_base",
+        name: "Kryształowy kostur",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "magic",
+        weaponClass: "staff",
+        requiredLevel: 10,
+        damage: 30,
+        value: 140,
+    },
+
+    crystal_staff: {
+        id: "crystal_staff",
+        name: "Kryształowy kostur",
+        rarity: "rare",
+        type: "weapon",
+        weaponType: "magic",
+        weaponClass: "staff",
+        requiredLevel: 10,
+        damage: 30,
+        value: 152,
+    },
+
+    guardian_staff_base: {
+        id: "guardian_staff_base",
+        name: "Kostur strażnika",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "magic",
+        weaponClass: "staff",
+        requiredLevel: 20,
+        damage: 55,
+        value: 400,
+    },
+
+    guardian_staff: {
+        id: "guardian_staff",
+        name: "Kostur strażnika",
+        rarity: "rare",
+        type: "weapon",
+        weaponType: "magic",
+        weaponClass: "staff",
+        requiredLevel: 20,
+        damage: 55,
+        value: 360,
+    },
+
+    guardian_arcane_staff: {
+        id: "guardian_arcane_staff",
+        name: "Kostur arkanicznego strażnika",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "magic",
+        weaponClass: "staff",
+        requiredLevel: 25,
+        damage: 70,
+        value: 560,
+    },
+
+    frost_giant_staff: {
+        id: "frost_giant_staff",
+        name: "Kostur lodowego giganta",
+        rarity: "epic",
+        type: "weapon",
+        weaponType: "magic",
+        weaponClass: "staff",
+        requiredLevel: 30,
+        damage: 90,
+        value: 840,
+    },
+
+    arcane_guardian_staff_base: {
+        id: "arcane_guardian_staff_base",
+        name: "Kostur arkanicznego strażnika",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "magic",
+        weaponClass: "staff",
+        requiredLevel: 35,
+        damage: 90,
+        value: 1300,
+    },
+
+    shadow_staff: {
+        id: "shadow_staff",
+        name: "Kostur cienia",
+        rarity: "epic",
+        type: "weapon",
+        weaponType: "magic",
+        weaponClass: "staff",
+        requiredLevel: 40,
+        damage: 120,
+        value: 1720,
+    },
+
+    frost_giant_staff_base: {
+        id: "frost_giant_staff_base",
+        name: "Kostur lodowego giganta",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "magic",
+        weaponClass: "staff",
+        requiredLevel: 50,
+        damage: 180,
+        value: 3500,
+    },
+
+    volcanic_staff: {
+        id: "volcanic_staff",
+        name: "Wulkaniczny kostur",
+        rarity: "legendary",
+        type: "weapon",
+        weaponType: "magic",
+        weaponClass: "staff",
+        requiredLevel: 50,
+        damage: 180,
+        value: 3280,
+    },
+
+    shadow_staff_base: {
+        id: "shadow_staff_base",
+        name: "Kostur cienia",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "magic",
+        weaponClass: "staff",
+        requiredLevel: 75,
+        damage: 200,
+        value: 7500,
+    },
+
+    volcanic_staff_base: {
+        id: "volcanic_staff_base",
+        name: "Wulkaniczny kostur",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "magic",
+        weaponClass: "staff",
+        requiredLevel: 100,
+        damage: 240,
+        value: 14000,
+    },
+
+    simple_crossbow: {
+        id: "simple_crossbow",
+        name: "Prosta kusza",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "ranged",
+        weaponClass: "crossbow",
+        requiredLevel: 1,
+        damage: 10,
+        value: 45,
+    },
+
+    forest_crossbow: {
+        id: "forest_crossbow",
+        name: "Leśna kusza",
+        rarity: "uncommon",
+        type: "weapon",
+        weaponType: "ranged",
+        weaponClass: "crossbow",
+        requiredLevel: 1,
+        damage: 10,
+        value: 60,
+    },
+
+    light_crossbow: {
+        id: "light_crossbow",
+        name: "Lekka kusza",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "ranged",
+        weaponClass: "crossbow",
+        requiredLevel: 10,
+        damage: 30,
+        value: 130,
+    },
+
+    wolf_crossbow: {
+        id: "wolf_crossbow",
+        name: "Wilcza kusza",
+        rarity: "rare",
+        type: "weapon",
+        weaponType: "ranged",
+        weaponClass: "crossbow",
+        requiredLevel: 10,
+        damage: 30,
+        value: 180,
+    },
+
+    hunting_crossbow: {
+        id: "hunting_crossbow",
+        name: "Kusza myśliwska",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "ranged",
+        weaponClass: "crossbow",
+        requiredLevel: 20,
+        damage: 55,
+        value: 425,
+    },
+
+    guardian_crossbow: {
+        id: "guardian_crossbow",
+        name: "Kusza strażnika",
+        rarity: "rare",
+        type: "weapon",
+        weaponType: "ranged",
+        weaponClass: "crossbow",
+        requiredLevel: 20,
+        damage: 55,
+        value: 420,
+    },
+
+    steel_guardian_crossbow: {
+        id: "steel_guardian_crossbow",
+        name: "Kusza stalowego strażnika",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "ranged",
+        weaponClass: "crossbow",
+        requiredLevel: 25,
+        damage: 70,
+        value: 640,
+    },
+
+    elite_guardian_crossbow: {
+        id: "elite_guardian_crossbow",
+        name: "Kusza elitarnego strażnika",
+        rarity: "rare",
+        type: "weapon",
+        weaponType: "ranged",
+        weaponClass: "crossbow",
+        requiredLevel: 30,
+        damage: 90,
+        value: 960,
+    },
+
+    steel_crossbow: {
+        id: "steel_crossbow",
+        name: "Stalowa kusza",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "ranged",
+        weaponClass: "crossbow",
+        requiredLevel: 35,
+        damage: 90,
+        value: 1400,
+    },
+
+    shadow_crossbow: {
+        id: "shadow_crossbow",
+        name: "Kusza cienia",
+        rarity: "epic",
+        type: "weapon",
+        weaponType: "ranged",
+        weaponClass: "crossbow",
+        requiredLevel: 40,
+        damage: 120,
+        value: 1800,
+    },
+
+    battle_crossbow: {
+        id: "battle_crossbow",
+        name: "Kusza bojowa",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "ranged",
+        weaponClass: "crossbow",
+        requiredLevel: 50,
+        damage: 180,
+        value: 3500,
+    },
+
+    dragon_crossbow: {
+        id: "dragon_crossbow",
+        name: "Smocza kusza",
+        rarity: "legendary",
+        type: "weapon",
+        weaponType: "ranged",
+        weaponClass: "crossbow",
+        requiredLevel: 50,
+        damage: 180,
+        value: 3600,
+    },
+
+    heavy_crossbow: {
+        id: "heavy_crossbow",
+        name: "Ciężka kusza",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "ranged",
+        weaponClass: "crossbow",
+        requiredLevel: 75,
+        damage: 200,
+        value: 7500,
+    },
+
+    master_crossbow: {
+        id: "master_crossbow",
+        name: "Mistrzowska kusza",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "ranged",
+        weaponClass: "crossbow",
+        requiredLevel: 100,
+        damage: 240,
+        value: 14000,
+    },
+
+    old_sword: {
+        id: "old_sword",
+        name: "Stary miecz",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "melee",
+        weaponClass: "slashing",
+        requiredLevel: 1,
+        damage: 10,
+        value: 30,
+    },
+
+    forest_blade: {
+        id: "forest_blade",
+        name: "Leśne ostrze",
+        rarity: "uncommon",
+        type: "weapon",
+        weaponType: "melee",
+        weaponClass: "slashing",
+        requiredLevel: 1,
+        damage: 10,
+        value: 48,
+    },
+
+    kobold_sword: {
+        id: "kobold_sword",
+        name: "Miecz kobolda",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "melee",
+        weaponClass: "slashing",
+        requiredLevel: 10,
+        damage: 30,
+        value: 90,
+    },
+
+    cave_sword: {
+        id: "cave_sword",
+        name: "Zabójca Koboldów",
+        rarity: "rare",
+        type: "weapon",
+        weaponType: "melee",
+        weaponClass: "slashing",
+        requiredLevel: 10,
+        damage: 30,
+        value: 152,
+    },
+
+    iron_sword: {
+        id: "iron_sword",
+        name: "Żelazny miecz",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "melee",
+        weaponClass: "slashing",
+        requiredLevel: 20,
+        damage: 55,
+        value: 225,
+    },
+
+    guardian_blade: {
+        id: "guardian_blade",
+        name: "Ostrze strażnika",
+        rarity: "rare",
+        type: "weapon",
+        weaponType: "melee",
+        weaponClass: "slashing",
+        requiredLevel: 20,
+        damage: 55,
+        value: 360,
+    },
+
+    steel_guardian_sword: {
+        id: "steel_guardian_sword",
+        name: "Miecz stalowego strażnika",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "melee",
+        weaponClass: "slashing",
+        requiredLevel: 25,
+        damage: 70,
+        value: 560,
+    },
+
+    elite_guardian_blade: {
+        id: "elite_guardian_blade",
+        name: "Ostrze elitarnego strażnika",
+        rarity: "rare",
+        type: "weapon",
+        weaponType: "melee",
+        weaponClass: "slashing",
+        requiredLevel: 30,
+        damage: 90,
+        value: 840,
+    },
+
+    steel_sword: {
+        id: "steel_sword",
+        name: "Stalowy miecz",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "melee",
+        weaponClass: "slashing",
+        requiredLevel: 35,
+        damage: 90,
+        value: 750,
+    },
+
+    commander_sword: {
+        id: "commander_sword",
+        name: "Miecz dowódcy",
+        rarity: "epic",
+        type: "weapon",
+        weaponType: "melee",
+        weaponClass: "slashing",
+        requiredLevel: 40,
+        damage: 120,
+        value: 1680,
+    },
+
+    knight_sword: {
+        id: "knight_sword",
+        name: "Rycerski miecz",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "melee",
+        weaponClass: "slashing",
+        requiredLevel: 50,
+        damage: 180,
+        value: 2750,
+    },
+
+    dragon_blade: {
+        id: "dragon_blade",
+        name: "Smocze ostrze",
+        rarity: "legendary",
+        type: "weapon",
+        weaponType: "melee",
+        weaponClass: "slashing",
+        requiredLevel: 50,
+        damage: 180,
+        value: 3280,
+    },
+
+    war_sword: {
+        id: "war_sword",
+        name: "Miecz wojenny",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "melee",
+        weaponClass: "slashing",
+        requiredLevel: 75,
+        damage: 200,
+        value: 6000,
+    },
+
+    heavy_war_sword: {
+        id: "heavy_war_sword",
+        name: "Ciężki miecz wojenny",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "melee",
+        weaponClass: "slashing",
+        requiredLevel: 100,
+        damage: 240,
+        value: 11000,
+    },
+
+    club: {
+        id: "club",
+        name: "Pałka",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "melee",
+        weaponClass: "blunt",
+        requiredLevel: 1,
+        damage: 10,
+        value: 25,
+    },
+
+    forest_club: {
+        id: "forest_club",
+        name: "Leśna pałka",
+        rarity: "uncommon",
+        type: "weapon",
+        weaponType: "melee",
+        weaponClass: "blunt",
+        requiredLevel: 1,
+        damage: 10,
+        value: 48,
+    },
+
+    kobold_mace: {
+        id: "kobold_mace",
+        name: "Maczuga",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "melee",
+        weaponClass: "blunt",
+        requiredLevel: 10,
+        damage: 30,
+        value: 110,
+    },
+
+    kobold_slayer_mace: {
+        id: "kobold_slayer_mace",
+        name: "Maczuga pogromcy koboldów",
+        rarity: "rare",
+        type: "weapon",
+        weaponType: "melee",
+        weaponClass: "blunt",
+        requiredLevel: 10,
+        damage: 30,
+        value: 160,
+    },
+
+    battle_club: {
+        id: "battle_club",
+        name: "Pałka bojowa",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "melee",
+        weaponClass: "blunt",
+        requiredLevel: 20,
+        damage: 55,
+        value: 350,
+    },
+
+    power_club: {
+        id: "power_club",
+        name: "Maczuga mocy",
+        rarity: "rare",
+        type: "weapon",
+        weaponType: "melee",
+        weaponClass: "blunt",
+        requiredLevel: 20,
+        damage: 55,
+        value: 380,
+    },
+
+    steel_guardian_hammer: {
+        id: "steel_guardian_hammer",
+        name: "Młot stalowego strażnika",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "melee",
+        weaponClass: "blunt",
+        requiredLevel: 25,
+        damage: 70,
+        value: 580,
+    },
+
+    elite_guardian_hammer: {
+        id: "elite_guardian_hammer",
+        name: "Młot elitarnego strażnika",
+        rarity: "rare",
+        type: "weapon",
+        weaponType: "melee",
+        weaponClass: "blunt",
+        requiredLevel: 30,
+        damage: 90,
+        value: 880,
+    },
+
+    iron_club: {
+        id: "iron_club",
+        name: "Żelazna maczuga",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "melee",
+        weaponClass: "blunt",
+        requiredLevel: 35,
+        damage: 90,
+        value: 1100,
+    },
+
+    shadow_hammer: {
+        id: "shadow_hammer",
+        name: "Młot cienia",
+        rarity: "epic",
+        type: "weapon",
+        weaponType: "melee",
+        weaponClass: "blunt",
+        requiredLevel: 40,
+        damage: 120,
+        value: 1680,
+    },
+
+    war_hammer: {
+        id: "war_hammer",
+        name: "Młot wojenny",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "melee",
+        weaponClass: "blunt",
+        requiredLevel: 50,
+        damage: 180,
+        value: 3000,
+    },
+
+    dragon_hammer: {
+        id: "dragon_hammer",
+        name: "Smoczy młot",
+        rarity: "legendary",
+        type: "weapon",
+        weaponType: "melee",
+        weaponClass: "blunt",
+        requiredLevel: 50,
+        damage: 180,
+        value: 3280,
+    },
+
+    mace: {
+        id: "mace",
+        name: "Buława",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "melee",
+        weaponClass: "blunt",
+        requiredLevel: 75,
+        damage: 200,
+        value: 6500,
+    },
+
+    heavy_war_hammer: {
+        id: "heavy_war_hammer",
+        name: "Ciężki młot wojenny",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "melee",
+        weaponClass: "blunt",
+        requiredLevel: 100,
+        damage: 240,
+        value: 12000,
+    },
+
+    simple_armor: {
+        id: "simple_armor",
+        name: "Prosty pancerz",
+        rarity: "common",
+        type: "armor",
+        requiredLevel: 1,
+        armor: 4,
+        value: 35,
+    },
+
+    wolf_armor: {
+        id: "wolf_armor",
+        name: "Pancerz wilka",
+        rarity: "uncommon",
+        type: "armor",
+        requiredLevel: 1,
+        armor: 1,
+        value: 48,
+    },
+
+    leather_armor: {
+        id: "leather_armor",
+        name: "Skórzany pancerz",
+        rarity: "common",
+        type: "armor",
+        requiredLevel: 10,
+        armor: 6,
+        value: 90,
+    },
+
+    kobold_armor: {
+        id: "kobold_armor",
+        name: "Pancerz kobolda",
+        rarity: "rare",
+        type: "armor",
+        requiredLevel: 10,
+        armor: 3,
+        value: 140,
+    },
+
+    iron_armor: {
+        id: "iron_armor",
+        name: "Żelazny pancerz",
+        rarity: "common",
+        type: "armor",
+        requiredLevel: 20,
+        armor: 9,
+        value: 250,
+    },
+
+    guardian_armor: {
+        id: "guardian_armor",
+        name: "Pancerz strażnika",
+        rarity: "rare",
+        type: "armor",
+        requiredLevel: 20,
+        armor: 4,
+        value: 300,
+    },
+
+    steel_guardian_armor: {
+        id: "steel_guardian_armor",
+        name: "Pancerz stalowego strażnika",
+        rarity: "common",
+        type: "armor",
+        requiredLevel: 25,
+        armor: 5,
+        value: 480,
+    },
+
+    elite_guardian_armor: {
+        id: "elite_guardian_armor",
+        name: "Pancerz elitarnego strażnika",
+        rarity: "rare",
+        type: "armor",
+        requiredLevel: 30,
+        armor: 6,
+        value: 660,
+    },
+
+    steel_armor: {
+        id: "steel_armor",
+        name: "Stalowy pancerz",
+        rarity: "common",
+        type: "armor",
+        requiredLevel: 35,
+        armor: 14,
+        value: 900,
+    },
+
+    commander_armor: {
+        id: "commander_armor",
+        name: "Pancerz dowódcy",
+        rarity: "epic",
+        type: "armor",
+        requiredLevel: 40,
+        armor: 7,
+        value: 1080,
+    },
+
+    knight_armor: {
+        id: "knight_armor",
+        name: "Rycerski pancerz",
+        rarity: "common",
+        type: "armor",
+        requiredLevel: 50,
+        armor: 20,
+        value: 4500,
+    },
+
+    dragon_armor: {
+        id: "dragon_armor",
+        name: "Smoczy pancerz",
+        rarity: "legendary",
+        type: "armor",
+        requiredLevel: 50,
+        armor: 8,
+        value: 3600,
+    },
+
+    captain_armor: {
+        id: "captain_armor",
+        name: "Pancerz kapitana",
+        rarity: "common",
+        type: "armor",
+        requiredLevel: 75,
+        armor: 29,
+        value: 7500,
+    },
+
+    master_armor: {
+        id: "master_armor",
+        name: "Mistrzowski pancerz",
+        rarity: "common",
+        type: "armor",
+        requiredLevel: 100,
+        armor: 40,
+        value: 14000,
+    },
+
+    nature_wand_base: {
+        id: "nature_wand_base",
+        name: "Różdżka natury",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "magic",
+        weaponClass: "wand",
+        requiredLevel: 1,
+        damage: 10,
+        value: 40,
+    },
+
+    nature_wand: {
+        id: "nature_wand",
+        name: "Różdżka natury",
+        rarity: "uncommon",
+        type: "weapon",
+        weaponType: "magic",
+        weaponClass: "wand",
+        requiredLevel: 1,
+        damage: 10,
+        value: 48,
+    },
+
+    crystal_wand_base: {
+        id: "crystal_wand_base",
+        name: "Kryształowa różdżka",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "magic",
+        weaponClass: "wand",
+        requiredLevel: 10,
+        damage: 30,
+        value: 120,
+    },
+
+    crystal_wand: {
+        id: "crystal_wand",
+        name: "Kryształowa różdżka",
+        rarity: "rare",
+        type: "weapon",
+        weaponType: "magic",
+        weaponClass: "wand",
+        requiredLevel: 10,
+        damage: 30,
+        value: 152,
+    },
+
+    guardian_wand_base: {
+        id: "guardian_wand_base",
+        name: "Różdżka strażnika",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "magic",
+        weaponClass: "wand",
+        requiredLevel: 20,
+        damage: 55,
+        value: 350,
+    },
+
+    guardian_wand: {
+        id: "guardian_wand",
+        name: "Różdżka strażnika",
+        rarity: "rare",
+        type: "weapon",
+        weaponType: "magic",
+        weaponClass: "wand",
+        requiredLevel: 20,
+        damage: 55,
+        value: 360,
+    },
+
+    shadow_wand: {
+        id: "shadow_wand",
+        name: "Różdżka cienia",
+        rarity: "rare",
+        type: "weapon",
+        weaponType: "magic",
+        weaponClass: "wand",
+        requiredLevel: 25,
+        damage: 70,
+        value: 560,
+    },
+
+    elite_guardian_wand: {
+        id: "elite_guardian_wand",
+        name: "Różdżka elitarnego strażnika",
+        rarity: "rare",
+        type: "weapon",
+        weaponType: "magic",
+        weaponClass: "wand",
+        requiredLevel: 30,
+        damage: 90,
+        value: 840,
+    },
+
+    shadow_wand_base: {
+        id: "shadow_wand_base",
+        name: "Różdżka cienia",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "magic",
+        weaponClass: "wand",
+        requiredLevel: 35,
+        damage: 90,
+        value: 1200,
+    },
+
+    commander_wand: {
+        id: "commander_wand",
+        name: "Różdżka dowódcy",
+        rarity: "epic",
+        type: "weapon",
+        weaponType: "magic",
+        weaponClass: "wand",
+        requiredLevel: 40,
+        damage: 120,
+        value: 1680,
+    },
+
+    commander_wand_base: {
+        id: "commander_wand_base",
+        name: "Różdżka dowódcy",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "magic",
+        weaponClass: "wand",
+        requiredLevel: 50,
+        damage: 180,
+        value: 3250,
+    },
+
+    dragon_wand: {
+        id: "dragon_wand",
+        name: "Smocza różdżka",
+        rarity: "legendary",
+        type: "weapon",
+        weaponType: "magic",
+        weaponClass: "wand",
+        requiredLevel: 50,
+        damage: 180,
+        value: 3280,
+    },
+
+    master_wand_base: {
+        id: "master_wand_base",
+        name: "Mistrzowska różdżka",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "magic",
+        weaponClass: "wand",
+        requiredLevel: 75,
+        damage: 200,
+        value: 7000,
+    },
+
+    arcane_wand_base: {
+        id: "arcane_wand_base",
+        name: "Różdżka arkaniczna",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "magic",
+        weaponClass: "wand",
+        requiredLevel: 100,
+        damage: 240,
+        value: 13000,
+    },
+
+    simple_gloves: {
+        id: "simple_gloves",
+        name: "Proste rękawice",
+        rarity: "common",
+        type: "gloves",
+        requiredLevel: 1,
+        armor: 1,
+        value: 18,
+    },
+
+    wolf_gloves: {
+        id: "wolf_gloves",
+        name: "Rękawice wilka",
+        rarity: "uncommon",
+        type: "gloves",
+        requiredLevel: 1,
+        armor: 1,
+        value: 24,
+    },
+
+    leather_gloves: {
+        id: "leather_gloves",
+        name: "Skórzane rękawice",
+        rarity: "common",
+        type: "gloves",
+        requiredLevel: 10,
+        armor: 2,
+        value: 45,
+    },
+
+    kobold_gloves: {
+        id: "kobold_gloves",
+        name: "Rękawice kobolda",
+        rarity: "rare",
+        type: "gloves",
+        requiredLevel: 10,
+        armor: 1,
+        value: 72,
+    },
+
+    iron_gloves: {
+        id: "iron_gloves",
+        name: "Żelazne rękawice",
+        rarity: "common",
+        type: "gloves",
+        requiredLevel: 20,
+        armor: 2,
+        value: 110,
+    },
+
+    guardian_gloves: {
+        id: "guardian_gloves",
+        name: "Rękawice strażnika",
+        rarity: "rare",
+        type: "gloves",
+        requiredLevel: 20,
+        armor: 2,
+        value: 152,
+    },
+
+    steel_guardian_gloves: {
+        id: "steel_guardian_gloves",
+        name: "Stalowe rękawice strażnika",
+        rarity: "common",
+        type: "gloves",
+        requiredLevel: 25,
+        armor: 3,
+        value: 240,
+    },
+
+    elite_guardian_gloves: {
+        id: "elite_guardian_gloves",
+        name: "Rękawice elitarnego strażnika",
+        rarity: "rare",
+        type: "gloves",
+        requiredLevel: 30,
+        armor: 4,
+        value: 320,
+    },
+
+    steel_gloves: {
+        id: "steel_gloves",
+        name: "Stalowe rękawice",
+        rarity: "common",
+        type: "gloves",
+        requiredLevel: 35,
+        armor: 4,
+        value: 400,
+    },
+
+    commander_gloves: {
+        id: "commander_gloves",
+        name: "Rękawice dowódcy",
+        rarity: "epic",
+        type: "gloves",
+        requiredLevel: 40,
+        armor: 5,
+        value: 520,
+    },
+
+    knight_gloves: {
+        id: "knight_gloves",
+        name: "Rycerskie rękawice",
+        rarity: "common",
+        type: "gloves",
+        requiredLevel: 50,
+        armor: 5,
+        value: 1750,
+    },
+
+    dragon_gloves: {
+        id: "dragon_gloves",
+        name: "Smocze rękawice",
+        rarity: "legendary",
+        type: "gloves",
+        requiredLevel: 50,
+        armor: 6,
+        value: 1440,
+    },
+
+    captain_gloves: {
+        id: "captain_gloves",
+        name: "Rękawice kapitana",
+        rarity: "common",
+        type: "gloves",
+        requiredLevel: 75,
+        armor: 7,
+        value: 3250,
+    },
+
+    master_gloves: {
+        id: "master_gloves",
+        name: "Mistrzowskie rękawice",
+        rarity: "common",
+        type: "gloves",
+        requiredLevel: 100,
+        armor: 10,
+        value: 6500,
+    },
+
+    simple_pants: {
+        id: "simple_pants",
+        name: "Proste spodnie",
+        rarity: "common",
+        type: "pants",
+        requiredLevel: 1,
+        armor: 2,
+        value: 22,
+    },
+
+    tracker_pants: {
+        id: "tracker_pants",
+        name: "Spodnie tropiciela",
+        rarity: "uncommon",
+        type: "pants",
+        requiredLevel: 1,
+        armor: 1,
+        value: 36,
+    },
+
+    leather_pants: {
+        id: "leather_pants",
+        name: "Skórzane spodnie",
+        rarity: "common",
+        type: "pants",
+        requiredLevel: 10,
+        armor: 3,
+        value: 60,
+    },
+
+    kobold_pants: {
+        id: "kobold_pants",
+        name: "Nogawice kobolda",
+        rarity: "rare",
+        type: "pants",
+        requiredLevel: 10,
+        armor: 2,
+        value: 104,
+    },
+
+    iron_pants: {
+        id: "iron_pants",
+        name: "Żelazne nogawice",
+        rarity: "common",
+        type: "pants",
+        requiredLevel: 20,
+        armor: 5,
+        value: 160,
+    },
+
+    guardian_pants: {
+        id: "guardian_pants",
+        name: "Nogawice strażnika",
+        rarity: "rare",
+        type: "pants",
+        requiredLevel: 20,
+        armor: 3,
+        value: 220,
+    },
+
+    steel_guardian_pants: {
+        id: "steel_guardian_pants",
+        name: "Stalowe spodnie strażnika",
+        rarity: "common",
+        type: "pants",
+        requiredLevel: 25,
+        armor: 4,
+        value: 340,
+    },
+
+    elite_guardian_pants: {
+        id: "elite_guardian_pants",
+        name: "Spodnie elitarnego strażnika",
+        rarity: "rare",
+        type: "pants",
+        requiredLevel: 30,
+        armor: 5,
+        value: 460,
+    },
+
+    steel_pants: {
+        id: "steel_pants",
+        name: "Stalowe nogawice",
+        rarity: "common",
+        type: "pants",
+        requiredLevel: 35,
+        armor: 7,
+        value: 600,
+    },
+
+    commander_pants: {
+        id: "commander_pants",
+        name: "Nogawice dowódcy",
+        rarity: "epic",
+        type: "pants",
+        requiredLevel: 40,
+        armor: 6,
+        value: 720,
+    },
+
+    knight_pants: {
+        id: "knight_pants",
+        name: "Rycerskie nogawice",
+        rarity: "common",
+        type: "pants",
+        requiredLevel: 50,
+        armor: 10,
+        value: 2600,
+    },
+
+    dragon_pants: {
+        id: "dragon_pants",
+        name: "Smocze nogawice",
+        rarity: "legendary",
+        type: "pants",
+        requiredLevel: 50,
+        armor: 8,
+        value: 2080,
+    },
+
+    captain_pants: {
+        id: "captain_pants",
+        name: "Nogawice kapitana",
+        rarity: "common",
+        type: "pants",
+        requiredLevel: 75,
+        armor: 15,
+        value: 4750,
+    },
+
+    master_pants: {
+        id: "master_pants",
+        name: "Mistrzowskie nogawice",
+        rarity: "common",
+        type: "pants",
+        requiredLevel: 100,
+        armor: 20,
+        value: 9500,
+    },
+
+    simple_shield: {
+        id: "simple_shield",
+        name: "Prosta tarcza",
+        rarity: "common",
+        type: "shield",
+        requiredLevel: 1,
+        armor: 3,
+        value: 20,
+    },
+
+    bark_shield: {
+        id: "bark_shield",
+        name: "Tarcza z kory",
+        rarity: "uncommon",
+        type: "shield",
+        requiredLevel: 1,
+        armor: 1,
+        value: 28,
+    },
+
+    wooden_shield: {
+        id: "wooden_shield",
+        name: "Drewniana tarcza",
+        rarity: "common",
+        type: "shield",
+        requiredLevel: 10,
+        armor: 5,
+        value: 50,
+    },
+
+    kobold_shield: {
+        id: "kobold_shield",
+        name: "Tarcza koboldów",
+        rarity: "rare",
+        type: "shield",
+        requiredLevel: 10,
+        armor: 2,
+        value: 88,
+    },
+
+    iron_shield: {
+        id: "iron_shield",
+        name: "Żelazna tarcza",
+        rarity: "common",
+        type: "shield",
+        requiredLevel: 20,
+        armor: 7,
+        value: 150,
+    },
+
+    guardian_shield: {
+        id: "guardian_shield",
+        name: "Tarcza strażnika",
+        rarity: "rare",
+        type: "shield",
+        requiredLevel: 20,
+        armor: 3,
+        value: 180,
+    },
+
+    steel_guardian_shield: {
+        id: "steel_guardian_shield",
+        name: "Stalowa tarcza strażnika",
+        rarity: "common",
+        type: "shield",
+        requiredLevel: 25,
+        armor: 4,
+        value: 280,
+    },
+
+    elite_guardian_shield: {
+        id: "elite_guardian_shield",
+        name: "Tarcza elitarnego strażnika",
+        rarity: "rare",
+        type: "shield",
+        requiredLevel: 30,
+        armor: 5,
+        value: 380,
+    },
+
+    steel_shield: {
+        id: "steel_shield",
+        name: "Stalowa tarcza",
+        rarity: "common",
+        type: "shield",
+        requiredLevel: 35,
+        armor: 10,
+        value: 500,
+    },
+
+    commander_shield: {
+        id: "commander_shield",
+        name: "Tarcza dowódcy",
+        rarity: "epic",
+        type: "shield",
+        requiredLevel: 40,
+        armor: 6,
+        value: 600,
+    },
+
+    knight_shield: {
+        id: "knight_shield",
+        name: "Rycerska tarcza",
+        rarity: "common",
+        type: "shield",
+        requiredLevel: 50,
+        armor: 15,
+        value: 2400,
+    },
+
+    dragon_shield: {
+        id: "dragon_shield",
+        name: "Smocza tarcza",
+        rarity: "legendary",
+        type: "shield",
+        requiredLevel: 50,
+        armor: 8,
+        value: 2080,
+    },
+
+    captain_shield: {
+        id: "captain_shield",
+        name: "Tarcza kapitana",
+        rarity: "common",
+        type: "shield",
+        requiredLevel: 75,
+        armor: 22,
+        value: 4250,
+    },
+
+    master_shield: {
+        id: "master_shield",
+        name: "Mistrzowska tarcza",
+        rarity: "common",
+        type: "shield",
+        requiredLevel: 100,
+        armor: 30,
+        value: 8500,
+    },
+
+    old_bow: {
+        id: "old_bow",
+        name: "Stary łuk",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "ranged",
+        weaponClass: "bow",
+        requiredLevel: 1,
+        damage: 10,
+        value: 25,
+    },
+
+    forest_bow: {
+        id: "forest_bow",
+        name: "Leśny łuk",
+        rarity: "uncommon",
+        type: "weapon",
+        weaponType: "ranged",
+        weaponClass: "bow",
+        requiredLevel: 1,
+        damage: 10,
+        value: 48,
+    },
+
+    hunter_bow: {
+        id: "hunter_bow",
+        name: "Łuk myśliwski",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "ranged",
+        weaponClass: "bow",
+        requiredLevel: 10,
+        damage: 30,
+        value: 80,
+    },
+
+    wolf_bow: {
+        id: "wolf_bow",
+        name: "Wilczy łuk",
+        rarity: "rare",
+        type: "weapon",
+        weaponType: "ranged",
+        weaponClass: "bow",
+        requiredLevel: 10,
+        damage: 30,
+        value: 152,
+    },
+
+    long_bow: {
+        id: "long_bow",
+        name: "Długi łuk",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "ranged",
+        weaponClass: "bow",
+        requiredLevel: 20,
+        damage: 55,
+        value: 250,
+    },
+
+    guardian_bow: {
+        id: "guardian_bow",
+        name: "Łuk strażnika",
+        rarity: "rare",
+        type: "weapon",
+        weaponType: "ranged",
+        weaponClass: "bow",
+        requiredLevel: 20,
+        damage: 55,
+        value: 360,
+    },
+
+    steel_guardian_bow: {
+        id: "steel_guardian_bow",
+        name: "Łuk stalowego strażnika",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "ranged",
+        weaponClass: "bow",
+        requiredLevel: 25,
+        damage: 70,
+        value: 560,
+    },
+
+    elite_guardian_bow: {
+        id: "elite_guardian_bow",
+        name: "Łuk elitarnego strażnika",
+        rarity: "rare",
+        type: "weapon",
+        weaponType: "ranged",
+        weaponClass: "bow",
+        requiredLevel: 30,
+        damage: 90,
+        value: 840,
+    },
+
+    oak_bow: {
+        id: "oak_bow",
+        name: "Łuk dębowy",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "ranged",
+        weaponClass: "bow",
+        requiredLevel: 35,
+        damage: 90,
+        value: 850,
+    },
+
+    shadow_bow: {
+        id: "shadow_bow",
+        name: "Łuk cienia",
+        rarity: "epic",
+        type: "weapon",
+        weaponType: "ranged",
+        weaponClass: "bow",
+        requiredLevel: 40,
+        damage: 120,
+        value: 1680,
+    },
+
+    ranger_bow: {
+        id: "ranger_bow",
+        name: "Łuk zwiadowcy",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "ranged",
+        weaponClass: "bow",
+        requiredLevel: 50,
+        damage: 180,
+        value: 2900,
+    },
+
+    dragon_bow: {
+        id: "dragon_bow",
+        name: "Smoczy łuk",
+        rarity: "legendary",
+        type: "weapon",
+        weaponType: "ranged",
+        weaponClass: "bow",
+        requiredLevel: 50,
+        damage: 180,
+        value: 3280,
+    },
+
+    war_bow: {
+        id: "war_bow",
+        name: "Łuk wojenny",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "ranged",
+        weaponClass: "bow",
+        requiredLevel: 75,
+        damage: 200,
+        value: 6250,
+    },
+
+    master_bow: {
+        id: "master_bow",
+        name: "Mistrzowski łuk",
+        rarity: "common",
+        type: "weapon",
+        weaponType: "ranged",
+        weaponClass: "bow",
+        requiredLevel: 100,
+        damage: 240,
+        value: 11500,
+    },
+
+    
 
 };
 

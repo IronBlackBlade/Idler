@@ -193,27 +193,6 @@ function isCombatSkillVisible(skill) {
 let currentMagicCategory = "offensive_spells";
 
 const magicCategoryDefinitions = [
-    {
-        id: "general",
-        icon: "🔮",
-        name: "Arkana",
-        description:
-            "Wiedza tajemna i ogólne podstawy magii."
-    },
-    {
-        id: "offensive_spells",
-        icon: "🔥",
-        name: "Ofensywne",
-        description:
-            "Czary zadające obrażenia i osłabiające przeciwnika."
-    },
-    {
-        id: "defensive_spells",
-        icon: "🛡️",
-        name: "Defensywne",
-        description:
-            "Leczenie, bariery i sposoby unikania obrażeń."
-    }
 ];
 
 function setCurrentMagicCategory(

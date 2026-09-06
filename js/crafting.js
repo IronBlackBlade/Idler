@@ -43,7 +43,13 @@ function hasRequiredProfessionLevelForRecipe(recipe) {
 }
 
 function getRecipeCraftingExp(recipe) {
-  return Math.max(1, Math.floor(Number(recipe?.craftingExp) || 10));
+  return Math.max(
+    1,
+    Math.floor(
+      Number(recipe?.craftingExp) ||
+        craftingBalance.experience.defaultRecipeExp,
+    ),
+  );
 }
 
 function hasRequiredCraftingLevel(recipe) {
@@ -68,7 +74,12 @@ function getCraftingExpToNextLevel(level) {
    * - materiały pozostają głównym
    *   ograniczeniem późnej gry.
    */
-  return Math.floor(300 + levelIndex * 110 + Math.pow(levelIndex, 1.65) * 28);
+  return Math.floor(
+    craftingBalance.experience.base +
+      levelIndex * craftingBalance.experience.linearPerLevel +
+      Math.pow(levelIndex, craftingBalance.experience.power) *
+        craftingBalance.experience.powerMultiplier,
+  );
 }
 
 function getDefaultCraftingStatistics() {
@@ -182,7 +193,10 @@ function getRecipeCraftingDurationMs(recipe) {
    * Jedno wykonanie nie może
    * trwać krócej niż sekundę.
    */
-  return Math.max(1000, Math.round(finalDurationMs));
+  return Math.max(
+    craftingBalance.timing.minimumDurationMilliseconds,
+    Math.round(finalDurationMs),
+  );
 }
 
 function createCraftingQueueJob(recipe, craftCount) {
@@ -610,7 +624,10 @@ function addCraftingQueueJob(recipe, craftCount) {
 
   if (queue.length >= craftingBalance.queue.maxSize) {
     if (typeof showNotification === "function") {
-      showNotification("Kolejka jest pełna. Maksymalnie 10 zadań.", "error");
+      showNotification(
+        `Kolejka jest pełna. Maksymalnie ${craftingBalance.queue.maxSize} zadań.`,
+        "error",
+      );
     }
 
     return null;
@@ -1139,7 +1156,7 @@ function canCraftRecipe(recipe, craftCount = 1) {
     return false;
   }
 
-  return recipe.materials.every((material) => {
+  return (recipe.materials || []).every((material) => {
     const totalRequiredQuantity = material.quantity * safeCraftCount;
 
     return getCraftingItemQuantity(material.itemId) >= totalRequiredQuantity;
@@ -1325,6 +1342,76 @@ function recoverLosslessWorkshopMaterials(recipe, completedCraftCount) {
   };
 }
 
+function initializeCraftingLocationMaterials() {
+  if (typeof recipes === "undefined" || typeof items === "undefined") {
+    return;
+  }
+
+  const locationMaterials = craftingBalance.locationMaterials;
+
+  if (!locationMaterials || typeof locationMaterials !== "object") {
+    return;
+  }
+
+  recipes.forEach((recipe) => {
+    if (!recipe || !recipe.resultItemId) {
+      return;
+    }
+
+    const resultItem = items[recipe.resultItemId];
+
+    if (!resultItem) {
+      return;
+    }
+
+    const tier = Number(recipe.tier);
+
+    if (!tier) {
+      return;
+    }
+
+    const profession = recipe.category;
+
+    const requirements = craftingBalance.locationMaterialRequirements?.[tier];
+
+    if (!Array.isArray(requirements) || requirements.length !== 2) {
+      return;
+    }
+
+    const firstLocation = requirements[0].location;
+    const secondLocation = requirements[1].location;
+
+    const firstLocationMaterials =
+      locationMaterials[firstLocation]?.[profession];
+
+    const secondLocationMaterials =
+      locationMaterials[secondLocation]?.[profession];
+
+    if (
+      !Array.isArray(firstLocationMaterials) ||
+      !Array.isArray(secondLocationMaterials) ||
+      firstLocationMaterials.length < 1 ||
+      secondLocationMaterials.length < 2
+    ) {
+      return;
+    }
+
+    if (!Array.isArray(recipe.materials)) {
+      return;
+    }
+
+    if (recipe.materials.length < 3) {
+      return;
+    }
+
+    recipe.materials[1].itemId = firstLocationMaterials[0];
+    recipe.materials[2].itemId = secondLocationMaterials[1];
+
+    recipe.materials[1].quantity = requirements[0].quantity;
+    recipe.materials[2].quantity = requirements[1].quantity;
+  });
+}
+
 function initializeEquipmentUpgradeData() {
   if (typeof recipes === "undefined" || typeof items === "undefined") {
     return;
@@ -1390,63 +1477,30 @@ function initializeEquipmentUpgradeData() {
   });
 }
 
-
 function getEquipmentUpgradeMainStat(resultItem) {
   if (!resultItem) {
     return null;
   }
 
-  if (resultItem.type === "weapon") {
-    if (resultItem.weaponType === "melee") {
-      return "strength";
-    }
+  const mainStatConfig =
+    craftingBalance.upgradeStats.mainStatByType[resultItem.type];
 
-    if (resultItem.weaponType === "ranged") {
-      return "dexterity";
-    }
-
-    if (resultItem.weaponType === "magic") {
-      return "intelligence";
-    }
+  if (!mainStatConfig) {
+    return null;
   }
 
-  if (
-    resultItem.type === "shield" ||
-    resultItem.type === "helmet" ||
-    resultItem.type === "armor" ||
-    resultItem.type === "pants" ||
-    resultItem.type === "boots" ||
-    resultItem.type === "gloves"
-  ) {
-    return "endurance";
+  if (typeof mainStatConfig === "string") {
+    return mainStatConfig;
   }
 
-  if (resultItem.type === "talisman") {
-    return "luck";
-  }
-
-  return null;
+  return mainStatConfig[resultItem.weaponType] || null;
 }
 
-const equipmentUpgradeRandomStats = [
-  "strength",
-  "dexterity",
-  "intelligence",
-  "endurance",
-  "luck",
-];
-
 function getRandomEquipmentUpgradeStats(mainStat, itemType) {
-  const allStats = [
-    "strength",
-    "dexterity",
-    "intelligence",
-    "endurance",
-    "luck",
-  ];
+  const allStats = craftingBalance.upgradeStats.all;
 
   if (itemType === "ring") {
-    const firstStats = ["strength", "dexterity", "intelligence"];
+    const firstStats = craftingBalance.upgradeStats.ring;
 
     const firstStat = firstStats[Math.floor(Math.random() * firstStats.length)];
 
@@ -1463,11 +1517,14 @@ function getRandomEquipmentUpgradeStats(mainStat, itemType) {
       ];
     }
 
-    return [firstStat, shuffledStats[0], shuffledStats[1]];
+    const randomStatCount =
+      craftingBalance.upgradeStats.randomStatCount.jewelry;
+
+    return [firstStat, ...shuffledStats.slice(0, randomStatCount - 1)];
   }
 
   if (itemType === "amulet") {
-    const firstStats = ["endurance", "luck"];
+    const firstStats = craftingBalance.upgradeStats.amulet;
 
     const firstStat = firstStats[Math.floor(Math.random() * firstStats.length)];
 
@@ -1484,7 +1541,10 @@ function getRandomEquipmentUpgradeStats(mainStat, itemType) {
       ];
     }
 
-    return [firstStat, shuffledStats[0], shuffledStats[1]];
+    const randomStatCount =
+      craftingBalance.upgradeStats.randomStatCount.jewelry;
+
+    return [firstStat, ...shuffledStats.slice(0, randomStatCount - 1)];
   }
 
   const availableStats = allStats.filter((stat) => stat !== mainStat);
@@ -1500,7 +1560,10 @@ function getRandomEquipmentUpgradeStats(mainStat, itemType) {
     ];
   }
 
-  return shuffledStats.slice(0, 2);
+  return shuffledStats.slice(
+    0,
+    craftingBalance.upgradeStats.randomStatCount.equipment,
+  );
 }
 
 function getEquipmentUpgradeStatRange(
@@ -2388,4 +2451,5 @@ function unlockRecipe(recipeId) {
 
 startCraftingTimer();
 
+initializeCraftingLocationMaterials();
 initializeEquipmentUpgradeData();

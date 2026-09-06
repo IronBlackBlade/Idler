@@ -1227,7 +1227,6 @@ function renderCrafting() {
 
       const craftMaterials =
         recipe.materials ||
-        equipmentCraftRecipes[resultItem.id]?.materials ||
         [];
 
       craftMaterials.forEach((material) => {
@@ -1303,7 +1302,7 @@ ${equippedText}
               : [1, 2];
 
           stats += `
-      <span>🎲 3 losowe statystyki</span>
+      <span><span>🎲 ${craftingBalance.upgradeStats.randomStatCount.jewelry} losowe statystyki</span></span>
       <span>Zakres każdej: ${safeJewelryRange[0]}–${safeJewelryRange[1]}</span>
     `;
         } else {

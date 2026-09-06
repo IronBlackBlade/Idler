@@ -380,7 +380,6 @@ function openHeroTab(
     ) {
         setHeroMenuExpanded(true);
     }
-    ``
 
     if (
         typeof showScreen ===
@@ -484,7 +483,6 @@ function restoreHeroMenuSubitems() {
         savedState === "true"
     );
 }
-``
 
 function initializeHeroTab() {
     if (
