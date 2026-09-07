@@ -1,6 +1,5 @@
 window.craftingMaterialRecipes = [
-
-      // ========================================
+  // ========================================
   // PRZETWARZANIE MATERIAŁÓW
   // ========================================
 
@@ -12,6 +11,7 @@ window.craftingMaterialRecipes = [
     subcategory: "metallurgy",
 
     resultItemId: "copper_ingot",
+    tier: 1,
     requiredCraftingLevel: 1,
     craftingExp: 10,
     craftingTimeSeconds: 10,
@@ -33,6 +33,7 @@ window.craftingMaterialRecipes = [
 
   {
     id: "tin_ingot_recipe",
+    tier: 1,
     name: "Sztabka cyny",
 
     category: "materials",
@@ -60,6 +61,7 @@ window.craftingMaterialRecipes = [
 
   {
     id: "iron_ingot_recipe",
+    tier: 1,
     name: "Sztabka żelaza",
 
     category: "materials",
@@ -86,6 +88,7 @@ window.craftingMaterialRecipes = [
   },
   {
     id: "bronze_ingot_recipe",
+    tier: 1,
     name: "Sztabka brązu",
 
     category: "materials",
@@ -114,6 +117,7 @@ window.craftingMaterialRecipes = [
   },
   {
     id: "silver_ingot_recipe",
+    tier: 1,
     name: "Sztabka srebra",
 
     category: "materials",
@@ -149,7 +153,7 @@ window.craftingMaterialRecipes = [
     subcategory: "metallurgy",
 
     resultItemId: "gold_ingot",
-
+    tier: 2,
     requiredCraftingLevel: 10,
     craftingExp: 45,
     craftingTimeSeconds: 14,
@@ -178,7 +182,7 @@ window.craftingMaterialRecipes = [
     subcategory: "metallurgy",
 
     resultItemId: "platinum_ingot",
-
+    tier: 2,
     requiredCraftingLevel: 15,
     craftingExp: 70,
     craftingTimeSeconds: 16,
@@ -207,7 +211,7 @@ window.craftingMaterialRecipes = [
     subcategory: "metallurgy",
 
     resultItemId: "mithril_ingot",
-
+    tier: 3,
     requiredCraftingLevel: 20,
     craftingExp: 100,
     craftingTimeSeconds: 20,
@@ -234,6 +238,7 @@ window.craftingMaterialRecipes = [
     category: "materials",
     subcategory: "metallurgy",
     resultItemId: "adamantite_ingot",
+    tier: 5,
     requiredCraftingLevel: 35,
     craftingExp: 320,
     craftingTimeSeconds: 36,
@@ -262,6 +267,7 @@ window.craftingMaterialRecipes = [
     category: "materials",
     subcategory: "metallurgy",
     resultItemId: "dragonsteel_ingot",
+    tier: 7,
     requiredCraftingLevel: 50,
     craftingExp: 600,
     craftingTimeSeconds: 48,
@@ -291,6 +297,7 @@ window.craftingMaterialRecipes = [
     category: "materials",
     subcategory: "tanner",
     resultItemId: "tanned_sheep_leather",
+    tier: 1,
     requiredCraftingLevel: 1,
     craftingExp: 10,
     craftingTimeSeconds: 10,
@@ -313,6 +320,7 @@ window.craftingMaterialRecipes = [
     category: "materials",
     subcategory: "tanner",
     resultItemId: "wool_cloth",
+    tier: 1,
     requiredCraftingLevel: 3,
     craftingExp: 15,
     craftingTimeSeconds: 12,
@@ -335,6 +343,7 @@ window.craftingMaterialRecipes = [
     category: "materials",
     subcategory: "tanner",
     resultItemId: "tanned_wolf_leather",
+    tier: 1,
     requiredCraftingLevel: 5,
     craftingExp: 20,
     craftingTimeSeconds: 15,
@@ -356,6 +365,7 @@ window.craftingMaterialRecipes = [
     category: "materials",
     subcategory: "tanner",
     resultItemId: "tanned_ice_wolf_leather",
+    tier: 2,
     requiredCraftingLevel: 20,
     craftingExp: 260,
     craftingTimeSeconds: 30,
@@ -376,6 +386,7 @@ window.craftingMaterialRecipes = [
     category: "materials",
     subcategory: "tanner",
     resultItemId: "tanned_lava_hound_leather",
+    tier: 5,
     requiredCraftingLevel: 35,
     craftingExp: 480,
     craftingTimeSeconds: 42,
@@ -398,6 +409,7 @@ window.craftingMaterialRecipes = [
     subcategory: "armorer",
 
     resultItemId: "chitin_plate",
+    tier: 1,
     requiredCraftingLevel: 1,
     craftingExp: 10,
     craftingTimeSeconds: 10,
@@ -421,6 +433,7 @@ window.craftingMaterialRecipes = [
     subcategory: "armorer",
 
     resultItemId: "ancient_chitin_plate",
+    tier: 2,
     requiredCraftingLevel: 15,
     craftingExp: 50,
     craftingTimeSeconds: 16,
@@ -442,6 +455,7 @@ window.craftingMaterialRecipes = [
     category: "materials",
     subcategory: "armorer",
     resultItemId: "void_plate",
+    tier: 6,
     requiredCraftingLevel: 40,
     craftingExp: 900,
     craftingTimeSeconds: 60,
@@ -467,6 +481,7 @@ window.craftingMaterialRecipes = [
     category: "materials",
     subcategory: "armorer",
     resultItemId: "deep_scale_plate",
+    tier: 7,
     requiredCraftingLevel: 50,
     craftingExp: 1250,
     craftingTimeSeconds: 72,
@@ -492,6 +507,7 @@ window.craftingMaterialRecipes = [
     category: "materials",
     subcategory: "armorer",
     resultItemId: "prismatic_plate",
+    tier: 7,
     requiredCraftingLevel: 60,
     craftingExp: 1700,
     craftingTimeSeconds: 84,
@@ -519,6 +535,7 @@ window.craftingMaterialRecipes = [
     subcategory: "blacksmith",
 
     resultItemId: "whetstone",
+    tier: 1,
     requiredCraftingLevel: 1,
     craftingExp: 5,
     craftingTimeSeconds: 5,
@@ -543,6 +560,7 @@ window.craftingMaterialRecipes = [
     subcategory: "blacksmith",
 
     resultItemId: "obsidian_whetstone",
+    tier: 2,
     requiredCraftingLevel: 15,
     craftingExp: 50,
     craftingTimeSeconds: 12,
@@ -570,6 +588,7 @@ window.craftingMaterialRecipes = [
     subcategory: "blacksmith",
 
     resultItemId: "titan_whetstone",
+    tier: 4,
     requiredCraftingLevel: 25,
     craftingExp: 100,
     craftingTimeSeconds: 25,
@@ -596,6 +615,7 @@ window.craftingMaterialRecipes = [
     category: "materials",
     subcategory: "blacksmith",
     resultItemId: "prismatic_whetstone",
+    tier: 5,
     requiredCraftingLevel: 35,
     craftingExp: 320,
     craftingTimeSeconds: 30,
@@ -624,6 +644,7 @@ window.craftingMaterialRecipes = [
     category: "materials",
     subcategory: "blacksmith",
     resultItemId: "abyssal_whetstone",
+    tier: 6,
     requiredCraftingLevel: 45,
     craftingExp: 600,
     craftingTimeSeconds: 42,
@@ -651,6 +672,7 @@ window.craftingMaterialRecipes = [
     category: "materials",
     subcategory: "blacksmith",
     resultItemId: "deepsea_whetstone",
+    tier: 7,
     requiredCraftingLevel: 55,
     craftingExp: 950,
     craftingTimeSeconds: 55,
@@ -678,10 +700,11 @@ window.craftingMaterialRecipes = [
   },
 
   {
-    id: "recipe_weighted_mace_head",
+    id: "weighted_mace_head_recipe",
     resultItemId: "weighted_mace_head",
     category: "materials",
     subcategory: "blacksmith",
+    tier: 1,
     name: "Obciążona głowica obuchu",
     description: "Materiał używany do wytwarzania broni obuchowych.",
     requiredCraftingLevel: 5,
@@ -694,6 +717,7 @@ window.craftingMaterialRecipes = [
     category: "materials",
     subcategory: "blacksmith",
     resultItemId: "runic_core",
+    tier: 3,
     requiredCraftingLevel: 20,
     craftingExp: 100,
     craftingTimeSeconds: 20,
@@ -717,8 +741,9 @@ window.craftingMaterialRecipes = [
   },
 
   {
-    id: "recipe_scorching_mace_head",
+    id: "scorching_mace_head_recipe",
     resultItemId: "scorching_mace_head",
+    tier: 4,
     category: "materials",
     subcategory: "blacksmith",
     name: "Rozżarzona głowica obuchu",
@@ -736,6 +761,7 @@ window.craftingMaterialRecipes = [
     category: "materials",
     subcategory: "blacksmith",
     resultItemId: "abyss_mace_head",
+    tier: 6,
     requiredCraftingLevel: 40,
     craftingExp: 900,
     craftingTimeSeconds: 60,
@@ -751,6 +777,7 @@ window.craftingMaterialRecipes = [
     category: "materials",
     subcategory: "blacksmith",
     resultItemId: "deep_mace_head",
+    tier: 7,
     requiredCraftingLevel: 50,
     craftingExp: 1250,
     craftingTimeSeconds: 72,
@@ -767,6 +794,7 @@ window.craftingMaterialRecipes = [
     category: "materials",
     subcategory: "blacksmith",
     resultItemId: "prismatic_mace_head",
+    tier: 7,
     requiredCraftingLevel: 60,
     craftingExp: 1700,
     craftingTimeSeconds: 84,
@@ -783,6 +811,7 @@ window.craftingMaterialRecipes = [
     category: "materials",
     subcategory: "bowyer",
     resultItemId: "simple_crossbow_trigger",
+    tier: 1,
     requiredCraftingLevel: 5,
     craftingExp: 45,
     craftingTimeSeconds: 14,
@@ -811,6 +840,7 @@ window.craftingMaterialRecipes = [
     category: "materials",
     subcategory: "bowyer",
     resultItemId: "reinforced_crossbow_mechanism",
+    tier: 2,
     requiredCraftingLevel: 15,
     craftingExp: 120,
     craftingTimeSeconds: 28,
@@ -843,6 +873,7 @@ window.craftingMaterialRecipes = [
     category: "materials",
     subcategory: "bowyer",
     resultItemId: "crossbow_tension_mechanism",
+    tier: 4,
     requiredCraftingLevel: 25,
     craftingExp: 300,
     craftingTimeSeconds: 44,
@@ -875,6 +906,7 @@ window.craftingMaterialRecipes = [
     category: "materials",
     subcategory: "bowyer",
     resultItemId: "abyss_echo_crossbow_mechanism",
+    tier: 5,
     requiredCraftingLevel: 35,
     craftingExp: 480,
     craftingTimeSeconds: 36,
@@ -906,6 +938,7 @@ window.craftingMaterialRecipes = [
     category: "materials",
     subcategory: "bowyer",
     resultItemId: "leviathan_pressure_crossbow_mechanism",
+    tier: 6,
     requiredCraftingLevel: 45,
     craftingExp: 750,
     craftingTimeSeconds: 48,
@@ -937,6 +970,7 @@ window.craftingMaterialRecipes = [
     category: "materials",
     subcategory: "bowyer",
     resultItemId: "prismatic_spectral_crossbow_mechanism",
+    tier: 7,
     requiredCraftingLevel: 55,
     craftingExp: 1150,
     craftingTimeSeconds: 60,
@@ -969,6 +1003,7 @@ window.craftingMaterialRecipes = [
     category: "materials",
     subcategory: "bowyer",
     resultItemId: "dimensional_bowstring",
+    tier: 6,
     requiredCraftingLevel: 40,
     craftingExp: 900,
     craftingTimeSeconds: 60,
@@ -1019,6 +1054,7 @@ window.craftingMaterialRecipes = [
     category: "materials",
     subcategory: "bowyer",
     resultItemId: "prismatic_bowstring",
+    tier: 7,
     requiredCraftingLevel: 60,
     craftingExp: 1700,
     craftingTimeSeconds: 84,
@@ -1038,6 +1074,5 @@ window.craftingMaterialRecipes = [
     ],
   },
 
-  
   ...professionToolUpgradeRecipes,
-]
+];

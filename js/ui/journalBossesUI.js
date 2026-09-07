@@ -1,80 +1,67 @@
-function getGoblinHideoutKeyJournalHtml(
-    location,
-    boss
-) {
-    /*
-     * Panel klucza pokazujemy wyłącznie
-     * przy Goblinim Herszcie w Lesie.
-     */
-    if (
-        location?.id !== "forest" ||
-        boss?.id !== "goblin_chief"
-    ) {
-        return "";
-    }
+function getGoblinHideoutKeyJournalHtml(location, boss) {
+  /*
+   * Znajdujemy loch odpowiadający tej
+   * kombinacji lokacji/bossa - ten sam
+   * mechanizm co tryGrantDungeonKey()
+   * w battle.js.
+   */
+  const dungeonId =
+    typeof dungeonKeyDropConfigs !== "undefined"
+      ? Object.keys(dungeonKeyDropConfigs).find((id) => {
+          const config = dungeonKeyDropConfigs[id];
 
-    const keyProgress =
-        typeof ensureGoblinHideoutKeyProgress ===
-            "function"
-            ? ensureGoblinHideoutKeyProgress()
-            : (
-                player.dungeonKeyProgress
-                    ?.goblinHideout || {
-                    firstKeyGranted: false,
-                    bossKillsSinceKey: 0
-                }
-            );
+          return (
+            config.locationId === location?.id && config.bossId === boss?.id
+          );
+        })
+      : null;
 
-    const firstKeyGranted =
-        keyProgress.firstKeyGranted ===
-        true;
+  if (!dungeonId) {
+    return "";
+  }
 
-    const bossKillsSinceKey =
-        Math.max(
-            0,
-            Math.floor(
-                Number(
-                    keyProgress
-                        .bossKillsSinceKey
-                ) || 0
-            )
-        );
+  const config = dungeonKeyDropConfigs[dungeonId];
 
-    const keyQuantity =
-        typeof getInventoryItemQuantity ===
-            "function"
-            ? getInventoryItemQuantity(
-                "goblin_hideout_key"
-            )
-            : 0;
+  const keyProgress =
+    typeof ensureDungeonKeyProgress === "function"
+      ? ensureDungeonKeyProgress(dungeonId)
+      : player.dungeonKeyProgress?.[dungeonId] || {
+          firstKeyGranted: false,
+          bossKillsSinceKey: 0,
+        };
 
-    /*
-     * Licznik zwiększa się dopiero po
-     * zabiciu bossa, dlatego sprawdzamy
-     * szansę dla następnej wartości.
-     */
-    const nextBossChance =
-        firstKeyGranted &&
-            typeof getGoblinHideoutKeyDropChance ===
-            "function"
-            ? getGoblinHideoutKeyDropChance(
-                bossKillsSinceKey + 1
-            )
-            : 100;
+  const firstKeyGranted = keyProgress.firstKeyGranted === true;
 
-    const chanceText =
-        firstKeyGranted
-            ? nextBossChance + "%"
-            : "Gwarantowany";
+  const bossKillsSinceKey = Math.max(
+    0,
+    Math.floor(Number(keyProgress.bossKillsSinceKey) || 0),
+  );
 
-    return `
+  const keyQuantity =
+    typeof getInventoryItemQuantity === "function"
+      ? getInventoryItemQuantity(config.keyItemId)
+      : 0;
+
+  /*
+   * Licznik zwiększa się dopiero po
+   * zabiciu bossa, dlatego sprawdzamy
+   * szansę dla następnej wartości.
+   */
+  const nextBossChance =
+    firstKeyGranted && typeof getGoblinHideoutKeyDropChance === "function"
+      ? getGoblinHideoutKeyDropChance(bossKillsSinceKey + 1)
+      : 100;
+
+  const chanceText = firstKeyGranted ? nextBossChance + "%" : "Gwarantowany";
+
+  return `
         <div
             class="
                 journal-boss-first-reward
             "
         >
             <span>
-                🗝️ Klucz do Kryjówki Goblinów
+                ${config.icon} ${config.keyName}
             </span>
 
             <strong>
@@ -113,10 +100,7 @@ function getGoblinHideoutKeyJournalHtml(
                 </span>
 
                 <strong>
-                    ${firstKeyGranted
-            ? "Zdobyty"
-            : "Gwarantowany"
-        }
+                    ${firstKeyGranted ? "Zdobyty" : "Gwarantowany"}
                 </strong>
             </div>
         </div>
@@ -124,129 +108,71 @@ function getGoblinHideoutKeyJournalHtml(
 }
 
 function renderBossJournal() {
-    const container =
-        document.getElementById(
-            "journal-boss-list"
-        );
+  const container = document.getElementById("journal-boss-list");
 
-    if (
-        !container ||
-        typeof locations ===
-        "undefined"
-    ) {
-        return;
-    }
+  if (!container || typeof locations === "undefined") {
+    return;
+  }
 
-    const bestiary =
-        player.journal?.bestiary ||
-        {};
+  const bestiary = player.journal?.bestiary || {};
 
-    const bossEntries =
-        Object.values(locations)
-            .filter(location => {
-                return Boolean(
-                    location.boss
-                );
-            })
-            .map(location => {
-                const boss =
-                    location.boss;
+  const bossEntries = Object.values(locations)
+    .filter((location) => {
+      return Boolean(location.boss);
+    })
+    .map((location) => {
+      const boss = location.boss;
 
-                const entry =
-                    bestiary[boss.id] ||
-                    null;
+      const entry = bestiary[boss.id] || null;
 
-                const progress =
-                    typeof ensureLocationProgress ===
-                        "function"
-                        ? ensureLocationProgress(
-                            location.id
-                        )
-                        : (
-                            player
-                                .locationProgress
-                            ?.[location.id] ||
-                            {}
-                        );
+      const progress =
+        typeof ensureLocationProgress === "function"
+          ? ensureLocationProgress(location.id)
+          : player.locationProgress?.[location.id] || {};
 
-                const journalBossKills =
-                    getJournalBestiaryCounter(
-                        entry,
-                        "bossKills"
-                    );
+      const journalBossKills = getJournalBestiaryCounter(entry, "bossKills");
 
-                const locationBossKills =
-                    Math.max(
-                        0,
-                        Math.floor(
-                            Number(
-                                progress.bossKills
-                            ) || 0
-                        )
-                    );
+      const locationBossKills = Math.max(
+        0,
+        Math.floor(Number(progress.bossKills) || 0),
+      );
 
-                const bossKills =
-                    Math.max(
-                        journalBossKills,
-                        locationBossKills
-                    );
+      const bossKills = Math.max(journalBossKills, locationBossKills);
 
-                const rewardClaimed =
-                    progress
-                        .firstBossRewardClaimed ===
-                    true;
+      const rewardClaimed = progress.firstBossRewardClaimed === true;
 
-                const discovered =
-                    entry?.encountered ===
-                    true ||
-                    bossKills > 0 ||
-                    rewardClaimed;
+      const discovered =
+        entry?.encountered === true || bossKills > 0 || rewardClaimed;
 
-                return {
-                    location,
-                    boss,
-                    entry,
-                    bossKills,
-                    rewardClaimed,
-                    discovered
-                };
-            });
+      return {
+        location,
+        boss,
+        entry,
+        bossKills,
+        rewardClaimed,
+        discovered,
+      };
+    });
 
-    const discoveredCount =
-        bossEntries.filter(data => {
-            return data.discovered;
-        }).length;
+  const discoveredCount = bossEntries.filter((data) => {
+    return data.discovered;
+  }).length;
 
-    const defeatedCount =
-        bossEntries.filter(data => {
-            return data.bossKills > 0;
-        }).length;
+  const defeatedCount = bossEntries.filter((data) => {
+    return data.bossKills > 0;
+  }).length;
 
-    const totalBossKills =
-        bossEntries.reduce(
-            (sum, data) => {
-                return (
-                    sum +
-                    data.bossKills
-                );
-            },
-            0
-        );
+  const totalBossKills = bossEntries.reduce((sum, data) => {
+    return sum + data.bossKills;
+  }, 0);
 
-    const cardsHtml =
-        bossEntries
-            .map(data => {
-                const {
-                    location,
-                    boss,
-                    entry,
-                    bossKills,
-                    rewardClaimed,
-                    discovered
-                } = data;
+  const cardsHtml = bossEntries
+    .map((data) => {
+      const { location, boss, entry, bossKills, rewardClaimed, discovered } =
+        data;
 
-                if (!discovered) {
-                    return `
+      if (!discovered) {
+        return `
                         <article
                             class="
                                 journal-boss-card
@@ -291,126 +217,71 @@ function renderBossJournal() {
                             </p>
                         </article>
                     `;
-                }
+      }
 
-                const defeated =
-                    bossKills > 0;
+      const defeated = bossKills > 0;
 
-                const firstReward =
-                    boss.firstKillReward ||
-                    {};
+      const firstReward = boss.firstKillReward || {};
 
-                const firstRewardParts = [];
+      const firstRewardParts = [];
 
-                if (
-                    Number(firstReward.gold) > 0
-                ) {
-                    firstRewardParts.push(
-                        "💰 +" +
-                        firstReward.gold +
-                        " złota"
-                    );
-                }
+      if (Number(firstReward.gold) > 0) {
+        firstRewardParts.push("💰 +" + firstReward.gold + " złota");
+      }
 
-                if (
-                    Number(firstReward.exp) > 0
-                ) {
-                    firstRewardParts.push(
-                        "⭐ +" +
-                        firstReward.exp +
-                        " EXP"
-                    );
-                }
+      if (Number(firstReward.exp) > 0) {
+        firstRewardParts.push("⭐ +" + firstReward.exp + " EXP");
+      }
 
-                if (
-                    Array.isArray(
-                        firstReward.items
-                    )
-                ) {
-                    firstReward.items.forEach(
-                        rewardItem => {
-                            const item =
-                                typeof items !==
-                                    "undefined"
-                                    ? items[
-                                    rewardItem.item
-                                    ]
-                                    : null;
+      if (Array.isArray(firstReward.items)) {
+        firstReward.items.forEach((rewardItem) => {
+          const item =
+            typeof items !== "undefined" ? items[rewardItem.item] : null;
 
-                            firstRewardParts.push(
-                                "🎁 " +
-                                (
-                                    item?.name ||
-                                    rewardItem.item
-                                ) +
-                                " x" +
-                                (
-                                    Number(
-                                        rewardItem.quantity
-                                    ) || 1
-                                )
-                            );
-                        }
-                    );
-                }
+          firstRewardParts.push(
+            "🎁 " +
+              (item?.name || rewardItem.item) +
+              " x" +
+              (Number(rewardItem.quantity) || 1),
+          );
+        });
+      }
 
-                const firstRewardHtml =
-                    firstRewardParts.length > 0
-                        ? firstRewardParts
-                            .map(text => {
-                                return `
+      const firstRewardHtml =
+        firstRewardParts.length > 0
+          ? firstRewardParts
+              .map((text) => {
+                return `
                     <span>
                         ${text}
                     </span>
                 `;
-                            })
-                            .join("")
-                        : `
+              })
+              .join("")
+          : `
             <span>
                 Brak dodatkowej nagrody
             </span>
         `;
 
-                const bossLootTable =
-                    Array.isArray(boss.loot)
-                        ? boss.loot
-                        : [];
+      const bossLootTable = Array.isArray(boss.loot) ? boss.loot : [];
 
-                const discoveredBossLoot =
-                    Array.isArray(
-                        entry?.discoveredLoot
-                    )
-                        ? entry.discoveredLoot
-                        : [];
+      const discoveredBossLoot = Array.isArray(entry?.discoveredLoot)
+        ? entry.discoveredLoot
+        : [];
 
-                const discoveredBossLootCount =
-                    bossLootTable.filter(drop => {
-                        return (
-                            discoveredBossLoot.includes(
-                                drop.item
-                            )
-                        );
-                    }).length;
+      const discoveredBossLootCount = bossLootTable.filter((drop) => {
+        return discoveredBossLoot.includes(drop.item);
+      }).length;
 
-                const bossLootHtml =
-                    bossLootTable
-                        .map(drop => {
-                            const lootDiscovered =
-                                discoveredBossLoot.includes(
-                                    drop.item
-                                );
+      const bossLootHtml = bossLootTable
+        .map((drop) => {
+          const lootDiscovered = discoveredBossLoot.includes(drop.item);
 
-                            const item =
-                                typeof items !==
-                                    "undefined"
-                                    ? items[drop.item]
-                                    : null;
+          const item = typeof items !== "undefined" ? items[drop.item] : null;
 
-                            if (
-                                !lootDiscovered ||
-                                !item
-                            ) {
-                                return `
+          if (!lootDiscovered || !item) {
+            return `
                     <span
                         class="
                             journal-bestiary-loot-item
@@ -420,9 +291,9 @@ function renderBossJournal() {
                         🔒 ???
                     </span>
                 `;
-                            }
+          }
 
-                            return `
+          return `
                 <span
                     class="
                         journal-bestiary-loot-item
@@ -436,23 +307,16 @@ function renderBossJournal() {
                     🎒 ${item.name}
                 </span>
             `;
-                        })
-                        .join("");
-                const dungeonKeyHtml =
-                    getGoblinHideoutKeyJournalHtml(
-                        location,
-                        boss
-                    );
+        })
+        .join("");
+      const dungeonKeyHtml = getGoblinHideoutKeyJournalHtml(location, boss);
 
-                return `
+      return `
                     <article
                         class="
                             journal-boss-card
                             discovered
-                            ${defeated
-                        ? "defeated"
-                        : ""
-                    }
+                            ${defeated ? "defeated" : ""}
                         "
                     >
                         <div
@@ -481,16 +345,10 @@ function renderBossJournal() {
                             <span
                                 class="
                                     journal-boss-status
-                                    ${defeated
-                        ? "defeated"
-                        : ""
-                    }
+                                    ${defeated ? "defeated" : ""}
                                 "
                             >
-                                ${defeated
-                        ? "Pokonany"
-                        : "Spotkany"
-                    }
+                                ${defeated ? "Pokonany" : "Spotkany"}
                             </span>
                         </div>
 
@@ -553,10 +411,7 @@ function renderBossJournal() {
                         <div
                             class="
                                 journal-boss-first-reward
-                                ${rewardClaimed
-                        ? "claimed"
-                        : ""
-                    }
+                                ${rewardClaimed ? "claimed" : ""}
                             "
                         >
                             <span>
@@ -564,10 +419,7 @@ function renderBossJournal() {
                             </span>
 
                             <strong>
-                                ${rewardClaimed
-                        ? "Odebrana"
-                        : "Do zdobycia"
-                    }
+                                ${rewardClaimed ? "Odebrana" : "Do zdobycia"}
                             </strong>
                         </div>
 
@@ -576,10 +428,7 @@ function renderBossJournal() {
                         <div
                             class="
                                 journal-boss-first-reward
-                                ${rewardClaimed
-                        ? "claimed"
-                        : ""
-                    }
+                                ${rewardClaimed ? "claimed" : ""}
     "
 >
     ${firstRewardHtml}
@@ -617,13 +466,12 @@ ${dungeonKeyHtml}
 </div>
                     </article>
                 `;
-            })
-            .join("");
+    })
+    .join("");
 
-    container.className =
-        "journal-boss-content";
+  container.className = "journal-boss-content";
 
-    container.innerHTML = `
+  container.innerHTML = `
         <div
             class="
                 journal-boss-summary
@@ -673,4 +521,3 @@ ${dungeonKeyHtml}
         </div>
     `;
 }
-
