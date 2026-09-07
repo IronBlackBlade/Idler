@@ -1602,7 +1602,7 @@ const items = {
     },
 
     ancient_chitin_plate: {
-        id: "chitin_plate",
+        id: "ancient_chitin_plate",
         name: "Pradawna płyta chitynowa",
         rarity: "rare",
         type: "processed_material",

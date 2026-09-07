@@ -313,11 +313,32 @@ function renderInventory() {
       itemIsLocked || itemCannotBeSold ? "disabled" : "";
 
     const itemCategory = getInventoryItemCategory(item, invItem.itemId);
-    const baseSellPrice = Math.max(0, Number(item.value) || 0);
+    let baseSellPrice = Math.max(0, Number(item.value) || 0);
+
+    if (
+      invItem.itemId &&
+      window.processedMaterialPrices &&
+      Object.prototype.hasOwnProperty.call(
+        window.processedMaterialPrices,
+        invItem.itemId,
+      )
+    ) {
+      baseSellPrice =
+        Number(window.processedMaterialPrices[invItem.itemId]) || 0;
+    } else if (
+      invItem.itemId &&
+      window.materialPrices &&
+      Object.prototype.hasOwnProperty.call(
+        window.materialPrices,
+        invItem.itemId,
+      )
+    ) {
+      baseSellPrice = Number(window.materialPrices[invItem.itemId]) || 0;
+    }
 
     const finalSellPrice =
       typeof getFinalSellPrice === "function"
-        ? getFinalSellPrice(item)
+        ? getFinalSellPrice(item, invItem.itemId)
         : baseSellPrice;
 
     const hasTradeSellBonus = finalSellPrice > baseSellPrice;

@@ -735,15 +735,24 @@ function upgradeProfessionToolImmediately(recipe) {
   };
 }
 
-function getFinalCraftingExperience(baseAmount) {
-  const safeBaseAmount = Math.max(0, Number(baseAmount) || 0);
+function getFinalCraftingGoldCost(recipe) {
+  if (!recipe) {
+    return 0;
+  }
 
-  const experienceBonus =
-    typeof getCraftingExperienceBonus === "function"
-      ? getCraftingExperienceBonus()
+  const tier = Number(recipe.tier);
+
+  const baseCost =
+    window.economyBalance?.craftingGoldCost?.[tier] ??
+    Number(recipe.goldCost) ??
+    0;
+
+  const reduction =
+    typeof getCraftingGoldReduction === "function"
+      ? getCraftingGoldReduction()
       : 0;
 
-  return Math.max(0, Math.floor(safeBaseAmount * (1 + experienceBonus / 100)));
+  return Math.max(0, Math.ceil(baseCost * (1 - reduction / 100)));
 }
 
 function addCraftingExp(amount) {
@@ -780,21 +789,6 @@ function addCraftingExp(amount) {
       "success",
     );
   }
-}
-
-function getFinalCraftingGoldCost(recipe) {
-  if (!recipe) {
-    return 0;
-  }
-
-  const baseCost = recipe.goldCost || 0;
-
-  const reduction =
-    typeof getCraftingGoldReduction === "function"
-      ? getCraftingGoldReduction()
-      : 0;
-
-  return Math.max(0, Math.ceil(baseCost * (1 - reduction / 100)));
 }
 
 function normalizeCraftCount(craftCount) {

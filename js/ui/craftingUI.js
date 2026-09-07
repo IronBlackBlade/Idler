@@ -14,88 +14,40 @@ function getCraftingRarityLabel(rarity) {
   return rarityNames[rarity] || rarity || "Brak";
 }
 
-function formatCraftingTime(
-  seconds,
-) {
-  const safeSeconds =
-    Math.max(
-      0,
-      Math.ceil(
-        Number(seconds) || 0,
-      ),
-    );
+function formatCraftingTime(seconds) {
+  const safeSeconds = Math.max(0, Math.ceil(Number(seconds) || 0));
 
-  const hours =
-    Math.floor(
-      safeSeconds / 3600,
-    );
+  const hours = Math.floor(safeSeconds / 3600);
 
-  const minutes =
-    Math.floor(
-      (
-        safeSeconds % 3600
-      ) / 60,
-    );
+  const minutes = Math.floor((safeSeconds % 3600) / 60);
 
-  const remainingSeconds =
-    safeSeconds % 60;
+  const remainingSeconds = safeSeconds % 60;
 
   if (hours > 0) {
-    return (
-      hours +
-      " godz. " +
-      minutes +
-      " min " +
-      remainingSeconds +
-      " s"
-    );
+    return hours + " godz. " + minutes + " min " + remainingSeconds + " s";
   }
 
   if (minutes > 0) {
-    return (
-      minutes +
-      " min " +
-      remainingSeconds +
-      " s"
-    );
+    return minutes + " min " + remainingSeconds + " s";
   }
 
-  return (
-    remainingSeconds +
-    " s"
-  );
+  return remainingSeconds + " s";
 }
 
 function getCraftingWeaponDamageComparisonText(resultItem) {
-  if (
-    !resultItem ||
-    resultItem.type !== "weapon"
-  ) {
+  if (!resultItem || resultItem.type !== "weapon") {
     return "";
   }
 
-  const newDamage =
-    Math.max(
-      0,
-      Number(resultItem.damage) || 0
-    );
+  const newDamage = Math.max(0, Number(resultItem.damage) || 0);
 
-  const currentWeaponId =
-    player.equipment?.weapon || null;
+  const currentWeaponId = player.equipment?.weapon || null;
 
-  const currentWeapon =
-    currentWeaponId
-      ? items[currentWeaponId]
-      : null;
+  const currentWeapon = currentWeaponId ? items[currentWeaponId] : null;
 
-  const currentDamage =
-    Math.max(
-      0,
-      Number(currentWeapon?.damage) || 0
-    );
+  const currentDamage = Math.max(0, Number(currentWeapon?.damage) || 0);
 
-  const difference =
-    newDamage - currentDamage;
+  const difference = newDamage - currentDamage;
 
   let differenceText = "0";
 
@@ -109,11 +61,9 @@ function getCraftingWeaponDamageComparisonText(resultItem) {
 
   return (
     "Porównanie DMG: " +
-    (
-      currentWeapon
-        ? currentWeapon.name + " " + currentDamage
-        : "Brak broni 0"
-    ) +
+    (currentWeapon
+      ? currentWeapon.name + " " + currentDamage
+      : "Brak broni 0") +
     " → " +
     resultItem.name +
     " " +
@@ -125,35 +75,19 @@ function getCraftingWeaponDamageComparisonText(resultItem) {
 }
 
 function getCraftingWeaponDamageComparisonHtml(resultItem) {
-  if (
-    !resultItem ||
-    resultItem.type !== "weapon"
-  ) {
+  if (!resultItem || resultItem.type !== "weapon") {
     return "";
   }
 
-  const craftedDamage =
-    Math.max(
-      0,
-      Number(resultItem.damage) || 0
-    );
+  const craftedDamage = Math.max(0, Number(resultItem.damage) || 0);
 
-  const equippedWeaponId =
-    player.equipment?.weapon || null;
+  const equippedWeaponId = player.equipment?.weapon || null;
 
-  const equippedWeapon =
-    equippedWeaponId
-      ? items[equippedWeaponId]
-      : null;
+  const equippedWeapon = equippedWeaponId ? items[equippedWeaponId] : null;
 
-  const equippedDamage =
-    Math.max(
-      0,
-      Number(equippedWeapon?.damage) || 0
-    );
+  const equippedDamage = Math.max(0, Number(equippedWeapon?.damage) || 0);
 
-  const difference =
-    craftedDamage - equippedDamage;
+  const difference = craftedDamage - equippedDamage;
 
   let differenceClass = "neutral";
   let differenceText = "• 0";
@@ -225,22 +159,13 @@ function getCraftingArmorComparisonHtml(resultItem) {
     return "";
   }
 
-  const equippedItemId =
-    player.equipment?.[slot] || null;
+  const equippedItemId = player.equipment?.[slot] || null;
 
-  const equippedItem = equippedItemId
-    ? items[equippedItemId]
-    : null;
+  const equippedItem = equippedItemId ? items[equippedItemId] : null;
 
-  const currentArmor = Math.max(
-    0,
-    Number(equippedItem?.armor) || 0,
-  );
+  const currentArmor = Math.max(0, Number(equippedItem?.armor) || 0);
 
-  const newArmor = Math.max(
-    0,
-    Number(resultItem.armor) || 0,
-  );
+  const newArmor = Math.max(0, Number(resultItem.armor) || 0);
 
   const difference = newArmor - currentArmor;
 
@@ -291,11 +216,12 @@ function getCraftingArmorComparisonHtml(resultItem) {
 
 function getEquipmentUpgradeIcon(item) {
   const iconsByType = {
-    weapon: item?.weaponType === "ranged"
-      ? "🏹"
-      : item?.weaponType === "magic"
-        ? "🪄"
-        : "⚔️",
+    weapon:
+      item?.weaponType === "ranged"
+        ? "🏹"
+        : item?.weaponType === "magic"
+          ? "🪄"
+          : "⚔️",
     shield: "🛡️",
     helmet: "🪖",
     armor: "🥋",
@@ -310,27 +236,15 @@ function getEquipmentUpgradeIcon(item) {
   return iconsByType[item?.type] || "⚒️";
 }
 
-function getEquipmentUpgradePathHtml(
-  recipe,
-  sourceItem,
-  resultItem,
-) {
+function getEquipmentUpgradePathHtml(recipe, sourceItem, resultItem) {
   if (!sourceItem || !resultItem) {
     return "";
   }
 
   const icon = getEquipmentUpgradeIcon(resultItem);
-  const sourceLevel = Math.max(
-    1,
-    Number(sourceItem.requiredLevel) || 1,
-  );
-  const resultLevel = Math.max(
-    1,
-    Number(resultItem.requiredLevel) || 1,
-  );
-  const rankLabel =
-    recipe.equipmentUpgradeRankLabel ||
-    "Ulepszenie ekwipunku";
+  const sourceLevel = Math.max(1, Number(sourceItem.requiredLevel) || 1);
+  const resultLevel = Math.max(1, Number(resultItem.requiredLevel) || 1);
+  const rankLabel = recipe.equipmentUpgradeRankLabel || "Ulepszenie ekwipunku";
 
   return `
     <div class="equipment-upgrade-path">
@@ -357,10 +271,7 @@ function getEquipmentUpgradePathHtml(
   `;
 }
 
-function getCraftingEquipmentSetContextModel(
-  definition,
-  resultItem,
-) {
+function getCraftingEquipmentSetContextModel(definition, resultItem) {
   if (
     !definition ||
     !resultItem ||
@@ -369,8 +280,7 @@ function getCraftingEquipmentSetContextModel(
     return null;
   }
 
-  const progress =
-    getEquipmentSetProgress(definition);
+  const progress = getEquipmentSetProgress(definition);
 
   const inventoryQuantity =
     typeof getCraftingItemQuantity === "function"
@@ -383,30 +293,23 @@ function getCraftingEquipmentSetContextModel(
       : progress.equippedItemIds.includes(resultItem.id);
 
   const nextThreshold =
-    progress.thresholds.find(
-      (threshold) => !threshold.active,
-    ) || null;
-  const missingToNextThreshold =
-    nextThreshold
-      ? Math.max(
-        0,
-        nextThreshold.pieces -
-        progress.equippedPieces,
-      )
-      : 0;
+    progress.thresholds.find((threshold) => !threshold.active) || null;
+  const missingToNextThreshold = nextThreshold
+    ? Math.max(0, nextThreshold.pieces - progress.equippedPieces)
+    : 0;
 
   let ownershipStatus = "missing";
   let ownershipLabel = "Nieposiadana";
 
   if (isEquipped) {
     ownershipStatus = "equipped";
-    ownershipLabel = inventoryQuantity > 0
-      ? "Założona · plecak x" + inventoryQuantity
-      : "Założona";
+    ownershipLabel =
+      inventoryQuantity > 0
+        ? "Założona · plecak x" + inventoryQuantity
+        : "Założona";
   } else if (inventoryQuantity > 0) {
     ownershipStatus = "owned";
-    ownershipLabel =
-      "W plecaku · x" + inventoryQuantity;
+    ownershipLabel = "W plecaku · x" + inventoryQuantity;
   }
 
   let duplicateWarning = "";
@@ -439,23 +342,15 @@ function getCraftingEquipmentSetContextModel(
   };
 }
 
-function getCraftingEquipmentSetContextHtml(
-  definition,
-  resultItem,
-) {
-  const model =
-    getCraftingEquipmentSetContextModel(
-      definition,
-      resultItem,
-    );
+function getCraftingEquipmentSetContextHtml(definition, resultItem) {
+  const model = getCraftingEquipmentSetContextModel(definition, resultItem);
 
   if (!model) {
     return "";
   }
 
-  const nextBonusHtml =
-    model.nextThreshold
-      ? `
+  const nextBonusHtml = model.nextThreshold
+    ? `
         <div class="crafting-set-next-bonus">
           <small>NAJBLIŻSZA PREMIA</small>
           <strong>
@@ -465,22 +360,25 @@ function getCraftingEquipmentSetContextHtml(
           </strong>
           <span>
             ${model.nextThreshold.description}
-            · ${model.missingToNextThreshold === 1
-        ? "Brakuje 1 elementu"
-        : "Brakuje " +
-        model.missingToNextThreshold +
-        " elementów"
-      }
+            · ${
+              model.missingToNextThreshold === 1
+                ? "Brakuje 1 elementu"
+                : "Brakuje " + model.missingToNextThreshold + " elementów"
+            }
           </span>
-          ${model.nextThreshold.uniqueEffect ? `
+          ${
+            model.nextThreshold.uniqueEffect
+              ? `
             <em class="crafting-set-unique-effect">
               🔥 ${model.nextThreshold.uniqueEffect.name}:
               ${model.nextThreshold.uniqueEffect.description}
             </em>
-          ` : ""}
+          `
+              : ""
+          }
         </div>
       `
-      : `
+    : `
         <div class="crafting-set-next-bonus is-complete">
           <small>PEŁNY ZESTAW</small>
           <strong>Wszystkie premie są aktywne</strong>
@@ -504,42 +402,41 @@ function getCraftingEquipmentSetContextHtml(
         </span>
 
         <span class="crafting-set-ownership is-${model.ownershipStatus}">
-          ${model.ownershipStatus === "equipped"
-      ? "✓"
-      : model.ownershipStatus === "owned"
-        ? "🎒"
-        : "○"
-    }
+          ${
+            model.ownershipStatus === "equipped"
+              ? "✓"
+              : model.ownershipStatus === "owned"
+                ? "🎒"
+                : "○"
+          }
           ${model.ownershipLabel}
         </span>
       </div>
 
       ${nextBonusHtml}
 
-      ${model.duplicateWarning ? `
+      ${
+        model.duplicateWarning
+          ? `
         <div class="crafting-set-duplicate-warning">
           ⚠ ${model.duplicateWarning}
         </div>
-      ` : ""}
+      `
+          : ""
+      }
     </section>
   `;
 }
 
-function getProfessionToolUpgradeBonusRows(
-  sourceItem,
-  resultItem,
-) {
+function getProfessionToolUpgradeBonusRows(sourceItem, resultItem) {
   const sourceBonuses = sourceItem?.bonuses || {};
   const resultBonuses = resultItem?.bonuses || {};
 
   return Object.entries(resultBonuses)
     .map(([bonusName, resultValue]) => {
-      const sourceValue =
-        Number(sourceBonuses[bonusName]) || 0;
-      const safeResultValue =
-        Number(resultValue) || 0;
-      const difference =
-        safeResultValue - sourceValue;
+      const sourceValue = Number(sourceBonuses[bonusName]) || 0;
+      const safeResultValue = Number(resultValue) || 0;
+      const difference = safeResultValue - sourceValue;
       const label =
         typeof professionToolsBonusLabels !== "undefined"
           ? professionToolsBonusLabels[bonusName] || bonusName
@@ -560,15 +457,9 @@ function getProfessionToolUpgradeBonusRows(
     .join("");
 }
 
-function getProfessionToolUpgradeButtonText(
-  recipe,
-  sourceItem,
-) {
+function getProfessionToolUpgradeButtonText(recipe, sourceItem) {
   if (!hasRequiredCraftingLevel(recipe)) {
-    return (
-      "Wymaga rzemiosła Lv. " +
-      getRecipeRequiredCraftingLevel(recipe)
-    );
+    return "Wymaga rzemiosła Lv. " + getRecipeRequiredCraftingLevel(recipe);
   }
 
   const professionRequirement =
@@ -576,10 +467,7 @@ function getProfessionToolUpgradeButtonText(
       ? getRecipeProfessionRequirement(recipe)
       : null;
 
-  if (
-    professionRequirement &&
-    !professionRequirement.met
-  ) {
+  if (professionRequirement && !professionRequirement.met) {
     return (
       "Wymaga: " +
       professionRequirement.professionName +
@@ -588,44 +476,26 @@ function getProfessionToolUpgradeButtonText(
     );
   }
 
-  if (
-    getInventoryItemQuantity(
-      recipe.upgradeFromItemId,
-    ) <= 0
-  ) {
+  if (getInventoryItemQuantity(recipe.upgradeFromItemId) <= 0) {
     return "Brak: " + sourceItem.name;
   }
 
-  if (
-    player.gold <
-    getRecipeTotalGoldCost(recipe, 1)
-  ) {
+  if (player.gold < getRecipeTotalGoldCost(recipe, 1)) {
     return "Brakuje złota";
   }
 
   const missingMaterial = recipe.materials
     .filter((material) => {
-      return (
-        material.itemId !==
-        recipe.upgradeFromItemId
-      );
+      return material.itemId !== recipe.upgradeFromItemId;
     })
     .some((material) => {
-      return (
-        getCraftingItemQuantity(
-          material.itemId,
-        ) < material.quantity
-      );
+      return getCraftingItemQuantity(material.itemId) < material.quantity;
     });
 
-  return missingMaterial
-    ? "Brakuje materiałów"
-    : "Ulepsz narzędzie";
+  return missingMaterial ? "Brakuje materiałów" : "Ulepsz narzędzie";
 }
 
-function createProfessionToolUpgradeCard(
-  recipe,
-) {
+function createProfessionToolUpgradeCard(recipe) {
   const resultItem = items[recipe.resultItemId];
   const sourceItem = items[recipe.upgradeFromItemId];
 
@@ -636,53 +506,38 @@ function createProfessionToolUpgradeCard(
   const definition =
     typeof professionToolDefinitions !== "undefined"
       ? professionToolDefinitions.find((entry) => {
-        return entry.toolType === resultItem.toolType;
-      })
+          return entry.toolType === resultItem.toolType;
+        })
       : null;
-  const professionName =
-    definition?.professionName || "Profesja";
-  const icon =
-    resultItem.icon || definition?.icon || "🧰";
-  const requiredCraftingLevel =
-    getRecipeRequiredCraftingLevel(recipe);
-  const hasCraftingLevel =
-    hasRequiredCraftingLevel(recipe);
-  const requiredProfessionLevel =
-    Math.max(
-      1,
-      Number(resultItem.requiredProfessionLevel) || 1,
-    );
+  const professionName = definition?.professionName || "Profesja";
+  const icon = resultItem.icon || definition?.icon || "🧰";
+  const requiredCraftingLevel = getRecipeRequiredCraftingLevel(recipe);
+  const hasCraftingLevel = hasRequiredCraftingLevel(recipe);
+  const requiredProfessionLevel = Math.max(
+    1,
+    Number(resultItem.requiredProfessionLevel) || 1,
+  );
   const professionLevel =
     typeof getProfessionLevelForTool === "function"
       ? getProfessionLevelForTool(resultItem.toolType)
       : 1;
-  const hasProfessionLevel =
-    professionLevel >= requiredProfessionLevel;
-  const sourceOwned =
-    getInventoryItemQuantity(recipe.upgradeFromItemId);
+  const hasProfessionLevel = professionLevel >= requiredProfessionLevel;
+  const sourceOwned = getInventoryItemQuantity(recipe.upgradeFromItemId);
   const sourceIsActive =
-    player.professionTools?.[resultItem.toolType] ===
-    recipe.upgradeFromItemId;
-  const canUpgrade =
-    canCraftRecipe(recipe, 1);
-  const craftingExp =
-    getRecipeCraftingExp(recipe);
-  const craftingDurationSeconds =
-    Math.ceil(
-      getRecipeCraftingDurationMs(recipe) / 1000,
-    );
-  const finalGoldCost =
-    getRecipeTotalGoldCost(recipe, 1);
-  const baseGoldCost =
-    Math.max(0, Number(recipe.goldCost) || 0);
+    player.professionTools?.[resultItem.toolType] === recipe.upgradeFromItemId;
+  const canUpgrade = canCraftRecipe(recipe, 1);
+  const craftingExp = getRecipeCraftingExp(recipe);
+  const craftingDurationSeconds = Math.ceil(
+    getRecipeCraftingDurationMs(recipe) / 1000,
+  );
+  const finalGoldCost = getRecipeTotalGoldCost(recipe, 1);
+  const baseGoldCost = Math.max(0, Number(recipe.goldCost) || 0);
   const goldCostHtml =
     finalGoldCost < baseGoldCost
       ? `<s>${baseGoldCost}</s> ${finalGoldCost}`
       : finalGoldCost;
-  const sourceTier =
-    Math.max(1, Number(sourceItem.toolTier) || 1);
-  const targetTier =
-    Math.max(2, Number(resultItem.toolTier) || 2);
+  const sourceTier = Math.max(1, Number(sourceItem.toolTier) || 1);
+  const targetTier = Math.max(2, Number(resultItem.toolTier) || 2);
   const progressHtml = Array.from(
     { length: PROFESSION_TOOL_MAX_TIER },
     (_, index) => index + 1,
@@ -707,17 +562,12 @@ function createProfessionToolUpgradeCard(
     .join("");
   const materialsHtml = recipe.materials
     .filter((material) => {
-      return (
-        material.itemId !==
-        recipe.upgradeFromItemId
-      );
+      return material.itemId !== recipe.upgradeFromItemId;
     })
     .map((material) => {
       const materialItem = items[material.itemId];
-      const owned =
-        getCraftingItemQuantity(material.itemId);
-      const hasEnough =
-        owned >= material.quantity;
+      const owned = getCraftingItemQuantity(material.itemId);
+      const hasEnough = owned >= material.quantity;
 
       return `
         <span class="${hasEnough ? "material-ok" : "material-missing"}">
@@ -732,34 +582,36 @@ function createProfessionToolUpgradeCard(
 
   card.className =
     "crafting-item profession-tool-upgrade-card " +
-    "rarity-" + resultItem.rarity;
+    "rarity-" +
+    resultItem.rarity;
 
-  if (
-    !hasCraftingLevel ||
-    !hasProfessionLevel
-  ) {
-    card.classList.add(
-      "crafting-level-locked",
-    );
+  if (!hasCraftingLevel || !hasProfessionLevel) {
+    card.classList.add("crafting-level-locked");
   }
 
-  card.dataset.requiredCraftingLevel =
-    String(requiredCraftingLevel);
-  card.dataset.requiredProfessionLevel =
-    String(requiredProfessionLevel);
+  card.dataset.requiredCraftingLevel = String(requiredCraftingLevel);
+  card.dataset.requiredProfessionLevel = String(requiredProfessionLevel);
   card.dataset.craftingRecipeId = recipe.id;
   card.innerHTML = `
-    ${hasCraftingLevel ? "" : `
+    ${
+      hasCraftingLevel
+        ? ""
+        : `
       <div class="crafting-level-lock-message">
         🔒 Odblokuje się na ${requiredCraftingLevel}. poziomie rzemiosła
       </div>
-    `}
-    ${hasProfessionLevel ? "" : `
+    `
+    }
+    ${
+      hasProfessionLevel
+        ? ""
+        : `
       <div class="crafting-level-lock-message profession-level-lock-message">
         🔒 Wymaga: ${professionName} Lv. ${requiredProfessionLevel}
         · obecnie ${professionLevel}
       </div>
-    `}
+    `
+    }
 
     <header class="profession-tool-upgrade-header">
       <span class="profession-tool-upgrade-kicker">
@@ -838,13 +690,10 @@ function createProfessionToolUpgradeCard(
     </footer>
   `;
 
-  const upgradeButton = card.querySelector(
-    ".profession-tool-upgrade-button",
-  );
+  const upgradeButton = card.querySelector(".profession-tool-upgrade-button");
 
   upgradeButton.addEventListener("click", () => {
-    const addedJob =
-      addCraftingQueueJob(recipe, 1);
+    const addedJob = addCraftingQueueJob(recipe, 1);
 
     if (addedJob) {
       renderCrafting();
@@ -853,7 +702,6 @@ function createProfessionToolUpgradeCard(
 
   return card;
 }
-
 
 function renderCrafting() {
   const container = document.getElementById("crafting-list");
@@ -919,14 +767,8 @@ function renderCrafting() {
     "[data-profession-tool-panel='craftingHammer']",
   );
 
-  if (
-    toolPanel &&
-    typeof renderProfessionToolContextPanel === "function"
-  ) {
-    renderProfessionToolContextPanel(
-      toolPanel,
-      "craftingHammer",
-    );
+  if (toolPanel && typeof renderProfessionToolContextPanel === "function") {
+    renderProfessionToolContextPanel(toolPanel, "craftingHammer");
   }
 
   renderCraftingActivity(container);
@@ -982,24 +824,17 @@ function renderCrafting() {
 
   container.appendChild(tabsContainer);
 
-  renderCraftingSubcategoryTabs(
-    container,
-    currentCraftingCategory,
-  );
+  renderCraftingSubcategoryTabs(container, currentCraftingCategory);
 
   visibleCraftingCategories.forEach((category) => {
     let categoryRecipes = recipes.filter((recipe) => {
       return getCraftingCategory(recipe) === category.id;
     });
 
-    categoryRecipes =
-      filterCraftingRecipesBySubcategory(
-        category.id,
-        categoryRecipes,
-      );
-
-
-
+    categoryRecipes = filterCraftingRecipesBySubcategory(
+      category.id,
+      categoryRecipes,
+    );
 
     const details = document.createElement("details");
 
@@ -1032,9 +867,7 @@ function renderCrafting() {
     recipesContainer.className = "crafting-category-items";
 
     if (category.id === "profession_tools") {
-      recipesContainer.classList.add(
-        "profession-tool-upgrade-grid",
-      );
+      recipesContainer.classList.add("profession-tool-upgrade-grid");
     }
 
     if (categoryRecipes.length === 0) {
@@ -1073,13 +906,10 @@ function renderCrafting() {
 
       const resultEquipmentSet =
         typeof getEquipmentSetForItemId === "function"
-          ? getEquipmentSetForItemId(
-            recipe.resultItemId,
-          )
+          ? getEquipmentSetForItemId(recipe.resultItemId)
           : null;
-      const equipmentSetBadgeHtml =
-        resultEquipmentSet
-          ? `
+      const equipmentSetBadgeHtml = resultEquipmentSet
+        ? `
             <span
               class="crafting-equipment-set-badge crafting-equipment-set-${resultEquipmentSet.theme}"
               title="${resultEquipmentSet.name}"
@@ -1087,14 +917,10 @@ function renderCrafting() {
               ${resultEquipmentSet.icon} Element zestawu · ${resultEquipmentSet.name}
             </span>
           `
-          : "";
-      const equipmentSetContextHtml =
-        resultEquipmentSet
-          ? getCraftingEquipmentSetContextHtml(
-            resultEquipmentSet,
-            resultItem,
-          )
-          : "";
+        : "";
+      const equipmentSetContextHtml = resultEquipmentSet
+        ? getCraftingEquipmentSetContextHtml(resultEquipmentSet, resultItem)
+        : "";
       const equipmentItemTypes = [
         "weapon",
         "shield",
@@ -1107,17 +933,13 @@ function renderCrafting() {
         "amulet",
         "talisman",
       ];
-      const isEquipmentResult =
-        equipmentItemTypes.includes(
-          resultItem.type,
-        );
+      const isEquipmentResult = equipmentItemTypes.includes(resultItem.type);
 
       if (
         typeof isProfessionToolUpgradeRecipe === "function" &&
         isProfessionToolUpgradeRecipe(recipe)
       ) {
-        const upgradeCard =
-          createProfessionToolUpgradeCard(recipe);
+        const upgradeCard = createProfessionToolUpgradeCard(recipe);
 
         if (upgradeCard) {
           recipesContainer.appendChild(upgradeCard);
@@ -1126,50 +948,44 @@ function renderCrafting() {
         return;
       }
 
-      const equipmentUpgradeSource =
-        recipe.materials?.[0]?.itemId
-          ? items[recipe.materials[0].itemId]
-          : recipe.upgradeFromItemId
-            ? items[recipe.upgradeFromItemId]
-            : null;
+      const equipmentUpgradeSource = recipe.materials?.[0]?.itemId
+        ? items[recipe.materials[0].itemId]
+        : recipe.upgradeFromItemId
+          ? items[recipe.upgradeFromItemId]
+          : null;
       const isEquipmentUpgrade = Boolean(
-        equipmentUpgradeSource &&
-        recipe.equipmentUpgradeRank,
+        equipmentUpgradeSource && recipe.equipmentUpgradeRank,
       );
 
       const equipmentComparisonHtml =
         isEquipmentResult &&
-          !isEquipmentUpgrade &&
-          typeof getEquipmentComparisonPreviewHtml === "function"
-          ? getEquipmentComparisonPreviewHtml(
-            resultItem,
-            {
+        !isEquipmentUpgrade &&
+        typeof getEquipmentComparisonPreviewHtml === "function"
+          ? getEquipmentComparisonPreviewHtml(resultItem, {
               title: "PO WYTWORZENIU I ZAŁOŻENIU",
               className: "crafting-equipment-comparison",
-            },
-          )
+            })
           : "";
 
       const weaponDamageComparisonHtml =
-        getCraftingWeaponDamageComparisonHtml(
-          resultItem
-        );
-      const armorComparisonHtml =
-        getCraftingArmorComparisonHtml(
-          resultItem,
-          recipe,
-        );
+        getCraftingWeaponDamageComparisonHtml(resultItem);
+      const armorComparisonHtml = getCraftingArmorComparisonHtml(
+        resultItem,
+        recipe,
+      );
 
-      const equipmentUpgradePathHtml =
-        isEquipmentUpgrade
-          ? getEquipmentUpgradePathHtml(
+      const equipmentUpgradePathHtml = isEquipmentUpgrade
+        ? getEquipmentUpgradePathHtml(
             recipe,
             equipmentUpgradeSource,
             resultItem,
           )
-          : "";
+        : "";
 
-      const baseGoldCost = recipe.goldCost || 0;
+      const baseGoldCost =
+        economyBalance?.craftingGoldCost?.[Number(recipe.tier)] ??
+        Number(recipe.goldCost) ??
+        0;
 
       const baseTotalGoldCost = baseGoldCost * selectedCraftCount;
 
@@ -1193,31 +1009,24 @@ function renderCrafting() {
       if (resultEquipmentSet) {
         div.classList.add(
           "crafting-set-recipe-card",
-          "crafting-set-recipe-" +
-          resultEquipmentSet.theme,
+          "crafting-set-recipe-" + resultEquipmentSet.theme,
         );
-        div.dataset.equipmentSetId =
-          resultEquipmentSet.id;
+        div.dataset.equipmentSetId = resultEquipmentSet.id;
       }
 
       if (isEquipmentUpgrade) {
         div.classList.add(
           "equipment-upgrade-card",
-          "equipment-upgrade-" +
-          recipe.equipmentUpgradeRank,
+          "equipment-upgrade-" + recipe.equipmentUpgradeRank,
         );
-        div.dataset.equipmentUpgradeRank =
-          recipe.equipmentUpgradeRank;
+        div.dataset.equipmentUpgradeRank = recipe.equipmentUpgradeRank;
       }
 
       if (!hasCraftingLevel) {
-        div.classList.add(
-          "crafting-level-locked",
-        );
+        div.classList.add("crafting-level-locked");
       }
 
-      div.dataset.requiredCraftingLevel =
-        String(requiredCraftingLevel);
+      div.dataset.requiredCraftingLevel = String(requiredCraftingLevel);
 
       if (resultItem.rarity) {
         div.classList.add("rarity-" + resultItem.rarity);
@@ -1225,9 +1034,7 @@ function renderCrafting() {
 
       let materialsHtml = "";
 
-      const craftMaterials =
-        recipe.materials ||
-        [];
+      const craftMaterials = recipe.materials || [];
 
       craftMaterials.forEach((material) => {
         const item = items[material.itemId];
@@ -1251,9 +1058,7 @@ function renderCrafting() {
           equippedOwned > 0 ? " — założone: " + equippedOwned : "";
 
         const isUpgradeSource =
-          isEquipmentUpgrade &&
-          material.itemId ===
-          recipe.upgradeFromItemId;
+          isEquipmentUpgrade && material.itemId === recipe.upgradeFromItemId;
 
         materialsHtml += `
                     <span
@@ -1269,35 +1074,28 @@ ${equippedText}
                 `;
       });
 
-      const mainStatKey =
-        getEquipmentUpgradeMainStat(resultItem);
+      const mainStatKey = getEquipmentUpgradeMainStat(resultItem);
 
-      const mainStatLabel =
-        getCraftingStatLabel(mainStatKey);
-
+      const mainStatLabel = getCraftingStatLabel(mainStatKey);
 
       let stats = "";
 
-
-
       if (isEquipmentUpgrade) {
         const isJewelry =
-          resultItem.type === "ring" ||
-          resultItem.type === "amulet";
+          resultItem.type === "ring" || resultItem.type === "amulet";
 
         if (isJewelry) {
           const jewelryRange =
             typeof getEquipmentUpgradeStatRange === "function"
               ? getEquipmentUpgradeStatRange(
-                resultItem.requiredLevel,
-                false,
-                resultItem.type
-              )
+                  resultItem.requiredLevel,
+                  false,
+                  resultItem.type,
+                )
               : null;
 
           const safeJewelryRange =
-            Array.isArray(jewelryRange) &&
-              jewelryRange.length >= 2
+            Array.isArray(jewelryRange) && jewelryRange.length >= 2
               ? jewelryRange
               : [1, 2];
 
@@ -1306,19 +1104,17 @@ ${equippedText}
       <span>Zakres każdej: ${safeJewelryRange[0]}–${safeJewelryRange[1]}</span>
     `;
         } else {
-          const mainRange =
-            getEquipmentUpgradeStatRange(
-              resultItem.requiredLevel,
-              true,
-              resultItem.type
-            );
+          const mainRange = getEquipmentUpgradeStatRange(
+            resultItem.requiredLevel,
+            true,
+            resultItem.type,
+          );
 
-          const randomRange =
-            getEquipmentUpgradeStatRange(
-              resultItem.requiredLevel,
-              false,
-              resultItem.type
-            );
+          const randomRange = getEquipmentUpgradeStatRange(
+            resultItem.requiredLevel,
+            false,
+            resultItem.type,
+          );
 
           stats += `
   <span>
@@ -1334,11 +1130,15 @@ ${equippedText}
         div.classList.add("crafting-locked");
 
         div.innerHTML = `
-                    ${hasCraftingLevel ? "" : `
+                    ${
+                      hasCraftingLevel
+                        ? ""
+                        : `
                         <div class="crafting-level-lock-message">
                             🔒 Odblokuje się na ${requiredCraftingLevel}. poziomie rzemiosła
                         </div>
-                    `}
+                    `
+                    }
 
                     <div class="crafting-item-header">
                         <div class="crafting-item-title-row">
@@ -1364,10 +1164,11 @@ ${armorComparisonHtml}
 <button
     type="button"
     class="
-    crafting-main-btn ${ownedScrolls > 0 && player.gold >= recipe.unlockCost
-            ? ""
-            : "crafting-button-unavailable"
-          }"
+    crafting-main-btn ${
+      ownedScrolls > 0 && player.gold >= recipe.unlockCost
+        ? ""
+        : "crafting-button-unavailable"
+    }"
     onclick="unlockRecipe('${recipe.id}')"
     ${ownedScrolls > 0 && player.gold >= recipe.unlockCost ? "" : "disabled"}
 >
@@ -1379,30 +1180,27 @@ ${armorComparisonHtml}
         return;
       }
 
-      const canCraft =
-        canCraftRecipe(
-          recipe,
-          selectedCraftCount,
-        );
+      const canCraft = canCraftRecipe(recipe, selectedCraftCount);
 
-      const craftButtonText =
-        isEquipmentUpgrade
-          ? "Wytwórz ulepszenie" +
-          (totalResultQuantity > 1
-            ? " x" + totalResultQuantity
-            : "")
-          : "Dodaj x" + totalResultQuantity;
+      const craftButtonText = isEquipmentUpgrade
+        ? "Wytwórz ulepszenie" +
+          (totalResultQuantity > 1 ? " x" + totalResultQuantity : "")
+        : "Dodaj x" + totalResultQuantity;
 
       const totalCostHtml = hasTotalCraftingDiscount
         ? `<s>${baseTotalGoldCost}</s> ` + finalTotalGoldCost
         : finalTotalGoldCost;
 
       div.innerHTML = `
-    ${hasCraftingLevel ? "" : `
+    ${
+      hasCraftingLevel
+        ? ""
+        : `
         <div class="crafting-level-lock-message">
             🔒 Odblokuje się na ${requiredCraftingLevel}. poziomie rzemiosła
         </div>
-    `}
+    `
+    }
     
 <div class="crafting-item-header">
     <div class="crafting-item-title-row">
@@ -1481,10 +1279,11 @@ ${armorComparisonHtml}
                     type="number"
                     class="
                         crafting-count-input
-                        ${selectedCraftCount > maximumCraftCount
-          ? "invalid"
-          : ""
-        }
+                        ${
+                          selectedCraftCount > maximumCraftCount
+                            ? "invalid"
+                            : ""
+                        }
                     "
                     value="${selectedCraftCount}"
                     min="1"
@@ -1497,11 +1296,12 @@ ${armorComparisonHtml}
                     type="button"
                     class="crafting-batch-button"
                     data-crafting-action="increase"
-                    ${maximumCraftCount <= 0 ||
-          selectedCraftCount >= maximumCraftCount
-          ? "disabled"
-          : ""
-        }
+                    ${
+                      maximumCraftCount <= 0 ||
+                      selectedCraftCount >= maximumCraftCount
+                        ? "disabled"
+                        : ""
+                    }
                 >
                     +
                 </button>
@@ -1561,11 +1361,15 @@ ${armorComparisonHtml}
     </div>
 </div>
 
-${stats ? `
+${
+  stats
+    ? `
     <div class="crafting-item-stats">
         ${stats}
     </div>
-` : ""}
+`
+    : ""
+}
 
     <div class="crafting-materials">
         ${materialsHtml}
@@ -1627,14 +1431,9 @@ ${stats ? `
       });
 
       craftButton.addEventListener("click", () => {
-        const selectedCount =
-          getCraftingBatchCount(recipe.id);
+        const selectedCount = getCraftingBatchCount(recipe.id);
 
-        const addedJob =
-          addCraftingQueueJob(
-            recipe,
-            selectedCount,
-          );
+        const addedJob = addCraftingQueueJob(recipe, selectedCount);
 
         if (!addedJob) {
           return;

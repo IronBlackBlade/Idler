@@ -1,4 +1,3 @@
-
 function renderBestiary() {
     const container =
         document.getElementById(
@@ -395,7 +394,7 @@ function refreshBestiaryInterface() {
 
     if (
         !journalScreen ||
-        journalScreen.style.display ===
+        window.getComputedStyle(journalScreen).display ===
         "none"
     ) {
         return;
