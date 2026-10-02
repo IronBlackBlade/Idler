@@ -27,6 +27,7 @@ const merchantItems = {
     // ==================================================
 
     simple_amulet: 140,
+    lucky_amulet: 210,
     iron_amulet: 500,
     steel_amulet: 1600,
     knight_amulet: 6500,
@@ -38,6 +39,7 @@ const merchantItems = {
     // ==================================================
 
     simple_talisman: 160,
+    lucky_talisman: 240,
     iron_talisman: 600,
     steel_talisman: 1900,
     knight_talisman: 7200,
@@ -74,13 +76,13 @@ const merchantItems = {
     // LASKI
     // ==================================================
 
-    nature_staff_base: 90,
-    crystal_staff_base: 280,
-    guardian_staff_base: 800,
-    arcane_guardian_staff_base: 2600,
-    frost_giant_staff_base: 7000,
-    shadow_staff_base: 15000,
-    volcanic_staff_base: 28000,
+    simple_staff: 90,
+    apprentice_staff: 280,
+    adept_staff: 800,
+    battle_staff: 2600,
+    mage_staff: 7000,
+    heavy_battle_staff: 15000,
+    master_staff: 28000,
 
 
     // ==================================================
@@ -139,13 +141,13 @@ const merchantItems = {
     // RÓŻDŻKI
     // ==================================================
 
-    nature_wand_base: 80,
-    crystal_wand_base: 240,
-    guardian_wand_base: 700,
-    shadow_wand_base: 2400,
-    commander_wand_base: 6500,
+    wooden_wand: 80,
+    simple_wand: 240,
+    apprentice_wand: 700,
+    arcane_wand: 2400,
+    magic_wand: 6500,
     master_wand_base: 14000,
-    arcane_wand_base: 26000,
+    archmaster_wand: 26000,
 
 
     // ==================================================

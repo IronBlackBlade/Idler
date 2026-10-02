@@ -1,333 +1,209 @@
 const questCategoryIds = [
-    "all",
-    "hunting",
-    "mining",
-    "herbalism",
-    "fishing",
-    "alchemy",
-    "cooking",
-    "crafting",
-    "garden"
+  "all",
+  "hunting",
+  "mining",
+  "herbalism",
+  "fishing",
+  "alchemy",
+  "cooking",
+  "crafting",
+  "garden",
 ];
 
-const legacyQuestFilter =
-    localStorage.getItem(
-        "idler_quest_location_filter"
-    );
+const legacyQuestFilter = localStorage.getItem("idler_quest_location_filter");
 
-const savedQuestCategoryFilter =
-    localStorage.getItem(
-        "idler_quest_category_filter"
-    );
+const savedQuestCategoryFilter = localStorage.getItem(
+  "idler_quest_category_filter",
+);
 
-const savedHuntingLocationFilter =
-    localStorage.getItem(
-        "idler_quest_hunting_location_filter"
-    );
+const savedHuntingLocationFilter = localStorage.getItem(
+  "idler_quest_hunting_location_filter",
+);
 
-let currentQuestCategoryFilter =
-    questCategoryIds.includes(
-        savedQuestCategoryFilter
-    )
-        ? savedQuestCategoryFilter
-        : questCategoryIds.includes(
-            legacyQuestFilter
-        )
-            ? legacyQuestFilter
-            : legacyQuestFilter &&
-                legacyQuestFilter !== "all"
-                ? "hunting"
-                : "all";
+let currentQuestCategoryFilter = questCategoryIds.includes(
+  savedQuestCategoryFilter,
+)
+  ? savedQuestCategoryFilter
+  : questCategoryIds.includes(legacyQuestFilter)
+    ? legacyQuestFilter
+    : legacyQuestFilter && legacyQuestFilter !== "all"
+      ? "hunting"
+      : "all";
 
 let currentQuestHuntingLocationFilter =
-    savedHuntingLocationFilter ||
-    (
-        legacyQuestFilter &&
-            !questCategoryIds.includes(
-                legacyQuestFilter
-            )
-            ? legacyQuestFilter
-            : "all"
-    );
+  savedHuntingLocationFilter ||
+  (legacyQuestFilter && !questCategoryIds.includes(legacyQuestFilter)
+    ? legacyQuestFilter
+    : "all");
 
 function getQuestCategoryId(quest) {
-    if (!quest) {
-        return null;
-    }
+  if (!quest) {
+    return null;
+  }
 
-    return quest.activityId ||
-        "hunting";
+  return quest.activityId || "hunting";
 }
 
-function setQuestCategoryFilter(
-    categoryId
-) {
-    currentQuestCategoryFilter =
-        questCategoryIds.includes(
-            categoryId
-        )
-            ? categoryId
-            : "all";
+function setQuestCategoryFilter(categoryId) {
+  currentQuestCategoryFilter = questCategoryIds.includes(categoryId)
+    ? categoryId
+    : "all";
 
-    localStorage.setItem(
-        "idler_quest_category_filter",
-        currentQuestCategoryFilter
-    );
+  localStorage.setItem(
+    "idler_quest_category_filter",
+    currentQuestCategoryFilter,
+  );
 
-    renderQuests();
+  renderQuests();
 }
 
-function setQuestHuntingLocationFilter(
-    locationId
-) {
-    currentQuestHuntingLocationFilter =
-        locationId ||
-        "all";
+function setQuestHuntingLocationFilter(locationId) {
+  currentQuestHuntingLocationFilter = locationId || "all";
 
-    localStorage.setItem(
-        "idler_quest_hunting_location_filter",
-        currentQuestHuntingLocationFilter
-    );
+  localStorage.setItem(
+    "idler_quest_hunting_location_filter",
+    currentQuestHuntingLocationFilter,
+  );
 
-    renderQuests();
+  renderQuests();
 }
 
 function doesQuestMatchFilters(
-    quest,
-    categoryId =
-        currentQuestCategoryFilter,
-    huntingLocationId =
-        currentQuestHuntingLocationFilter
+  quest,
+  categoryId = currentQuestCategoryFilter,
+  huntingLocationId = currentQuestHuntingLocationFilter,
 ) {
-    if (
-        categoryId === "all"
-    ) {
-        return true;
-    }
+  if (categoryId === "all") {
+    return true;
+  }
 
-    if (
-        getQuestCategoryId(quest) !==
-        categoryId
-    ) {
-        return false;
-    }
+  if (getQuestCategoryId(quest) !== categoryId) {
+    return false;
+  }
 
-    if (
-        categoryId !== "hunting" ||
-        huntingLocationId === "all"
-    ) {
-        return true;
-    }
+  if (categoryId !== "hunting" || huntingLocationId === "all") {
+    return true;
+  }
 
-    return (
-        getQuestLocationId(quest) ===
-        huntingLocationId
-    );
+  return getQuestLocationId(quest) === huntingLocationId;
 }
 
 function updateQuestMenuHighlight() {
-    /*
-     * Najpierw pobieramy aktualne
-     * zabójstwa z Dziennika.
-     */
-    quests.forEach(
-        quest => {
-            syncQuestProgressWithBestiary(
-                quest
-            );
-        }
+  /*
+   * Najpierw pobieramy aktualne
+   * zabójstwa z Dziennika.
+   */
+  quests.forEach((quest) => {
+    syncQuestProgressWithBestiary(quest);
+  });
+
+  const questButton = document.getElementById("menu-quests-button");
+
+  if (!questButton) {
+    return;
+  }
+
+  const claimableQuestCount = quests.filter((quest) => {
+    const requiredLevel = Number(quest.requiredLevel) || 1;
+
+    return (
+      player.level >= requiredLevel &&
+      isQuestUnlocked(quest) &&
+      quest.completed &&
+      !quest.claimed
+    );
+  }).length;
+
+  const hasClaimableQuest = claimableQuestCount > 0;
+
+  questButton.classList.toggle("quest-reward-ready", hasClaimableQuest);
+
+  const characterCategory = questButton.closest("[data-menu-category]");
+
+  if (characterCategory) {
+    characterCategory.classList.toggle(
+      "has-claimable-quest",
+      hasClaimableQuest,
     );
 
-    const questButton =
-        document.getElementById(
-            "menu-quests-button"
-        );
-
-    if (!questButton) {
-        return;
-    }
-
-    const claimableQuestCount =
-        quests.filter(quest => {
-            const requiredLevel =
-                Number(
-                    quest.requiredLevel
-                ) || 1;
-
-            return (
-                player.level >=
-                requiredLevel &&
-                isQuestUnlocked(
-                    quest
-                ) &&
-                quest.completed &&
-                !quest.claimed
-            );
-        }).length;
-
-    const hasClaimableQuest =
-        claimableQuestCount > 0;
-
-    questButton.classList.toggle(
-        "quest-reward-ready",
-        hasClaimableQuest
+    const categoryToggle = characterCategory.querySelector(
+      ".menu-category-toggle",
     );
 
-    const characterCategory =
-        questButton.closest(
-            "[data-menu-category]"
-        );
-
-    if (characterCategory) {
-        characterCategory.classList.toggle(
-            "has-claimable-quest",
-            hasClaimableQuest
-        );
-
-        const categoryToggle =
-            characterCategory.querySelector(
-                ".menu-category-toggle"
-            );
-
-        if (categoryToggle) {
-            categoryToggle.title =
-                hasClaimableQuest
-                    ? "Nagrody za zadania do odebrania: " +
-                    claimableQuestCount
-                    : "";
-        }
+    if (categoryToggle) {
+      categoryToggle.title = hasClaimableQuest
+        ? "Nagrody za zadania do odebrania: " + claimableQuestCount
+        : "";
     }
+  }
 
-    if (hasClaimableQuest) {
-        questButton.title =
-            "Nagrody do odebrania: " +
-            claimableQuestCount;
-    } else {
-        questButton.title =
-            "";
-    }
+  if (hasClaimableQuest) {
+    questButton.title = "Nagrody do odebrania: " + claimableQuestCount;
+  } else {
+    questButton.title = "";
+  }
 }
 
-function updateQuestCard(
-    quest
-) {
-    if (!quest) {
-        return false;
-    }
+function updateQuestCard(quest) {
+  if (!quest) {
+    return false;
+  }
 
-    const questCard =
-        document.querySelector(
-            '[data-quest-id="' +
-            quest.id +
-            '"]'
-        );
+  const questCard = document.querySelector(
+    '[data-quest-id="' + quest.id + '"]',
+  );
 
-    if (!questCard) {
-        return false;
-    }
+  if (!questCard) {
+    return false;
+  }
 
-    const progress =
-        Math.max(
-            0,
-            Number(
-                quest.currentKills
-            ) || 0
-        );
+  const progress = Math.max(0, Number(quest.currentKills) || 0);
 
-    const required =
-        Math.max(
-            1,
-            Number(
-                quest.requiredKills
-            ) || 1
-        );
+  const required = Math.max(1, Number(quest.requiredKills) || 1);
 
-    const progressPercent =
-        Math.min(
-            100,
-            (
-                progress /
-                required
-            ) * 100
-        );
+  const progressPercent = Math.min(100, (progress / required) * 100);
 
-    const statusElement =
-        questCard.querySelector(
-            "[data-quest-status]"
-        );
+  const statusElement = questCard.querySelector("[data-quest-status]");
 
-    const progressElement =
-        questCard.querySelector(
-            "[data-quest-progress]"
-        );
+  const progressElement = questCard.querySelector("[data-quest-progress]");
 
-    const progressFill =
-        questCard.querySelector(
-            "[data-quest-progress-fill]"
-        );
+  const progressFill = questCard.querySelector("[data-quest-progress-fill]");
 
-    const actionElement =
-        questCard.querySelector(
-            "[data-quest-action]"
-        );
+  const actionElement = questCard.querySelector("[data-quest-action]");
 
-    let statusText =
-        "W trakcie";
+  let statusText = "W trakcie";
 
-    if (
-        quest.completed &&
-        !quest.claimed
-    ) {
-        statusText =
-            "Gotowe";
-    }
+  if (quest.completed && !quest.claimed) {
+    statusText = "Gotowe";
+  }
 
-    if (quest.claimed) {
-        statusText =
-            "Ukończone ✅";
-    }
+  if (quest.claimed) {
+    statusText = "Ukończone ✅";
+  }
 
-    if (statusElement) {
-        statusElement.textContent =
-            statusText;
-    }
+  if (statusElement) {
+    statusElement.textContent = statusText;
+  }
 
-    if (progressElement) {
-        progressElement.textContent =
-            progress +
-            "/" +
-            required;
-    }
+  if (progressElement) {
+    progressElement.textContent = progress + "/" + required;
+  }
 
-    if (progressFill) {
-        progressFill.style.width =
-            progressPercent +
-            "%";
-    }
+  if (progressFill) {
+    progressFill.style.width = progressPercent + "%";
+  }
 
-    questCard.classList.toggle(
-        "quest-completed",
-        quest.completed &&
-        !quest.claimed
-    );
+  questCard.classList.toggle(
+    "quest-completed",
+    quest.completed && !quest.claimed,
+  );
 
-    questCard.classList.toggle(
-        "quest-claimed",
-        quest.claimed === true
-    );
+  questCard.classList.toggle("quest-claimed", quest.claimed === true);
 
-    if (actionElement) {
-        if (
-            quest.completed &&
-            !quest.claimed
-        ) {
-            if (
-                !actionElement
-                    .querySelector(
-                        "button"
-                    )
-            ) {
-                actionElement.innerHTML = `
+  if (actionElement) {
+    if (quest.completed && !quest.claimed) {
+      if (!actionElement.querySelector("button")) {
+        actionElement.innerHTML = `
                     <button
                         onclick="claimQuestReward(
                             '${quest.id}'
@@ -336,290 +212,191 @@ function updateQuestCard(
                         Odbierz nagrodę
                     </button>
                 `;
-            }
-        } else {
-            actionElement.innerHTML =
-                "";
-        }
+      }
+    } else {
+      actionElement.innerHTML = "";
     }
+  }
 
-    return true;
+  return true;
 }
 
 function getQuestCompletionSummary(
-    categoryId = "all",
-    huntingLocationId = "all"
+  categoryId = "all",
+  huntingLocationId = "all",
 ) {
-    const matchingQuests =
-        quests.filter(quest => {
-            const requiredLevel =
-                Number(
-                    quest.requiredLevel
-                ) || 1;
+  const matchingQuests = quests.filter((quest) => {
+    const requiredLevel = Number(quest.requiredLevel) || 1;
 
-            if (
-                player.level <
-                requiredLevel
-            ) {
-                return false;
-            }
+    if (player.level < requiredLevel) {
+      return false;
+    }
 
-            return doesQuestMatchFilters(
-                quest,
-                categoryId,
-                huntingLocationId
-            );
-        });
+    return doesQuestMatchFilters(quest, categoryId, huntingLocationId);
+  });
 
-    const completedStages =
-        matchingQuests.filter(
-            quest => {
-                return (
-                    quest.claimed ===
-                    true
-                );
-            }
-        ).length;
+  const completedStages = matchingQuests.filter((quest) => {
+    return quest.claimed === true;
+  }).length;
 
-    const totalStages =
-        matchingQuests.length;
+  const totalStages = matchingQuests.length;
 
-    const completionPercent =
-        totalStages > 0
-            ? (
-                completedStages /
-                totalStages
-            ) * 100
-            : 0;
+  const completionPercent =
+    totalStages > 0 ? (completedStages / totalStages) * 100 : 0;
 
-    return {
-        completedStages,
-        totalStages,
-        completionPercent
-    };
+  return {
+    completedStages,
+    totalStages,
+    completionPercent,
+  };
 }
 
 function renderQuests() {
-    const container = document.getElementById("quests");
-    if (!container) return;
+  const container = document.getElementById("quests");
+  if (!container) return;
 
-    container.innerHTML = "";
-    quests.forEach(
-        quest => {
-            syncQuestProgressWithBestiary(
-                quest
-            );
-        }
-    );
+  container.innerHTML = "";
+  quests.forEach((quest) => {
+    syncQuestProgressWithBestiary(quest);
+  });
 
-    const allQuestLocations =
-        typeof locations !==
-            "undefined"
-            ? Object.values(
-                locations
-            )
-            : [];
+  const allQuestLocations =
+    typeof locations !== "undefined" ? Object.values(locations) : [];
 
-    const unlockedQuestLocations =
-        allQuestLocations.filter(
-            location => {
-                const requiredLevel =
-                    Number(
-                        location.requiredLevel
-                    ) || 1;
+  const unlockedQuestLocations = allQuestLocations.filter((location) => {
+    const requiredLevel = Number(location.requiredLevel) || 1;
 
-                return (
-                    player.level >=
-                    requiredLevel
-                );
-            }
-        );
+    return player.level >= requiredLevel;
+  });
 
-    const allowedHuntingLocationFilters = [
-        "all",
-        ...unlockedQuestLocations.map(
-            location => {
-                return location.id;
-            }
-        )
-    ];
+  const allowedHuntingLocationFilters = [
+    "all",
+    ...unlockedQuestLocations.map((location) => {
+      return location.id;
+    }),
+  ];
 
-    if (
-        !allowedHuntingLocationFilters.includes(
-            currentQuestHuntingLocationFilter
-        )
-    ) {
-        currentQuestHuntingLocationFilter =
-            "all";
+  if (
+    !allowedHuntingLocationFilters.includes(currentQuestHuntingLocationFilter)
+  ) {
+    currentQuestHuntingLocationFilter = "all";
 
-        localStorage.setItem(
-            "idler_quest_hunting_location_filter",
-            "all"
-        );
+    localStorage.setItem("idler_quest_hunting_location_filter", "all");
+  }
+
+  const visibleQuests = quests.filter((quest) => {
+    if (!isQuestUnlocked(quest)) {
+      return false;
     }
 
-    const visibleQuests =
-        quests.filter(quest => {
-            if (
-                !isQuestUnlocked(
-                    quest
-                )
-            ) {
-                return false;
-            }
+    if (shouldHideClaimedQuestStage(quest)) {
+      return false;
+    }
+    const requiredLevel = Number(quest.requiredLevel) || 1;
 
-            if (
-                shouldHideClaimedQuestStage(
-                    quest
-                )
-            ) {
-                return false;
-            }
-            const requiredLevel =
-                Number(
-                    quest.requiredLevel
-                ) || 1;
-
-            if (
-                player.level <
-                requiredLevel
-            ) {
-                return false;
-            }
-
-            return doesQuestMatchFilters(
-                quest,
-                currentQuestCategoryFilter,
-                currentQuestHuntingLocationFilter
-            );
-        });
-
-    const claimableQuests =
-        quests.filter(quest => {
-            const requiredLevel =
-                Number(
-                    quest.requiredLevel
-                ) || 1;
-
-            return (
-                player.level >=
-                requiredLevel &&
-                quest.completed &&
-                !quest.claimed
-            );
-        });
-
-    const actionsContainer =
-        document.createElement("div");
-
-    actionsContainer.className =
-        "quest-actions";
-
-    const claimAllButton =
-        document.createElement("button");
-
-    claimAllButton.className =
-        "quest-claim-all-button";
-
-    claimAllButton.type = "button";
-
-    if (claimableQuests.length > 0) {
-        claimAllButton.textContent =
-            "🎁 Odbierz wszystkie (" +
-            claimableQuests.length +
-            ")";
-
-        claimAllButton.disabled = false;
-    } else {
-        claimAllButton.textContent =
-            "Brak nagród do odebrania";
-
-        claimAllButton.disabled = true;
+    if (player.level < requiredLevel) {
+      return false;
     }
 
-    claimAllButton.addEventListener(
-        "click",
-        claimAllQuestRewards
+    return doesQuestMatchFilters(
+      quest,
+      currentQuestCategoryFilter,
+      currentQuestHuntingLocationFilter,
     );
+  });
 
-    actionsContainer.appendChild(
-        claimAllButton
-    );
+  const claimableQuests = quests.filter((quest) => {
+    const requiredLevel = Number(quest.requiredLevel) || 1;
 
-    container.appendChild(
-        actionsContainer
-    );
+    return player.level >= requiredLevel && quest.completed && !quest.claimed;
+  });
 
-    const categoryTabs =
-        document.createElement("div");
+  const actionsContainer = document.createElement("div");
 
-    categoryTabs.className =
-        "quest-category-tabs";
+  actionsContainer.className = "quest-actions";
 
-    const categoryDefinitions = [
-        {
-            id: "all",
-            icon: "📜",
-            name: "Wszystkie"
-        },
-        {
-            id: "hunting",
-            icon: "⚔️",
-            name: "Polowanie"
-        },
-        {
-            id: "mining",
-            icon: "⛏️",
-            name: "Kopalnia"
-        },
-        {
-            id: "herbalism",
-            icon: "🌿",
-            name: "Zielarstwo"
-        },
-        {
-            id: "garden",
-            icon: "🌱",
-            name: "Ogród"
-        },
-        {
-            id: "fishing",
-            icon: "🎣",
-            name: "Łowienie"
-        },
-        {
-            id: "alchemy",
-            icon: "🧪",
-            name: "Alchemia"
-        },
-        {
-            id: "cooking",
-            icon: "🍳",
-            name: "Gotowanie"
-        },
-        {
-            id: "crafting",
-            icon: "🛠️",
-            name: "Wytwarzanie"
-        }
-    ];
+  const claimAllButton = document.createElement("button");
 
-    categoryDefinitions.forEach(
-        definition => {
-            const summary =
-                getQuestCompletionSummary(
-                    definition.id,
-                    "all"
-                );
-            const button =
-                document.createElement(
-                    "button"
-                );
+  claimAllButton.className = "quest-claim-all-button";
 
-            button.type = "button";
-            button.className =
-                "quest-category-tab-button";
-            button.innerHTML = `
+  claimAllButton.type = "button";
+
+  if (claimableQuests.length > 0) {
+    claimAllButton.textContent =
+      "🎁 Odbierz wszystkie (" + claimableQuests.length + ")";
+
+    claimAllButton.disabled = false;
+  } else {
+    claimAllButton.textContent = "Brak nagród do odebrania";
+
+    claimAllButton.disabled = true;
+  }
+
+  claimAllButton.addEventListener("click", claimAllQuestRewards);
+
+  actionsContainer.appendChild(claimAllButton);
+
+  container.appendChild(actionsContainer);
+
+  const categoryTabs = document.createElement("div");
+
+  categoryTabs.className = "quest-category-tabs";
+
+  const categoryDefinitions = [
+    {
+      id: "all",
+      icon: "📜",
+      name: "Wszystkie",
+    },
+    {
+      id: "hunting",
+      icon: "⚔️",
+      name: "Polowanie",
+    },
+    {
+      id: "mining",
+      icon: "⛏️",
+      name: "Kopalnia",
+    },
+    {
+      id: "herbalism",
+      icon: "🌿",
+      name: "Zielarstwo",
+    },
+    {
+      id: "garden",
+      icon: "🌱",
+      name: "Ogród",
+    },
+    {
+      id: "fishing",
+      icon: "🎣",
+      name: "Łowienie",
+    },
+    {
+      id: "alchemy",
+      icon: "🧪",
+      name: "Alchemia",
+    },
+    {
+      id: "cooking",
+      icon: "🍳",
+      name: "Gotowanie",
+    },
+    {
+      id: "crafting",
+      icon: "🛠️",
+      name: "Wytwarzanie",
+    },
+  ];
+
+  categoryDefinitions.forEach((definition) => {
+    const summary = getQuestCompletionSummary(definition.id, "all");
+    const button = document.createElement("button");
+
+    button.type = "button";
+    button.className = "quest-category-tab-button";
+    button.innerHTML = `
                 <span>
                     ${definition.icon}
                     ${definition.name}
@@ -629,149 +406,94 @@ function renderQuests() {
                 </small>
             `;
 
-            if (
-                currentQuestCategoryFilter ===
-                definition.id
-            ) {
-                button.classList.add("active");
-            }
-
-            button.addEventListener(
-                "click",
-                () => {
-                    setQuestCategoryFilter(
-                        definition.id
-                    );
-                }
-            );
-
-            categoryTabs.appendChild(button);
-        }
-    );
-
-    container.appendChild(categoryTabs);
-
-    if (
-        currentQuestCategoryFilter ===
-        "hunting"
-    ) {
-        const locationSubtabs =
-            document.createElement("div");
-
-        locationSubtabs.className =
-            "quest-location-subtabs";
-
-        const locationDefinitions = [
-            {
-                id: "all",
-                name: "Wszystkie lokacje"
-            },
-            ...unlockedQuestLocations.map(
-                location => {
-                    return {
-                        id: location.id,
-                        name: location.name
-                    };
-                }
-            )
-        ];
-
-        locationDefinitions.forEach(
-            definition => {
-                const button =
-                    document.createElement(
-                        "button"
-                    );
-
-                button.type = "button";
-                button.className =
-                    "quest-location-subtab-button";
-                button.textContent =
-                    definition.name;
-
-                if (
-                    currentQuestHuntingLocationFilter ===
-                    definition.id
-                ) {
-                    button.classList.add(
-                        "active"
-                    );
-                }
-
-                button.addEventListener(
-                    "click",
-                    () => {
-                        setQuestHuntingLocationFilter(
-                            definition.id
-                        );
-                    }
-                );
-
-                locationSubtabs.appendChild(
-                    button
-                );
-            }
-        );
-
-        container.appendChild(
-            locationSubtabs
-        );
+    if (currentQuestCategoryFilter === definition.id) {
+      button.classList.add("active");
     }
 
-    const completionSummary =
-        getQuestCompletionSummary(
-            currentQuestCategoryFilter,
-            currentQuestHuntingLocationFilter
-        );
+    button.addEventListener("click", () => {
+      setQuestCategoryFilter(definition.id);
+    });
 
-    const completionSummaryContainer =
-        document.createElement(
-            "div"
-        );
+    categoryTabs.appendChild(button);
+  });
 
-    completionSummaryContainer.className =
-        "quest-completion-summary";
+  container.appendChild(categoryTabs);
 
-    const completionTitles = {
-        all: "📜 Wszystkie zadania",
-        hunting: "⚔️ Polowanie",
-        mining: "⛏️ Kopalnia",
-        herbalism: "🌿 Zielarstwo",
-        garden: "🌱 Ogród",
-        fishing: "🎣 Łowienie",
-        alchemy: "🧪 Alchemia",
-        cooking: "🍳 Gotowanie",
-        crafting: "🛠️ Wytwarzanie"
-    };
+  if (currentQuestCategoryFilter === "hunting") {
+    const locationSubtabs = document.createElement("div");
 
-    const selectedQuestLocation =
-        currentQuestCategoryFilter ===
-            "hunting" &&
-            currentQuestHuntingLocationFilter !==
-            "all"
-            ? unlockedQuestLocations.find(
-                location => {
-                    return (
-                        location.id ===
-                        currentQuestHuntingLocationFilter
-                    );
-                }
-            )
-            : null;
+    locationSubtabs.className = "quest-location-subtabs";
 
-    const completionTitle =
-        selectedQuestLocation?.name ||
-        completionTitles[
-        currentQuestCategoryFilter
-        ];
+    const locationDefinitions = [
+      {
+        id: "all",
+        name: "Wszystkie lokacje",
+      },
+      ...unlockedQuestLocations.map((location) => {
+        return {
+          id: location.id,
+          name: location.name,
+        };
+      }),
+    ];
 
-    const completionPercentText =
-        Math.floor(
-            completionSummary
-                .completionPercent
-        ) + "%";
+    locationDefinitions.forEach((definition) => {
+      const button = document.createElement("button");
 
-    completionSummaryContainer.innerHTML = `
+      button.type = "button";
+      button.className = "quest-location-subtab-button";
+      button.textContent = definition.name;
+
+      if (currentQuestHuntingLocationFilter === definition.id) {
+        button.classList.add("active");
+      }
+
+      button.addEventListener("click", () => {
+        setQuestHuntingLocationFilter(definition.id);
+      });
+
+      locationSubtabs.appendChild(button);
+    });
+
+    container.appendChild(locationSubtabs);
+  }
+
+  const completionSummary = getQuestCompletionSummary(
+    currentQuestCategoryFilter,
+    currentQuestHuntingLocationFilter,
+  );
+
+  const completionSummaryContainer = document.createElement("div");
+
+  completionSummaryContainer.className = "quest-completion-summary";
+
+  const completionTitles = {
+    all: "📜 Wszystkie zadania",
+    hunting: "⚔️ Polowanie",
+    mining: "⛏️ Kopalnia",
+    herbalism: "🌿 Zielarstwo",
+    garden: "🌱 Ogród",
+    fishing: "🎣 Łowienie",
+    alchemy: "🧪 Alchemia",
+    cooking: "🍳 Gotowanie",
+    crafting: "🛠️ Wytwarzanie",
+  };
+
+  const selectedQuestLocation =
+    currentQuestCategoryFilter === "hunting" &&
+    currentQuestHuntingLocationFilter !== "all"
+      ? unlockedQuestLocations.find((location) => {
+          return location.id === currentQuestHuntingLocationFilter;
+        })
+      : null;
+
+  const completionTitle =
+    selectedQuestLocation?.name || completionTitles[currentQuestCategoryFilter];
+
+  const completionPercentText =
+    Math.floor(completionSummary.completionPercent) + "%";
+
+  completionSummaryContainer.innerHTML = `
     <div
         class="
             quest-completion-summary-header
@@ -821,29 +543,24 @@ function renderQuests() {
     </div>
 `;
 
-    container.appendChild(
-        completionSummaryContainer
-    );
+  container.appendChild(completionSummaryContainer);
 
-    const sortedQuests =
-        [...visibleQuests].sort((a, b) => {
-            const getQuestOrder = (quest) => {
-                if (quest.completed && !quest.claimed) return 1;
-                if (!quest.completed && !quest.claimed) return 2;
-                if (quest.claimed) return 3;
-                return 4;
-            };
+  const sortedQuests = [...visibleQuests].sort((a, b) => {
+    const getQuestOrder = (quest) => {
+      if (quest.completed && !quest.claimed) return 1;
+      if (!quest.completed && !quest.claimed) return 2;
+      if (quest.claimed) return 3;
+      return 4;
+    };
 
-            return getQuestOrder(a) - getQuestOrder(b);
-        });
+    return getQuestOrder(a) - getQuestOrder(b);
+  });
 
-    if (sortedQuests.length === 0) {
-        const emptyState =
-            document.createElement("div");
+  if (sortedQuests.length === 0) {
+    const emptyState = document.createElement("div");
 
-        emptyState.className =
-            "quest-empty-state";
-        emptyState.innerHTML = `
+    emptyState.className = "quest-empty-state";
+    emptyState.innerHTML = `
             <span>📜</span>
             <strong>Brak zadań w tej sekcji</strong>
             <p>
@@ -852,181 +569,140 @@ function renderQuests() {
             </p>
         `;
 
-        container.appendChild(emptyState);
+    container.appendChild(emptyState);
+  }
+
+  sortedQuests.forEach((quest) => {
+    const div = document.createElement("div");
+    div.className = "quest";
+
+    div.dataset.questId = quest.id;
+
+    if (quest.completed && !quest.claimed) {
+      div.classList.add("quest-completed");
     }
 
-    sortedQuests.forEach(quest => {
-        const div = document.createElement("div");
-        div.className = "quest";
+    if (quest.claimed) {
+      div.classList.add("quest-claimed");
+    }
 
-        div.dataset.questId =
-            quest.id;
+    const questName = quest.name || quest.title || "Zadanie";
+    const questDescription = quest.description || "";
 
-        if (quest.completed && !quest.claimed) {
-            div.classList.add("quest-completed");
-        }
+    const progress =
+      quest.progress ??
+      quest.current ??
+      quest.count ??
+      quest.currentKills ??
+      quest.kills ??
+      0;
 
-        if (quest.claimed) {
-            div.classList.add("quest-claimed");
-        }
+    const required =
+      quest.required ??
+      quest.target ??
+      quest.requiredAmount ??
+      quest.requiredKills ??
+      quest.targetKills ??
+      1;
 
-        const questName = quest.name || quest.title || "Zadanie";
-        const questDescription = quest.description || "";
+    const baseRewardExp = Math.max(
+      0,
+      Number(quest.rewardExp ?? quest.expReward ?? 0) || 0,
+    );
 
-        const progress =
-            quest.progress ??
-            quest.current ??
-            quest.count ??
-            quest.currentKills ??
-            quest.kills ??
-            0;
+    const rewardExp =
+      typeof getFinalQuestHeroExperience === "function"
+        ? getFinalQuestHeroExperience(quest)
+        : baseRewardExp;
 
-        const required =
-            quest.required ??
-            quest.target ??
-            quest.requiredAmount ??
-            quest.requiredKills ??
-            quest.targetKills ??
-            1;
+    const baseRewardActivityExp = Math.max(
+      0,
+      Number(quest.rewardActivityExp) || 0,
+    );
 
-        const baseRewardExp =
-            Math.max(
-                0,
-                Number(
-                    quest.rewardExp ??
-                    quest.expReward ??
-                    0
-                ) || 0
-            );
+    const rewardActivityExp =
+      typeof getFinalQuestActivityExperience === "function"
+        ? getFinalQuestActivityExperience(quest)
+        : baseRewardActivityExp;
 
-        const rewardExp =
-            typeof getFinalQuestHeroExperience ===
-                "function"
-                ? getFinalQuestHeroExperience(
-                    quest
-                )
-                : baseRewardExp;
+    const hasQuestExperienceBonus =
+      rewardExp > baseRewardExp || rewardActivityExp > baseRewardActivityExp;
+    const baseRewardGold =
+      typeof getQuestBaseGoldReward === "function"
+        ? getQuestBaseGoldReward(quest)
+        : Math.max(0, Number(quest.rewardGold ?? quest.goldReward ?? 0) || 0);
 
-        const baseRewardActivityExp =
-            Math.max(
-                0,
-                Number(
-                    quest.rewardActivityExp
-                ) || 0
-            );
+    const rewardGold =
+      typeof getFinalQuestGoldReward === "function"
+        ? getFinalQuestGoldReward(quest)
+        : baseRewardGold;
 
-        const rewardActivityExp =
-            typeof getFinalQuestActivityExperience ===
-                "function"
-                ? getFinalQuestActivityExperience(
-                    quest
-                )
-                : baseRewardActivityExp;
+    const hasTradeRewardBonus = rewardGold > baseRewardGold;
 
-        const hasQuestExperienceBonus =
-            rewardExp >
-            baseRewardExp ||
-            rewardActivityExp >
-            baseRewardActivityExp;
-        const baseRewardGold =
-            typeof getQuestBaseGoldReward ===
-                "function"
-                ? getQuestBaseGoldReward(
-                    quest
-                )
-                : Math.max(
-                    0,
-                    Number(
-                        quest.rewardGold ??
-                        quest.goldReward ??
-                        0
-                    ) || 0
-                );
+    const tradeRewardBonus = Math.max(0, rewardGold - baseRewardGold);
+    const activityRewardData = {
+      mining: {
+        icon: "⛏️",
+        label: "EXP kopania",
+      },
 
-        const rewardGold =
-            typeof getFinalQuestGoldReward ===
-                "function"
-                ? getFinalQuestGoldReward(
-                    quest
-                )
-                : baseRewardGold;
+      herbalism: {
+        icon: "🌿",
+        label: "EXP zielarstwa",
+      },
 
-        const hasTradeRewardBonus =
-            rewardGold >
-            baseRewardGold;
+      garden: {
+        icon: "🌱",
+        label: "EXP Ogrodnictwa",
+      },
 
-        const tradeRewardBonus =
-            Math.max(
-                0,
-                rewardGold -
-                baseRewardGold
-            );
-        const activityRewardData = {
-            mining: {
-                icon: "⛏️",
-                label: "EXP kopania"
-            },
+      alchemy: {
+        icon: "🧪",
+        label: "EXP alchemii",
+      },
 
-            herbalism: {
-                icon: "🌿",
-                label: "EXP zielarstwa"
-            },
+      crafting: {
+        icon: "🛠️",
+        label: "EXP craftingu",
+      },
 
-            garden: {
-                icon: "🌱",
-                label: "EXP Ogrodnictwa"
-            },
+      fishing: {
+        icon: "🎣",
+        label: "EXP łowienia",
+      },
 
-            alchemy: {
-                icon: "🧪",
-                label: "EXP alchemii"
-            },
+      cooking: {
+        icon: "🍳",
+        label: "EXP gotowania",
+      },
+    }[quest.activityId];
 
-            crafting: {
-                icon: "🛠️",
-                label: "EXP craftingu"
-            },
-
-            fishing: {
-                icon: "🎣",
-                label: "EXP łowienia"
-            },
-
-            cooking: {
-                icon: "🍳",
-                label: "EXP gotowania"
-            }
-        }[
-            quest.activityId
-        ];
-
-        const activityRewardHtml =
-            activityRewardData &&
-                rewardActivityExp > 0
-                ? `
+    const activityRewardHtml =
+      activityRewardData && rewardActivityExp > 0
+        ? `
             <span>
                 ${activityRewardData.icon}
                 ${rewardActivityExp}
                 ${activityRewardData.label}
             </span>
         `
-                : "";
+        : "";
 
-        const progressPercent = Math.min(100, (progress / required) * 100);
+    const progressPercent = Math.min(100, (progress / required) * 100);
 
-        let statusText = "W trakcie";
-        let buttonHtml = "";
+    let statusText = "W trakcie";
+    let buttonHtml = "";
 
-        if (quest.completed && !quest.claimed) {
-            statusText = "Gotowe";
-            buttonHtml = `<button onclick="claimQuestReward('${quest.id}')">Odbierz nagrodę</button>`;
-        }
+    if (quest.completed && !quest.claimed) {
+      statusText = "Gotowe";
+      buttonHtml = `<button onclick="claimQuestReward('${quest.id}')">Odbierz nagrodę</button>`;
+    }
 
-        if (quest.claimed) {
-            statusText = "Ukończone ✅";
-        }
+    if (quest.claimed) {
+      statusText = "Ukończone ✅";
+    }
 
-        div.innerHTML = `
+    div.innerHTML = `
             <h3>${questName}</h3>
 
             <p>${questDescription}</p>
@@ -1054,57 +730,49 @@ function renderQuests() {
     </span>
 <span
     class="
-        ${hasTradeRewardBonus
-                ? "quest-gold-reward-bonus"
-                : ""
-            }
+        ${hasTradeRewardBonus ? "quest-gold-reward-bonus" : ""}
     "
 >
     💰
 
-    ${hasTradeRewardBonus
-                ? `
+    ${
+      hasTradeRewardBonus
+        ? `
             <del>
-                ${baseRewardGold.toLocaleString(
-                    "pl-PL"
-                )}
+                ${baseRewardGold.toLocaleString("pl-PL")}
             </del>
 
             <strong>
-                ${rewardGold.toLocaleString(
-                    "pl-PL"
-                )} złota
+                ${rewardGold.toLocaleString("pl-PL")} złota
             </strong>
         `
-                : `
-            ${rewardGold.toLocaleString(
-                    "pl-PL"
-                )} złota
+        : `
+            ${rewardGold.toLocaleString("pl-PL")} złota
         `
-            }
+    }
 </span>
 
-${hasQuestExperienceBonus
-                ? `
+${
+  hasQuestExperienceBonus
+    ? `
         <span class="quest-experience-reward-bonus">
             📚 Doświadczony zleceniobiorca:
             +${getQuestExperienceBonus()}% EXP
         </span>
     `
-                : ""
-            }
+    : ""
+}
 
-${hasTradeRewardBonus
-                ? `
+${
+  hasTradeRewardBonus
+    ? `
         <span class="quest-trade-reward-bonus">
             📜 Renoma kupiecka:
-            +${tradeRewardBonus.toLocaleString(
-                    "pl-PL"
-                )} złota
+            +${tradeRewardBonus.toLocaleString("pl-PL")} złota
         </span>
     `
-                : ""
-            }
+    : ""
+}
     ${activityRewardHtml}
 </div>
 
@@ -1116,6 +784,6 @@ ${hasTradeRewardBonus
 </div>
         `;
 
-        container.appendChild(div);
-    });
+    container.appendChild(div);
+  });
 }

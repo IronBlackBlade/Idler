@@ -17,7 +17,6 @@ window.craftingMaterialRecipes = [
     craftingTimeSeconds: 10,
     requiresScroll: false,
     unlockCost: 0,
-    goldCost: 2,
 
     materials: [
       {
@@ -45,7 +44,6 @@ window.craftingMaterialRecipes = [
     craftingTimeSeconds: 10,
     requiresScroll: false,
     unlockCost: 0,
-    goldCost: 3,
 
     materials: [
       {
@@ -73,7 +71,6 @@ window.craftingMaterialRecipes = [
     craftingTimeSeconds: 10,
     requiresScroll: false,
     unlockCost: 0,
-    goldCost: 4,
 
     materials: [
       {
@@ -102,7 +99,6 @@ window.craftingMaterialRecipes = [
 
     requiresScroll: false,
     unlockCost: 0,
-    goldCost: 3,
 
     materials: [
       {
@@ -131,7 +127,6 @@ window.craftingMaterialRecipes = [
 
     requiresScroll: false,
     unlockCost: 0,
-    goldCost: 6,
 
     materials: [
       {
@@ -160,7 +155,6 @@ window.craftingMaterialRecipes = [
 
     requiresScroll: false,
     unlockCost: 0,
-    goldCost: 8,
 
     materials: [
       {
@@ -189,7 +183,6 @@ window.craftingMaterialRecipes = [
 
     requiresScroll: false,
     unlockCost: 0,
-    goldCost: 12,
 
     materials: [
       {
@@ -218,7 +211,6 @@ window.craftingMaterialRecipes = [
 
     requiresScroll: false,
     unlockCost: 0,
-    goldCost: 18,
 
     materials: [
       {
@@ -244,7 +236,6 @@ window.craftingMaterialRecipes = [
     craftingTimeSeconds: 36,
     requiresScroll: false,
     unlockCost: 0,
-    goldCost: 40,
     materials: [
       {
         itemId: "adamantite_ore",
@@ -273,7 +264,6 @@ window.craftingMaterialRecipes = [
     craftingTimeSeconds: 48,
     requiresScroll: false,
     unlockCost: 0,
-    goldCost: 90,
     materials: [
       {
         itemId: "dragonsteel_ore",
@@ -303,7 +293,6 @@ window.craftingMaterialRecipes = [
     craftingTimeSeconds: 10,
     requiresScroll: false,
     unlockCost: 0,
-    goldCost: 3,
 
     materials: [
       {
@@ -326,7 +315,6 @@ window.craftingMaterialRecipes = [
     craftingTimeSeconds: 12,
     requiresScroll: false,
     unlockCost: 0,
-    goldCost: 4,
 
     materials: [
       {
@@ -349,7 +337,6 @@ window.craftingMaterialRecipes = [
     craftingTimeSeconds: 15,
     requiresScroll: false,
     unlockCost: 0,
-    goldCost: 5,
 
     materials: [
       {
@@ -371,7 +358,6 @@ window.craftingMaterialRecipes = [
     craftingTimeSeconds: 30,
     requiresScroll: false,
     unlockCost: 0,
-    goldCost: 30,
     materials: [
       {
         itemId: "ice_wolf_fur",
@@ -392,7 +378,6 @@ window.craftingMaterialRecipes = [
     craftingTimeSeconds: 42,
     requiresScroll: false,
     unlockCost: 0,
-    goldCost: 65,
     materials: [
       {
         itemId: "lava_hound_hide",
@@ -415,7 +400,6 @@ window.craftingMaterialRecipes = [
     craftingTimeSeconds: 10,
     requiresScroll: false,
     unlockCost: 0,
-    goldCost: 2,
 
     materials: [
       {
@@ -439,7 +423,6 @@ window.craftingMaterialRecipes = [
     craftingTimeSeconds: 16,
     requiresScroll: false,
     unlockCost: 0,
-    goldCost: 12,
 
     materials: [
       {
@@ -461,7 +444,6 @@ window.craftingMaterialRecipes = [
     craftingTimeSeconds: 60,
     requiresScroll: false,
     unlockCost: 0,
-    goldCost: 140,
 
     materials: [
       {
@@ -487,7 +469,6 @@ window.craftingMaterialRecipes = [
     craftingTimeSeconds: 72,
     requiresScroll: false,
     unlockCost: 0,
-    goldCost: 190,
 
     materials: [
       {
@@ -513,7 +494,6 @@ window.craftingMaterialRecipes = [
     craftingTimeSeconds: 84,
     requiresScroll: false,
     unlockCost: 0,
-    goldCost: 260,
 
     materials: [
       {
@@ -542,7 +522,6 @@ window.craftingMaterialRecipes = [
 
     requiresScroll: false,
     unlockCost: 0,
-    goldCost: 1,
 
     materials: [
       {
@@ -567,7 +546,6 @@ window.craftingMaterialRecipes = [
 
     requiresScroll: false,
     unlockCost: 0,
-    goldCost: 25,
 
     materials: [
       {
@@ -595,7 +573,6 @@ window.craftingMaterialRecipes = [
 
     requiresScroll: false,
     unlockCost: 0,
-    goldCost: 50,
 
     materials: [
       {
@@ -621,7 +598,6 @@ window.craftingMaterialRecipes = [
     craftingTimeSeconds: 30,
     requiresScroll: false,
     unlockCost: 0,
-    goldCost: 120,
     materials: [
       {
         itemId: "crystal_shard",
@@ -650,7 +626,6 @@ window.craftingMaterialRecipes = [
     craftingTimeSeconds: 42,
     requiresScroll: false,
     unlockCost: 0,
-    goldCost: 250,
     materials: [
       {
         itemId: "prismatic_whetstone",
@@ -678,7 +653,6 @@ window.craftingMaterialRecipes = [
     craftingTimeSeconds: 55,
     requiresScroll: false,
     unlockCost: 0,
-    goldCost: 450,
     materials: [
       {
         itemId: "abyssal_whetstone",
@@ -708,9 +682,23 @@ window.craftingMaterialRecipes = [
     name: "Obciążona głowica obuchu",
     description: "Materiał używany do wytwarzania broni obuchowych.",
     requiredCraftingLevel: 5,
+    craftingExp: 45,
+    craftingTimeSeconds: 14,
     resultQuantity: 1,
     requiresScroll: false,
+    unlockCost: 0,
+    materials: [
+      {
+        itemId: "iron_ingot",
+        quantity: 2,
+      },
+      {
+        itemId: "wolf_claw",
+        quantity: 2,
+      },
+    ],
   },
+
   {
     id: "runic_core_recipe",
     name: "Runiczny rdzeń",
@@ -723,7 +711,6 @@ window.craftingMaterialRecipes = [
     craftingTimeSeconds: 20,
     requiresScroll: false,
     unlockCost: 0,
-    goldCost: 55,
     materials: [
       {
         itemId: "runic_stone",
@@ -750,9 +737,21 @@ window.craftingMaterialRecipes = [
     description:
       "Materiał używany do wytwarzania późniejszych broni obuchowych.",
     requiredCraftingLevel: 25,
+    craftingExp: 300,
     craftingTimeSeconds: 25,
     resultQuantity: 1,
     requiresScroll: false,
+    unlockCost: 0,
+    materials: [
+      {
+        itemId: "magma_core",
+        quantity: 2,
+      },
+      {
+        itemId: "obsidian_shard",
+        quantity: 3,
+      },
+    ],
   },
 
   {
@@ -767,8 +766,20 @@ window.craftingMaterialRecipes = [
     craftingTimeSeconds: 60,
     requiresScroll: false,
     unlockCost: 0,
-    goldCost: 140,
-    materials: [],
+    materials: [
+      {
+        itemId: "abyss_heart",
+        quantity: 1,
+      },
+      {
+        itemId: "void_plate",
+        quantity: 2,
+      },
+      {
+        itemId: "dark_matter",
+        quantity: 2,
+      },
+    ],
   },
 
   {
@@ -783,9 +794,20 @@ window.craftingMaterialRecipes = [
     craftingTimeSeconds: 72,
     requiresScroll: false,
     unlockCost: 0,
-    goldCost: 190,
-
-    materials: [],
+    materials: [
+      {
+        itemId: "deep_scale_plate",
+        quantity: 2,
+      },
+      {
+        itemId: "leviathan_crown",
+        quantity: 1,
+      },
+      {
+        itemId: "depth_essence",
+        quantity: 2,
+      },
+    ],
   },
 
   {
@@ -800,9 +822,20 @@ window.craftingMaterialRecipes = [
     craftingTimeSeconds: 84,
     requiresScroll: false,
     unlockCost: 0,
-    goldCost: 260,
-
-    materials: [],
+    materials: [
+      {
+        itemId: "prismatic_plate",
+        quantity: 2,
+      },
+      {
+        itemId: "prismatic_core",
+        quantity: 1,
+      },
+      {
+        itemId: "living_crystal",
+        quantity: 2,
+      },
+    ],
   },
 
   {
@@ -817,7 +850,6 @@ window.craftingMaterialRecipes = [
     craftingTimeSeconds: 14,
     requiresScroll: false,
     unlockCost: 0,
-    goldCost: 8,
     materials: [
       {
         itemId: "iron_ingot",
@@ -846,7 +878,6 @@ window.craftingMaterialRecipes = [
     craftingTimeSeconds: 28,
     requiresScroll: false,
     unlockCost: 0,
-    goldCost: 28,
     materials: [
       {
         itemId: "platinum_ingot",
@@ -879,7 +910,6 @@ window.craftingMaterialRecipes = [
     craftingTimeSeconds: 44,
     requiresScroll: false,
     unlockCost: 0,
-    goldCost: 70,
     materials: [
       {
         itemId: "adamantite_ingot",
@@ -912,7 +942,6 @@ window.craftingMaterialRecipes = [
     craftingTimeSeconds: 36,
     requiresScroll: false,
     unlockCost: 0,
-    goldCost: 140,
     materials: [
       {
         itemId: "crossbow_tension_mechanism",
@@ -944,7 +973,6 @@ window.craftingMaterialRecipes = [
     craftingTimeSeconds: 48,
     requiresScroll: false,
     unlockCost: 0,
-    goldCost: 280,
     materials: [
       {
         itemId: "abyss_echo_crossbow_mechanism",
@@ -976,7 +1004,6 @@ window.craftingMaterialRecipes = [
     craftingTimeSeconds: 60,
     requiresScroll: false,
     unlockCost: 0,
-    goldCost: 520,
     materials: [
       {
         itemId: "leviathan_pressure_crossbow_mechanism",
@@ -1009,7 +1036,6 @@ window.craftingMaterialRecipes = [
     craftingTimeSeconds: 60,
     requiresScroll: false,
     unlockCost: 0,
-    goldCost: 140,
 
     materials: [
       {
@@ -1029,12 +1055,12 @@ window.craftingMaterialRecipes = [
     category: "materials",
     subcategory: "bowyer",
     resultItemId: "deep_bowstring",
+    tier: 7,
     requiredCraftingLevel: 50,
     craftingExp: 1250,
     craftingTimeSeconds: 72,
     requiresScroll: false,
     unlockCost: 0,
-    goldCost: 190,
 
     materials: [
       {
@@ -1060,7 +1086,6 @@ window.craftingMaterialRecipes = [
     craftingTimeSeconds: 84,
     requiresScroll: false,
     unlockCost: 0,
-    goldCost: 260,
 
     materials: [
       {

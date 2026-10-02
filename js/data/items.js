@@ -690,7 +690,7 @@ const items = {
         value: 850
     },
 
-    heart_of_the_abyss: {
+    abyss_heart: {
         id: "abyss_heart",
         name: "Serce Otchłani",
         rarity: "legendary",
@@ -707,6 +707,17 @@ const items = {
         type: "dungeon_key",
         description:
             "Pozwala rozpocząć wyprawę do Cytadeli Otchłani.",
+        value: 0,
+        canSell: false
+    },
+
+    abyss_sovereign_trophy: {
+        id: "abyss_sovereign_trophy",
+        name: "Trofeum Suwerena Otchłani",
+        rarity: "legendary",
+        type: "dungeon_reward",
+        description:
+            "Dowód ukończenia Cytadeli Otchłani.",
         value: 0,
         canSell: false
     },
@@ -1455,7 +1466,7 @@ const items = {
         id: "runic_core",
         name: "Runiczny rdzeń",
         rarity: "epic",
-        type: "crafting_material",
+        type: "processed_material",
         value: 200
     },
 
@@ -1463,7 +1474,7 @@ const items = {
         id: "scorching_mace_head",
         name: "Rozżarzona głowica obuchu",
         rarity: "legendary",
-        type: "crafting_material",
+        type: "processed_material",
         value: 420,
         description: "Ciężka głowica obuchu nasycona ciepłem kamienia słonecznego i rdzenia magmy. Używana do wytwarzania potężnych młotów, buław i maczug."
     },
@@ -1472,7 +1483,7 @@ const items = {
         id: "abyss_mace_head",
         name: "Głowica Otchłani",
         rarity: "epic",
-        type: "crafting_material",
+        type: "processed_material",
         value: 1800
     },
 
@@ -1480,7 +1491,7 @@ const items = {
         id: "deep_mace_head",
         name: "Głowica Głębinowa",
         rarity: "epic",
-        type: "crafting_material",
+        type: "processed_material",
         value: 2600
     },
 
@@ -1488,7 +1499,7 @@ const items = {
         id: "prismatic_mace_head",
         name: "Pryzmatyczna głowica",
         rarity: "legendary",
-        type: "crafting_material",
+        type: "processed_material",
         value: 3800
     },
 
@@ -1497,7 +1508,7 @@ const items = {
         name: "Prosty mechanizm spustowy",
         icon: "⚙️",
         rarity: "uncommon",
-        type: "crafting_material",
+        type: "processed_material",
         value: 75,
         description: "Podstawowy mechanizm używany do wytwarzania pierwszych kusz."
     },
@@ -1507,7 +1518,7 @@ const items = {
         name: "Wzmocniony mechanizm naciągowy",
         icon: "⚙️",
         rarity: "rare",
-        type: "crafting_material",
+        type: "processed_material",
         value: 220,
         description: "Solidny mechanizm naciągowy wzmacniający siłę strzału kuszy."
     },
@@ -1517,7 +1528,7 @@ const items = {
         name: "Mechanizm naciągowy kuszy",
         icon: "⚙️",
         rarity: "epic",
-        type: "crafting_material",
+        type: "processed_material",
         value: 520,
         description: "Zaawansowany mechanizm naciągowy używany do wytwarzania najlepszych kusz."
     },
@@ -1612,7 +1623,7 @@ const items = {
         id: "void_plate",
         name: "Płyta z materii pustki",
         rarity: "epic",
-        type: "crafting_material",
+        type: "processed_material",
         value: 1900
     },
 
@@ -1620,7 +1631,7 @@ const items = {
         id: "deep_scale_plate",
         name: "Płyta z łusek głębinowców",
         rarity: "epic",
-        type: "crafting_material",
+        type: "processed_material",
         value: 2800
     },
 
@@ -1628,7 +1639,7 @@ const items = {
         id: "prismatic_plate",
         name: "Pryzmatyczna płyta",
         rarity: "legendary",
-        type: "crafting_material",
+        type: "processed_material",
         value: 3500
     },
 
@@ -1636,7 +1647,7 @@ const items = {
         id: "dimensional_bowstring",
         name: "Struna Rozdartego Wymiaru",
         rarity: "epic",
-        type: "crafting_material",
+        type: "processed_material",
         value: 1700
     },
 
@@ -1644,7 +1655,7 @@ const items = {
         id: "deep_bowstring",
         name: "Śpiewająca Cięciwa Głębin",
         rarity: "epic",
-        type: "crafting_material",
+        type: "processed_material",
         value: 2500
     },
 
@@ -1652,7 +1663,7 @@ const items = {
         id: "prismatic_bowstring",
         name: "Nić Pryzmatycznego Światła",
         rarity: "legendary",
-        type: "crafting_material",
+        type: "processed_material",
         value: 3700
     },
 
@@ -3656,9 +3667,9 @@ const items = {
         value: 9000,
     },
 
-    nature_staff_base: {
-        id: "nature_staff_base",
-        name: "Kostur natury",
+    simple_staff: {
+        id: "simple_staff",
+        name: "Prosty kostur",
         rarity: "common",
         type: "weapon",
         weaponType: "magic",
@@ -3680,9 +3691,9 @@ const items = {
         value: 48,
     },
 
-    crystal_staff_base: {
-        id: "crystal_staff_base",
-        name: "Kryształowy kostur",
+    apprentice_staff: {
+        id: "apprentice_staff",
+        name: "Kostur ucznia",
         rarity: "common",
         type: "weapon",
         weaponType: "magic",
@@ -3704,9 +3715,9 @@ const items = {
         value: 152,
     },
 
-    guardian_staff_base: {
-        id: "guardian_staff_base",
-        name: "Kostur strażnika",
+    adept_staff: {
+        id: "adept_staff",
+        name: "Kostur adepta",
         rarity: "common",
         type: "weapon",
         weaponType: "magic",
@@ -3752,9 +3763,9 @@ const items = {
         value: 840,
     },
 
-    arcane_guardian_staff_base: {
-        id: "arcane_guardian_staff_base",
-        name: "Kostur arkanicznego strażnika",
+    battle_staff: {
+        id: "battle_staff",
+        name: "Kostur bojowy",
         rarity: "common",
         type: "weapon",
         weaponType: "magic",
@@ -3776,9 +3787,9 @@ const items = {
         value: 1720,
     },
 
-    frost_giant_staff_base: {
-        id: "frost_giant_staff_base",
-        name: "Kostur lodowego giganta",
+    mage_staff: {
+        id: "mage_staff",
+        name: "Kostur maga",
         rarity: "common",
         type: "weapon",
         weaponType: "magic",
@@ -3800,9 +3811,9 @@ const items = {
         value: 3280,
     },
 
-    shadow_staff_base: {
-        id: "shadow_staff_base",
-        name: "Kostur cienia",
+    heavy_battle_staff: {
+        id: "heavy_battle_staff",
+        name: "Ciężki kostur bojowy",
         rarity: "common",
         type: "weapon",
         weaponType: "magic",
@@ -3812,9 +3823,9 @@ const items = {
         value: 7500,
     },
 
-    volcanic_staff_base: {
-        id: "volcanic_staff_base",
-        name: "Wulkaniczny kostur",
+    master_staff: {
+        id: "master_staff",
+        name: "Mistrzowski kostur",
         rarity: "common",
         type: "weapon",
         weaponType: "magic",
@@ -4468,9 +4479,9 @@ const items = {
         value: 14000,
     },
 
-    nature_wand_base: {
-        id: "nature_wand_base",
-        name: "Różdżka natury",
+    wooden_wand: {
+        id: "wooden_wand",
+        name: "Drewniana różdżka",
         rarity: "common",
         type: "weapon",
         weaponType: "magic",
@@ -4492,9 +4503,9 @@ const items = {
         value: 48,
     },
 
-    crystal_wand_base: {
-        id: "crystal_wand_base",
-        name: "Kryształowa różdżka",
+    simple_wand: {
+        id: "simple_wand",
+        name: "Prosta różdżka",
         rarity: "common",
         type: "weapon",
         weaponType: "magic",
@@ -4516,9 +4527,9 @@ const items = {
         value: 152,
     },
 
-    guardian_wand_base: {
-        id: "guardian_wand_base",
-        name: "Różdżka strażnika",
+    apprentice_wand: {
+        id: "apprentice_wand",
+        name: "Różdżka ucznia",
         rarity: "common",
         type: "weapon",
         weaponType: "magic",
@@ -4564,9 +4575,9 @@ const items = {
         value: 840,
     },
 
-    shadow_wand_base: {
-        id: "shadow_wand_base",
-        name: "Różdżka cienia",
+    arcane_wand: {
+        id: "arcane_wand",
+        name: "Tajemna różdżka",
         rarity: "common",
         type: "weapon",
         weaponType: "magic",
@@ -4588,9 +4599,9 @@ const items = {
         value: 1680,
     },
 
-    commander_wand_base: {
-        id: "commander_wand_base",
-        name: "Różdżka dowódcy",
+    magic_wand: {
+        id: "magic_wand",
+        name: "Różdżka maga",
         rarity: "common",
         type: "weapon",
         weaponType: "magic",
@@ -4624,9 +4635,9 @@ const items = {
         value: 7000,
     },
 
-    arcane_wand_base: {
-        id: "arcane_wand_base",
-        name: "Różdżka arkaniczna",
+    archmaster_wand: {
+        id: "archmaster_wand",
+        name: "Arcymistrzowska różdżka",
         rarity: "common",
         type: "weapon",
         weaponType: "magic",

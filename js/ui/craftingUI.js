@@ -531,7 +531,10 @@ function createProfessionToolUpgradeCard(recipe) {
     getRecipeCraftingDurationMs(recipe) / 1000,
   );
   const finalGoldCost = getRecipeTotalGoldCost(recipe, 1);
-  const baseGoldCost = Math.max(0, Number(recipe.goldCost) || 0);
+  const baseGoldCost =
+    typeof getBaseCraftingGoldCost === "function"
+      ? getBaseCraftingGoldCost(recipe)
+      : Math.max(0, Number(recipe.goldCost) || 0);
   const goldCostHtml =
     finalGoldCost < baseGoldCost
       ? `<s>${baseGoldCost}</s> ${finalGoldCost}`
@@ -983,9 +986,9 @@ function renderCrafting() {
         : "";
 
       const baseGoldCost =
-        economyBalance?.craftingGoldCost?.[Number(recipe.tier)] ??
-        Number(recipe.goldCost) ??
-        0;
+        typeof getBaseCraftingGoldCost === "function"
+          ? getBaseCraftingGoldCost(recipe)
+          : Math.max(0, Number(recipe.goldCost) || 0);
 
       const baseTotalGoldCost = baseGoldCost * selectedCraftCount;
 

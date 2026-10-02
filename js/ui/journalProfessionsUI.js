@@ -34,6 +34,12 @@ const journalProfessionDefinitions = [
         icon: "🛠️",
         name: "Wytwarzanie",
         description: "Wytworzone przedmioty i odblokowane receptury."
+    },
+    {
+        id: "garden",
+        icon: "🌱",
+        name: "Ogród",
+        description: "Zasadzone i zebrane rośliny oraz rozwój grządek."
     }
 ];
 
@@ -90,7 +96,8 @@ function normalizeJournalProfessionState(
         fishing: "ensureFishingState",
         alchemy: "ensureAlchemyState",
         cooking: "ensureCookingState",
-        crafting: "ensureCraftingState"
+        crafting: "ensureCraftingState",
+        garden: "ensureGardenState"
     };
 
     const ensureFunction =
@@ -186,6 +193,11 @@ function getJournalProfessionMetrics(
             ["⚒️", "Wytworzone", statistics.totalCrafted],
             ["📖", "Receptury", getJournalKnownRecipeCount("crafting", state)],
             ["⏳", "W kolejce", Array.isArray(state.queue) ? state.queue.length : 0]
+        ],
+        garden: [
+            ["🌱", "Zasadzone", statistics.totalPlanted],
+            ["🧺", "Zbiory", statistics.totalHarvests],
+            ["🎁", "Zebrane rośliny", statistics.totalHarvestedItems]
         ]
     };
 

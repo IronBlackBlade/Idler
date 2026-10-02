@@ -17,7 +17,7 @@ const abyss = {
             exp: 32000,
             items: [
                 {
-                    item: "heart_of_the_abyss",
+                    item: "abyss_heart",
                     quantity: 1
                 }
             ]
@@ -36,7 +36,7 @@ const abyss = {
                 chance: 35
             },
             {
-                item: "heart_of_the_abyss",
+                item: "abyss_heart",
                 chance: 18
             }
         ]

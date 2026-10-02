@@ -735,17 +735,26 @@ function upgradeProfessionToolImmediately(recipe) {
   };
 }
 
-function getFinalCraftingGoldCost(recipe) {
+function getBaseCraftingGoldCost(recipe) {
   if (!recipe) {
     return 0;
   }
 
   const tier = Number(recipe.tier);
+  const tierCost = window.economyBalance?.craftingGoldCost?.[tier];
 
-  const baseCost =
-    window.economyBalance?.craftingGoldCost?.[tier] ??
-    Number(recipe.goldCost) ??
-    0;
+  // Receptury z tierem zawsze korzystają z centralnej tabeli balansu.
+  // goldCost zostaje wyłącznie fallbackiem dla receptur bez tieru,
+  // takich jak ulepszenia narzędzi profesji.
+  if (Number.isFinite(tier) && Number.isFinite(Number(tierCost))) {
+    return Math.max(0, Number(tierCost));
+  }
+
+  return Math.max(0, Number(recipe.goldCost) || 0);
+}
+
+function getFinalCraftingGoldCost(recipe) {
+  const baseCost = getBaseCraftingGoldCost(recipe);
 
   const reduction =
     typeof getCraftingGoldReduction === "function"

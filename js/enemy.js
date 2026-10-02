@@ -1,121 +1,118 @@
 const enemy = {
-    id: "beetle",
-    name: "Chrząszcz",
-    hp: 20,
-    maxHp: 20,
-    attack: 3,
-    gold: 2,
-    exp: 4,
-    loot: []
+  id: "beetle",
+  name: "Chrząszcz",
+  hp: 20,
+  maxHp: 20,
+  attack: 3,
+  gold: 2,
+  exp: 4,
+  loot: [],
 };
 
 const enemyIcons = {
-    magma_warrior: "🗡️",
-    ember_stalker: "🔥",
-    obsidian_sage: "🔮",
-    inferno_colossus: "🗿",
-    flame_tyrant: "👑",
-    frostbound_knight: "🗡️",
-    glacial_hunter: "🏹",
-    winter_oracle: "🔮",
-    icebound_colossus: "🧊",
-    winter_sovereign: "👑",
-    runic_sentinel: "🔱",
-    guardian_phantom: "👻",
-    ancient_arbiter: "⚖️",
-    sanctum_colossus: "🗿",
-    eternal_guardian: "👑",
-    beetle: "🐞",
-    sheep: "🐑",
-    rat: "🐀",
-    wolf: "🐺",
-    goblin: "👺",
-    goblin_watcher: "👺",
-    goblin_guard: "🛡️",
-    goblin_shaman: "🪄",
-    goblin_brute: "💪",
-    goblin_king: "👑",
+  magma_warrior: "🗡️",
+  ember_stalker: "🔥",
+  obsidian_sage: "🔮",
+  inferno_colossus: "🗿",
+  flame_tyrant: "👑",
+  frostbound_knight: "🗡️",
+  glacial_hunter: "🏹",
+  winter_oracle: "🔮",
+  icebound_colossus: "🧊",
+  winter_sovereign: "👑",
+  runic_sentinel: "🔱",
+  guardian_phantom: "👻",
+  ancient_arbiter: "⚖️",
+  sanctum_colossus: "🗿",
+  eternal_guardian: "👑",
+  beetle: "🐞",
+  sheep: "🐑",
+  rat: "🐀",
+  wolf: "🐺",
+  goblin: "👺",
+  goblin_watcher: "👺",
+  goblin_guard: "🛡️",
+  goblin_shaman: "🪄",
+  goblin_brute: "💪",
+  goblin_king: "👑",
 
-    bat: "🦇",
-    cave_spider: "🕷️",
-    skeleton: "💀",
-    kobold: "👹",
-    kobold_scout: "👺",
-    kobold_sapper: "⛏️",
-    kobold_shaman: "🔮",
-    kobold_champion: "🛡️",
-    kobold_tunnel_king: "👑",
-    stone_golem: "🪨",
+  bat: "🦇",
+  cave_spider: "🕷️",
+  skeleton: "💀",
+  kobold: "👹",
+  kobold_scout: "👺",
+  kobold_sapper: "⛏️",
+  kobold_shaman: "🔮",
+  kobold_champion: "🛡️",
+  kobold_tunnel_king: "👑",
+  stone_golem: "🪨",
 
-    ruins_scarab: "🪲",
-    ruin_scavenger: "🗡️",
-    animated_armor: "🛡️",
-    ruin_sentinel: "🗿",
-    spectral_knight: "👻",
+  ruins_scarab: "🪲",
+  ruin_scavenger: "🗡️",
+  animated_armor: "🛡️",
+  ruin_sentinel: "🗿",
+  spectral_knight: "👻",
 
-    frost_wisp: "❄️",
-    ice_wolf: "🐺",
-    frozen_warrior: "💀",
-    frost_giant: "🧌",
-    ice_elemental: "🧊",
+  frost_wisp: "❄️",
+  ice_wolf: "🐺",
+  frozen_warrior: "💀",
+  frost_giant: "🧌",
+  ice_elemental: "🧊",
 
-    ash_scorpion: "🦂",
-    lava_hound: "🐺",
-    charred_skeleton: "💀",
-    magma_golem: "🗿",
-    fire_elemental: "🔥",
+  ash_scorpion: "🦂",
+  lava_hound: "🐺",
+  charred_skeleton: "💀",
+  magma_golem: "🗿",
+  fire_elemental: "🔥",
 
-    volcanic_dragon: "🐉",
-    frost_queen: "👑",
-    goblin_chief: "👺",
-    kobold_king: "👑",
-    ancient_guardian: "🗿",
+  volcanic_dragon: "🐉",
+  frost_queen: "👑",
+  goblin_chief: "👺",
+  kobold_king: "👑",
+  ancient_guardian: "🗿",
 
-    abyss_lord: "👑",
-    memory_devourer: "🧠",
-    dimension_weaver: "🕸️",
-    nameless_observer: "👁️",
-    void_herald: "🌑",
-    rift_architect: "🌀",
+  abyss_lord: "👑",
+  memory_devourer: "🧠",
+  dimension_weaver: "🕸️",
+  nameless_observer: "👁️",
+  void_herald: "🌑",
+  rift_architect: "🌀",
 
-    heart_of_the_mountain: "💠",
-    crystal_beetle: "🪲",
-    shardling: "💎",
-    geode_breaker: "🪨",
-    prismatic_manticore: "🦂",
-    crystal_spire_guardian: "🗿",
+  heart_of_the_mountain: "💠",
+  crystal_beetle: "🪲",
+  shardling: "💎",
+  geode_breaker: "🪨",
+  prismatic_manticore: "🦂",
+  crystal_spire_guardian: "🗿",
 
-    memory_keeper: "🧠",
-    rift_stalker: "🌀",
-    void_seer: "🔮",
-    chaos_colossus: "🗿",
-    abyss_citadel_sovereign: "👑",
+  memory_keeper: "🧠",
+  rift_stalker: "🌀",
+  void_seer: "🔮",
+  chaos_colossus: "🗿",
+  abyss_citadel_sovereign: "👑",
 
-    sunken_gate_guardian: "🌊",
-    court_hydromancer: "💧",
-    royal_siren: "🧜",
-    palace_reef_colossus: "🪸",
-    spectral_deep_king: "👑",
+  sunken_gate_guardian: "🌊",
+  court_hydromancer: "💧",
+  royal_siren: "🧜",
+  palace_reef_colossus: "🪸",
+  spectral_deep_king: "👑",
 
-    spire_crystal_sentinel: "🔱",
-    prismatic_channeler: "🔮",
-    geode_titan: "🪨",
-    spire_prismatic_guardian: "🛡️",
-    prismatic_spire_sovereign: "👑",
+  spire_crystal_sentinel: "🔱",
+  prismatic_channeler: "🔮",
+  geode_titan: "🪨",
+  spire_prismatic_guardian: "🛡️",
+  prismatic_spire_sovereign: "👑",
 
-    crown_leviathan: "👑",
-    drowned_royal_guard: "🛡️",
-    deep_hunter: "🔱",
-    abyss_siren: "🧜",
-    coral_colossus: "🪸",
-    sunken_throne_priest: "🐚"
+  crown_leviathan: "👑",
+  drowned_royal_guard: "🛡️",
+  deep_hunter: "🔱",
+  abyss_siren: "🧜",
+  coral_colossus: "🪸",
+  sunken_throne_priest: "🐚",
 };
 
 function getEnemyIcon(enemyId) {
-    return (
-        enemyIcons[enemyId] ||
-        "🐾"
-    );
+  return enemyIcons[enemyId] || "🐾";
 }
 
 /*
@@ -123,536 +120,370 @@ function getEnemyIcon(enemyId) {
  * otrzymywanego bezpośrednio
  * za pokonywanie przeciwników.
  */
-const COMBAT_GOLD_MULTIPLIERS =
-    Object.freeze({
-        enemy: 0.4,
-        boss: 0.7
-    });
+const COMBAT_GOLD_MULTIPLIERS = Object.freeze({
+  enemy: 0.4,
+  boss: 0.7,
+});
 
-function getBalancedEnemyGoldReward(
-    baseGold,
-    encounterType = "normal"
-) {
-    const safeBaseGold =
-        Math.max(
-            0,
-            Number(baseGold) || 0
-        );
+function getBalancedEnemyGoldReward(baseGold, encounterType = "normal") {
+  const safeBaseGold = Math.max(0, Number(baseGold) || 0);
 
-    if (safeBaseGold <= 0) {
-        return 0;
-    }
+  if (safeBaseGold <= 0) {
+    return 0;
+  }
 
-    const multiplier =
-        encounterType === "boss"
-            ? COMBAT_GOLD_MULTIPLIERS
-                .boss
-            : COMBAT_GOLD_MULTIPLIERS
-                .enemy;
+  const multiplier =
+    encounterType === "boss"
+      ? COMBAT_GOLD_MULTIPLIERS.boss
+      : COMBAT_GOLD_MULTIPLIERS.enemy;
 
-    /*
-     * Jeżeli potwór pierwotnie dawał
-     * złoto, gwarantujemy przynajmniej
-     * jedną sztukę złota.
-     */
-    return Math.max(
-        1,
-        Math.round(
-            safeBaseGold *
-            multiplier
-        )
-    );
+  /*
+   * Jeżeli potwór pierwotnie dawał
+   * złoto, gwarantujemy przynajmniej
+   * jedną sztukę złota.
+   */
+  return Math.max(1, Math.round(safeBaseGold * multiplier));
 }
 
 const enemyEncounterVariants = {
-    normal: {
-        id: "normal",
-        label: "Zwykły przeciwnik",
-        hpMultiplier: 1,
-        attackMultiplier: 1,
-        rewardMultiplier: 1,
-        lootChanceMultiplier: 1
-    },
+  normal: {
+    id: "normal",
+    label: "Zwykły przeciwnik",
+    hpMultiplier: 1,
+    attackMultiplier: 1,
+    rewardMultiplier: 1,
+    lootChanceMultiplier: 1,
+  },
 
-    strong: {
-        id: "strong",
-        label: "⭐ Silny przeciwnik",
-        hpMultiplier: 1.5,
-        attackMultiplier: 1.3,
-        rewardMultiplier: 1.5,
-        lootChanceMultiplier: 1.25
-    },
+  strong: {
+    id: "strong",
+    label: "⭐ Silny przeciwnik",
+    hpMultiplier: 1.5,
+    attackMultiplier: 1.3,
+    rewardMultiplier: 1.5,
+    lootChanceMultiplier: 1.25,
+  },
 
-    elite: {
-        id: "elite",
-        label: "💠 Elitarny przeciwnik",
-        hpMultiplier: 2,
-        attackMultiplier: 1.5,
-        rewardMultiplier: 2,
-        lootChanceMultiplier: 1.5
-    }
+  elite: {
+    id: "elite",
+    label: "💠 Elitarny przeciwnik",
+    hpMultiplier: 2,
+    attackMultiplier: 1.5,
+    rewardMultiplier: 2,
+    lootChanceMultiplier: 1.5,
+  },
 };
 
 const eliteEnemyModifiers = {
-    enraged: {
-        id: "enraged",
-        label: "🔥 Wściekły",
+  enraged: {
+    id: "enraged",
+    label: "🔥 Wściekły",
 
-        description:
-            "+30% ataku i +15% EXP.",
+    description: "+30% ataku i +15% EXP.",
 
-        hpMultiplier: 1,
-        attackMultiplier: 1.3,
-        goldMultiplier: 1,
-        expMultiplier: 1.15,
-        lootMultiplier: 1
-    },
+    hpMultiplier: 1,
+    attackMultiplier: 1.3,
+    goldMultiplier: 1,
+    expMultiplier: 1.15,
+    lootMultiplier: 1,
+  },
 
-    armored: {
-        id: "armored",
-        label: "🛡️ Opancerzony",
+  armored: {
+    id: "armored",
+    label: "🛡️ Opancerzony",
 
-        description:
-            "+60% HP i +25% EXP.",
+    description: "+60% HP i +25% EXP.",
 
-        hpMultiplier: 1.6,
-        attackMultiplier: 1,
-        goldMultiplier: 1,
-        expMultiplier: 1.25,
-        lootMultiplier: 1
-    },
+    hpMultiplier: 1.6,
+    attackMultiplier: 1,
+    goldMultiplier: 1,
+    expMultiplier: 1.25,
+    lootMultiplier: 1,
+  },
 
-    brutal: {
-        id: "brutal",
-        label: "💀 Okrutny",
+  brutal: {
+    id: "brutal",
+    label: "💀 Okrutny",
 
-        description:
-            "+25% HP, +20% ataku oraz +30% złota i EXP.",
+    description: "+25% HP, +20% ataku oraz +30% złota i EXP.",
 
-        hpMultiplier: 1.25,
-        attackMultiplier: 1.2,
-        goldMultiplier: 1.3,
-        expMultiplier: 1.3,
-        lootMultiplier: 1.1
-    },
+    hpMultiplier: 1.25,
+    attackMultiplier: 1.2,
+    goldMultiplier: 1.3,
+    expMultiplier: 1.3,
+    lootMultiplier: 1.1,
+  },
 
-    treasureKeeper: {
-        id: "treasureKeeper",
-        label: "💰 Skarbnik",
+  treasureKeeper: {
+    id: "treasureKeeper",
+    label: "💰 Skarbnik",
 
-        description:
-            "+100% złota i +50% szansy na łup.",
+    description: "+100% złota i +50% szansy na łup.",
 
-        hpMultiplier: 1,
-        attackMultiplier: 1,
-        goldMultiplier: 2,
-        expMultiplier: 1,
-        lootMultiplier: 1.5
-    }
+    hpMultiplier: 1,
+    attackMultiplier: 1,
+    goldMultiplier: 2,
+    expMultiplier: 1,
+    lootMultiplier: 1.5,
+  },
 };
 
 function rollEliteEnemyModifierId() {
-    const modifierIds =
-        Object.keys(
-            eliteEnemyModifiers
-        );
+  const modifierIds = Object.keys(eliteEnemyModifiers);
 
-    return modifierIds[
-        Math.floor(
-            Math.random() *
-            modifierIds.length
-        )
-    ];
+  return modifierIds[Math.floor(Math.random() * modifierIds.length)];
 }
 
 function applyEliteEnemyModifierToData(
-    enemyData,
-    modifierId =
-        rollEliteEnemyModifierId()
+  enemyData,
+  modifierId = rollEliteEnemyModifierId(),
 ) {
-    const modifier =
-        eliteEnemyModifiers[
-        modifierId
-        ];
+  const modifier = eliteEnemyModifiers[modifierId];
 
-    if (!modifier) {
-        return {
-            ...enemyData,
-            eliteModifierId: null,
-            eliteModifierLabel: "",
-            eliteModifierDescription: ""
-        };
-    }
-
-    const maximumHp = Math.max(
-        1,
-        Math.round(
-            (
-                Number(enemyData.maxHp) ||
-                Number(enemyData.hp) ||
-                1
-            ) *
-            modifier.hpMultiplier
-        )
-    );
-
+  if (!modifier) {
     return {
-        ...enemyData,
-
-        hp: maximumHp,
-        maxHp: maximumHp,
-
-        attack: Math.max(
-            1,
-            Math.round(
-                enemyData.attack *
-                modifier.attackMultiplier
-            )
-        ),
-
-        gold: Math.max(
-            0,
-            Math.round(
-                enemyData.gold *
-                modifier.goldMultiplier
-            )
-        ),
-
-        exp: Math.max(
-            0,
-            Math.round(
-                enemyData.exp *
-                modifier.expMultiplier
-            )
-        ),
-
-        lootChanceMultiplier:
-            (
-                Number(
-                    enemyData
-                        .lootChanceMultiplier
-                ) || 1
-            ) *
-            modifier.lootMultiplier,
-
-        eliteModifierId:
-            modifier.id,
-
-        eliteModifierLabel:
-            modifier.label,
-
-        eliteModifierDescription:
-            modifier.description
+      ...enemyData,
+      eliteModifierId: null,
+      eliteModifierLabel: "",
+      eliteModifierDescription: "",
     };
+  }
+
+  const maximumHp = Math.max(
+    1,
+    Math.round(
+      (Number(enemyData.maxHp) || Number(enemyData.hp) || 1) *
+        modifier.hpMultiplier,
+    ),
+  );
+
+  return {
+    ...enemyData,
+
+    hp: maximumHp,
+    maxHp: maximumHp,
+
+    attack: Math.max(
+      1,
+      Math.round(enemyData.attack * modifier.attackMultiplier),
+    ),
+
+    gold: Math.max(0, Math.round(enemyData.gold * modifier.goldMultiplier)),
+
+    exp: Math.max(0, Math.round(enemyData.exp * modifier.expMultiplier)),
+
+    lootChanceMultiplier:
+      (Number(enemyData.lootChanceMultiplier) || 1) * modifier.lootMultiplier,
+
+    eliteModifierId: modifier.id,
+
+    eliteModifierLabel: modifier.label,
+
+    eliteModifierDescription: modifier.description,
+  };
 }
 
-function getEnemyEncounterChances(
-    masteryPercent
-) {
-    if (masteryPercent >= 75) {
-        return {
-            strong: 25,
-            elite: 15
-        };
-    }
-
-    if (masteryPercent >= 50) {
-        return {
-            strong: 20,
-            elite: 10
-        };
-    }
-
-    if (masteryPercent >= 25) {
-        return {
-            strong: 15,
-            elite: 5
-        };
-    }
-
+function getEnemyEncounterChances(masteryPercent) {
+  if (masteryPercent >= 75) {
     return {
-        strong: 10,
-        elite: 0
+      strong: 25,
+      elite: 15,
     };
+  }
+
+  if (masteryPercent >= 50) {
+    return {
+      strong: 20,
+      elite: 10,
+    };
+  }
+
+  if (masteryPercent >= 25) {
+    return {
+      strong: 15,
+      elite: 5,
+    };
+  }
+
+  return {
+    strong: 10,
+    elite: 0,
+  };
 }
 
 function rollEnemyEncounterType() {
-    const masteryPercent =
-        typeof getLocationMasteryPercent ===
-            "function"
-            ? getLocationMasteryPercent(
-                player.location
-            )
-            : 0;
+  const masteryPercent =
+    typeof getLocationMasteryPercent === "function"
+      ? getLocationMasteryPercent(player.location)
+      : 0;
 
-    const chances =
-        getEnemyEncounterChances(
-            masteryPercent
-        );
+  const chances = getEnemyEncounterChances(masteryPercent);
 
-    const roll = Math.random() * 100;
+  const roll = Math.random() * 100;
 
-    if (roll <= chances.elite) {
-        return "elite";
-    }
+  if (roll <= chances.elite) {
+    return "elite";
+  }
 
-    if (
-        roll <=
-        chances.elite +
-        chances.strong
-    ) {
-        return "strong";
-    }
+  if (roll <= chances.elite + chances.strong) {
+    return "strong";
+  }
 
-    return "normal";
+  return "normal";
 }
 
-function applyEnemyEncounterVariant(
-    enemyData,
-    encounterType
-) {
-    const variant =
-        enemyEncounterVariants[
-        encounterType
-        ] ||
-        enemyEncounterVariants.normal;
+function applyEnemyEncounterVariant(enemyData, encounterType) {
+  const variant =
+    enemyEncounterVariants[encounterType] || enemyEncounterVariants.normal;
 
-    const masteryBonuses =
-        getLocationMasteryBonuses(
-            player.location
-        );
+  const masteryBonuses = getLocationMasteryBonuses(player.location);
 
-    const maximumHp = Math.max(
-        1,
-        Math.round(
-            enemyData.hp *
-            variant.hpMultiplier
-        )
-    );
+  const maximumHp = Math.max(
+    1,
+    Math.round(enemyData.hp * variant.hpMultiplier),
+  );
 
-    enemy.id = enemyData.id;
-    enemy.baseName = enemyData.name;
-    enemy.name = enemyData.name;
+  enemy.id = enemyData.id;
+  enemy.baseName = enemyData.name;
+  enemy.name = enemyData.name;
 
-    enemy.hp = maximumHp;
-    enemy.maxHp = maximumHp;
+  enemy.hp = maximumHp;
+  enemy.maxHp = maximumHp;
 
-    enemy.attack = Math.max(
-        1,
-        Math.round(
-            enemyData.attack *
-            variant.attackMultiplier
-        )
-    );
+  enemy.attack = Math.max(
+    1,
+    Math.round(enemyData.attack * variant.attackMultiplier),
+  );
 
-    enemy.gold = Math.max(
-        0,
-        Math.round(
-            enemyData.gold *
-            variant.rewardMultiplier *
-            (
-                1 +
-                masteryBonuses
-                    .goldBonus /
-                100
-            )
-        )
-    );
+  const enemyIndex = locations[player.location].enemies.indexOf(enemyData);
 
-    enemy.exp = Math.max(
-        0,
-        Math.round(
-            enemyData.exp *
-            variant.rewardMultiplier *
-            (
-                1 +
-                masteryBonuses
-                    .experienceBonus /
-                100
-            )
-        )
-    );
+  const baseMonsterGold =
+    economyBalance?.monsterGold?.[player.location]?.[enemyIndex + 1] ??
+    enemyData.gold;
 
-    enemy.loot = enemyData.loot;
+  enemy.gold = Math.max(
+    0,
+    Math.round(
+      baseMonsterGold *
+        variant.rewardMultiplier *
+        (1 + masteryBonuses.goldBonus / 100),
+    ),
+  );
 
-    enemy.encounterType =
-        variant.id;
+  enemy.exp = Math.max(
+    0,
+    Math.round(
+      enemyData.exp *
+        variant.rewardMultiplier *
+        (1 + masteryBonuses.experienceBonus / 100),
+    ),
+  );
 
-    enemy.encounterLabel =
-        variant.label;
+  enemy.loot = enemyData.loot;
 
-    enemy.lootChanceMultiplier =
-        variant.lootChanceMultiplier *
-        (
-            1 +
-            masteryBonuses
-                .lootChanceBonus /
-            100
-        );
+  enemy.encounterType = variant.id;
 
-    if (variant.id === "elite") {
-        Object.assign(
-            enemy,
-            applyEliteEnemyModifierToData(
-                enemy
-            )
-        );
-    } else {
-        enemy.eliteModifierId = null;
-        enemy.eliteModifierLabel = "";
-        enemy.eliteModifierDescription = "";
-    }
-    /*
- * Mnożnik ekonomii stosujemy dopiero
- * po wariancie przeciwnika, mistrzostwie
- * lokacji i modyfikatorze elity.
- */
-    enemy.gold =
-        getBalancedEnemyGoldReward(
-            enemy.gold,
-            variant.id
-        );
-}
+  enemy.encounterLabel = variant.label;
 
-function spawnEnemy() {
-    const currentLocation =
-        locations[player.location];
+  enemy.lootChanceMultiplier =
+    variant.lootChanceMultiplier * (1 + masteryBonuses.lootChanceBonus / 100);
 
-    const enemyList =
-        currentLocation.enemies;
-
-    const randomEnemy =
-        enemyList[
-        Math.floor(
-            Math.random() *
-            enemyList.length
-        )
-        ];
-
-    const encounterType =
-        rollEnemyEncounterType();
-
-    applyEnemyEncounterVariant(
-        randomEnemy,
-        encounterType
-    );
-
-    if (
-        typeof recordBestiaryEncounter ===
-        "function"
-    ) {
-        recordBestiaryEncounter(
-            enemy,
-            player.location
-        );
-    }
-
-    player.isBossFight = false;
-    enemy.isDungeonEncounter = false;
-    enemy.dungeonId = null;
-    enemy.dungeonRoomIndex = null;
-
-    if (
-        encounterType !== "normal" &&
-        typeof addCombatLog ===
-        "function"
-    ) {
-        addCombatLog(
-            enemy.encounterLabel +
-            (
-                enemy.eliteModifierLabel
-                    ? " · " +
-                    enemy.eliteModifierLabel
-                    : ""
-            ) +
-            ": " +
-            enemy.name +
-            "!" +
-            (
-                enemy.eliteModifierDescription
-                    ? " " +
-                    enemy.eliteModifierDescription
-                    : ""
-            )
-        );
-    }
-}
-
-function spawnBoss() {
-    const currentLocation = locations[player.location];
-
-    if (!currentLocation.boss) {
-        console.warn("This location has no boss:", player.location);
-        spawnEnemy();
-        return;
-    }
-
-    const boss = currentLocation.boss;
-    const masteryBonuses =
-        getLocationMasteryBonuses(
-            player.location
-        );
-    enemy.id = boss.id;
-    enemy.name = boss.name;
-    enemy.hp = boss.hp;
-    enemy.maxHp = boss.hp;
-    enemy.attack = boss.attack;
-    enemy.gold =
-        getBalancedEnemyGoldReward(
-            boss.gold *
-            (
-                1 +
-                masteryBonuses
-                    .goldBonus /
-                100
-            ),
-            "boss"
-        );
-
-    enemy.exp = Math.round(
-        boss.exp *
-        (
-            1 +
-            masteryBonuses
-                .experienceBonus /
-            100
-        )
-    );
-    enemy.loot = boss.loot;
-    enemy.baseName = boss.name;
-    enemy.encounterType = "boss";
-    enemy.encounterLabel = "👑 BOSS";
-    enemy.lootChanceMultiplier =
-        1 +
-        masteryBonuses
-            .lootChanceBonus /
-        100;
+  if (variant.id === "elite") {
+    Object.assign(enemy, applyEliteEnemyModifierToData(enemy));
+  } else {
     enemy.eliteModifierId = null;
     enemy.eliteModifierLabel = "";
     enemy.eliteModifierDescription = "";
-    enemy.isDungeonEncounter = false;
-    enemy.dungeonId = null;
-    enemy.dungeonRoomIndex = null;
-    player.isBossFight = true;
+  }
+  /*
+   * Mnożnik ekonomii stosujemy dopiero
+   * po wariancie przeciwnika, mistrzostwie
+   * lokacji i modyfikatorze elity.
+   */
+  enemy.gold = getBalancedEnemyGoldReward(enemy.gold, variant.id);
+}
 
-    if (
-        typeof recordBestiaryEncounter ===
-        "function"
-    ) {
-        recordBestiaryEncounter(
-            enemy,
-            player.location
-        );
-    }
+function spawnEnemy() {
+  const currentLocation = locations[player.location];
 
-    if (typeof addCombatLog === "function") {
-        addCombatLog("👑 Pojawił się boss: " + boss.name + "!");
-    }
+  const enemyList = currentLocation.enemies;
 
-    saveGame();
-    render();
+  const randomEnemy = enemyList[Math.floor(Math.random() * enemyList.length)];
+
+  const encounterType = rollEnemyEncounterType();
+
+  applyEnemyEncounterVariant(randomEnemy, encounterType);
+
+  if (typeof recordBestiaryEncounter === "function") {
+    recordBestiaryEncounter(enemy, player.location);
+  }
+
+  player.isBossFight = false;
+  enemy.isDungeonEncounter = false;
+  enemy.dungeonId = null;
+  enemy.dungeonRoomIndex = null;
+
+  if (encounterType !== "normal" && typeof addCombatLog === "function") {
+    addCombatLog(
+      enemy.encounterLabel +
+        (enemy.eliteModifierLabel ? " · " + enemy.eliteModifierLabel : "") +
+        ": " +
+        enemy.name +
+        "!" +
+        (enemy.eliteModifierDescription
+          ? " " + enemy.eliteModifierDescription
+          : ""),
+    );
+  }
+}
+
+function spawnBoss() {
+  const currentLocation = locations[player.location];
+
+  if (!currentLocation.boss) {
+    console.warn("This location has no boss:", player.location);
+    spawnEnemy();
+    return;
+  }
+
+  const boss = currentLocation.boss;
+  const masteryBonuses = getLocationMasteryBonuses(player.location);
+  enemy.id = boss.id;
+  enemy.name = boss.name;
+  enemy.hp = boss.hp;
+  enemy.maxHp = boss.hp;
+  enemy.attack = boss.attack;
+  enemy.gold = getBalancedEnemyGoldReward(
+    boss.gold * (1 + masteryBonuses.goldBonus / 100),
+    "boss",
+  );
+
+  enemy.exp = Math.round(boss.exp * (1 + masteryBonuses.experienceBonus / 100));
+  enemy.loot = boss.loot;
+  enemy.baseName = boss.name;
+  enemy.encounterType = "boss";
+  enemy.encounterLabel = "👑 BOSS";
+  enemy.lootChanceMultiplier = 1 + masteryBonuses.lootChanceBonus / 100;
+  enemy.eliteModifierId = null;
+  enemy.eliteModifierLabel = "";
+  enemy.eliteModifierDescription = "";
+  enemy.isDungeonEncounter = false;
+  enemy.dungeonId = null;
+  enemy.dungeonRoomIndex = null;
+  player.isBossFight = true;
+
+  if (typeof recordBestiaryEncounter === "function") {
+    recordBestiaryEncounter(enemy, player.location);
+  }
+
+  if (typeof addCombatLog === "function") {
+    addCombatLog("👑 Pojawił się boss: " + boss.name + "!");
+  }
+
+  saveGame();
+  render();
 }
 
 function resetEnemy() {
-    spawnEnemy();
+  spawnEnemy();
 }
