@@ -2700,6 +2700,18 @@ function getCraftingExperienceBonus() {
     );
 }
 
+function getFinalCraftingExperience(amount) {
+    const safeAmount = Math.max(0, Number(amount) || 0);
+
+    return Math.max(
+        0,
+        Math.floor(
+            safeAmount *
+            (1 + getCraftingExperienceBonus() / 100)
+        )
+    );
+}
+
 function getCraftingInstantCycleChance() {
     return Math.max(
         0,

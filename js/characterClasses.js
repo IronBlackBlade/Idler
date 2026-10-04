@@ -394,6 +394,9 @@ function getGuardianCombatHpRegenPercent() {
     );
 }
 
+let guardianCombatRegenLastAt = 0;
+let guardianCombatRegenRemainder = 0;
+
 function applyGuardianCombatRegeneration() {
     const combatIsActive =
         player.isFighting === true ||
@@ -407,6 +410,23 @@ function applyGuardianCombatRegeneration() {
         player.classId !== "guardian" ||
         Number(player.hp) <= 0
     ) {
+        guardianCombatRegenLastAt = 0;
+        guardianCombatRegenRemainder = 0;
+        return 0;
+    }
+
+    /*
+     * Procent regeneracji jest podawany na sekundę,
+     * więc leczenie liczymy od czasu ostatniego wywołania.
+     */
+    const now = Date.now();
+    const elapsedSeconds = guardianCombatRegenLastAt > 0
+        ? Math.min(5, Math.max(0, (now - guardianCombatRegenLastAt) / 1000))
+        : 0;
+
+    guardianCombatRegenLastAt = now;
+
+    if (elapsedSeconds <= 0) {
         return 0;
     }
 
@@ -417,6 +437,7 @@ function applyGuardianCombatRegeneration() {
     );
 
     if (player.hp >= maximumHp) {
+        guardianCombatRegenRemainder = 0;
         return 0;
     }
 
@@ -430,13 +451,19 @@ function applyGuardianCombatRegeneration() {
     const exactHealing =
         maximumHp *
         regenerationPercent /
-        100;
+        100 *
+        elapsedSeconds +
+        guardianCombatRegenRemainder;
+
+    const wholeHealing = Math.floor(exactHealing);
+
+    guardianCombatRegenRemainder = exactHealing - wholeHealing;
 
     const previousHp = player.hp;
 
     player.hp = Math.min(
         maximumHp,
-        player.hp + exactHealing
+        player.hp + wholeHealing
     );
 
     return player.hp - previousHp;

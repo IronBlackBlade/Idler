@@ -1931,6 +1931,11 @@ function addCompletedCraftingResults(recipe, completedCraftCount) {
 
   addCraftingExp(craftingExp);
 
+  const refundedMaterials =
+    typeof refundCraftingMaterialsFromTool === "function"
+      ? refundCraftingMaterialsFromTool(recipe, safeCompletedCraftCount)
+      : [];
+
   if (extraResultQuantity > 0 && typeof addSystemLog === "function") {
     addSystemLog(
       "✨ Kontrola jakości: dodatkowy rezultat x" + extraResultQuantity + ".",
@@ -1990,6 +1995,8 @@ function addCompletedCraftingResults(recipe, completedCraftCount) {
     stackableMasterpieceBonus: stackableMasterpieceBonus,
 
     losslessWorkshopRecoveryCount: losslessWorkshopResult.recoveryCount,
+
+    refundedMaterials: refundedMaterials,
   };
 }
 

@@ -22,7 +22,7 @@ function getTavernReputationToNextLevel(level) {
     return 5 + (normalizedLevel - 1) * 2;
 }
 
-function getDefaultTavernState() {
+function getDefaultCookingTavernState() {
     return {
         level: 1,
         reputation: 0,
@@ -40,7 +40,7 @@ function getDefaultCookingState() {
         exp: 0,
         expToNextLevel: getCookingExpToNextLevel(1),
         statistics: getDefaultCookingStatistics(),
-        tavern: getDefaultTavernState(),
+        tavern: getDefaultCookingTavernState(),
         lastResult: null
     };
 }
@@ -93,7 +93,7 @@ function ensureCookingState() {
         statistics.recipesById = {};
     }
 
-    ensureTavernState();
+    ensureCookingTavernState();
 }
 
 function getRandomInteger(minimum, maximum) {
@@ -178,12 +178,12 @@ function generateTavernOrder(excludedTemplateIds = []) {
     return order;
 }
 
-function ensureTavernState() {
+function ensureCookingTavernState() {
     if (
         !player.cooking.tavern ||
         typeof player.cooking.tavern !== "object"
     ) {
-        player.cooking.tavern = getDefaultTavernState();
+        player.cooking.tavern = getDefaultCookingTavernState();
     }
 
     const tavern = player.cooking.tavern;

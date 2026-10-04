@@ -220,115 +220,6 @@ function getGoblinHideoutKeyDropChance(bossKillsSinceKey) {
   return 50;
 }
 
-function tryGrantGoblinHideoutKey(defeatedEnemy, locationId = player.location) {
-  if (locationId !== "forest" || defeatedEnemy?.id !== "goblin_chief") {
-    return null;
-  }
-
-  const progress = ensureGoblinHideoutKeyProgress();
-
-  /*
-   * Pierwszy klucz jest zawsze
-   * gwarantowany.
-   */
-  if (progress.firstKeyGranted !== true) {
-    const itemGranted = addItemToInventory("goblin_hideout_key", 1);
-
-    if (!itemGranted) {
-      return null;
-    }
-
-    progress.firstKeyGranted = true;
-
-    progress.bossKillsSinceKey = 0;
-
-    const message =
-      "🗝️ Pierwsze zwycięstwo nad Goblinim Hersztem zapewniło Klucz do Kryjówki Goblinów!";
-
-    if (typeof addCombatLog === "function") {
-      addCombatLog(message);
-    }
-
-    if (typeof addSystemLog === "function") {
-      addSystemLog(message, "dungeon");
-    }
-
-    if (typeof showNotification === "function") {
-      showNotification("Zdobyto Klucz do Kryjówki Goblinów!", "success");
-    }
-
-    return {
-      granted: true,
-      guaranteed: true,
-      chance: 100,
-    };
-  }
-
-  /*
-   * Każdy kolejny pokonany Herszt
-   * zwiększa licznik.
-   */
-  progress.bossKillsSinceKey++;
-
-  const chance = getGoblinHideoutKeyDropChance(progress.bossKillsSinceKey);
-
-  const roll = Math.random() * 100;
-
-  if (roll > chance) {
-    const nextChance = getGoblinHideoutKeyDropChance(
-      progress.bossKillsSinceKey + 1,
-    );
-
-    addCombatLog(
-      "🗝️ Goblini Herszt nie pozostawił klucza. " +
-        "Szansa wynosiła " +
-        chance +
-        "%. Szansa przy następnym bossie: " +
-        nextChance +
-        "%.",
-    );
-
-    return {
-      granted: false,
-      guaranteed: false,
-      chance: chance,
-      roll: roll,
-    };
-  }
-
-  const itemGranted = addItemToInventory("goblin_hideout_key", 1);
-
-  if (!itemGranted) {
-    return null;
-  }
-
-  progress.bossKillsSinceKey = 0;
-
-  const message =
-    "🗝️ Goblini Herszt pozostawił Klucz do Kryjówki Goblinów! Szansa wynosiła " +
-    chance +
-    "%.";
-
-  if (typeof addCombatLog === "function") {
-    addCombatLog(message);
-  }
-
-  if (typeof addSystemLog === "function") {
-    addSystemLog(message, "dungeon");
-  }
-
-  if (typeof showNotification === "function") {
-    showNotification("Zdobyto Klucz do Kryjówki Goblinów!", "success");
-  }
-
-  return {
-    granted: true,
-    guaranteed: false,
-    chance: chance,
-    roll: roll,
-  };
-}
-
 function ensureKoboldTunnelsKeyProgress() {
   if (
     !player.dungeonKeyProgress ||
@@ -357,73 +248,6 @@ function ensureKoboldTunnelsKeyProgress() {
   );
 
   return progress;
-}
-
-function tryGrantKoboldTunnelsKey(defeatedEnemy, locationId = player.location) {
-  if (locationId !== "cave" || defeatedEnemy?.id !== "kobold_king") {
-    return null;
-  }
-
-  const progress = ensureKoboldTunnelsKeyProgress();
-  let chance = 100;
-  let guaranteed = false;
-
-  if (progress.firstKeyGranted !== true) {
-    guaranteed = true;
-  } else {
-    progress.bossKillsSinceKey++;
-    chance = getGoblinHideoutKeyDropChance(progress.bossKillsSinceKey);
-
-    if (Math.random() * 100 > chance) {
-      const nextChance = getGoblinHideoutKeyDropChance(
-        progress.bossKillsSinceKey + 1,
-      );
-
-      addCombatLog(
-        "⛏️ Król Koboldów nie pozostawił klucza. " +
-          "Szansa wynosiła " +
-          chance +
-          "%. Szansa przy następnym bossie: " +
-          nextChance +
-          "%.",
-      );
-
-      return {
-        granted: false,
-        guaranteed: false,
-        chance,
-      };
-    }
-  }
-
-  if (!addItemToInventory("kobold_tunnels_key", 1)) {
-    return null;
-  }
-
-  progress.firstKeyGranted = true;
-  progress.bossKillsSinceKey = 0;
-
-  const message = guaranteed
-    ? "⛏️ Pierwsze zwycięstwo nad Królem Koboldów zapewniło Klucz do Tuneli Koboldów!"
-    : "⛏️ Król Koboldów pozostawił Klucz do Tuneli Koboldów! Szansa wynosiła " +
-      chance +
-      "%.";
-
-  addCombatLog(message);
-
-  if (typeof addSystemLog === "function") {
-    addSystemLog(message, "dungeon");
-  }
-
-  if (typeof showNotification === "function") {
-    showNotification("Zdobyto Klucz do Tuneli Koboldów!", "success");
-  }
-
-  return {
-    granted: true,
-    guaranteed,
-    chance,
-  };
 }
 
 function ensureGuardianSanctumKeyProgress() {
@@ -456,76 +280,6 @@ function ensureGuardianSanctumKeyProgress() {
   return progress;
 }
 
-function tryGrantGuardianSanctumKey(
-  defeatedEnemy,
-  locationId = player.location,
-) {
-  if (locationId !== "ruins" || defeatedEnemy?.id !== "ancient_guardian") {
-    return null;
-  }
-
-  const progress = ensureGuardianSanctumKeyProgress();
-  let chance = 100;
-  let guaranteed = false;
-
-  if (progress.firstKeyGranted !== true) {
-    guaranteed = true;
-  } else {
-    progress.bossKillsSinceKey++;
-    chance = getGoblinHideoutKeyDropChance(progress.bossKillsSinceKey);
-
-    if (Math.random() * 100 > chance) {
-      const nextChance = getGoblinHideoutKeyDropChance(
-        progress.bossKillsSinceKey + 1,
-      );
-
-      addCombatLog(
-        "🏛️ Pradawny Strażnik nie pozostawił klucza. " +
-          "Szansa wynosiła " +
-          chance +
-          "%. Szansa przy następnym bossie: " +
-          nextChance +
-          "%.",
-      );
-
-      return {
-        granted: false,
-        guaranteed: false,
-        chance,
-      };
-    }
-  }
-
-  if (!addItemToInventory("guardian_sanctum_key", 1)) {
-    return null;
-  }
-
-  progress.firstKeyGranted = true;
-  progress.bossKillsSinceKey = 0;
-
-  const message = guaranteed
-    ? "🏛️ Pierwsze zwycięstwo nad Pradawnym Strażnikiem zapewniło Klucz do Sanktuarium Strażnika!"
-    : "🏛️ Pradawny Strażnik pozostawił Klucz do Sanktuarium Strażnika! Szansa wynosiła " +
-      chance +
-      "%.";
-
-  addCombatLog(message);
-
-  if (typeof addSystemLog === "function") {
-    addSystemLog(message, "dungeon");
-  }
-
-  if (typeof showNotification === "function") {
-    showNotification("Zdobyto Klucz do Sanktuarium Strażnika!", "success");
-  }
-
-  return {
-    granted: true,
-    guaranteed,
-    chance,
-  };
-}
-
 function ensureFrostCitadelKeyProgress() {
   if (
     !player.dungeonKeyProgress ||
@@ -556,73 +310,6 @@ function ensureFrostCitadelKeyProgress() {
   return progress;
 }
 
-function tryGrantFrostCitadelKey(defeatedEnemy, locationId = player.location) {
-  if (locationId !== "ice" || defeatedEnemy?.id !== "frost_queen") {
-    return null;
-  }
-
-  const progress = ensureFrostCitadelKeyProgress();
-  let chance = 100;
-  let guaranteed = false;
-
-  if (progress.firstKeyGranted !== true) {
-    guaranteed = true;
-  } else {
-    progress.bossKillsSinceKey++;
-    chance = getGoblinHideoutKeyDropChance(progress.bossKillsSinceKey);
-
-    if (Math.random() * 100 > chance) {
-      const nextChance = getGoblinHideoutKeyDropChance(
-        progress.bossKillsSinceKey + 1,
-      );
-
-      addCombatLog(
-        "❄️ Królowa Mrozu nie pozostawiła klucza. " +
-          "Szansa wynosiła " +
-          chance +
-          "%. Szansa przy następnym bossie: " +
-          nextChance +
-          "%.",
-      );
-
-      return {
-        granted: false,
-        guaranteed: false,
-        chance,
-      };
-    }
-  }
-
-  if (!addItemToInventory("frost_citadel_key", 1)) {
-    return null;
-  }
-
-  progress.firstKeyGranted = true;
-  progress.bossKillsSinceKey = 0;
-
-  const message = guaranteed
-    ? "❄️ Pierwsze zwycięstwo nad Królową Mrozu zapewniło Klucz do Twierdzy Szronu!"
-    : "❄️ Królowa Mrozu pozostawiła Klucz do Twierdzy Szronu! Szansa wynosiła " +
-      chance +
-      "%.";
-
-  addCombatLog(message);
-
-  if (typeof addSystemLog === "function") {
-    addSystemLog(message, "dungeon");
-  }
-
-  if (typeof showNotification === "function") {
-    showNotification("Zdobyto Klucz do Twierdzy Szronu!", "success");
-  }
-
-  return {
-    granted: true,
-    guaranteed,
-    chance,
-  };
-}
-
 function ensureVolcanoHeartKeyProgress() {
   if (
     !player.dungeonKeyProgress ||
@@ -651,73 +338,6 @@ function ensureVolcanoHeartKeyProgress() {
   );
 
   return progress;
-}
-
-function tryGrantVolcanoHeartKey(defeatedEnemy, locationId = player.location) {
-  if (locationId !== "volcano" || defeatedEnemy?.id !== "volcanic_dragon") {
-    return null;
-  }
-
-  const progress = ensureVolcanoHeartKeyProgress();
-  let chance = 100;
-  let guaranteed = false;
-
-  if (progress.firstKeyGranted !== true) {
-    guaranteed = true;
-  } else {
-    progress.bossKillsSinceKey++;
-    chance = getGoblinHideoutKeyDropChance(progress.bossKillsSinceKey);
-
-    if (Math.random() * 100 > chance) {
-      const nextChance = getGoblinHideoutKeyDropChance(
-        progress.bossKillsSinceKey + 1,
-      );
-
-      addCombatLog(
-        "🌋 Pradawny Smok Wulkanu nie pozostawił klucza. " +
-          "Szansa wynosiła " +
-          chance +
-          "%. Szansa przy następnym bossie: " +
-          nextChance +
-          "%.",
-      );
-
-      return {
-        granted: false,
-        guaranteed: false,
-        chance,
-      };
-    }
-  }
-
-  if (!addItemToInventory("volcano_heart_key", 1)) {
-    return null;
-  }
-
-  progress.firstKeyGranted = true;
-  progress.bossKillsSinceKey = 0;
-
-  const message = guaranteed
-    ? "🌋 Pierwsze zwycięstwo nad Pradawnym Smokiem Wulkanu zapewniło Klucz do Serca Wulkanu!"
-    : "🌋 Pradawny Smok Wulkanu pozostawił Klucz do Serca Wulkanu! Szansa wynosiła " +
-      chance +
-      "%.";
-
-  addCombatLog(message);
-
-  if (typeof addSystemLog === "function") {
-    addSystemLog(message, "dungeon");
-  }
-
-  if (typeof showNotification === "function") {
-    showNotification("Zdobyto Klucz do Serca Wulkanu!", "success");
-  }
-
-  return {
-    granted: true,
-    guaranteed,
-    chance,
-  };
 }
 
 const dungeonKeyDropConfigs = {
@@ -1291,6 +911,10 @@ function enemyAttackPlayer() {
     addCombatLog(
       "🍲 Aktywny posiłek przywraca " + foodRegenerationHealing + " HP.",
     );
+  }
+
+  if (typeof applyGuardianCombatRegeneration === "function") {
+    applyGuardianCombatRegeneration();
   }
 
   if (
