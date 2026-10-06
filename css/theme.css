@@ -1,0 +1,608 @@
+/* ==========================================================================
+   MOTYW "DĄB I ŻELAZO" – średniowieczny, ciemny dąb, kute żelazo, pergamin.
+   Warstwa nakładkowa: ładowana na końcu css/style.css.
+   Aby wyłączyć cały motyw, usuń w css/style.css linię:  @import url("theme.css");
+   ========================================================================== */
+
+@font-face{font-family:"Almendra";font-weight:400;font-display:swap;src:url("fonts/almendra-latin-ext-400-normal.woff2") format("woff2");unicode-range:U+0100-02AF,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Almendra";font-weight:400;font-display:swap;src:url("fonts/almendra-latin-400-normal.woff2") format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Alegreya";font-weight:400;font-display:swap;src:url("fonts/alegreya-latin-ext-400-normal.woff2") format("woff2");unicode-range:U+0100-02AF,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Alegreya";font-weight:400;font-display:swap;src:url("fonts/alegreya-latin-400-normal.woff2") format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Alegreya";font-weight:700;font-display:swap;src:url("fonts/alegreya-latin-ext-700-normal.woff2") format("woff2");unicode-range:U+0100-02AF,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Alegreya";font-weight:700;font-display:swap;src:url("fonts/alegreya-latin-700-normal.woff2") format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+
+:root{
+  --oak-0:#1a1411;   /* żelazo / najciemniejszy */
+  --oak-1:#241810;   /* tło */
+  --oak-2:#2c1f15;
+  --oak-3:#3a2a1e;
+  --oak-4:#4a3626;   /* deska */
+  --oak-5:#5a4330;
+  --parch-1:#c8b08a; --parch-2:#b39a72; --ink:#2a1a0f;
+  --text:#ead9bd; --text-dim:#b4906a; --text-soft:#d8c4a2;
+  --blood-1:#8e3429; --blood-2:#68241c; --blood-0:#2c0f0b; --blood-text:#f6e8cc;
+  --bronze-1:#a8693a; --bronze-2:#7a4725;
+  --verdigris:#5f8f80;
+  --iron-line:#8a8174;
+  --font-head:"Almendra","Georgia",serif;
+  --font-body:"Alegreya","Georgia",serif;
+  --grain:repeating-linear-gradient(90deg,#ffffff06 0 2px,transparent 2px 9px);
+  --planks:repeating-linear-gradient(180deg,transparent 0 78px,#00000055 78px 80px);
+}
+
+/* ---------- tło i typografia ---------- */
+body{
+  font-family:var(--font-body);
+  font-size:17px;
+  color:var(--text);
+  background:radial-gradient(110% 90% at 60% 10%,#35251b 0%,var(--oak-1) 80%) fixed;
+}
+body::after{ /* winieta */
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:9998;
+  box-shadow:inset 0 0 140px 20px rgba(0,0,0,.45);
+}
+button,input,select,textarea{font-family:var(--font-body)}
+h1,h2,h3,.card-header,#menu h2{font-family:var(--font-head);font-weight:400;letter-spacing:.02em}
+
+/* ---------- przyciski (wspólne) ---------- */
+button{
+  background:linear-gradient(var(--oak-5),var(--oak-3));
+  color:var(--text-soft);
+  border:0;border-radius:3px;
+  font-weight:700;
+  box-shadow:0 3px 0 #150f0b,inset 0 1px 0 #ffffff22,0 0 0 2px var(--oak-0);
+  text-shadow:0 1px 0 #0008;
+}
+button:hover{
+  background:linear-gradient(#66503a,#46331f);
+  border-color:transparent;color:#fff1d6;
+}
+button:active{transform:translateY(2px);box-shadow:0 1px 0 #150f0b,0 0 0 2px var(--oak-0)}
+button:disabled{
+  background:#2a1f17;color:#7d6a55;box-shadow:0 0 0 2px var(--oak-0);
+  text-shadow:none;transform:none;
+}
+
+/* ---------- panele / karty (deski dębu + żelazne narożniki) ---------- */
+.game-card{
+  position:relative;
+  background:var(--planks),var(--grain),linear-gradient(var(--oak-4),#3a2a1d);
+  border:5px solid var(--oak-0);
+  border-radius:3px;
+  color:var(--text);
+  box-shadow:0 12px 22px #000a,inset 0 1px 0 #ffffff22;
+}
+.game-card::before,.game-card::after{ /* nity w narożnikach */
+  content:"";position:absolute;width:9px;height:9px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#b5ab9a,#4d463e);
+  box-shadow:0 1px 1px #000;top:6px;pointer-events:none;
+}
+.game-card::before{left:6px}
+.game-card::after{right:6px}
+.card-header{
+  color:#f6e8cc;font-size:24px;
+  border-bottom:2px solid var(--oak-0);
+  box-shadow:0 1px 0 #ffffff14;
+  text-shadow:0 2px 0 #000a;
+}
+
+/* ---------- paski ---------- */
+.bar{background:#150f0b;border-radius:2px;box-shadow:inset 0 2px 5px #000c,0 0 0 2px #3a332d}
+
+/* ======== WARSTWA WZORCOWA – obejmuje pozostałe ekrany po nazwach klas ========
+   (moje szczegółowe reguły poniżej mają pierwszeństwo, bo są później w pliku) */
+
+/* panele i karty: ciemny dąb z wewnętrzną ramką zamiast czerni */
+[class*="-panel"]:where(:not(.game-card):not(.screen):not(.active):not(.selected):not(.is-selected):not(.is-active):not(.is-current):not(.menu-active)),
+[class*="-section"]:where(:not(.game-card):not(.screen):not(.active):not(.selected):not(.is-selected):not(.is-active):not(.is-current):not(.menu-active)),
+[class*="-card"]:where(:not(.game-card):not(.screen):not(.active):not(.selected):not(.is-selected):not(.is-active):not(.is-current):not(.menu-active)),
+[class*="-group"]:where(:not(.game-card):not(.screen):not(.active):not(.selected):not(.is-selected):not(.is-active):not(.is-current):not(.menu-active)),
+[class*="-block"]:where(:not(.game-card):not(.screen):not(.active):not(.selected):not(.is-selected):not(.is-active):not(.is-current):not(.menu-active)),
+[class*="-row"]:where(:not(.game-card):not(.screen):not(.active):not(.selected):not(.is-selected):not(.is-active):not(.is-current):not(.menu-active)),
+[class*="-detail"]:where(:not(.game-card):not(.screen):not(.active):not(.selected):not(.is-selected):not(.is-active):not(.is-current):not(.menu-active)),
+[class*="-summary"]:where(:not(.game-card):not(.screen):not(.active):not(.selected):not(.is-selected):not(.is-active):not(.is-current):not(.menu-active)),
+[class*="-slot"]:where(:not(.game-card):not(.screen):not(.active):not(.selected):not(.is-selected):not(.is-active):not(.is-current):not(.menu-active)),
+[class*="-plot"]:where(:not(.game-card):not(.screen):not(.active):not(.selected):not(.is-selected):not(.is-active):not(.is-current):not(.menu-active)),
+[class*="-sign"]:where(:not(.game-card):not(.screen):not(.active):not(.selected):not(.is-selected):not(.is-active):not(.is-current):not(.menu-active)){
+  background:#2f2217;
+}
+
+/* plakietki, ikony, pola: wpuszczone w drewno */
+[class*="-badge"]:where(:not(.game-card):not(.screen):not(.active):not(.selected):not(.is-selected):not(.is-active):not(.is-current):not(.menu-active)),
+[class*="-icon"]:where(:not(.game-card):not(.screen):not(.active):not(.selected):not(.is-selected):not(.is-active):not(.is-current):not(.menu-active)),
+[class*="-level"]:where(:not(.game-card):not(.screen):not(.active):not(.selected):not(.is-selected):not(.is-active):not(.is-current):not(.menu-active)),
+[class*="-chip"]:where(:not(.game-card):not(.screen):not(.active):not(.selected):not(.is-selected):not(.is-active):not(.is-current):not(.menu-active)),
+[class*="-status"]:where(:not(.game-card):not(.screen):not(.active):not(.selected):not(.is-selected):not(.is-active):not(.is-current):not(.menu-active)),
+[class*="-quantity"]:where(:not(.game-card):not(.screen):not(.active):not(.selected):not(.is-selected):not(.is-active):not(.is-current):not(.menu-active)),
+select,input[type="text"],input[type="number"],input:not([type]){
+  background-color:#1d130d;color:var(--text);
+}
+
+/* paski: koryto z żelaza */
+[class*="-bar"]:not([class*="fill"]):not(button):where(:not(.game-card):not(.screen):not(.active):not(.selected):not(.is-selected):not(.is-active):not(.is-current):not(.menu-active)),
+[class*="-track"]:where(:not(.game-card):not(.screen):not(.active):not(.selected):not(.is-selected):not(.is-active):not(.is-current):not(.menu-active)){
+  background:#150f0b;border-color:#3a332d;
+}
+
+/* przyciski specjalne: drewniana deska (nadpisuje własne tła z modułów) */
+button[class]:not(.menu-active):not(.active):not(.hero-tab-button):not([class*="claim"]):not([class*="confirm"]):not([class*="craft-button"]):not([class*="enter"]):not([class*="start"]):not([class*="primary"]):not([class*="main-btn"]):not([class*="sell"]):not([class*="buy"]){
+  background:linear-gradient(#4b392a,#392a1e);color:var(--text-soft);
+  border-color:#1a1411;
+}
+/* przyciski głównej akcji: krwista czerwień */
+button[class*="claim"],button[class*="confirm"],button[class*="craft-button"],
+button[class*="enter"],button[class*="start"],button[class*="primary"],button[class*="buy"]{
+  background:linear-gradient(#a03b2f,#6f241c);color:var(--blood-text);
+  border-color:var(--oak-0);
+  box-shadow:0 4px 0 var(--blood-0),inset 0 1px 0 #ffffff44,0 0 0 3px var(--oak-0);
+}
+button[class]:disabled{background:#2a1f17;color:#7d6a55}
+
+/* zakładki kategorii na pozostałych ekranach */
+[class*="tab-button"].active,[class*="-tab"].active:not([class*="panel"]):not([class*="content"]),button.active[class]{
+  background:linear-gradient(var(--blood-1),var(--blood-2));color:var(--blood-text);
+  border-color:var(--oak-0);
+}
+
+/* nazwy i tytuły – kroju nagłówkowego */
+[class*="-name"],[class*="-title"]{font-family:var(--font-head);font-weight:400}
+
+/* ---------- lewe menu ---------- */
+#menu{
+  background:
+    repeating-linear-gradient(90deg,transparent 0 54px,#00000066 54px 56px),
+    var(--grain),
+    linear-gradient(90deg,var(--oak-3),var(--oak-2));
+  border-right:6px solid var(--oak-0);
+  box-shadow:inset -10px 0 18px #0007;
+}
+#menu h2{color:#f6e8cc}
+#menu button{
+  border:0;border-radius:3px;
+  background:transparent;color:#e4d1b0;
+  box-shadow:none;text-shadow:none;font-size:15px;
+}
+#menu button:hover{background:#ffffff10;color:#fff1d6;box-shadow:none}
+#menu button.menu-active{
+  background:linear-gradient(var(--blood-1),var(--blood-2));
+  color:var(--blood-text);
+  box-shadow:0 3px 0 var(--blood-0),inset 0 1px 0 #ffffff33,0 0 0 2px var(--oak-0);
+}
+#menu button.menu-active:hover{background:linear-gradient(#9c3a2e,#742920)}
+#menu button.menu-active::before{background:#e8d3a4}
+#menu button.menu-category-toggle{
+  font-family:var(--font-head);font-weight:400;letter-spacing:.06em;
+  color:var(--text-dim);text-transform:uppercase;font-size:13px;
+}
+.menu-category-chevron{color:var(--text-dim)}
+
+/* karta bohatera w menu */
+.side-hero-card{
+  background:linear-gradient(#2a1d13,#1f150e);
+  border:3px solid var(--oak-0);border-radius:3px;
+  box-shadow:inset 0 0 0 1px #6a4a3055,0 6px 14px #0009;
+}
+.side-hero-avatar{
+  background:radial-gradient(circle at 35% 30%,#a94b3b,#6a251d);
+  border:0;border-radius:50%;
+  box-shadow:0 0 0 3px var(--oak-0),0 0 0 5px var(--iron-line);
+}
+.side-hero-title{font-family:var(--font-head);color:#f6e8cc}
+.side-hero-subtitle,.side-hero-bar-label{color:var(--text-soft)}
+.side-hero-gold{color:#e3c27a}
+.side-hero-bar{background:#150f0b;border:0;border-radius:2px;box-shadow:inset 0 2px 4px #000c,0 0 0 2px #3a332d;height:9px}
+.side-hero-bar-fill{border-radius:1px;
+  -webkit-mask:repeating-linear-gradient(90deg,#000 0 7px,transparent 7px 9px);
+  mask:repeating-linear-gradient(90deg,#000 0 7px,transparent 7px 9px)}
+.hp-fill{background:linear-gradient(#c24a3a,#7d2519)}
+.exp-fill{background:linear-gradient(#d8a94a,#8a6420)}
+.mana-fill{background:linear-gradient(#5f8f80,#34584d)}
+.side-hero-points{border-bottom:2px solid var(--oak-0)}
+.side-hero-class-button{border-radius:3px}
+
+/* ---------- nagłówki ekranów: sztandar ---------- */
+.screen-header,#content>section>h2:first-child,.hero-tab-panel>h2:first-child{position:relative}
+.screen-header h2,#content h2{
+  display:inline-block;
+  background:linear-gradient(var(--blood-1),var(--blood-2));
+  color:var(--blood-text);
+  text-shadow:0 2px 0 var(--blood-0);
+  padding:8px 34px 14px;
+  clip-path:polygon(0 0,100% 0,100% 100%,50% calc(100% - 8px),0 100%);
+  filter:drop-shadow(0 4px 0 #1a0b08);
+  font-size:26px;
+}
+.screen-header p{color:var(--text-soft);margin-top:10px}
+
+/* ---------- zakładki ---------- */
+.hero-tab-button{
+  border-radius:3px;background:linear-gradient(#4b392a,#392a1e);color:#d6c3a1;
+  font-size:14px;
+}
+.hero-tab-button:hover{color:#fff1d6;background:linear-gradient(#5a4331,#43301f)}
+.hero-tab-button.active{
+  background:linear-gradient(var(--blood-1),var(--blood-2));color:var(--blood-text);
+  border:0;
+}
+
+/* ---------- Polowanie ---------- */
+.location-card{
+  background:var(--planks),var(--grain),linear-gradient(#4a3626,#3a2a1d);
+  border:4px solid var(--oak-0);border-radius:3px;
+  box-shadow:0 8px 16px #000a,inset 0 1px 0 #ffffff22;
+}
+.location-card:hover{border-color:#6a4a30;box-shadow:0 10px 20px #000b}
+.location-current{border-color:var(--blood-1);box-shadow:0 0 0 2px #1a1411,0 0 18px #8e342966}
+.location-card h3{color:#f6e8cc;font-family:var(--font-head);font-weight:400}
+.location-status{color:var(--text-dim)}
+.location-level-badge{background:#1d130d;color:#d4a77a;border:0;border-radius:2px;box-shadow:inset 0 0 0 1px #6a4a30}
+.location-description{color:var(--text-soft)}
+.location-info-box{
+  background:linear-gradient(var(--parch-1),var(--parch-2));
+  color:var(--ink);border:0;border-radius:2px;
+  box-shadow:inset 0 0 16px #5b432599,0 2px 0 #150f0b;
+}
+.location-info-box span{color:#4a3622}
+.location-info-box strong{color:var(--blood-2)}
+.location-mastery-panel,.location-boss-panel{
+  background:#1d130d;border:0;border-radius:2px;
+  box-shadow:inset 0 0 0 1px #6a4a30;color:var(--text-soft);
+}
+.location-mastery-track{background:#150f0b;border:0;border-radius:2px;box-shadow:inset 0 2px 5px #000c,0 0 0 2px #3a332d}
+.location-mastery-fill{background:linear-gradient(#d8a94a,#8a6420)}
+.location-enter-btn{
+  background:linear-gradient(#a03b2f,#6f241c);color:var(--blood-text);
+  box-shadow:0 4px 0 var(--blood-0),inset 0 1px 0 #ffffff44,0 0 0 3px var(--oak-0);
+  font-family:var(--font-head);font-weight:400;font-size:16px;letter-spacing:.04em;
+}
+.location-enter-btn:hover{background:linear-gradient(#b3453a,#7b2920)}
+.location-locked{opacity:.6;filter:saturate(.6)}
+
+/* ---------- Bohater ---------- */
+.hero-summary-group-header{color:var(--text-dim);font-family:var(--font-head);text-transform:uppercase;letter-spacing:.06em}
+.hero-summary-card{
+  background:linear-gradient(var(--parch-1),var(--parch-2));
+  color:var(--ink);border:0;border-radius:2px;
+  box-shadow:inset 0 0 16px #5b432599,0 2px 0 #150f0b;
+}
+.hero-summary-card:hover{transform:none;background:linear-gradient(#d2ba94,#bda47c)}
+.hero-summary-card span,.hero-summary-card small{color:#4a3622}
+.hero-summary-card strong{color:var(--blood-2)}
+.hero-attribute-card,.hero-class-card{
+  background:linear-gradient(#3b2b1e,#2f2217);border:0;border-radius:2px;
+  box-shadow:inset 0 0 0 1px #6a4a30,0 3px 0 #150f0b;color:var(--text);
+}
+.hero-class-bonus-chip{background:#1d130d;color:#d4a77a;border:0;box-shadow:inset 0 0 0 1px #6a4a30;border-radius:2px}
+.hero-class-progress-track,.hero-active-bonuses-section{border-radius:2px}
+.hero-class-progress-fill{background:linear-gradient(#d8a94a,#8a6420)}
+
+/* ---------- Wytwarzanie ---------- */
+.crafting-overview{
+  background:#1d130d;border:0;border-radius:2px;box-shadow:inset 0 0 0 1px #6a4a30;
+}
+.crafting-overview-exp-bar{background:#150f0b;border:0;border-radius:2px;box-shadow:inset 0 2px 5px #000c,0 0 0 2px #3a332d}
+.crafting-overview-exp-fill{background:linear-gradient(#d8a94a,#8a6420)}
+.crafting-category>summary{
+  font-family:var(--font-head);color:#f6e8cc;
+}
+.crafting-item{
+  background:linear-gradient(#3b2b1e,#2f2217);
+  border:0;border-radius:2px;
+  box-shadow:inset 0 0 0 1px #6a4a30,0 3px 0 #150f0b;
+  color:var(--text);
+}
+.crafting-item-name{font-family:var(--font-head);font-weight:400;color:#f6e8cc;font-size:19px}
+.crafting-meta-badge{
+  background:#1d130d;color:#d4a77a;border:0;border-radius:2px;box-shadow:inset 0 0 0 1px #6a4a30;
+}
+.crafting-batch-button{border-radius:3px}
+.crafting-count-input{
+  background:#150f0b;color:var(--text);border:0;border-radius:2px;box-shadow:inset 0 2px 5px #000c,0 0 0 1px #6a4a30;
+}
+.crafting-main-btn{
+  background:linear-gradient(#a8693a,#7a4725);color:#fbeed6;
+  box-shadow:0 4px 0 #3b200e,inset 0 1px 0 #ffffff44,0 0 0 3px var(--oak-0);
+}
+.crafting-main-btn:hover{background:linear-gradient(#b87745,#86512d)}
+.crafting-main-btn.crafting-button-unavailable{
+  background:#241810;color:#e29a88;box-shadow:inset 0 0 0 2px var(--blood-1),0 0 0 3px var(--oak-0);
+}
+.material-missing{color:#e29a88}
+.crafting-level-locked{opacity:.65}
+.crafting-level-lock-message{color:var(--text-dim)}
+.crafting-item.rarity-uncommon{box-shadow:inset 0 0 0 1px #5f8f80,0 3px 0 #150f0b}
+.crafting-item.rarity-rare{box-shadow:inset 0 0 0 1px #6f8fb0,0 3px 0 #150f0b}
+.crafting-item.rarity-epic{box-shadow:inset 0 0 0 1px #9a6fb0,0 3px 0 #150f0b}
+.crafting-item.rarity-legendary{box-shadow:inset 0 0 0 1px #d8a94a,0 3px 0 #150f0b}
+
+/* ---------- tło treści, pasek aktywności, log ---------- */
+#content{background:transparent}
+.activity-hud{
+  background:var(--planks),var(--grain),linear-gradient(var(--oak-4),#3a2a1d);
+  border:5px solid var(--oak-0);border-radius:3px;
+  box-shadow:0 8px 16px #000a,inset 0 1px 0 #ffffff22;
+}
+.activity-hud-label{color:var(--text-dim);font-family:var(--font-head);letter-spacing:.06em}
+.activity-hud-icon{background:#1d130d;border:0;border-radius:2px;box-shadow:inset 0 0 0 1px #6a4a30}
+.activity-hud-info strong,.activity-hud-work-label{color:#f6e8cc;font-family:var(--font-head);font-weight:400}
+.activity-hud-time,.activity-hud-work-description,.activity-hud-background-empty{color:var(--text-soft)}
+.activity-hud-background,.activity-hud-work-row{
+  background:#1d130d;border:0;border-radius:2px;box-shadow:inset 0 0 0 1px #6a4a30;
+}
+.activity-hud-progress,.activity-hud-work-progress{background:#150f0b;border:0;border-radius:2px;box-shadow:inset 0 2px 5px #000c,0 0 0 2px #3a332d}
+.activity-hud-progress-fill,.activity-hud-work-progress-fill{background:linear-gradient(#d8a94a,#8a6420)}
+
+#system-log-panel{
+  background:var(--grain),linear-gradient(90deg,var(--oak-3),var(--oak-2));
+  border-color:var(--oak-0);color:var(--text);
+  box-shadow:inset 10px 0 18px #0007;
+}
+.system-log-header{font-family:var(--font-head);color:#f6e8cc}
+.system-log{background:#150f0b;border-radius:2px;box-shadow:inset 0 2px 8px #000c}
+.system-log-entry{border-color:#3a2a1e}
+.system-log-message{color:var(--text-soft)}
+.system-log-filter{border-radius:3px}
+
+/* panel bossa lokacji – ciemna sztaba żelaza zamiast czerni */
+.location-boss-loot-item,.location-first-boss-reward,.location-mastery-milestone{
+  background:#2a1d13;border:0;border-radius:2px;box-shadow:inset 0 0 0 1px #6a4a30;color:var(--text-soft);
+}
+
+/* ---------- scena ekranu i drobne poprawki ---------- */
+.screen{
+  background:var(--grain),linear-gradient(#2a1d13,#221810);
+  border:4px solid var(--oak-0);border-radius:3px;
+  box-shadow:inset 0 0 40px #0009,0 10px 20px #0008;
+}
+.screen h2,.screen-header h2{display:block;width:fit-content;max-width:100%;margin-bottom:14px}
+.hero-summary-group,.hero-active-bonuses-section,.hero-class-section,
+.profession-tool-context-card,.profession-tool-context-empty-body{
+  background:#2a1d13;border:0;border-radius:2px;box-shadow:inset 0 0 0 1px #6a4a30;color:var(--text);
+}
+.hero-summary-group-icon,.hero-summary-icon{background:#1d130d;border:0;border-radius:2px;box-shadow:inset 0 0 0 1px #6a4a30}
+.hero-summary-card .hero-summary-icon{background:#e4d3b0;box-shadow:inset 0 0 0 1px #8a6a45}
+.hero-tabs{border-color:var(--oak-0)}
+.profession-tool-context-title,.profession-tool-context-card strong{color:#f6e8cc;font-family:var(--font-head);font-weight:400}
+.profession-tool-context-button{background:linear-gradient(#a8693a,#7a4725);color:#fbeed6}
+.crafting-overview-level,.crafting-overview-exp-label{color:var(--text-soft)}
+.screen > h2,.hero-tab-panel > h2{align-self:flex-start;width:auto}
+
+/* podkategorie Bohatera w menu – wyraźne zaznaczenie */
+#menu .hero-menu-subitems button{background:transparent;color:#d6c3a1;box-shadow:none;border:0}
+#menu .hero-menu-subitems button:hover{background:#ffffff10;color:#fff1d6}
+#menu .hero-menu-subitems button.menu-active{
+  background:linear-gradient(var(--blood-1),var(--blood-2));color:var(--blood-text);
+  box-shadow:0 3px 0 var(--blood-0),inset 0 1px 0 #ffffff33,0 0 0 2px var(--oak-0);
+}
+
+/* kafelki menu – osadzone w drewnie (deska z żelazną ramką), nie "w powietrzu" */
+#menu button:not(.menu-active):not(.menu-category-toggle):not(.side-hero-point):not(.side-hero-class-button){
+  background:linear-gradient(#4b392a,#392a1e);
+  color:#e4d1b0;
+  box-shadow:0 3px 0 #150f0b,inset 0 1px 0 #ffffff22,0 0 0 2px var(--oak-0);
+  margin-bottom:5px;
+}
+#menu button:not(.menu-active):not(.menu-category-toggle):not(.side-hero-point):not(.side-hero-class-button):hover{
+  background:linear-gradient(#5a4331,#43301f);color:#fff1d6;
+  box-shadow:0 3px 0 #150f0b,inset 0 1px 0 #ffffff33,0 0 0 2px #6a4a30;
+}
+#menu button.menu-category-toggle{
+  background:linear-gradient(#2a1d13,#1f150e);
+  box-shadow:0 3px 0 #150f0b,inset 0 0 0 1px #6a4a3066,0 0 0 2px var(--oak-0);
+  margin-bottom:5px;
+}
+#menu .menu-category-items{gap:6px;padding:4px 4px 6px 4px}
+#menu button.menu-active{margin-bottom:5px}
+
+
+/* złote napisy z modułów -> kremowy / ochra */
+.shop-rpg-merchant-name,.shop-rpg-gold,.location-status,.boss-label,.combat-log-header,
+.location-first-reward-header,.skill-level,.hero-attribute-confirm-button,.equipment-backpack-count,
+.cooking-locked-message,.hero-summary-icon,.alchemy-batch-button,.alchemy-batch-max-button,
+.quest-category-tab-button,.shop-side-button,.equipment-backpack-filter,.system-log-filter{color:#f0dcb4}
+.hero-class-bonus-chip{color:#d4a77a}
+
+/* ---------- Ogród: zieleń -> dąb i ochra ---------- */
+#content:has(#screen-garden:not([hidden])){background:transparent}
+#screen-garden,.garden-card,.garden-level-panel,.garden-upgrade-panel,.garden-upgrade-card,.garden-greenhouse-upgrade{
+  background:var(--grain),linear-gradient(#3a2a1d,#2f2217);
+  border-color:var(--oak-0);color:var(--text);
+}
+#screen-garden *{border-color:#1a1411}
+.garden-header p,.garden-level-label,.garden-level-panel small,.garden-upgrade-card span,.garden-upgrade-card small,
+.garden-upgrade-panel span,.garden-plot-header span,.garden-growing-info span,.garden-plant-time{color:var(--text-soft)}
+.garden-header strong,.garden-header span,.garden-plot-header strong,.garden-level-label strong,.garden-upgrade-card strong,
+.garden-upgrade-panel strong,.garden-growing-info strong,.garden-plant-main strong{color:#f6e8cc}
+.garden-seed-select{background:#1d130d;color:var(--text);border:0;box-shadow:inset 0 0 0 1px #6a4a30}
+.garden-action-button,.garden-harvest-all-button,.garden-upgrade-button{
+  background:linear-gradient(#a8693a,#7a4725);color:#fbeed6;border:0;
+  box-shadow:0 4px 0 #3b200e,inset 0 1px 0 #ffffff44,0 0 0 3px var(--oak-0);
+}
+.garden-plot{background:linear-gradient(145deg,#d9bd83,#ad8755);color:var(--ink);border:0;box-shadow:0 5px 0 #150f0b,0 0 0 3px var(--oak-0)}
+.garden-plot-ready{box-shadow:0 5px 0 #150f0b,0 0 0 3px var(--blood-1)}
+.garden-plot .garden-plot-header strong,.garden-plot .garden-growing-info strong,.garden-plot .garden-plant-main strong{color:var(--blood-2)}
+.garden-plot .garden-plot-header span,.garden-plot .garden-growing-info span,.garden-plot .garden-plant-time{color:#4a3622}
+.garden-level-bar{background:#150f0b;box-shadow:inset 0 2px 5px #000c,0 0 0 2px #3a332d}
+.garden-level-fill{background:linear-gradient(#d8a94a,#8a6420)}
+
+/* ---------- Walka: okienka i log ---------- */
+.enemy-stat-box{background:linear-gradient(var(--parch-1),var(--parch-2));color:var(--ink);border:0;box-shadow:inset 0 0 16px #5b432599,0 2px 0 #150f0b}
+.enemy-stat-box span,.enemy-stat-box small{color:#4a3622}
+.enemy-stat-box strong{color:var(--blood-2)}
+.combat-log,.system-log{background:#150f0b;color:var(--text-soft);box-shadow:inset 0 2px 8px #000c}
+.enemy-hp-bar,.boss-chance-track{background:#150f0b;box-shadow:inset 0 2px 5px #000c,0 0 0 2px #3a332d}
+
+
+/* ======== Partia 3: Łowienie, Wytwarzanie, Zadania, Dziennik, Alchemia, drobne ======== */
+/* Łowienie: błękit -> dąb i patyna */
+#screen-fishing-locations,.fishing-card,.fishing-panel{background:var(--grain),linear-gradient(#3a2a1d,#2f2217);border-color:var(--oak-0);color:var(--text)}
+.fishing-drop-group,.fishing-order-requirement,.fishing-area-status,.fishing-level-badge,.fishing-order-tier-bar,
+.fishing-progress-block,.fishing-bait-card,.fishing-select-button,.fishing-order-complete-button{
+  background:#1d130d;color:var(--text-soft);border:0;box-shadow:inset 0 0 0 1px #6a4a30;
+}
+.fishing-exp-bar,.fishing-cycle-bar{background:#150f0b;box-shadow:inset 0 2px 5px #000c,0 0 0 2px #3a332d}
+.fishing-exp-fill,.fishing-cycle-fill{background:linear-gradient(#d8a94a,#8a6420)}
+#screen-fishing-locations *{border-color:#1a1411}
+.fishing-bait-card.selected,.fishing-bait-card.active{box-shadow:inset 0 0 0 2px var(--blood-1)}
+
+/* Wytwarzanie: zablokowane i brakujące materiały w brązie, nie w czerni */
+.crafting-item.crafting-level-locked{background:linear-gradient(#34261a,#2a1e14)}
+span.material-missing{background:#2a1810;color:#e29a88;box-shadow:inset 0 0 0 1px #8e3429}
+
+/* Zadania */
+.quest{background:linear-gradient(#3b2b1e,#2f2217);border:0;border-radius:2px;box-shadow:inset 0 0 0 1px #6a4a30,0 3px 0 #150f0b;color:var(--text)}
+.quest-progress-bar{background:#150f0b;box-shadow:inset 0 2px 5px #000c,0 0 0 1px #3a332d}
+
+/* Pasek aktywności */
+.activity-hud-main{background:#1d130d;box-shadow:inset 0 0 0 1px #6a4a30}
+.activity-hud-time{background:#150f0b;color:var(--text-soft);border:0}
+
+/* Alchemia */
+.alchemy-batch-button,.alchemy-batch-max-button{background:linear-gradient(#4b392a,#392a1e);color:#f0dcb4;border:0}
+.alchemy-batch-input{background:#150f0b;color:var(--text);border:0;box-shadow:inset 0 2px 5px #000c,0 0 0 1px #6a4a30}
+
+/* Dziennik, Bohater, sklep, umiejętności */
+.journal-bestiary-location,.journal-tabs,.journal-boss-first-reward,.skills-points-info,.skill-tree-description,
+.profession-tool-empty-content,.equipment-loadout-preview,.hero-class-growth-preview,.hero-class-progress,
+.hero-attribute-confirmation,.combat-food-active-effect,.shop-side-button{
+  background:#2a1d13;border:0;box-shadow:inset 0 0 0 1px #6a4a30;color:var(--text);
+}
+.hero-class-growth-icon,.equipment-backpack-count{background:#1d130d;color:#d4a77a}
+select.combat-spell-select{background:#1d130d;color:var(--text);border:0;box-shadow:inset 0 0 0 1px #6a4a30}
+
+/* Łowienie: podmiana palety zmiennych (patyna zamiast błękitu) */
+#screen-fishing-locations{
+  --fishing-main:#d8a94a;
+  --fishing-light:#f0dcb4;
+  --fishing-dark:#3a2a1d;
+  --fishing-darker:#1d130d;
+  --fishing-border:#6a4a30;
+  --fishing-background:#2a1d13;
+  --fishing-background-soft:#2f2217;
+}
+
+/* Ogród: reguły modułu mają #screen-garden, więc nadpisujemy z tym samym prefiksem */
+#screen-garden .screen-header,#screen-garden .garden-card,#screen-garden .game-card,
+#screen-garden .garden-level-panel,#screen-garden .garden-upgrade-panel,#screen-garden .garden-upgrade-card,
+#screen-garden .garden-greenhouse-upgrade{
+  background:var(--grain),linear-gradient(#3a2a1d,#2f2217);
+  border-color:var(--oak-0);box-shadow:0 6px 14px #0009;color:var(--text);
+}
+#screen-garden .screen-header{background:transparent;box-shadow:none;border:0}
+#screen-garden .garden-plot{background:linear-gradient(145deg,#d9bd83,#ad8755);border:0;color:var(--ink)}
+#screen-garden .garden-plot-ready{box-shadow:0 5px 0 #150f0b,0 0 0 3px var(--blood-1)}
+#screen-garden .garden-seed-select{background:#1d130d;color:var(--text);border:0;box-shadow:inset 0 0 0 1px #6a4a30}
+#screen-garden .garden-seed-select:focus{border:0;box-shadow:inset 0 0 0 2px var(--blood-1)}
+#screen-garden .garden-action-button,#screen-garden .garden-harvest-all-button,#screen-garden .garden-upgrade-button{
+  background:linear-gradient(#a8693a,#7a4725);color:#fbeed6;border:0;
+  box-shadow:0 4px 0 #3b200e,inset 0 1px 0 #ffffff44,0 0 0 3px var(--oak-0);
+}
+#screen-garden .garden-action-button:disabled{background:#2a1f17;color:#7d6a55;box-shadow:0 0 0 2px var(--oak-0)}
+#screen-garden .garden-header span,#screen-garden .garden-header p,#screen-garden .screen-header p{color:var(--text-soft)}
+#screen-garden .garden-header strong,#screen-garden .garden-plant-main strong{color:#f6e8cc}
+#screen-garden .garden-plot-empty>strong{color:var(--blood-2)}
+#content:has(#screen-garden:not([hidden])){background:transparent}
+#screen-garden .screen-header h2{color:var(--blood-text);margin-bottom:10px}
+
+/* ---------- Podsumowanie nieobecności: drewno + pergamin dla czytelności ---------- */
+.offline-summary-overlay{background:rgba(10,6,3,.82)}
+.offline-summary-modal{
+  background:var(--planks),var(--grain),linear-gradient(var(--oak-4),#3a2a1d);
+  border:6px solid var(--oak-0);border-radius:3px;
+  box-shadow:0 20px 50px #000,inset 0 1px 0 #ffffff22;color:var(--text);
+}
+.offline-summary-icon{background:radial-gradient(circle at 35% 30%,#a94b3b,#6a251d);border:0;border-radius:50%;box-shadow:0 0 0 3px var(--oak-0),0 0 0 5px var(--iron-line)}
+.offline-summary-eyebrow{color:var(--text-dim);font-family:var(--font-head);letter-spacing:.1em}
+.offline-summary-header{border-bottom:2px solid var(--oak-0);box-shadow:0 1px 0 #ffffff14}
+.offline-summary-header h2{
+  display:block;color:#f6e8cc;text-shadow:0 2px 0 #000a;
+  background:none;clip-path:none;filter:none;padding:0;font-size:30px;
+}
+.offline-summary-duration{background:#1d130d;color:#f6e8cc;border:0;border-radius:2px;box-shadow:inset 0 0 0 1px #6a4a30;font-size:18px}
+.offline-summary-section{
+  background:linear-gradient(var(--parch-1),var(--parch-2));border:0;border-radius:2px;
+  box-shadow:inset 0 0 18px #5b432599,0 3px 0 #150f0b;color:var(--ink);
+}
+.offline-summary-section-title{color:var(--blood-2);font-family:var(--font-head);font-weight:400;font-size:21px;border-bottom:1px solid #8a6a4566}
+.offline-summary-stat,.offline-summary-item{color:#3a2614;border-bottom:1px solid #8a6a4533}
+.offline-summary-stat span,.offline-summary-item span{color:#3a2614;font-size:18px}
+.offline-summary-stat strong,.offline-summary-item strong{color:#5a1b14;font-size:19px}
+.offline-summary-item strong{color:#2f5a22}
+.offline-summary-continue-button{
+  background:linear-gradient(#a03b2f,#6f241c);color:var(--blood-text);border:0;
+  font-family:var(--font-head);font-weight:400;font-size:20px;letter-spacing:.06em;
+  box-shadow:0 4px 0 var(--blood-0),inset 0 1px 0 #ffffff44,0 0 0 3px var(--oak-0);
+}
+.offline-summary-continue-button:hover{background:linear-gradient(#b3453a,#7b2920)}
+.offline-summary-continue-button:focus-visible{outline:2px solid #e3c27a;outline-offset:4px}
+#offline-summary-overlay .offline-summary-header,#offline-summary-overlay .offline-summary-content,
+#offline-summary-overlay .offline-summary-section-title,#offline-summary-overlay .offline-summary-stat-grid,
+#offline-summary-overlay .offline-summary-stat,#offline-summary-overlay .offline-summary-items,
+#offline-summary-overlay .offline-summary-item{background:transparent;box-shadow:none;border-radius:0}
+#offline-summary-overlay .offline-summary-section{padding:14px 18px}
+#offline-summary-overlay .offline-summary-section-title{border-bottom:1px solid #8a6a4566;margin-bottom:8px;padding-bottom:6px;text-shadow:none}
+#offline-summary-overlay .offline-summary-stat,#offline-summary-overlay .offline-summary-item{border-bottom:1px solid #8a6a4533;padding:6px 4px}
+#offline-summary-overlay .offline-summary-continue-button{
+  background:linear-gradient(#a03b2f,#6f241c);color:var(--blood-text);
+}
+#offline-summary-overlay .offline-summary-continue-button:hover{background:linear-gradient(#b3453a,#7b2920)}
+#offline-summary-overlay .offline-summary-eyebrow{background:transparent;box-shadow:none}
+
+/* ---------- Historia nieobecności (Bohater → Podsumowanie) ---------- */
+.hero-offline-history-list{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.offline-history-empty{color:var(--text-dim);padding:10px 4px;font-style:italic}
+.offline-history-entry{background:#1d130d;border-radius:2px;box-shadow:inset 0 0 0 1px #6a4a30}
+.offline-history-summary{
+  display:flex;gap:14px;align-items:center;flex-wrap:wrap;
+  padding:10px 14px;cursor:pointer;color:var(--text-soft);list-style:none;
+}
+.offline-history-summary::-webkit-details-marker{display:none}
+.offline-history-summary::before{content:"▸";color:var(--text-dim)}
+.offline-history-entry[open]>.offline-history-summary::before{content:"▾"}
+.offline-history-date{font-family:var(--font-head);color:#f6e8cc;font-size:17px}
+.offline-history-duration{color:var(--text-soft)}
+.offline-history-icons{margin-left:auto;letter-spacing:.2em}
+.offline-history-entry .offline-summary-section{
+  margin:0 12px 12px;padding:12px 16px;
+  background:linear-gradient(var(--parch-1),var(--parch-2));color:var(--ink);
+  box-shadow:inset 0 0 18px #5b432599,0 3px 0 #150f0b;border:0;border-radius:2px;
+}
+.offline-history-entry .offline-summary-section-title{color:var(--blood-2);font-family:var(--font-head);font-weight:400;font-size:19px;border-bottom:1px solid #8a6a4566;background:transparent;box-shadow:none;margin-bottom:6px;padding-bottom:4px}
+.offline-history-entry .offline-summary-stat-grid,.offline-history-entry .offline-summary-items{background:transparent;box-shadow:none}
+.offline-history-entry .offline-summary-stat,.offline-history-entry .offline-summary-item{background:transparent;box-shadow:none;border-bottom:1px solid #8a6a4533;color:#3a2614;padding:5px 4px}
+.offline-history-entry .offline-summary-stat strong{color:#5a1b14}
+.offline-history-entry .offline-summary-item strong{color:#2f5a22}
+
+/* wnętrza kafelków i wiersze historii nie mają mieć własnych ciemnych teł */
+.hero-summary-card .hero-summary-content,.hero-summary-card span,.hero-summary-card strong,.hero-summary-card small,
+.offline-history-icons,.offline-history-summary span{background:transparent;box-shadow:none}
+
+/* ======== Dopracowanie: baner Bohatera, powiadomienia, pasek aktywności ======== */
+#screen-hero>h2{width:fit-content;max-width:100%;margin-bottom:14px}
+
+.game-notification{
+  background:var(--grain),linear-gradient(#4a3626,#3a2a1d);
+  border:3px solid var(--oak-0);border-left-width:8px;border-radius:3px;
+  color:#f6e8cc;font-family:var(--font-body);font-size:16px;
+  box-shadow:0 8px 18px #000b,inset 0 1px 0 #ffffff22;text-shadow:0 1px 0 #0008;
+}
+.notification-success{border-left-color:#6f9a52}
+.notification-error{border-left-color:var(--blood-1)}
+.notification-warning{border-left-color:#d8a94a}
+.notification-info{border-left-color:var(--verdigris)}
+
+/* pasek aktywności: jaśniejsze, brązowe wnętrze zamiast czerni */
+.activity-hud-main,.activity-hud-background{background:#2f2217;box-shadow:inset 0 0 0 1px #6a4a30}
+.activity-hud-work-row{background:#3a2a1d}
+.activity-hud-background-empty{color:var(--text-soft)}
+.activity-hud-time{background:#1d130d}
+
+/* Sklep */
+.shop-rpg-header{
+  background:linear-gradient(#3b2b1e,#2f2217);border:0;border-radius:2px;
+  box-shadow:inset 0 0 0 1px #6a4a30,0 3px 0 #150f0b;
+}
+.shop-rpg-merchant-name{color:#f6e8cc;font-family:var(--font-head)}
+.shop-tab-button,.shop-subcategory-button{color:#e4d1b0;font-family:var(--font-body)}
+.shop-tab-button.active,.shop-subcategory-button.active{color:var(--blood-text)}
+.shop-tab-button,.shop-tab-button *{color:#f0dcb4}.shop-tab-button.active,.shop-tab-button.active *{color:var(--blood-text)}

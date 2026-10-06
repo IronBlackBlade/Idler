@@ -310,10 +310,27 @@ function showHeroTab(tabName) {
         );
     });
 
+    document
+        .querySelectorAll("[data-hero-menu-tab]")
+        .forEach(button => {
+            button.classList.toggle(
+                "menu-active",
+                button.dataset.heroMenuTab === tabName
+            );
+        });
+
     localStorage.setItem(
         "idler_hero_tab",
         tabName
     );
+
+    if (
+        tabName === "summary" &&
+        typeof renderOfflineSummaryHistory ===
+        "function"
+    ) {
+        renderOfflineSummaryHistory();
+    }
 
     if (
         tabName === "inventory" &&

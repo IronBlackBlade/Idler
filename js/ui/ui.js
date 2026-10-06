@@ -295,6 +295,17 @@ function updateActiveMenuButton(
         }
     );
 
+    document
+        .querySelectorAll("[data-hero-menu-tab]")
+        .forEach(button => {
+            button.classList.toggle(
+                "menu-active",
+                activeSection === "hero" &&
+                typeof currentHeroTab !== "undefined" &&
+                button.dataset.heroMenuTab === currentHeroTab
+            );
+        });
+
     document.querySelectorAll(
         "#menu [data-menu-category]"
     ).forEach(category => {

@@ -1632,6 +1632,7 @@ function isStackableCraftingResult(recipe) {
     "helmet",
     "chest",
     "legs",
+    "pants",
     "boots",
     "gloves",
     "ring",
@@ -1798,7 +1799,39 @@ function createEquipmentUpgradeInstance(resultItemId) {
   };
 }
 
-function createCustomEquipmentItem(resultItemId) {
+/*
+ * Podstawowe statystyki wyposażenia, które zwiększa Arcydzieło.
+ * Nie obejmuje ceny ani wymaganego poziomu.
+ */
+const MASTERPIECE_BASE_STAT_KEYS = [
+  "damage",
+  "armor",
+  "strength",
+  "dexterity",
+  "intelligence",
+  "endurance",
+  "luck",
+];
+
+function applyMasterpieceBonusToItem(customItem, statPercent) {
+  const safePercent = Math.max(0, Number(statPercent) || 0);
+
+  customItem.masterpiece = true;
+  customItem.masterpieceStatPercent = safePercent;
+  customItem.name = "✨ Arcydzieło: " + customItem.name;
+
+  MASTERPIECE_BASE_STAT_KEYS.forEach((stat) => {
+    const baseValue = Number(customItem[stat]) || 0;
+
+    if (baseValue <= 0) {
+      return;
+    }
+
+    customItem[stat] = Math.ceil(baseValue * (1 + safePercent / 100));
+  });
+}
+
+function createCustomEquipmentItem(resultItemId, options = {}) {
   const resultItem = items[resultItemId];
 
   if (!resultItem) {
@@ -1851,9 +1884,53 @@ function createCustomEquipmentItem(resultItemId) {
     upgradeStats: upgradedStats,
   };
 
+  /*
+   * Arcydzieło zwiększa tylko podstawowe statystyki przedmiotu,
+   * przed dodaniem losowych statystyk z ulepszenia.
+   */
+  if (options.masterpiece) {
+    applyMasterpieceBonusToItem(customItem, options.masterpieceStatPercent);
+  }
+
   Object.entries(upgradedStats).forEach(([stat, value]) => {
     customItem[stat] = (Number(customItem[stat]) || 0) + value;
   });
+
+  player.customEquipment[customItemId] = customItem;
+
+  items[customItemId] = customItem;
+
+  return customItemId;
+}
+
+function createMasterpieceEquipmentItem(resultItemId, statPercent) {
+  const resultItem = items[resultItemId];
+
+  if (!resultItem) {
+    return null;
+  }
+
+  if (!player.customEquipment) {
+    player.customEquipment = {};
+  }
+
+  const customItemId =
+    "custom_equipment_" +
+    Date.now() +
+    "_" +
+    Math.floor(Math.random() * 1000000);
+
+  const customItem = {
+    ...resultItem,
+
+    id: customItemId,
+
+    customEquipment: true,
+
+    baseItemId: resultItemId,
+  };
+
+  applyMasterpieceBonusToItem(customItem, statPercent);
 
   player.customEquipment[customItemId] = customItem;
 
@@ -1902,16 +1979,61 @@ function addCompletedCraftingResults(recipe, completedCraftCount) {
     recipe.upgradeFromItemId && recipe.equipmentUpgradeRank,
   );
 
+  const resultIsEquipment = !isStackableCraftingResult(recipe);
+
+  const masterpieceStatPercent =
+    typeof getCraftingMasterpieceEquipmentStatPercent === "function"
+      ? getCraftingMasterpieceEquipmentStatPercent()
+      : 0;
+
+  /*
+   * Szczęśliwe wykonania zamieniają kolejne sztuki wyposażenia
+   * w wersje Arcydzieło.
+   */
+  const masterpieceEquipmentCount =
+    resultIsEquipment && masterpieceStatPercent > 0
+      ? Math.min(masterpieceSuccessCount, totalResultQuantity)
+      : 0;
+
   if (isEquipmentUpgrade) {
     for (let craftIndex = 0; craftIndex < totalResultQuantity; craftIndex++) {
-      const customItemId = createCustomEquipmentItem(recipe.resultItemId);
+      const customItemId = createCustomEquipmentItem(recipe.resultItemId, {
+        masterpiece: craftIndex < masterpieceEquipmentCount,
+        masterpieceStatPercent: masterpieceStatPercent,
+      });
 
       if (customItemId) {
         addItemToInventory(customItemId, 1);
       }
     }
+  } else if (masterpieceEquipmentCount > 0) {
+    for (let craftIndex = 0; craftIndex < totalResultQuantity; craftIndex++) {
+      const itemId =
+        craftIndex < masterpieceEquipmentCount
+          ? createMasterpieceEquipmentItem(
+              recipe.resultItemId,
+              masterpieceStatPercent,
+            )
+          : recipe.resultItemId;
+
+      if (itemId) {
+        addItemToInventory(itemId, 1);
+      }
+    }
   } else {
     addItemToInventory(recipe.resultItemId, totalResultQuantity);
+  }
+
+  if (masterpieceEquipmentCount > 0 && typeof addSystemLog === "function") {
+    addSystemLog(
+      "✨ Arcydzieło: wytworzono " +
+        masterpieceEquipmentCount +
+        (masterpieceEquipmentCount === 1 ? " sztukę" : " szt.") +
+        " ze statystykami zwiększonymi o " +
+        masterpieceStatPercent +
+        "%.",
+      "crafting",
+    );
   }
 
   const recoveryResult = recoverCraftingMaterials(
@@ -1993,6 +2115,8 @@ function addCompletedCraftingResults(recipe, completedCraftCount) {
     masterpieceSuccessCount: masterpieceSuccessCount,
 
     stackableMasterpieceBonus: stackableMasterpieceBonus,
+
+    masterpieceEquipmentCount: masterpieceEquipmentCount,
 
     losslessWorkshopRecoveryCount: losslessWorkshopResult.recoveryCount,
 
@@ -2275,10 +2399,30 @@ function completeCraftingQueueCycle(
 
     startNextCraftingQueueJob(lastCompletedCycleFinishesAt, { persist: false });
 
-    saveGame?.();
-    render?.();
+    if (options.persist !== false && typeof saveGame === "function") {
+      saveGame();
+    }
 
-    return true;
+    if (options.render !== false && typeof render === "function") {
+      render();
+    }
+
+    /*
+     * Po przestawieniu kolejki trzeba odświeżyć widok craftingu,
+     * inaczej nazwa aktywnej pracy i lista kolejki pokazują
+     * poprzednie zadanie przez cały następny cykl.
+     */
+    if (options.render !== false && typeof refreshCraftingView === "function") {
+      refreshCraftingView();
+    }
+
+    return {
+      completedCycleCount: safeCompletedCycleCount,
+      jobFinished: false,
+      recipeId: recipe.id,
+      resultItemId: recipe.resultItemId,
+      completionResult,
+    };
   }
 
   if (jobFinished) {
@@ -2296,6 +2440,27 @@ function completeCraftingQueueCycle(
 
     if (jobIndex !== -1) {
       queue.splice(jobIndex, 1);
+    }
+
+    /*
+     * Zakończone zadanie nie zostawia już cyklu do przestawienia,
+     * więc zadanie z priorytetem przenosimy na początek kolejki,
+     * zanim wystartuje następne.
+     */
+    const finishedPriorityJobId = player.crafting.priorityJobId;
+
+    if (finishedPriorityJobId) {
+      const finishedPriorityIndex = queue.findIndex((queueJob) => {
+        return queueJob.id === finishedPriorityJobId;
+      });
+
+      if (finishedPriorityIndex > 0) {
+        const [priorityJob] = queue.splice(finishedPriorityIndex, 1);
+
+        queue.unshift(priorityJob);
+      }
+
+      player.crafting.priorityJobId = null;
     }
   }
 

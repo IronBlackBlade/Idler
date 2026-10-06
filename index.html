@@ -7,6 +7,7 @@
     <title>Idler</title>
     <link rel="stylesheet" href="css/style.css?v=20260817-menu-fixed">
     <link rel="stylesheet" href="css/tablet.css?v=1">
+    <link rel="stylesheet" href="css/theme.css?v=1">
 </head>
 
 
@@ -195,27 +196,27 @@
                             </button>
 
                             <div id="hero-menu-subitems" class="hero-menu-subitems" hidden>
-                                <button type="button" onclick="openHeroTab('summary')">
+                                <button type="button" data-hero-menu-tab="summary" onclick="openHeroTab('summary')">
                                     📊 Podsumowanie
                                 </button>
 
-                                <button type="button" onclick="openHeroTab('attributes')">
+                                <button type="button" data-hero-menu-tab="attributes" onclick="openHeroTab('attributes')">
                                     💪 Atrybuty
                                 </button>
 
-                                <button type="button" onclick="openHeroTab('equipment')">
+                                <button type="button" data-hero-menu-tab="equipment" onclick="openHeroTab('equipment')">
                                     🛡️ Wyposażenie
                                 </button>
 
-                                <button type="button" onclick="openHeroTab('inventory')">
+                                <button type="button" data-hero-menu-tab="inventory" onclick="openHeroTab('inventory')">
                                     🎒 Plecak
                                 </button>
 
-                                <button type="button" onclick="openHeroTab('profession-tools')">
+                                <button type="button" data-hero-menu-tab="profession-tools" onclick="openHeroTab('profession-tools')">
                                     🧰 Narzędzia
                                 </button>
 
-                                <button type="button" onclick="openHeroTab('skills')">
+                                <button type="button" data-hero-menu-tab="skills" onclick="openHeroTab('skills')">
                                     🌳 Umiejętności
                                 </button>
                             </div>
@@ -1015,6 +1016,20 @@
                             </div>
 
                             <div id="hero-active-bonuses-list" class="hero-active-bonuses-list"></div>
+                        </div>
+
+                        <div class="hero-active-bonuses-section hero-offline-history-section">
+                            <div class="hero-active-bonuses-header">
+                                <div>
+                                    <strong>🌙 Historia nieobecności</strong>
+
+                                    <span>
+                                        Ostatnie powroty do gry i to, co zdobyłeś w tym czasie
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div id="hero-offline-history-list" class="hero-offline-history-list"></div>
                         </div>
                     </div>
                 </div>

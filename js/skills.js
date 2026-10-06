@@ -2703,11 +2703,22 @@ function getCraftingExperienceBonus() {
 function getFinalCraftingExperience(amount) {
     const safeAmount = Math.max(0, Number(amount) || 0);
 
+    /*
+     * Bonus z umiejętności i z młota rzemieślniczego sumują się.
+     */
+    const toolBonus =
+        typeof getProfessionToolBonus === "function"
+            ? getProfessionToolBonus(
+                "craftingHammer",
+                "craftingExpPercent"
+            )
+            : 0;
+
     return Math.max(
         0,
         Math.floor(
             safeAmount *
-            (1 + getCraftingExperienceBonus() / 100)
+            (1 + (getCraftingExperienceBonus() + toolBonus) / 100)
         )
     );
 }

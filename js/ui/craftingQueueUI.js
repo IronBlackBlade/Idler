@@ -482,6 +482,40 @@ function renderCraftingQueue(container) {
     );
 
     row.appendChild(sideStatus);
+
+    if (
+      index > 0 &&
+      typeof prioritizeCraftingQueueJob === "function"
+    ) {
+      const isPrioritized =
+        player.crafting?.priorityJobId === job.id;
+
+      const priorityButton =
+        document.createElement("button");
+
+      priorityButton.type = "button";
+      priorityButton.className =
+        "crafting-queue-priority";
+
+      priorityButton.textContent = isPrioritized
+        ? "⏫ Następne"
+        : "⏫ Priorytet";
+
+      priorityButton.title = isPrioritized
+        ? "To zadanie zacznie się po dokończeniu bieżącego cyklu"
+        : "Rozpocznij to zadanie po dokończeniu bieżącego cyklu";
+
+      priorityButton.disabled = isPrioritized;
+
+      priorityButton.addEventListener("click", () => {
+        if (prioritizeCraftingQueueJob(job.id)) {
+          renderCrafting();
+        }
+      });
+
+      row.appendChild(priorityButton);
+    }
+
     row.appendChild(cancelButton);
     list.appendChild(row);
   });
