@@ -606,3 +606,56 @@ select.combat-spell-select{background:#1d130d;color:var(--text);border:0;box-sha
 .shop-tab-button,.shop-subcategory-button{color:#e4d1b0;font-family:var(--font-body)}
 .shop-tab-button.active,.shop-subcategory-button.active{color:var(--blood-text)}
 .shop-tab-button,.shop-tab-button *{color:#f0dcb4}.shop-tab-button.active,.shop-tab-button.active *{color:var(--blood-text)}
+
+/* Ogród: stany grządki (hover / gotowa) w palecie motywu */
+#screen-garden .garden-plot,#screen-garden .garden-seed-select,
+#screen-garden .garden-action-button{border-radius:3px}
+#screen-garden .garden-plot:hover{
+  background:linear-gradient(145deg,#e4cb94,#bc965f);border:0;
+  box-shadow:0 5px 0 #150f0b,0 0 0 3px #6a4a30;transform:translateY(-2px);
+}
+#screen-garden .garden-plot-ready,#screen-garden .garden-plot-ready:hover{
+  background:linear-gradient(145deg,#d9bd83,#ad8755);border:0;
+  box-shadow:0 5px 0 #150f0b,0 0 0 3px var(--blood-1);
+}
+#screen-garden .garden-plot-ready:hover{background:linear-gradient(145deg,#e4cb94,#bc965f)}
+
+/* ======== Spójne podświetlanie kafelków po najechaniu ======== */
+.location-card,.mining-area-card,.herbalism-area-card,.fishing-area-card,.fishing-order-card,
+.fishing-bait-card,.quest,.crafting-item,.hero-attribute-card,.hero-class-card,.hero-summary-card,
+.crafting-category-items>.crafting-item,.locations-grid>.game-card,.offline-history-entry{
+  transition:transform .15s ease,filter .15s ease,outline-color .15s ease;
+  outline:2px solid transparent;outline-offset:0;
+}
+.location-card:hover,.mining-area-card:hover,.herbalism-area-card:hover,.fishing-area-card:hover,
+.fishing-order-card:hover,.fishing-bait-card:hover,.quest:hover,.crafting-item:hover,
+.hero-attribute-card:hover,.hero-class-card:hover,.hero-summary-card:hover,
+.locations-grid>.game-card:hover,.offline-history-entry:hover{
+  transform:translateY(-2px);filter:brightness(1.14);outline-color:#8a6a45;
+}
+/* zablokowane i niedostępne – bez unoszenia, tylko lekkie rozjaśnienie */
+.location-locked:hover,.crafting-level-locked:hover,.locations-grid>.game-card.locked:hover{transform:none;filter:brightness(1.08)}
+.mining-area-card,.herbalism-area-card,.fishing-area-card{
+  background:var(--planks),var(--grain),linear-gradient(#4a3626,#3a2a1d);
+  border:4px solid var(--oak-0);border-radius:3px;
+  box-shadow:0 8px 16px #000a,inset 0 1px 0 #ffffff22;color:var(--text);
+}
+.mining-area-card.selected,.mining-area-card.current,.herbalism-area-card.selected,.herbalism-area-card.current,
+.fishing-area-card.selected,.fishing-area-card.current{border-color:var(--blood-1)}
+.mining-area-card,.herbalism-area-card,.fishing-area-card{background:var(--grain),linear-gradient(#4a3626,#3a2a1d)}
+.mining-area-info,.herbalism-area-info,.fishing-area-info{background:transparent;box-shadow:none}
+
+/* Ogród → ulepszenia: koniec zielonego podświetlenia */
+#screen-garden .garden-upgrade-card{background:var(--grain),linear-gradient(#3a2a1d,#2f2217);border:3px solid var(--oak-0);border-radius:3px}
+#screen-garden .garden-upgrade-card:hover{
+  background:var(--grain),linear-gradient(#46341f,#392a1d);border-color:var(--oak-0);
+  filter:brightness(1.1);outline:2px solid #8a6a45;
+}
+#screen-garden .garden-upgrade-button{
+  background:linear-gradient(#a8693a,#7a4725);color:#fbeed6;border:0;border-radius:3px;
+  box-shadow:0 4px 0 #3b200e,inset 0 1px 0 #ffffff44,0 0 0 3px var(--oak-0);
+}
+#screen-garden .garden-upgrade-button:hover:not(:disabled){background:linear-gradient(#b87745,#86512d);border:0}
+#screen-garden .garden-upgrade-button:disabled{
+  background:#2a1f17;color:#7d6a55;border:0;opacity:1;box-shadow:0 0 0 2px var(--oak-0);
+}
