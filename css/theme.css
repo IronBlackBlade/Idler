@@ -1420,3 +1420,24 @@ button:not(:disabled):hover,
 #screen-hero .hero-summary-group-header span {
     color: #b09a78;
 }
+
+/* Tytuł narzędzia w kartach profesji nie wychodzi poza nagłówek */
+.profession-tool-context-title {
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: 100%;
+}
+
+/* Menu: powiadomienia (nagroda za zadanie, nowy wpis dziennika) – drewno ze złotym akcentem zamiast oliwki */
+#menu #menu-quests-button.quest-reward-ready {
+    background: linear-gradient(#5a432e, #3f2d1e);
+    border-color: #d9a85a;
+    color: #f6e8cc;
+}
+
+.menu-category.is-collapsed.has-claimable-quest .menu-category-toggle,
+.menu-category.is-collapsed.has-new-journal-entry .menu-category-toggle {
+    background: linear-gradient(#4b392a, #392a1e);
+    border-color: #d9a85a;
+    color: #f6e8cc;
+}
