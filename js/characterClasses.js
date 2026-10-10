@@ -292,20 +292,29 @@ function chooseCharacterClass(
             classDefinition
         );
 
-    const shouldChoose =
-        window.confirm(
-            "Czy na pewno wybierasz klasę " +
-            classDefinition.name +
-            "?\n\n" +
-            "Premie: " +
-            bonusSummary +
-            "\n\n" +
-            "Na tym etapie wybór klasy jest stały."
-        );
+    showGameConfirm(
+        "Czy na pewno wybierasz klasę " +
+        classDefinition.name +
+        "?\n\n" +
+        "Premie: " +
+        bonusSummary +
+        "\n\n" +
+        "Na tym etapie wybór klasy jest stały.",
+        { title: "Wybór klasy", confirmText: "Wybieram" }
+    ).then(shouldChoose => {
+        if (shouldChoose) {
+            applyCharacterClassChoice(
+                classDefinition,
+                bonusSummary
+            );
+        }
+    });
+}
 
-    if (!shouldChoose) {
-        return;
-    }
+function applyCharacterClassChoice(
+    classDefinition,
+    bonusSummary
+) {
 
     player.classId =
         classDefinition.id;

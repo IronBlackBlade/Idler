@@ -3510,8 +3510,8 @@ function resetAllSkills() {
             )
             : "";
 
-    const shouldReset =
-        window.confirm(
+    showGameConfirm(
+
             "Zresetować wszystkie umiejętności?\n\n" +
 
             "Odzyskasz: " +
@@ -3526,12 +3526,24 @@ function resetAllSkills() {
 
             "Złoto wydane wcześniej na rozwijanie umiejętności nie zostanie zwrócone." +
 
-            specializationText
-        );
+            specializationText,
+        { title: "Reset umiejętności", confirmText: "Resetuję" }
+    ).then(shouldReset => {
+        if (shouldReset) {
+            applyAllSkillsReset(
+                spentPoints,
+                resetCost,
+                currentGold
+            );
+        }
+    });
+}
 
-    if (!shouldReset) {
-        return;
-    }
+function applyAllSkillsReset(
+    spentPoints,
+    resetCost,
+    currentGold
+) {
 
     /*
      * Pobieramy opłatę za reset.

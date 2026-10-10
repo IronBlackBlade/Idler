@@ -16,9 +16,14 @@ function renderFishing() {
 function getFishingDropNames(dropList) {
     return dropList
         .map(drop => {
+            const dropItem = items[drop.itemId];
+
             return (
-                items[drop.itemId]?.name ||
-                drop.itemId
+                (dropItem?.icon
+                    ? dropItem.icon + " "
+                    : "") +
+                (dropItem?.name ||
+                    drop.itemId)
             );
         })
         .join(", ");

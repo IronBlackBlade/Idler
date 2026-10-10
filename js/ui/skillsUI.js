@@ -2122,7 +2122,7 @@ function createMagicSkillTreeLayout(
         "warrior-tree-root-heading";
 
     rootHeading.innerHTML = `
-        <span>🔮</span>
+        <span>✨</span>
 
         <div>
             <small>PUNKT WYJŚCIA</small>

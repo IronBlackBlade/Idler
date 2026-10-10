@@ -173,19 +173,6 @@ function hasActiveActivityBeforeDungeon() {
     );
 }
 
-function confirmDungeonActivityInterrupt(dungeon) {
-    if (!hasActiveActivityBeforeDungeon()) {
-        return true;
-    }
-
-    return window.confirm(
-        "Wejście do lochu przerwie aktualne aktywności.\n\n" +
-        "Czy na pewno chcesz rozpocząć wyprawę do lochu: " +
-        dungeon.name +
-        "?"
-    );
-}
-
 function stopActivitiesBeforeDungeon() {
     if (typeof prepareActivityStart === "function") {
         prepareActivityStart(ACTIVITY_TYPES.COMBAT);
@@ -266,10 +253,26 @@ function startDungeonRun(dungeonId) {
         return false;
     }
 
-    if (!confirmDungeonActivityInterrupt(dungeon)) {
+    if (hasActiveActivityBeforeDungeon()) {
+        showGameConfirm(
+            "Wejście do lochu przerwie aktualne aktywności.\n\n" +
+            "Czy na pewno chcesz rozpocząć wyprawę do lochu: " +
+            dungeon.name +
+            "?",
+            { title: "Wejście do lochu", confirmText: "Wchodzę" }
+        ).then(shouldEnter => {
+            if (shouldEnter) {
+                beginDungeonRun(dungeonId, dungeon, progress);
+            }
+        });
+
         return false;
     }
 
+    return beginDungeonRun(dungeonId, dungeon, progress);
+}
+
+function beginDungeonRun(dungeonId, dungeon, progress) {
     stopActivitiesBeforeDungeon();
 
     removeItemFromInventory(dungeon.keyItemId, 1);

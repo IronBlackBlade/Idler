@@ -513,22 +513,40 @@ function saveEquipmentLoadout(loadoutId) {
         return false;
     }
 
-    if (
-        player.equipmentLoadouts[
-            loadoutId
-        ] &&
-        typeof window !== "undefined" &&
-        typeof window.confirm ===
-            "function" &&
-        !window.confirm(
+    if (player.equipmentLoadouts[loadoutId]) {
+        showGameConfirm(
             "Nadpisać zapisany komplet „" +
                 definition.name +
-                "” aktualnym wyposażeniem?"
-        )
-    ) {
+                "” aktualnym wyposażeniem?",
+            { title: "Zapisany komplet", confirmText: "Nadpisz" }
+        ).then(shouldOverwrite => {
+            if (shouldOverwrite) {
+                commitEquipmentLoadout(
+                    loadoutId,
+                    definition,
+                    snapshot,
+                    savedPieceCount
+                );
+            }
+        });
+
         return false;
     }
 
+    return commitEquipmentLoadout(
+        loadoutId,
+        definition,
+        snapshot,
+        savedPieceCount
+    );
+}
+
+function commitEquipmentLoadout(
+    loadoutId,
+    definition,
+    snapshot,
+    savedPieceCount
+) {
     player.equipmentLoadouts[
         loadoutId
     ] = snapshot;

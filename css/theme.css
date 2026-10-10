@@ -659,3 +659,764 @@ select.combat-spell-select{background:#1d130d;color:var(--text);border:0;box-sha
 #screen-garden .garden-upgrade-button:disabled{
   background:#2a1f17;color:#7d6a55;border:0;opacity:1;box-shadow:0 0 0 2px var(--oak-0);
 }
+
+/* ======== Łowienie: usunięcie reszty błękitu ======== */
+#screen-fishing-locations :is(span,small,p,label,div):not([class*="missing"]):not([class*="warning"]):not([class*="danger"]):not([class*="success"]):not([class*="ready"]):not(button):not([class*="icon"]){color:var(--text-soft)}
+#screen-fishing-locations :is(strong,h2,h3,h4):not([class*="missing"]):not([class*="danger"]){color:#f6e8cc}
+#screen-fishing-locations [class*="header"] [class],
+#screen-fishing-locations [class*="kicker"],#screen-fishing-locations [class*="eyebrow"]{color:var(--text-dim)}
+#screen-fishing-locations .profession-tool-context-kicker,#screen-fishing-locations small:first-child{color:var(--text-dim)}
+
+#screen-fishing-locations .fishing-progress-block,
+#screen-fishing-locations .fishing-order-card,
+#screen-fishing-locations .fishing-bait-card{
+  background:#2a1d13;border:0;box-shadow:inset 0 0 0 1px #6a4a30;
+}
+#screen-fishing-locations .fishing-bait-card.selected,#screen-fishing-locations .fishing-bait-card.active,
+#screen-fishing-locations .fishing-bait-card.is-selected{box-shadow:inset 0 0 0 2px var(--blood-1)}
+#screen-fishing-locations .fishing-area-card{
+  background:var(--grain),linear-gradient(#4a3626,#3a2a1d);border:4px solid var(--oak-0);
+}
+#screen-fishing-locations .fishing-area-card.selected,#screen-fishing-locations .fishing-area-card.current,
+#screen-fishing-locations .fishing-area-card.is-selected{
+  background:var(--grain),linear-gradient(#4a3626,#3a2a1d);border-color:var(--blood-1);
+}
+#screen-fishing-locations .fishing-select-button,
+#screen-fishing-locations .fishing-order-complete-button{
+  background:linear-gradient(#4b392a,#392a1e);color:#f0dcb4;border:0;
+  box-shadow:0 3px 0 #150f0b,inset 0 1px 0 #ffffff22,0 0 0 2px var(--oak-0);
+}
+#screen-fishing-locations .fishing-select-button:hover:not(:disabled){background:linear-gradient(#5a4331,#43301f)}
+#screen-fishing-locations .fishing-select-button:disabled{background:#2a1f17;color:#7d6a55}
+#screen-fishing-locations .fishing-start-button,#screen-fishing-locations [class*="start"]{
+  background:linear-gradient(#a03b2f,#6f241c);color:var(--blood-text);border:0;
+  box-shadow:0 4px 0 var(--blood-0),inset 0 1px 0 #ffffff44,0 0 0 3px var(--oak-0);
+}
+
+/* Łowienie – krok 1: turkus -> ochra i dąb */
+[data-profession-tool-panel="fishingRod"]{
+  --tool-accent:#d8a94a;--tool-accent-rgb:216,169,74;--tool-border:#6a4a30;
+  --tool-surface:rgba(47,34,23,.9);--tool-icon-surface:#1d130d;
+}
+#screen-fishing-locations .fishing-dashboard,#screen-fishing-locations .fishing-baits,
+#screen-fishing-locations .fishing-progress-block{border-color:#1a1411;background:#2f2217}
+#screen-fishing-locations .fishing-area-card{
+  background:var(--grain),linear-gradient(#4a3626,#3a2a1d);border-color:var(--oak-0);box-shadow:0 6px 14px #0009;
+}
+#screen-fishing-locations .fishing-area-card.selected,#screen-fishing-locations .fishing-area-card.current{border-color:var(--blood-1)}
+#screen-fishing-locations .fishing-bait-card,#screen-fishing-locations .fishing-select-button,
+#screen-fishing-locations .fishing-order-complete-button{
+  background:linear-gradient(#4b392a,#392a1e);border-color:#1a1411;color:#f0dcb4;
+}
+
+/* Łowienie – krok 2: wybrane łowisko i kafelki statystyk */
+#screen-fishing-locations .fishing-area-card.fishing-area-selected{
+  background:var(--grain),linear-gradient(145deg,#5a4330,#3a2a1d);border-color:var(--blood-1);
+}
+#screen-fishing-locations .fishing-statistics>*{background:#1d130d;border:0;box-shadow:inset 0 0 0 1px #6a4a30;color:var(--text-soft)}
+
+/* Łowienie – krok 1: usunięcie niebieskich ramek i tła głównego panelu */
+#screen-fishing-locations .fishing-dashboard,
+#screen-fishing-locations .fishing-baits{border-color:#6a4a30}
+#screen-fishing-locations .fishing-progress-block{border-color:#6a4a30;border-left-color:var(--blood-1)}
+#screen-fishing-locations .fishing-primary-panel{background:var(--grain),linear-gradient(#3a2a1d,#2f2217)}
+
+/* Łowienie – krok 2: okienka statystyk i karta wybranego łowiska */
+#screen-fishing-locations .fishing-activity-stat,#screen-fishing-locations [class*="fishing-stat"]{
+  background:linear-gradient(#3b2b1e,#2f2217);border-color:#6a4a30;box-shadow:inset 0 0 0 1px #6a4a30;
+}
+#screen-fishing-locations .fishing-area-card.selected,#screen-fishing-locations .fishing-area-card.is-selected,
+#screen-fishing-locations .fishing-area-card.current,#screen-fishing-locations .fishing-area-card.is-current{
+  background:var(--planks),var(--grain),linear-gradient(#4a3626,#3a2a1d);
+  border-color:var(--blood-1);box-shadow:0 0 0 2px var(--oak-0),0 0 16px #8e342955;
+}
+
+/* Łowienie – krok 3: wiersze Ryby/Rzadkie/Skarby, przycisk wybranego łowiska */
+#screen-fishing-locations .fishing-area-card .fishing-area-info,
+#screen-fishing-locations .fishing-area-card [class*="fishing-area-"][class*="row"],
+#screen-fishing-locations .fishing-area-card [class*="fishing-area-"][class*="item"]{
+  background:#1d130d;border-color:#6a4a30;box-shadow:none;color:var(--text-soft);
+}
+#screen-fishing-locations .fishing-area-card [class*="fishing-area-"][class*="row"] strong,
+#screen-fishing-locations .fishing-area-card [class*="fishing-area-"][class*="item"] strong{color:#f0dcb4}
+#screen-fishing-locations .fishing-area-card button{
+  background:linear-gradient(#4b392a,#392a1e);color:#e4d1b0;border:0;
+  box-shadow:0 3px 0 #150f0b,inset 0 1px 0 #ffffff22,0 0 0 2px var(--oak-0);
+}
+#screen-fishing-locations .fishing-area-card button:disabled{background:#2a1f17;color:#7d6a55;box-shadow:0 0 0 2px var(--oak-0)}
+
+/* Łowienie – krok 4: przycisk Rozpocznij / Zakończ łowienie */
+#screen-fishing-locations .fishing-toggle-button{
+  background:linear-gradient(#a03b2f,#6f241c);color:var(--blood-text);
+  border:0;box-shadow:0 4px 0 var(--blood-0),inset 0 1px 0 #ffffff44,0 0 0 3px var(--oak-0);
+  font-family:var(--font-head);font-weight:400;letter-spacing:.04em;
+}
+#screen-fishing-locations .fishing-toggle-button:hover:not(:disabled){background:linear-gradient(#b3453a,#7b2920)}
+#screen-fishing-locations .fishing-stop-button{background:linear-gradient(#8e3429,#68241c)}
+
+/* Alchemia – krok 1: fiolet -> dąb i ochra */
+#screen-alchemy *{border-color:#6a4a30}
+#screen-alchemy [class*="-card"],#screen-alchemy [class*="-panel"],#screen-alchemy [class*="-recipe"]{
+  background:linear-gradient(#3b2b1e,#2f2217);
+}
+#screen-alchemy h3,#screen-alchemy h4,#screen-alchemy strong{color:#f6e8cc}
+#screen-alchemy span,#screen-alchemy small,#screen-alchemy p{color:var(--text-soft)}
+#screen-alchemy .alchemy-potion-compact-label{color:var(--text-dim)}
+#screen-alchemy .alchemy-batch-button,#screen-alchemy .alchemy-batch-max-button{
+  background:linear-gradient(#4b392a,#392a1e);color:#f0dcb4;border:0;
+  box-shadow:0 3px 0 #150f0b,inset 0 1px 0 #ffffff22,0 0 0 2px var(--oak-0);
+}
+
+/* Zielarstwo – krok 1: zieleń -> dąb i ochra */
+#screen-herbalism-locations *{border-color:#6a4a30}
+#screen-herbalism-locations h3{color:#f6e8cc}
+#screen-herbalism-locations .herbalism-level-badge,#screen-herbalism-locations .herbalism-drop-group{
+  background:#1d130d;color:var(--text-soft);box-shadow:inset 0 0 0 1px #6a4a30;
+}
+#screen-herbalism-locations .herbalism-area-card.selected,#screen-herbalism-locations .herbalism-area-card.current,
+#screen-herbalism-locations .herbalism-area-card.is-selected{border-color:var(--blood-1)}
+#screen-herbalism-locations .mining-drop-group,#screen-mining-locations .mining-drop-group{
+  background:#1d130d;border-color:#6a4a30;box-shadow:inset 0 0 0 1px #6a4a30;
+}
+
+/* Drzewka umiejętności i Łowienie – dobicie resztek błękitu */
+.skill-card{border-color:#6a4a30}
+.warrior-tree-root-heading,.warrior-tree-branch-heading{
+  background:linear-gradient(#3b2b1e,#2f2217);border-color:#6a4a30;color:#f6e8cc;
+}
+.warrior-tree-root-heading *,.warrior-tree-branch-heading *{color:#f6e8cc}
+#screen-fishing-locations .fishing-order-complete-button,#screen-fishing-locations .fishing-bait-card{color:#f0dcb4}
+#screen-fishing-locations .fishing-order-complete-button{
+  background:linear-gradient(#4b392a,#392a1e);border:0;
+  box-shadow:0 3px 0 #150f0b,inset 0 1px 0 #ffffff22,0 0 0 2px var(--oak-0);
+}
+
+/* Drobiazgi: ikony Podsumowania i etykiety pustych slotów */
+.hero-summary-icon{color:#4a3622}
+.hero-tab-panel[data-hero-panel="equipment"] small{color:var(--text-dim)}
+.equipment-loadout-card,.equipment-loadout-card *{border-color:#6a4a30}
+.equipment-loadout-card{box-shadow:inset 0 0 0 1px #6a4a30,0 3px 0 #150f0b}
+.equipment-loadout-icon{color:var(--text-soft)}
+
+/* ---------- Okno potwierdzenia (zamiast natywnego confirm) ---------- */
+.game-dialog-overlay{
+  position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;
+  padding:16px;background:rgba(10,6,3,.82);
+}
+.game-dialog{
+  width:min(520px,100%);padding:22px 24px;
+  background:var(--planks),var(--grain),linear-gradient(var(--oak-4),#3a2a1d);
+  border:6px solid var(--oak-0);border-radius:3px;
+  box-shadow:0 20px 50px #000,inset 0 1px 0 #ffffff22;color:var(--text);
+}
+.game-dialog-title{
+  display:block;margin:0 0 14px;padding:0 0 10px;color:#f6e8cc;font-family:var(--font-head);
+  font-weight:400;font-size:26px;text-shadow:0 2px 0 #000a;
+  background:none;clip-path:none;filter:none;border-bottom:2px solid var(--oak-0);box-shadow:0 1px 0 #ffffff14;
+}
+.game-dialog-message{
+  padding:14px 16px;background:linear-gradient(var(--parch-1),var(--parch-2));color:#3a2614;
+  box-shadow:inset 0 0 18px #5b432599,0 3px 0 #150f0b;border-radius:2px;font-size:18px;line-height:1.4;
+}
+.game-dialog-message p{margin:0;background:transparent;box-shadow:none}
+.game-dialog-message .game-dialog-gap{height:10px}
+.game-dialog-actions{display:flex;gap:12px;justify-content:flex-end;margin-top:18px}
+.game-dialog-actions button{min-width:120px;font-size:17px}
+.game-dialog-confirm{
+  background:linear-gradient(#a03b2f,#6f241c);color:var(--blood-text);border:0;
+  font-family:var(--font-head);font-weight:400;letter-spacing:.04em;
+  box-shadow:0 4px 0 var(--blood-0),inset 0 1px 0 #ffffff44,0 0 0 3px var(--oak-0);
+}
+.game-dialog-confirm:hover{background:linear-gradient(#b3453a,#7b2920)}
+.game-dialog-cancel{background:linear-gradient(#4b392a,#392a1e);color:#e4d1b0}
+.game-dialog-actions button:focus-visible{outline:2px solid #e3c27a;outline-offset:4px}
+
+/* ===== Telefon: elementy, które wystawały poza karty ===== */
+@media (max-width: 480px) {
+    .crafting-batch-main-row {
+        grid-template-columns: 30px minmax(0, 1fr) 30px minmax(52px, auto);
+        width: 100%;
+    }
+
+    .shop-category-panel,
+    .shop-subcategory-panel {
+        flex-wrap: wrap;
+    }
+
+    .shop-side-button {
+        flex: 1 1 110px;
+        flex-wrap: wrap;
+        min-width: 0;
+    }
+
+    .crafting-tabs {
+        flex-wrap: wrap;
+    }
+
+    .shop-subcategory-button {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+
+    .tavern-summary {
+        grid-template-columns: repeat(auto-fit, minmax(72px, 1fr));
+    }
+
+    .tavern-summary > div {
+        min-width: 0;
+    }
+
+    #screen-garden .garden-plots {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    #screen-garden .garden-plot {
+        box-sizing: border-box;
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .profession-tool-context-title {
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+    .garden-upgrade-card {
+        flex-wrap: wrap;
+    }
+
+    .garden-upgrade-button {
+        width: 100%;
+    }
+}
+
+/* ===== Drzewko magii: z fioletu na kute żelazo i złoto ===== */
+.warrior-tree-layout[data-tree="magic"] {
+    --warrior-tree-line: rgba(176, 140, 78, 0.6);
+}
+
+.warrior-tree-layout[data-tree="magic"] .warrior-tree-root-heading {
+    border-color: #8a6a35;
+    background: linear-gradient(180deg, #3a2a1a, #1d140c);
+    color: #f0dcb4;
+    box-shadow: 0 0 14px rgba(176, 140, 78, 0.16);
+}
+
+.warrior-tree-layout[data-tree="magic"] .warrior-tree-branch[data-branch="defensive_spells"] .warrior-tree-branch-heading,
+.warrior-tree-layout[data-tree="magic"] .magic-tree-path[data-branch="defensive_spells"] .warrior-tree-branch-heading {
+    border-color: #7d7466;
+}
+
+.skill-card[data-branch="defensive_spells"] {
+    border-left-color: #7d7466;
+}
+
+.warrior-tree-layout[data-tree="magic"] .warrior-tree-branch[data-branch="defensive_spells"] .warrior-tree-node,
+.warrior-tree-layout[data-tree="magic"] .magic-tree-path[data-branch="defensive_spells"] .warrior-tree-node {
+    border-color: #6f6757;
+}
+
+.warrior-tree-layout[data-tree="magic"] .magic-tree-root-cards .warrior-tree-node:last-child {
+    border-left-color: #7d7466;
+}
+
+/* Ogród: przyciski „Zasadź", „Zasadź wszystko", „Zbierz" — hover w kolorze drewna, nie zieleni */
+#screen-garden .garden-action-button:hover:not(:disabled),
+#screen-garden .garden-harvest-all-button:hover:not(:disabled),
+#screen-garden .garden-bulk-actions .garden-action-button:hover:not(:disabled),
+#screen-garden .garden-bulk-plant .garden-action-button:hover:not(:disabled) {
+    background: linear-gradient(#b87745, #86512d);
+    color: #fff4de;
+    border: 0;
+}
+
+/* Łowienie: niedostępne przyciski (przynęty, zlecenia przystani) w drewnie, nie w błękicie */
+#screen-fishing-locations button:disabled {
+    background: #2a1f17;
+    border-color: #4a3622;
+    color: #8a7660;
+    box-shadow: none;
+}
+
+#screen-fishing-locations .fishing-order-complete-button:disabled {
+    border: 0;
+    box-shadow: 0 0 0 2px var(--oak-0);
+}
+
+#screen-fishing-locations .fishing-area-locked,
+#screen-fishing-locations .fishing-order-locked {
+    border-color: #4a3622;
+}
+
+/* Alchemia – krok 2: przyciski, zakładki i paski bez fioletu */
+#screen-alchemy .alchemy-craft-button,
+#screen-alchemy .alchemy-batch-add-button {
+    background: linear-gradient(#a8693a, #7a4725);
+    border: 0;
+    color: #fbeed6;
+    box-shadow: 0 3px 0 #3b200e, inset 0 1px 0 #ffffff33, 0 0 0 2px var(--oak-0);
+}
+
+#screen-alchemy .alchemy-craft-button:hover:not(:disabled),
+#screen-alchemy .alchemy-batch-add-button:hover:not(:disabled) {
+    background: linear-gradient(#b87745, #86512d);
+    border: 0;
+    box-shadow: 0 3px 0 #3b200e, inset 0 1px 0 #ffffff33, 0 0 0 2px var(--oak-0);
+}
+
+#screen-alchemy .alchemy-craft-button:focus-visible {
+    outline: 2px solid var(--blood-1);
+}
+
+#screen-alchemy .alchemy-craft-button:disabled,
+#screen-alchemy .alchemy-batch-add-button:disabled {
+    background: #2a1f17 !important;
+    border: 0 !important;
+    color: #8a7660 !important;
+    box-shadow: 0 0 0 2px var(--oak-0) !important;
+}
+
+#screen-alchemy .alchemy-craft-button.is-ready,
+#screen-alchemy .alchemy-batch-add-button.is-ready {
+    background: linear-gradient(#a33a2c, #74241b) !important;
+    border: 0 !important;
+    color: #fff1dc !important;
+    box-shadow: 0 3px 0 #2b0f0a, inset 0 1px 0 #ffffff33, 0 0 0 2px var(--oak-0) !important;
+}
+
+#screen-alchemy .alchemy-craft-button.is-ready:hover:not(:disabled),
+#screen-alchemy .alchemy-batch-add-button.is-ready:hover:not(:disabled) {
+    background: linear-gradient(#b5463a, #85291f) !important;
+    border: 0 !important;
+}
+
+#screen-alchemy .alchemy-batch-button:disabled,
+#screen-alchemy .alchemy-batch-max-button:disabled {
+    background: #2a1f17;
+    border: 0;
+    color: #8a7660;
+    box-shadow: 0 0 0 2px var(--oak-0);
+}
+
+#screen-alchemy .alchemy-category-tab,
+#screen-alchemy .alchemy-subcategory-tab {
+    background: #1d130d;
+    border-color: #6a4a30;
+    color: #d8c4a2;
+}
+
+#screen-alchemy .alchemy-category-tab:hover,
+#screen-alchemy .alchemy-subcategory-tab:hover {
+    background: #3b2b1e;
+    border-color: #8a6440;
+    color: #f6e8cc;
+}
+
+#screen-alchemy .alchemy-category-tab.active,
+#screen-alchemy .alchemy-subcategory-tab.active {
+    background: linear-gradient(#a33a2c, #74241b);
+    border-color: #2b0f0a;
+    color: #fff1dc;
+    box-shadow: 0 0 0 2px var(--oak-0);
+}
+
+#screen-alchemy .alchemy-queue-drag-handle,
+#screen-alchemy .alchemy-queue-drag-handle:hover {
+    background: #1d130d;
+    border-color: #6a4a30;
+    color: #d8c4a2;
+}
+
+#screen-alchemy .alchemy-exp-fill,
+#screen-alchemy .alchemy-crafting-fill {
+    background: linear-gradient(90deg, #8e3429, #c98a3a);
+}
+
+/* Alchemia: panel narzędzia i pola efektów mikstur w kolorach dębu */
+[data-profession-tool-panel="alchemyKit"] {
+    --tool-accent: #d9a85a;
+    --tool-accent-rgb: 217, 168, 90;
+    --tool-border: #6a4a30;
+    --tool-surface: rgba(47, 34, 23, 0.74);
+    --tool-icon-surface: #1d130d;
+}
+
+#screen-alchemy .alchemy-potion-effect-preview,
+#screen-alchemy .alchemy-potion-compact-box {
+    background: #1d130d;
+    border-color: #6a4a30;
+}
+
+#screen-alchemy .alchemy-potion-effect-preview strong {
+    color: #f0c97a;
+}
+
+#screen-alchemy .alchemy-potion-effect-preview span {
+    color: #f6e8cc;
+}
+
+#screen-alchemy .alchemy-queue-active.is-drop-target {
+    border-color: var(--blood-1);
+    background: rgba(163, 58, 44, 0.16);
+}
+
+/* Jednolite, delikatne podświetlenie każdego aktywnego przycisku w grze */
+button,
+.menu-tile,
+[role="button"] {
+    transition: filter 0.15s ease;
+}
+
+button:not(:disabled):hover,
+[role="button"]:not([aria-disabled="true"]):hover {
+    filter: brightness(1.12);
+}
+
+/* Alchemia: przycisk MAX mieści się w karcie */
+#screen-alchemy .alchemy-batch-controls {
+    grid-template-columns: 46px minmax(0, 1fr) 46px minmax(56px, 0.7fr) !important;
+}
+
+/* Kupiec i Wytwarzanie: karty przedmiotów i ich szare wnętrza w kolorach dębu */
+#screen-shop .shop-item,
+#screen-crafting .crafting-item {
+    background: linear-gradient(#3b2b1e, #2f2217);
+}
+
+#screen-shop .shop-item.rarity-common,
+#screen-crafting .crafting-item.rarity-common {
+    border-color: #6a4a30;
+}
+
+#screen-shop .shop-item small,
+#screen-shop .shop-item-tags span,
+#screen-shop .shop-stat-box,
+#screen-shop .stat-comparison,
+#screen-shop .shop-rpg-price,
+#screen-crafting .crafting-item span[class=""],
+#screen-crafting .crafting-item-tags span {
+    background: #1d130d;
+}
+
+#screen-shop .shop-side-button small,
+#screen-shop .shop-rpg-info span,
+#screen-crafting .crafting-batch-summary span {
+    background: #1d130d;
+}
+
+/* Bohater: Plecak, Wyposażenie, Atrybuty, Umiejętności – resztki szarości */
+#screen-hero .inventory-item {
+    background: linear-gradient(#3b2b1e, #2f2217);
+}
+
+#screen-hero .inventory-item.rarity-common {
+    border-color: #6a4a30;
+}
+
+#screen-hero .inventory-item-stats span {
+    background: #1d130d;
+}
+
+#screen-hero .inventory-filters button:not(.active),
+#screen-hero .skill-tree-tabs button:not(.active) {
+    background: linear-gradient(#4b392a, #392a1e);
+    color: #f0dcb4;
+}
+
+#screen-hero .equipment-loadout-actions button:disabled {
+    background: #2a1f17;
+    border-color: #4a3622;
+    color: #8a7660;
+}
+
+#screen-hero .hero-attribute-per-point {
+    background: #1d130d;
+}
+
+#screen-hero .skill-card.skill-locked.skill-capstone {
+    background: linear-gradient(#3b2b1e, #2f2217);
+}
+
+/* Zadania i Dziennik: szare tła -> drewno (kontenery), ciemny dąb (wgłębienia), drewniane zakładki */
+#screen-quests .quest,
+#screen-quests .quest-category-tabs,
+#screen-quests .quest-location-subtabs,
+#screen-quests .quest-empty-state,
+#screen-quests .quest-completion-summary,
+#screen-journal .journal-tabs,
+#screen-journal .journal-panel-header,
+#screen-journal .journal-empty-card,
+#screen-journal .journal-bestiary-location,
+#screen-journal .journal-bestiary-card,
+#screen-journal .journal-boss-card,
+#screen-journal .journal-boss-first-reward-details,
+#screen-journal .journal-location-card,
+#screen-journal .journal-achievement-summary,
+#screen-journal .journal-achievement-card,
+#screen-journal .journal-profession-tabs,
+#screen-journal .journal-profession-overview,
+#screen-journal .journal-profession-section,
+#screen-journal .journal-profession-area,
+#screen-journal .journal-profession-discovery,
+#screen-journal .journal-profession-discovery.discovered,
+#screen-journal .journal-profession-special,
+#screen-journal .journal-material-summary,
+#screen-journal .journal-material-controls,
+#screen-journal .journal-material-card,
+#screen-journal .journal-material-empty {
+    background: linear-gradient(#3b2b1e, #2f2217);
+}
+
+#screen-quests .quest-progress-bar,
+#screen-quests .quest-completion-summary-track,
+#screen-journal .journal-bestiary-summary > div,
+#screen-journal .journal-bestiary-icon,
+#screen-journal .journal-bestiary-counters > div,
+#screen-journal .journal-bestiary-loot-item,
+#screen-journal .journal-boss-summary > div,
+#screen-journal .journal-boss-icon,
+#screen-journal .journal-boss-stats > div,
+#screen-journal .journal-location-stats > div,
+#screen-journal .journal-location-mastery,
+#screen-journal .journal-location-mastery-track,
+#screen-journal .journal-location-chests span,
+#screen-journal .journal-achievement-icon,
+#screen-journal .journal-achievement-track,
+#screen-journal .journal-achievement-tab small,
+#screen-journal .journal-profession-main-icon,
+#screen-journal .journal-profession-exp-track,
+#screen-journal .journal-profession-stat,
+#screen-journal .journal-profession-discovery-icon,
+#screen-journal .journal-material-progress-track,
+#screen-journal .journal-material-search,
+#screen-journal .journal-material-icon,
+#screen-journal .journal-material-quantity,
+#screen-journal .journal-material-use {
+    background: #1d130d;
+}
+
+#screen-quests .quest-category-tab-button:not(.active),
+#screen-journal .journal-tabs button:not(.active),
+#screen-journal .journal-profession-tab:not(.active),
+#screen-journal .journal-achievement-tab:not(.active),
+#screen-journal .journal-material-filter:not(.active) {
+    background: linear-gradient(#4b392a, #392a1e);
+    color: #f0dcb4;
+}
+
+/* Bohater – dobicie resztek w podzakładkach: szare tła, ramki, tekst i niebieska ikona */
+#screen-hero .hero-class-growth-preview,
+#screen-hero .hero-attribute-breakdown span,
+#screen-hero .inventory-rarity-tag,
+#screen-hero .inventory-purpose-tag,
+#screen-hero .inventory-value-tag,
+#screen-hero .equipment-quick-comparison,
+#screen-hero .equipment-comparison-stat,
+#screen-hero .profession-tool-selector,
+#screen-hero .profession-tool-selector select {
+    background: #1d130d;
+}
+
+#screen-hero .equipment-backpack-item,
+#screen-hero .profession-tools-introduction {
+    background: linear-gradient(#3b2b1e, #2f2217);
+}
+
+#screen-hero .hero-active-bonuses-empty,
+#screen-hero .hero-attribute-effect-panel,
+#screen-hero .hero-attribute-effect-row,
+#screen-hero .equipment-comparison-target,
+#screen-hero .equipment-comparison-stat.positive,
+#screen-hero .equipment-quick-comparison,
+#screen-hero .equipment-quick-comparison-row,
+#screen-hero .profession-tool-card-empty,
+#screen-hero .profession-tool-status.empty,
+#screen-hero .warrior-tree-branch-heading,
+#screen-hero .skill-card.skill-locked {
+    border-color: #6a4a30;
+}
+
+#screen-hero .equipment-loadout-empty,
+#screen-hero .equipment-slot strong,
+#screen-hero .equipment-comparison-target,
+#screen-hero .profession-tool-selector-empty,
+#screen-hero .profession-tool-empty-content span {
+    color: #b09a78;
+}
+
+#screen-hero .hero-summary-icon {
+    color: #4a3622;
+}
+
+/* Plecak: podkategorie (np. Broń → Zwarcie, Dystans, Magia) */
+#screen-hero .inventory-subfilters {
+    background: linear-gradient(#3b2b1e, #2f2217);
+    border-color: #6a4a30;
+}
+
+#screen-hero .inventory-subfilters-label {
+    color: #d8c4a2;
+}
+
+#screen-hero .inventory-subfilters button:not(.active) {
+    background: linear-gradient(#4b392a, #392a1e);
+    border-color: #6a4a30;
+    color: #f0dcb4;
+}
+
+/* Wytwarzanie: porównanie obrażeń i pancerza */
+#screen-crafting .crafting-weapon-damage-comparison {
+    background: #1d130d;
+    border-color: #6a4a30;
+}
+
+#screen-crafting .crafting-weapon-damage-row {
+    background: transparent;
+    color: #d8c4a2;
+}
+
+#screen-crafting .crafting-weapon-damage-header {
+    color: #f0c97a;
+}
+
+/* Wytwarzanie – pełny przegląd: Narzędzia (ulepszanie), Kowal (ulepszenia), Płatnerz (zestawy) */
+#screen-crafting .profession-tool-context-card.is-empty,
+#screen-crafting .profession-tool-upgrade-stage.is-source,
+#screen-crafting .profession-tool-upgrade-stage.is-result,
+#screen-crafting .profession-tool-upgrade-source.material-missing,
+#screen-crafting .profession-tool-upgrade-progress span,
+#screen-crafting .profession-tool-upgrade-materials span,
+#screen-crafting .profession-tool-upgrade-bonuses em,
+#screen-crafting .crafting-item-stats span,
+#screen-crafting .crafting-materials span,
+#screen-crafting .crafting-set-progress-label,
+#screen-crafting .crafting-set-ownership,
+#screen-crafting .crafting-set-next-bonus,
+#screen-crafting .equipment-upgrade-path-item,
+#screen-crafting .equipment-upgrade-path-icon {
+    background: #1d130d;
+}
+
+#screen-crafting .profession-tool-upgrade-intro {
+    background: linear-gradient(#3b2b1e, #2f2217);
+}
+
+#screen-crafting .profession-tool-upgrade-progress span,
+#screen-crafting .profession-tool-upgrade-stage.is-source,
+#screen-crafting .crafting-batch-summary span,
+#screen-crafting .crafting-set-progress-label,
+#screen-crafting .crafting-set-ownership,
+#screen-crafting .crafting-set-next-bonus,
+#screen-crafting .equipment-upgrade-path-item,
+#screen-crafting .equipment-upgrade-path-icon,
+#screen-crafting .crafting-item.equipment-upgrade-card,
+#screen-crafting .crafting-item.crafting-set-recipe-card {
+    border-color: #6a4a30;
+}
+
+#screen-crafting .crafting-batch-limit,
+#screen-crafting .profession-tool-upgrade-progress span,
+#screen-crafting .profession-tool-upgrade-stage small,
+#screen-crafting .profession-tool-upgrade-stage span,
+#screen-crafting .profession-tool-upgrade-bonuses h4,
+#screen-crafting .profession-tool-upgrade-bonuses del,
+#screen-crafting .profession-tool-upgrade-materials h4,
+#screen-crafting .profession-tool-upgrade-source small,
+#screen-crafting .crafting-set-ownership.is-missing,
+#screen-crafting .crafting-set-next-bonus span,
+#screen-crafting .profession-tool-context-card.is-empty p {
+    color: #b09a78;
+}
+
+#screen-crafting .crafting-set-progress-label strong,
+#screen-crafting .crafting-set-next-bonus small {
+    color: #f0c97a;
+}
+
+#screen-crafting .profession-tool-upgrade-intro p,
+#screen-crafting .profession-tool-upgrade-action span {
+    color: #b09a78;
+}
+
+#screen-crafting .profession-tool-upgrade-action span {
+    background: #1d130d;
+    border-color: #6a4a30;
+}
+
+#screen-crafting .profession-tool-upgrade-bonus-row em {
+    background: #1d130d;
+}
+
+#screen-crafting .equipment-upgrade-path span {
+    color: #b09a78;
+}
+
+/* Kupiec – przegląd stanów */
+#screen-shop .shop-rpg-merchant-description,
+#screen-shop .shop-side-button small,
+#screen-shop .empty-category,
+#screen-shop .shop-rpg-rarity,
+#screen-shop .shop-rpg-comparison-target {
+    color: #b09a78;
+}
+
+#screen-shop .shop-rpg-info span,
+#screen-shop .shop-stat-box,
+#screen-shop .stat-comparison,
+#screen-shop .shop-rpg-price,
+#screen-shop .shop-rpg-comparison {
+    border-color: #6a4a30;
+}
+
+#screen-shop .shop-upgrade-badge.shop-upgrade-similar {
+    border-color: #6a4a30;
+}
+
+/* Przegląd stanów wymuszonych: Dziennik i Bohater (założone wyposażenie, odkryte wpisy, osiągnięcia) */
+#screen-journal .journal-bestiary-counters > div,
+#screen-journal .journal-location-reward {
+    border-color: #6a4a30;
+}
+
+#screen-journal .journal-location-reward,
+#screen-journal .journal-location-reward span,
+#screen-journal .journal-location-reward strong {
+    color: #8a7660;
+}
+
+#screen-journal .journal-achievement-progress-info span {
+    color: #b09a78;
+}
+
+#screen-journal .journal-material-use small {
+    color: #d8c4a2;
+}
+
+#screen-hero .hero-active-bonuses-empty,
+#screen-hero .equipment-loadout-icon,
+#screen-hero .equipment-loadout-meta,
+#screen-hero .equipment-backpack-item-info span,
+#screen-hero .equipment-comparison-label,
+#screen-hero .equipment-comparison-difference,
+#screen-hero .equipment-quick-comparison-row span,
+#screen-hero .equipment-quick-comparison-row em,
+#screen-hero .profession-tool-status.empty {
+    color: #b09a78;
+}
+
+#screen-hero .equipment-item-tags span {
+    background: #1d130d;
+}
+
+#screen-hero .equipment-comparison-stat.neutral {
+    border-color: #6a4a30;
+}
+
+#screen-hero .warrior-tree-root-heading {
+    background: linear-gradient(#3b2b1e, #2f2217);
+    border-color: #6a4a30;
+}
+
+#screen-hero .hero-summary-group-header span {
+    color: #b09a78;
+}

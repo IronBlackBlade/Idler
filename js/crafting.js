@@ -663,12 +663,41 @@ function addCraftingQueueJob(recipe, craftCount) {
     return null;
   }
 
-  const equipmentUsageConfirmed = confirmCraftingQueueEquipmentUsage(
-    recipe,
-    safeCraftCount,
-  );
+  const equippedMaterials = getRecipeEquippedMaterials(recipe, safeCraftCount);
 
-  if (!equipmentUsageConfirmed) {
+  if (equippedMaterials.length > 0) {
+    confirmCraftingQueueEquipmentUsage(equippedMaterials).then((confirmed) => {
+      if (!confirmed) {
+        return;
+      }
+
+      if (
+        !enqueueCraftingJob(recipe, safeCraftCount) ||
+        typeof renderCrafting !== "function"
+      ) {
+        return;
+      }
+
+      if (typeof setCraftingBatchCount === "function") {
+        setCraftingBatchCount(recipe.id, 1);
+      }
+
+      renderCrafting();
+    });
+
+    return null;
+  }
+
+  return enqueueCraftingJob(recipe, safeCraftCount);
+}
+
+function enqueueCraftingJob(recipe, safeCraftCount) {
+  const queue = getCraftingQueue();
+
+  if (
+    queue.length >= craftingBalance.queue.maxSize ||
+    !canCraftRecipe(recipe, safeCraftCount)
+  ) {
     return null;
   }
 
@@ -1003,13 +1032,7 @@ function getRecipeEquippedMaterials(recipe, craftCount = 1) {
     .filter(Boolean);
 }
 
-function confirmCraftingQueueEquipmentUsage(recipe, craftCount) {
-  const equippedMaterials = getRecipeEquippedMaterials(recipe, craftCount);
-
-  if (equippedMaterials.length === 0) {
-    return true;
-  }
-
+function confirmCraftingQueueEquipmentUsage(equippedMaterials) {
   const materialsText = equippedMaterials
     .map((material) => {
       const item = items[material.itemId];
@@ -1018,10 +1041,11 @@ function confirmCraftingQueueEquipmentUsage(recipe, craftCount) {
     })
     .join("\n");
 
-  return window.confirm(
+  return showGameConfirm(
     "To zadanie zużyje założone wyposażenie:\n\n" +
       materialsText +
       "\n\nKontynuować?",
+    { title: "Zużycie wyposażenia", confirmText: "Kontynuuję" },
   );
 }
 
