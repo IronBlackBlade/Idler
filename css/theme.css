@@ -1550,3 +1550,318 @@ button:not(:disabled):hover,
 #screen-hero .hero-active-bonuses-header span {
     color: #b09a78;
 }
+
+/* Menu: rozwinięty Bohater nie rozciąga sąsiednich przycisków (Zadania, Dziennik) na całą wysokość */
+.menu-category-items {
+    align-items: start;
+}
+
+/* Menu (telefon/tablet): blok Bohatera zajmuje cały wiersz, a Zadania i Dziennik stoją pod nim w normalnej wysokości */
+#menu .menu-category-items {
+    align-items: start !important;
+}
+
+#menu .hero-menu-category {
+    grid-column: 1 / -1;
+}
+
+#menu .menu-category-items > button {
+    align-self: start;
+}
+
+/* ===== Telefon: drzewka umiejętności jako zwarte drzewko ===== */
+@media (max-width: 700px) {
+    #screen-hero {
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+
+    #screen-hero .skills-panel {
+        padding: 8px;
+    }
+
+    .warrior-tree-layout .warrior-tree-branches {
+        display: grid !important;
+        grid-template-columns: repeat(auto-fit, minmax(88px, 1fr));
+        gap: 8px;
+        align-items: start;
+    }
+
+    .warrior-tree-layout .warrior-tree-branch {
+        min-width: 0;
+    }
+
+    .warrior-tree-layout .warrior-tree-branch-heading {
+        padding: 6px 4px;
+        text-align: center;
+        font-size: 11px;
+    }
+
+    .warrior-tree-layout .warrior-tree-branch-heading small {
+        display: none;
+    }
+
+    .warrior-tree-layout .warrior-tree-chain {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .warrior-tree-layout .warrior-tree-root-cards {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+
+    .warrior-tree-layout .warrior-tree-node {
+        position: relative;
+        min-height: 0;
+        padding: 6px 6px 7px;
+        background: linear-gradient(#3b2b1e, #2f2217) !important;
+        cursor: pointer;
+    }
+
+    .warrior-tree-layout .warrior-tree-node > *:not(.skill-card-header):not(.skill-requirements) {
+        display: none !important;
+    }
+
+    .warrior-tree-layout .warrior-tree-node .skill-card-header {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        margin: 0;
+    }
+
+    .warrior-tree-layout .warrior-tree-node .skill-type {
+        display: none;
+    }
+
+    .warrior-tree-layout .warrior-tree-node h4 {
+        margin: 0;
+        font-size: 12px;
+        line-height: 1.2;
+    }
+
+    .warrior-tree-layout .warrior-tree-node .skill-level {
+        font-size: 10px;
+    }
+
+    .warrior-tree-layout .warrior-tree-node .skill-requirements {
+        margin: 4px 0 0;
+    }
+
+    .warrior-tree-layout .warrior-tree-node .skill-requirements > span:nth-child(n + 2) {
+        display: none;
+    }
+
+    .warrior-tree-layout .warrior-tree-node .skill-requirements > span {
+        font-size: 9.5px;
+    }
+
+    /* Wysuwany panel ze szczegółami umiejętności */
+    .skill-sheet-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 9500;
+        display: flex;
+        align-items: flex-end;
+        background: rgba(10, 6, 3, 0.72);
+    }
+
+    .skill-sheet {
+        box-sizing: border-box;
+        width: 100%;
+        max-height: 82vh;
+        overflow-y: auto;
+        padding: 14px 14px 78px;
+        background: linear-gradient(#3b2b1e, #2f2217);
+        border-top: 3px solid #6a4a30;
+        border-radius: 14px 14px 0 0;
+        box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.6);
+    }
+
+    .skill-sheet .skill-sheet-card {
+        margin: 0;
+        border: 0;
+        background: transparent;
+        box-shadow: none;
+    }
+
+    .skill-sheet .skill-upgrade-button {
+        width: 100%;
+    }
+
+    .skill-sheet-close {
+        width: 100%;
+        margin-top: 10px;
+        padding: 11px;
+        color: #f0dcb4;
+        font-family: var(--font-head);
+        background: linear-gradient(#4b392a, #392a1e);
+        border: 0;
+        border-radius: 6px;
+        box-shadow: 0 3px 0 #150f0b, inset 0 1px 0 #ffffff22, 0 0 0 2px var(--oak-0);
+    }
+}
+
+/* ===== Telefon: porządek w układzie drzewka (wyśrodkowanie, linie) ===== */
+@media (max-width: 700px) {
+    .warrior-tree-layout .warrior-tree-root,
+    .warrior-tree-layout .warrior-tree-branches {
+        width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    .warrior-tree-layout .magic-tree-connector,
+    .warrior-tree-layout .warrior-tree-root::after,
+    .warrior-tree-layout .warrior-tree-branches::after {
+        display: none !important;
+    }
+
+    .warrior-tree-layout .warrior-tree-root {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-bottom: 14px !important;
+    }
+
+    .warrior-tree-layout .warrior-tree-root-heading {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .warrior-tree-layout .warrior-tree-root-cards {
+        position: relative;
+        width: 100% !important;
+        margin: 14px auto 0 !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 8px !important;
+        justify-items: stretch;
+    }
+
+    .warrior-tree-layout .warrior-tree-root-cards::before {
+        display: none !important;
+    }
+
+    .warrior-tree-layout .warrior-tree-root-cards > .warrior-tree-node:only-child {
+        grid-column: 1 / -1;
+        justify-self: center;
+        width: 62%;
+    }
+
+    .warrior-tree-layout .warrior-tree-root::before {
+        content: "";
+        position: absolute;
+        top: 36px;
+        bottom: 0;
+        left: 50%;
+        width: 2px;
+        background: var(--warrior-tree-line);
+        transform: translateX(-50%);
+    }
+
+    .warrior-tree-layout .warrior-tree-root > * {
+        position: relative;
+        z-index: 1;
+    }
+
+    .warrior-tree-layout .warrior-tree-branches {
+        position: relative;
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 8px !important;
+        padding: 26px 0 0 !important;
+    }
+
+    .warrior-tree-layout .warrior-tree-branches:has(> :nth-child(3)) {
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        gap: 6px !important;
+    }
+
+    .warrior-tree-layout .warrior-tree-branches::before {
+        top: 0 !important;
+        bottom: auto !important;
+        left: 25% !important;
+        right: 25% !important;
+        width: auto !important;
+        height: 2px !important;
+    }
+
+    .warrior-tree-layout .warrior-tree-branches:has(> :nth-child(3))::before {
+        left: 16.666% !important;
+        right: 16.666% !important;
+    }
+
+    .warrior-tree-layout .warrior-tree-branch {
+        padding-top: 0 !important;
+    }
+
+    .warrior-tree-layout .warrior-tree-branch::before {
+        top: -26px !important;
+        left: 50% !important;
+        width: 2px !important;
+        height: 26px !important;
+        transform: translateX(-50%) !important;
+    }
+
+    .warrior-tree-layout .warrior-tree-chain {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 14px !important;
+        padding-top: 14px !important;
+    }
+
+    .warrior-tree-layout .warrior-tree-chain::before {
+        top: 0 !important;
+        bottom: 0 !important;
+        left: 50% !important;
+        right: auto !important;
+        width: 2px !important;
+        height: auto !important;
+        transform: translateX(-50%) !important;
+    }
+
+    .warrior-tree-layout .warrior-tree-chain .warrior-tree-node::before {
+        top: -11px !important;
+    }
+
+    .warrior-tree-layout .warrior-tree-node {
+        background: #3b2b1e !important;
+    }
+}
+
+@media (max-width: 700px) {
+    .warrior-tree-layout .warrior-tree-branch-heading {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 4px;
+        min-height: 0 !important;
+        padding: 6px 3px !important;
+        text-align: center;
+        overflow: hidden;
+    }
+
+    .warrior-tree-layout .warrior-tree-branch-heading > div {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .warrior-tree-layout .warrior-tree-branch-heading strong {
+        font-size: 11px;
+        line-height: 1.2;
+        overflow-wrap: anywhere;
+        white-space: normal;
+    }
+
+    .warrior-tree-layout .warrior-tree-node.skill-locked {
+        opacity: 1 !important;
+    }
+
+    .warrior-tree-layout .warrior-tree-node.skill-locked > * {
+        opacity: 0.72;
+    }
+}

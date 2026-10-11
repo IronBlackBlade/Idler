@@ -3878,3 +3878,86 @@ function renderCombatSpellSlots() {
     renderCombatSpellSlot("offensive");
     renderCombatSpellSlot("defensive");
 }
+
+/*
+ * Telefon: węzły drzewka są zwarte (nazwa, poziom, wymagania),
+ * a pełne szczegóły z przyciskiem ulepszenia pokazuje wysuwany panel
+ * po dotknięciu węzła. Na szerokich ekranach nic się nie zmienia.
+ */
+(function () {
+    const MOBILE_QUERY = "(max-width: 700px)";
+
+    function closeSkillSheet() {
+        const overlay = document.getElementById("skill-sheet-overlay");
+
+        if (overlay) {
+            overlay.remove();
+        }
+    }
+
+    function openSkillSheet(node) {
+        closeSkillSheet();
+
+        const overlay = document.createElement("div");
+        overlay.id = "skill-sheet-overlay";
+        overlay.className = "skill-sheet-overlay";
+
+        const sheet = document.createElement("div");
+        sheet.className = "skill-sheet";
+        sheet.setAttribute("role", "dialog");
+        sheet.setAttribute("aria-modal", "true");
+
+        const card = node.cloneNode(true);
+        card.classList.remove("warrior-tree-node");
+        card.classList.add("skill-sheet-card");
+
+        const closeButton = document.createElement("button");
+        closeButton.type = "button";
+        closeButton.className = "skill-sheet-close";
+        closeButton.textContent = "Zamknij";
+
+        sheet.appendChild(card);
+        sheet.appendChild(closeButton);
+        overlay.appendChild(sheet);
+        document.body.appendChild(overlay);
+
+        overlay.addEventListener("click", function (event) {
+            if (
+                event.target === overlay ||
+                event.target.closest(".skill-sheet-close")
+            ) {
+                closeSkillSheet();
+                return;
+            }
+
+            // Po ulepszeniu drzewko odrysowuje się samo,
+            // więc kopia w panelu byłaby nieaktualna.
+            if (event.target.closest("button")) {
+                setTimeout(closeSkillSheet, 0);
+            }
+        });
+    }
+
+    document.addEventListener("click", function (event) {
+        if (!window.matchMedia(MOBILE_QUERY).matches) {
+            return;
+        }
+
+        const node = event.target.closest(
+            ".warrior-tree-layout .warrior-tree-node"
+        );
+
+        if (!node) {
+            return;
+        }
+
+        event.preventDefault();
+        openSkillSheet(node);
+    });
+
+    document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+            closeSkillSheet();
+        }
+    });
+})();
