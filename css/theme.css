@@ -1441,3 +1441,112 @@ button:not(:disabled):hover,
     border-color: #d9a85a;
     color: #f6e8cc;
 }
+
+/* Panele narzędzi wszystkich profesji w jednej palecie dębu (bez zieleni i błękitu) */
+[data-profession-tool-panel="pickaxe"],
+[data-profession-tool-panel="sickle"],
+[data-profession-tool-panel="fishingRod"],
+[data-profession-tool-panel="cookingTools"],
+[data-profession-tool-panel="craftingHammer"] {
+    --tool-accent: #d9a85a;
+    --tool-accent-rgb: 217, 168, 90;
+    --tool-border: #6a4a30;
+    --tool-surface: rgba(47, 34, 23, 0.74);
+    --tool-icon-surface: #1d130d;
+}
+
+/* Przegląd responsywny (tablet/telefon): Walka, Loch, Kopalnia, Zielarstwo, Alchemia, Gotowanie, zakładki Wytwarzania */
+.journal-boss-stats > div,
+.enemy-icon,
+.profession-tool-context-card.is-empty,
+.mining-area-info span,
+.herbalism-area-info span,
+.alchemy-recipe-info span,
+.tavern-summary > div {
+    background: #1d130d;
+}
+
+.mining-area-info span,
+.herbalism-area-info span {
+    border-color: #6a4a30;
+}
+
+.enemy-icon {
+    background-image: none;
+}
+
+.profession-tool-context-card.is-empty p,
+.herbalism-area-description,
+.herbalism-exp-label,
+.herbalism-exp-label span,
+.herbalism-cycle-label,
+.herbalism-cycle-label span,
+.herbalism-empty-result,
+.herbalism-area-card p,
+.herbalism-area-info span,
+.herbalism-drop-group span,
+.alchemy-exp-label,
+.alchemy-crafting-label,
+.alchemy-time-row {
+    color: #b09a78;
+}
+
+.cooking-overview {
+    background: linear-gradient(#3b2b1e, #2f2217);
+}
+
+#screen-alchemy .alchemy-batch-button,
+#screen-alchemy .alchemy-batch-max-button {
+    background: linear-gradient(#4b392a, #392a1e) !important;
+    border: 0 !important;
+}
+
+#screen-alchemy .alchemy-batch-button:disabled,
+#screen-alchemy .alchemy-batch-max-button:disabled {
+    background: #2a1f17 !important;
+}
+
+#screen-alchemy .alchemy-batch-input {
+    background: #150f0b !important;
+    border-color: #6a4a30 !important;
+}
+
+#crafting-list .crafting-tabs {
+    background: #1d130d !important;
+}
+
+#crafting-list .crafting-tabs .crafting-tab-button {
+    background: linear-gradient(#4b392a, #392a1e) !important;
+    border-color: #6a4a30 !important;
+    color: #f0dcb4 !important;
+}
+
+#crafting-list .crafting-tabs .crafting-tab-button.active {
+    background: linear-gradient(#a33a2c, #74241b) !important;
+    border-color: #2b0f0a !important;
+    color: #fff1dc !important;
+}
+
+#screen-cooking .cooking-overview {
+    background: linear-gradient(#3b2b1e, #2f2217);
+}
+
+.mining-activity-header > div > span {
+    color: #b09a78;
+}
+
+#screen-mining-locations .mining-activity-header span {
+    color: #b09a78;
+}
+
+[class*="-activity-header"] > div > span {
+    color: #b09a78;
+}
+
+#screen-herbalism-locations .herbalism-activity-header span {
+    color: #b09a78;
+}
+
+#screen-hero .hero-active-bonuses-header span {
+    color: #b09a78;
+}

@@ -1,0 +1,224 @@
+/*
+ * Menu mobilne (hamburger) – wygląd.
+ * Działa tylko, gdy js/ui/mobileMenu.js dodał body.has-mobile-menu
+ * i tylko na wąskich ekranach (układ jednokolumnowy).
+ */
+
+.mobile-topbar,
+.mobile-menu-overlay {
+    display: none;
+}
+
+@media (max-width: 1000px) {
+    /* ---------- cienki pasek u góry ---------- */
+    body.has-mobile-menu .mobile-topbar {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        box-sizing: border-box;
+        width: 100%;
+        min-height: 54px;
+        padding: 6px 10px;
+        padding-top: max(6px, env(safe-area-inset-top));
+        background: linear-gradient(#3b2b1e, #2f2217);
+        border-bottom: 3px solid var(--oak-0, #150f0b);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.45);
+        color: #f0dcb4;
+    }
+
+    .mobile-topbar-menu {
+        position: relative;
+        flex: 0 0 auto;
+        width: 42px;
+        height: 42px;
+        padding: 0;
+        border: 0;
+        border-radius: 6px;
+        background: linear-gradient(#4b392a, #392a1e);
+        box-shadow: 0 3px 0 #150f0b, inset 0 1px 0 #ffffff22;
+        color: #f6e8cc;
+        font-size: 22px;
+        line-height: 1;
+        cursor: pointer;
+    }
+
+    .mobile-topbar-dot {
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        width: 11px;
+        height: 11px;
+        border-radius: 50%;
+        background: #d9a85a;
+        box-shadow: 0 0 0 2px #2f2217;
+    }
+
+    .mobile-topbar-dot[hidden] {
+        display: none;
+    }
+
+    .mobile-topbar-hero {
+        flex: 0 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        min-width: 0;
+        max-width: 38%;
+    }
+
+    .mobile-topbar-avatar {
+        display: grid;
+        place-items: center;
+        flex: 0 0 auto;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: #1d130d;
+        box-shadow: 0 0 0 2px #6a4a30;
+        font-size: 18px;
+    }
+
+    .mobile-topbar-hero strong,
+    .mobile-topbar-hero small {
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .mobile-topbar-hero strong {
+        color: #f6e8cc;
+        font-size: 13px;
+        line-height: 1.2;
+    }
+
+    .mobile-topbar-hero small {
+        color: #b09a78;
+        font-size: 10px;
+    }
+
+    .mobile-topbar-bars {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        min-width: 70px;
+    }
+
+    .mobile-topbar-bar {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 9px;
+    }
+
+    .mobile-topbar-bar span {
+        flex: 0 0 auto;
+        font-size: 10px;
+        line-height: 1;
+    }
+
+    .mobile-topbar-track {
+        flex: 1 1 auto;
+        height: 7px;
+        min-width: 24px;
+        overflow: hidden;
+        border-radius: 4px;
+        background: #150f0b;
+        box-shadow: inset 0 0 0 1px #6a4a30;
+    }
+
+    .mobile-topbar-fill {
+        width: 0;
+        height: 100%;
+        transition: width 0.25s ease;
+    }
+
+    .mobile-topbar-fill.is-hp {
+        background: linear-gradient(#c8473a, #8e3429);
+    }
+
+    .mobile-topbar-fill.is-mana {
+        background: linear-gradient(#4f8f8a, #2f6560);
+    }
+
+    .mobile-topbar-bar em {
+        flex: 0 0 auto;
+        min-width: 38px;
+        color: #d8c4a2;
+        font-style: normal;
+        text-align: right;
+    }
+
+    .mobile-topbar-gold {
+        flex: 0 0 auto;
+        color: #f0c97a;
+        font-size: 12px;
+        font-weight: 700;
+        white-space: nowrap;
+    }
+
+    /* ---------- dotychczasowe menu jako wysuwany panel ---------- */
+    body.has-mobile-menu #menu {
+        position: fixed !important;
+        top: 0 !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        z-index: 1200 !important;
+        grid-column: auto !important;
+        grid-row: auto !important;
+        width: min(88vw, 360px) !important;
+        min-width: 0 !important;
+        max-width: none !important;
+        height: 100dvh !important;
+        max-height: none !important;
+        padding: 12px 12px 90px !important;
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+        overscroll-behavior: contain;
+        transform: translateX(-105%);
+        visibility: hidden;
+        transition: transform 0.22s ease, visibility 0s linear 0.22s;
+        box-shadow: 8px 0 24px rgba(0, 0, 0, 0.6);
+    }
+
+    body.has-mobile-menu.mobile-menu-open #menu {
+        transform: none;
+        visibility: visible;
+        transition: transform 0.22s ease;
+    }
+
+    /* ---------- przyciemnienie tła za panelem ---------- */
+    body.has-mobile-menu .mobile-menu-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 1150;
+        display: block;
+        background: rgba(0, 0, 0, 0.62);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.22s ease;
+    }
+
+    body.has-mobile-menu.mobile-menu-open .mobile-menu-overlay {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    body.has-mobile-menu.mobile-menu-open {
+        overflow: hidden;
+    }
+}
+
+@media (max-width: 380px) {
+    .mobile-topbar-hero small {
+        display: none;
+    }
+
+    .mobile-topbar-bar em {
+        min-width: 32px;
+    }
+}
