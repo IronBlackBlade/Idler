@@ -1066,3 +1066,57 @@ function showHuntingLocationsScreen() {
         );
     }
 }
+/*
+ * Telefon: karty lokacji są zwijane (domyślnie rozwinięta jest tylko
+ * aktualna lokacja), a stan zwinięcia przeżywa ponowne renderowanie.
+ */
+(function () {
+    const MOBILE_QUERY = "(max-width: 700px)";
+    const expandedLocations = new Set();
+    let initialized = false;
+
+    function isMobile() {
+        return window.matchMedia(MOBILE_QUERY).matches;
+    }
+
+    function applyLocationCollapse() {
+        const cards = document.querySelectorAll("#locations-list .location-card");
+
+        if (!initialized && cards.length) {
+            initialized = true;
+            cards.forEach(function (card) {
+                if (card.classList.contains("location-current")) {
+                    expandedLocations.add(card.dataset.locationId);
+                }
+            });
+        }
+
+        cards.forEach(function (card) {
+            const collapsed = isMobile() && !expandedLocations.has(card.dataset.locationId);
+            card.classList.toggle("location-collapsed", collapsed);
+        });
+    }
+
+    const originalRenderLocations = window.renderLocations;
+
+    if (typeof originalRenderLocations === "function") {
+        window.renderLocations = function () {
+            const result = originalRenderLocations.apply(this, arguments);
+            applyLocationCollapse();
+            return result;
+        };
+    }
+
+    document.addEventListener("click", function (event) {
+        if (!isMobile()) return;
+        const top = event.target.closest("#locations-list .location-card-top");
+        if (!top) return;
+        const card = top.closest(".location-card");
+        const id = card.dataset.locationId;
+        if (expandedLocations.has(id)) expandedLocations.delete(id);
+        else expandedLocations.add(id);
+        applyLocationCollapse();
+    });
+
+    window.addEventListener("resize", applyLocationCollapse);
+})();

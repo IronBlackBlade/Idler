@@ -1865,3 +1865,371 @@ button:not(:disabled):hover,
         opacity: 0.72;
     }
 }
+
+/* Telefon: gdy wybrano ścieżkę, zostaje jedna gałąź – ma być na środku, na całą szerokość */
+@media (max-width: 700px) {
+    .warrior-tree-layout .warrior-tree-branches:has(> :only-child) {
+        grid-template-columns: minmax(0, 1fr) !important;
+    }
+
+    .warrior-tree-layout .warrior-tree-branches:has(> :only-child)::before {
+        display: none !important;
+    }
+
+    .warrior-tree-layout .warrior-tree-branches:has(> :only-child) .warrior-tree-branch-heading {
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    .warrior-tree-layout .warrior-tree-branches:has(> :only-child) .warrior-tree-chain {
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px !important;
+    }
+
+    .warrior-tree-layout .warrior-tree-branches:has(> :only-child) .warrior-tree-chain::before {
+        display: none !important;
+    }
+
+    .warrior-tree-layout .warrior-tree-branches:has(> :only-child) .warrior-tree-chain > :only-child,
+    .warrior-tree-layout .warrior-tree-branches:has(> :only-child) .warrior-tree-chain > :last-child:nth-child(odd) {
+        grid-column: 1 / -1;
+    }
+}
+
+/* Wybrana ścieżka walki: jedyna widoczna gałąź zajmuje całą szerokość */
+.warrior-tree-layout .warrior-tree-branches:has(> .warrior-tree-branch[hidden]) {
+    grid-template-columns: minmax(0, 1fr) !important;
+}
+
+.warrior-tree-layout .warrior-tree-branches:has(> .warrior-tree-branch[hidden])::before {
+    display: none !important;
+}
+
+@media (max-width: 700px) {
+    .warrior-tree-layout .warrior-tree-branches:has(> .warrior-tree-branch[hidden]) .warrior-tree-chain {
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px 8px !important;
+    }
+
+    .warrior-tree-layout .warrior-tree-branches:has(> .warrior-tree-branch[hidden]) .warrior-tree-chain::before {
+        display: none !important;
+    }
+
+    .warrior-tree-layout .warrior-tree-branches:has(> .warrior-tree-branch[hidden]) .warrior-tree-chain .warrior-tree-node::before {
+        display: none;
+    }
+}
+
+@media (max-width: 700px) {
+    .warrior-tree-layout .warrior-tree-chain > .warrior-tree-node:only-child {
+        grid-column: 1 / -1;
+    }
+}
+
+/* ===== Telefon: zwarte karty lokacji ===== */
+@media (max-width: 700px) {
+    .location-card .location-info-grid {
+        display: grid !important;
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        gap: 6px !important;
+    }
+
+    .location-card .location-info-box {
+        padding: 6px 4px !important;
+        min-height: 0 !important;
+    }
+
+    .location-card .location-info-box span {
+        font-size: 10px;
+    }
+
+    .location-card .location-mastery-milestones {
+        display: grid !important;
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+        gap: 4px !important;
+    }
+
+    .location-card .location-mastery-milestone {
+        padding: 5px 2px !important;
+        font-size: 10px;
+    }
+
+    .location-card .location-card-top {
+        cursor: pointer;
+        position: relative;
+        padding-right: 22px;
+    }
+
+    .location-card .location-card-top::after {
+        content: "▾";
+        position: absolute;
+        right: 2px;
+        top: 4px;
+        color: #b09a78;
+        transition: transform .15s;
+    }
+
+    .location-card.location-collapsed .location-card-top::after {
+        transform: rotate(-90deg);
+    }
+
+    .location-card.location-collapsed > *:not(.location-card-top):not(.location-enter-btn) {
+        display: none !important;
+    }
+
+    .location-card.location-collapsed.location-locked > .location-enter-btn {
+        display: none !important;
+    }
+
+    .location-card.location-collapsed {
+        padding-top: 10px !important;
+        padding-bottom: 10px !important;
+        gap: 8px;
+    }
+}
+
+@media (max-width: 700px) {
+    .location-card.location-collapsed .location-card-top h3 {
+        margin: 2px 0 0;
+        font-size: 16px;
+    }
+
+    .location-card.location-collapsed .location-status {
+        display: inline-block;
+        width: auto !important;
+        padding: 0 !important;
+        background: none !important;
+        font-size: 10px;
+    }
+
+    .location-card.location-collapsed {
+        min-height: 0 !important;
+        height: auto !important;
+    }
+}
+
+/* ===== Telefon: kupiec – widoczne wszystkie typy i zwarte kafelki ===== */
+@media (max-width: 700px) {
+    #screen-shop .shop-type-panel {
+        display: grid !important;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 6px;
+        overflow: visible !important;
+        padding: 6px 0 !important;
+    }
+
+    #screen-shop .shop-type-button {
+        width: auto !important;
+        min-width: 0 !important;
+        padding: 7px 4px !important;
+        font-size: 12px !important;
+        white-space: normal;
+        text-align: center;
+    }
+
+    #screen-shop .shop-category-items {
+        padding: 0 !important;
+        gap: 10px !important;
+    }
+
+    #screen-shop .shop-item {
+        padding: 8px !important;
+        gap: 6px !important;
+    }
+
+    #screen-shop .shop-rpg-top {
+        gap: 8px !important;
+    }
+
+    #screen-shop .shop-rpg-icon-box {
+        width: 48px !important;
+        height: 48px !important;
+        flex: 0 0 48px;
+    }
+
+    #screen-shop .shop-rpg-icon {
+        max-width: 38px;
+        max-height: 38px;
+    }
+
+    #screen-shop .shop-rpg-stats {
+        display: grid !important;
+        grid-template-columns: 1fr;
+        gap: 4px !important;
+    }
+
+    #screen-shop .shop-stat-box {
+        padding: 5px 7px !important;
+        min-height: 0 !important;
+        font-size: 11px;
+    }
+
+    #screen-shop .shop-stat-value {
+        font-size: 12px;
+    }
+
+    #screen-shop .shop-rpg-section-title {
+        margin: 4px 0 !important;
+        font-size: 12px;
+    }
+
+    #screen-shop .shop-rpg-actions {
+        gap: 6px !important;
+    }
+
+    #screen-shop .shop-rpg-comparison {
+        padding-top: 6px !important;
+        margin-top: 2px !important;
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 700px) {
+    #screen-shop .stat-comparison {
+        padding: 1px 6px !important;
+        font-size: 10px !important;
+        line-height: 1.3;
+    }
+}
+
+/* ===== Kupiec: kafelki zamiast owali (kute, kanciaste, jak reszta gry) ===== */
+#screen-shop .shop-subcategory-button,
+#screen-shop .shop-type-button,
+#screen-shop .shop-side-button {
+    border-radius: 3px !important;
+}
+
+#screen-shop .shop-item,
+#screen-shop .shop-rpg-card,
+#screen-shop .shop-rpg-merchant-icon,
+#screen-shop .shop-rpg-icon-box {
+    border-radius: 3px !important;
+}
+
+#screen-shop .shop-item {
+    box-shadow: inset 0 0 0 1px #1d130d, inset 0 2px 0 #ffffff10, 0 3px 0 #150f0b;
+}
+
+#screen-shop .shop-stat-box {
+    border-radius: 2px !important;
+    border: 1px solid #1d130d !important;
+    border-left: 3px solid #6a4a30 !important;
+    background: #231810 !important;
+}
+
+#screen-shop .shop-item-tags span,
+#screen-shop .shop-rpg-card small,
+#screen-shop .shop-rpg-card span[class*="tag"],
+#screen-shop .shop-upgrade-badge,
+#screen-shop .stat-comparison {
+    border-radius: 2px !important;
+}
+
+#screen-shop .shop-rpg-top ~ div span:not([class]) {
+    border-radius: 2px;
+}
+
+/* ===== Telefon: zwarty ekran walki ===== */
+@media (max-width: 700px) {
+    #screen-combat .combat-controls {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    #screen-combat .combat-action-buttons {
+        order: -1;
+        display: grid !important;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+
+    #screen-combat .combat-action-buttons button {
+        min-height: 44px;
+        margin: 0 !important;
+    }
+
+    #screen-combat .combat-spell-slots {
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 8px !important;
+    }
+
+    #screen-combat .combat-spell-slot {
+        min-width: 0;
+        padding: 8px !important;
+        gap: 6px !important;
+    }
+
+    #screen-combat .combat-spell-slot select,
+    #screen-combat .combat-spell-slot button {
+        min-width: 0;
+        width: 100%;
+        padding: 6px !important;
+        font-size: 12px !important;
+    }
+
+    #screen-combat .enemy-stats-row {
+        gap: 6px !important;
+    }
+
+    #screen-combat .enemy-stat-box {
+        padding: 6px 4px !important;
+        min-height: 0 !important;
+        border-radius: 3px !important;
+    }
+
+    #screen-combat .enemy-stat-box span {
+        font-size: 10px;
+    }
+
+    #screen-combat .boss-chance-panel {
+        padding: 6px 8px !important;
+    }
+
+    #screen-combat .enemy-icon {
+        width: 48px !important;
+        height: 48px !important;
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 700px) {
+    #screen-combat .combat-spell-slot select,
+    #screen-combat .combat-spell-slot button {
+        box-sizing: border-box;
+        max-width: 100%;
+    }
+
+    #screen-combat .combat-spell-slot [class*="icon"] {
+        width: 34px !important;
+        height: 34px !important;
+        flex: 0 0 34px;
+        font-size: 18px;
+    }
+
+    #screen-combat .combat-log {
+        max-height: 170px;
+        min-height: 0 !important;
+        height: 170px !important;
+    }
+
+    #screen-combat .combat-location-button {
+        background: linear-gradient(#4b392a, #392a1e) !important;
+        color: #f0dcb4 !important;
+        border: 0 !important;
+        border-radius: 6px !important;
+        box-shadow: 0 3px 0 #150f0b, inset 0 1px 0 #ffffff22, 0 0 0 2px var(--oak-0);
+    }
+}
+
+@media (max-width: 700px) {
+    #screen-combat .combat-spell-slot select {
+        font-size: 11px !important;
+        text-overflow: ellipsis;
+        padding-left: 4px !important;
+        padding-right: 2px !important;
+    }
+}
