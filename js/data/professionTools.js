@@ -377,7 +377,10 @@ const professionToolUpgradeRecipes = professionToolTypeConfig.flatMap(
           upgradeFromItemId: previousItemId,
           targetToolTier: tierDefinition.tier,
           resultItemId: resultItemId,
-          requiredCraftingLevel: tierDefinition.requiredProfessionLevel,
+          // Ulepszenie narzędzia wymaga połowy poziomu, którego wymaga jego używanie.
+          requiredCraftingLevel: Math.ceil(
+            tierDefinition.requiredProfessionLevel / 2,
+          ),
           craftingExp: [75, 250, 800, 2500][tierIndex],
           craftingTimeSeconds: [15, 30, 60, 120][tierIndex],
           requiresScroll: false,

@@ -2233,3 +2233,241 @@ button:not(:disabled):hover,
         padding-right: 2px !important;
     }
 }
+
+/* ===== Walka: "Bohater szuka kolejnego przeciwnika" ===== */
+.enemy-card.enemy-searching > .enemy-hp-section,
+.enemy-card.enemy-searching > .enemy-stats-row,
+.enemy-card.enemy-searching > .boss-chance-panel {
+    opacity: 0;
+    transition: opacity .1s;
+}
+
+.enemy-card.enemy-searching > .enemy-card-top {
+    position: relative;
+    min-height: 64px;
+}
+
+.enemy-card.enemy-searching > .enemy-card-top > * {
+    opacity: 0;
+}
+
+.enemy-card.enemy-searching > .enemy-card-top::before {
+    content: "🔍  Szukasz kolejnego przeciwnika…";
+    position: absolute;
+    inset: 0 0 8px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+    color: #f0dcb4;
+    font-family: var(--font-head);
+    font-size: 16px;
+    text-align: center;
+    animation: enemy-search-pulse 1s ease-in-out infinite;
+}
+
+.enemy-card.enemy-searching > .enemy-card-top::after {
+    content: "";
+    position: absolute;
+    z-index: 5;
+    left: 8%;
+    right: 8%;
+    bottom: 4px;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, #c9a24a, transparent);
+    background-size: 40% 100%;
+    background-repeat: no-repeat;
+    border-radius: 2px;
+    animation: enemy-search-sweep 1s linear infinite;
+}
+
+@keyframes enemy-search-pulse {
+    0%, 100% { opacity: .55; }
+    50% { opacity: 1; }
+}
+
+@keyframes enemy-search-sweep {
+    from { background-position: -40% 0; }
+    to { background-position: 140% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .enemy-card.enemy-searching > .enemy-card-top::before,
+    .enemy-card.enemy-searching > .enemy-card-top::after {
+        animation: none;
+    }
+}
+
+
+/* Ulepszenie narzędzia: znaczniki wymagań w prawym górnym rogu */
+.profession-tool-context-upgrade-title > .profession-tool-context-status-group {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-content: flex-start;
+    gap: 4px;
+    max-width: 58%;
+}
+
+/* Karta narzędzia profesji: większy, czytelniejszy tekst w kafelkach i znacznikach */
+.profession-tool-context-card .profession-tool-context-status {
+    padding: 5px 10px;
+    font-size: 12px;
+    border-radius: 3px;
+}
+
+.profession-tool-context-card .profession-tool-context-materials > span {
+    padding: 7px 10px;
+    font-size: 12px;
+    border-radius: 3px;
+}
+
+.profession-tool-context-card .profession-tool-context-materials strong {
+    font-size: 12px;
+}
+
+.profession-tool-context-card .profession-tool-context-bonuses > span {
+    font-size: 12px;
+}
+
+.profession-tool-context-card .profession-tool-context-bonuses em,
+.profession-tool-context-card .profession-tool-context-bonuses strong {
+    font-size: 12px;
+}
+
+.profession-tool-context-card .profession-tool-context-rank-copy {
+    font-size: 12px;
+}
+
+.profession-tool-context-card .profession-tool-context-level {
+    font-size: 12px;
+}
+
+.profession-tool-context-card .profession-tool-context-upgrade-title small {
+    font-size: 11px;
+}
+
+.profession-tool-context-card .profession-tool-context-button {
+    font-size: 14px;
+    padding: 9px 14px;
+}
+
+.profession-tool-context-card .profession-tool-context-upgrade-title strong {
+    font-size: 14px;
+}
+
+.profession-tool-context-card .profession-tool-context-bonuses > span {
+    white-space: normal;
+    gap: 8px;
+}
+
+.profession-tool-context-card .profession-tool-context-bonuses em {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+}
+
+.profession-tool-context-card .profession-tool-context-upgrade-title strong {
+    font-size: 13px;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+}
+
+/* Mistrzostwo profesji (bonus co 25 poziomów) w karcie narzędzia */
+.profession-mastery-strip {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 14px;
+    margin-top: 10px;
+    padding: 8px 10px;
+    background: #231810;
+    border: 1px solid #1d130d;
+    border-left: 3px solid #c9a24a;
+    border-radius: 2px;
+    color: #cdbb97;
+    font-size: 12px;
+}
+
+.profession-mastery-strip strong {
+    color: #f0dcb4;
+}
+
+.profession-mastery-title {
+    color: #e9c46a;
+    font-family: var(--font-head);
+    font-size: 13px;
+}
+
+.profession-mastery-next {
+    margin-left: auto;
+    color: #b09a78;
+}
+
+/* ===== Telefon: zwijane receptury w wytwarzaniu ===== */
+@media (max-width: 700px) {
+    #crafting-list .crafting-item .crafting-item-header {
+        cursor: pointer;
+        position: relative;
+        padding-right: 22px;
+    }
+
+    #crafting-list .crafting-item .crafting-item-header::after {
+        content: "▾";
+        position: absolute;
+        right: 2px;
+        top: 2px;
+        color: #b09a78;
+        transition: transform .15s;
+    }
+
+    #crafting-list .crafting-item.crafting-collapsed .crafting-item-header::after {
+        transform: rotate(-90deg);
+    }
+
+    #crafting-list .crafting-item.crafting-collapsed > .crafting-batch-panel,
+    #crafting-list .crafting-item.crafting-collapsed > .crafting-materials {
+        display: none !important;
+    }
+
+    #crafting-list .crafting-item.crafting-collapsed {
+        padding-top: 8px !important;
+        padding-bottom: 8px !important;
+        gap: 6px !important;
+        min-height: 0 !important;
+    }
+
+    #crafting-list .crafting-item.crafting-collapsed .crafting-level-lock-message {
+        margin-bottom: 4px;
+        padding: 3px 8px;
+        font-size: 11px;
+    }
+
+    #crafting-list .crafting-item.crafting-collapsed .crafting-item-name {
+        font-size: 15px;
+    }
+
+    #crafting-list .crafting-item.crafting-collapsed .crafting-item-meta {
+        margin-top: 4px;
+        gap: 4px;
+    }
+}
+
+@media (max-width: 700px) {
+    #crafting-list .crafting-item.crafting-collapsed .crafting-level-lock-message {
+        display: none;
+    }
+
+    #crafting-list .crafting-item.crafting-collapsed .crafting-meta-badge {
+        padding: 2px 6px !important;
+        font-size: 10.5px !important;
+        white-space: nowrap;
+    }
+
+    #crafting-list .crafting-item.crafting-collapsed .crafting-time-badge,
+    #crafting-list .crafting-item.crafting-collapsed .crafting-rarity-badge {
+        display: none;
+    }
+}

@@ -207,3 +207,78 @@ function updateCraftingBatchPreview(recipeId, preserveInputValue = false) {
 
   card.classList.toggle("crafting-batch-over-limit", craftCount > maximumCount);
 }
+
+/*
+ * Telefon: receptury w wytwarzaniu są zwijane do nagłówka (nazwa + znaczniki),
+ * a po dotknięciu rozwijają się do pełnej karty. Stan przeżywa ponowne
+ * renderowanie listy.
+ */
+(function () {
+    const MOBILE_QUERY = "(max-width: 700px)";
+    const expandedRecipes = new Set();
+    let scheduled = false;
+
+    function isMobile() {
+        return window.matchMedia(MOBILE_QUERY).matches;
+    }
+
+    function applyCraftingCollapse() {
+        scheduled = false;
+
+        const mobile = isMobile();
+
+        document
+            .querySelectorAll("#crafting-list .crafting-item")
+            .forEach(function (item) {
+                const id = item.dataset.craftingRecipeId;
+                item.classList.toggle(
+                    "crafting-collapsed",
+                    mobile && !expandedRecipes.has(id)
+                );
+            });
+    }
+
+    function scheduleApply() {
+        if (scheduled) return;
+        scheduled = true;
+        window.requestAnimationFrame(applyCraftingCollapse);
+    }
+
+    function init() {
+        const list = document.getElementById("crafting-list");
+
+        if (!list) return;
+
+        new MutationObserver(scheduleApply).observe(list, {
+            childList: true,
+            subtree: true,
+        });
+
+        list.addEventListener("click", function (event) {
+            if (!isMobile()) return;
+
+            const header = event.target.closest(".crafting-item-header");
+
+            if (!header) return;
+
+            const item = header.closest(".crafting-item");
+            const id = item && item.dataset.craftingRecipeId;
+
+            if (!id) return;
+
+            if (expandedRecipes.has(id)) expandedRecipes.delete(id);
+            else expandedRecipes.add(id);
+
+            applyCraftingCollapse();
+        });
+
+        window.addEventListener("resize", scheduleApply);
+        applyCraftingCollapse();
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", init);
+    } else {
+        init();
+    }
+})();

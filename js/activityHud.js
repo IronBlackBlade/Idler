@@ -380,6 +380,22 @@ function getCurrentActivity() {
                 ? locations[player.location]
                 : null;
 
+        const searchingForEnemy =
+            typeof nextFightAllowedAt !== "undefined" &&
+            Date.now() < nextFightAllowedAt;
+
+        if (searchingForEnemy) {
+            return {
+                type: "combat",
+                icon: "🔍",
+                name: "Walka",
+                details:
+                    (location ? location.name + " — " : "") +
+                    "szukanie kolejnego przeciwnika…",
+                timeText: "Szukanie…"
+            };
+        }
+
         return {
             type: "combat",
             icon: "⚔️",

@@ -131,10 +131,12 @@ const craftingCategories = [
     name: "🧵 Garbarz",
   },
 
-  {
-    id: "profession_tools",
-    name: "🧰 Narzędzia",
-  },
+  // Narzędzia profesji nie są już wytwarzane w warsztacie – ulepsza się je
+  // w ekranach konkretnych profesji. Przywrócenie: odkomentuj wpis poniżej.
+  // {
+  //   id: "profession_tools",
+  //   name: "🧰 Narzędzia",
+  // },
 
   {
     id: "blacksmith",

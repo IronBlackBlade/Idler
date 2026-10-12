@@ -1207,3 +1207,29 @@ function renderCombat() {
     renderAutoHealingPanel();
     renderCombatFoodPanel();
 }
+/*
+ * Animacja "Bohater szuka kolejnego przeciwnika" – widoczna w czasie
+ * krótkiej przerwy po pokonaniu potwora (nextFightAllowedAt z battle.js).
+ */
+(function () {
+    function updateEnemySearching() {
+        const card = document.getElementById("enemy-card");
+        if (!card) return;
+
+        const searching =
+            typeof isFighting !== "undefined" &&
+            isFighting &&
+            typeof nextFightAllowedAt !== "undefined" &&
+            Date.now() < nextFightAllowedAt;
+
+        if (searching !== card.classList.contains("enemy-searching")) {
+            card.classList.toggle("enemy-searching", searching);
+
+            if (typeof renderActivityHud === "function") {
+                renderActivityHud();
+            }
+        }
+    }
+
+    setInterval(updateEnemySearching, 100);
+})();

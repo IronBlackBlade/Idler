@@ -1005,26 +1005,79 @@ function changeProfessionTool(toolType, itemId) {
   equipProfessionTool(itemId);
 }
 
+/*
+ * Mistrzostwo profesji: poziomowanie nie ma limitu, ale co
+ * PROFESSION_MASTERY_INTERVAL poziomów bohater dostaje stały bonus do
+ * głównej i dodatkowej cechy swojej profesji (tych samych, które daje
+ * narzędzie). Bonus działa niezależnie od założonego narzędzia.
+ */
+var PROFESSION_MASTERY_INTERVAL = 25;
+var PROFESSION_MASTERY_PRIMARY_PER_MILESTONE = 0.5;
+var PROFESSION_MASTERY_SECONDARY_PER_MILESTONE = 0.25;
+
+function getProfessionMasteryInfo(toolType) {
+  const definition =
+    typeof professionToolTypeConfig !== "undefined"
+      ? professionToolTypeConfig.find((entry) => entry.toolType === toolType)
+      : null;
+
+  if (!definition) {
+    return null;
+  }
+
+  const level = getProfessionLevelForTool(toolType);
+  const milestones = Math.floor(level / PROFESSION_MASTERY_INTERVAL);
+
+  return {
+    level,
+    milestones,
+    primaryKey: definition.primaryBonusKey,
+    secondaryKey: definition.secondaryBonusKey,
+    primaryBonus: milestones * PROFESSION_MASTERY_PRIMARY_PER_MILESTONE,
+    secondaryBonus: milestones * PROFESSION_MASTERY_SECONDARY_PER_MILESTONE,
+    nextLevel: (milestones + 1) * PROFESSION_MASTERY_INTERVAL,
+  };
+}
+
+function getProfessionMasteryBonus(toolType, bonusName) {
+  const info = getProfessionMasteryInfo(toolType);
+
+  if (!info) {
+    return 0;
+  }
+
+  if (bonusName === info.primaryKey) {
+    return info.primaryBonus;
+  }
+
+  if (bonusName === info.secondaryKey) {
+    return info.secondaryBonus;
+  }
+
+  return 0;
+}
+
 function getProfessionToolBonus(toolType, bonusName) {
   ensureProfessionToolsState();
 
+  const masteryBonus = getProfessionMasteryBonus(toolType, bonusName);
   const itemId = player.professionTools[toolType];
 
   if (!itemId) {
-    return 0;
+    return masteryBonus;
   }
 
   if (getInventoryItemQuantity(itemId) <= 0) {
     player.professionTools[toolType] = null;
 
-    return 0;
+    return masteryBonus;
   }
 
   const tool = items[itemId];
 
   if (!tool || !tool.bonuses) {
-    return 0;
+    return masteryBonus;
   }
 
-  return Math.max(0, Number(tool.bonuses[bonusName]) || 0);
+  return masteryBonus + Math.max(0, Number(tool.bonuses[bonusName]) || 0);
 }

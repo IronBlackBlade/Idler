@@ -339,6 +339,37 @@ function getProfessionToolContextUpgradeStatus(
     };
 }
 
+function formatMasteryPercent(value) {
+    return String(Math.round((Number(value) || 0) * 100) / 100).replace(".", ",");
+}
+
+function getProfessionMasteryContextHtml(toolType) {
+    const info =
+        typeof getProfessionMasteryInfo === "function"
+            ? getProfessionMasteryInfo(toolType)
+            : null;
+
+    if (!info) {
+        return "";
+    }
+
+    const labels =
+        typeof professionToolsBonusLabels !== "undefined"
+            ? professionToolsBonusLabels
+            : {};
+    const primaryLabel = labels[info.primaryKey] || info.primaryKey;
+    const secondaryLabel = labels[info.secondaryKey] || info.secondaryKey;
+
+    return `
+        <div class="profession-mastery-strip" title="Co ${PROFESSION_MASTERY_INTERVAL} poziomów profesji dostajesz stały bonus, niezależnie od narzędzia. Poziomy nie mają limitu.">
+            <span class="profession-mastery-title">🏅 Mistrzostwo ×${info.milestones}</span>
+            <span>${primaryLabel} <strong>+${formatMasteryPercent(info.primaryBonus)}%</strong></span>
+            <span>${secondaryLabel} <strong>+${formatMasteryPercent(info.secondaryBonus)}%</strong></span>
+            <span class="profession-mastery-next">Następny bonus: Lv. ${info.nextLevel}</span>
+        </div>
+    `;
+}
+
 function renderLegacyEmptyProfessionToolContext(
     container,
     model
@@ -391,6 +422,7 @@ function renderLegacyEmptyProfessionToolContext(
                     }
                 </button>
             </div>
+            ${getProfessionMasteryContextHtml(model.definition.toolType)}
         </section>
     `;
 }
@@ -457,6 +489,34 @@ function renderLegacyProfessionToolContextPanel(
             })
             .join("");
 
+    const requiredProfessionLevel =
+        Number(model.nextTool?.requiredProfessionLevel) || 0;
+    const hasProfessionLevel =
+        model.professionLevel >= requiredProfessionLevel;
+    const statusBadges = model.upgradeRecipe
+        ? [
+            `<span class="profession-tool-context-status ${model.hasCraftingLevel ? "is-ready" : "is-locked"}"
+                title="Poziom rzemiosła potrzebny do ulepszenia (masz ${model.craftingLevel})">
+                ${model.hasCraftingLevel ? "✓" : "🔒"} Rzemiosło Lv. ${model.requiredCraftingLevel}
+            </span>`,
+            requiredProfessionLevel > 0
+                ? `<span class="profession-tool-context-status ${hasProfessionLevel ? "is-ready" : "is-locked"}"
+                    title="Poziom profesji potrzebny do używania nowej rangi (masz ${model.professionLevel})">
+                    ${hasProfessionLevel ? "✓" : "🔒"} ${model.definition.professionName} Lv. ${requiredProfessionLevel}
+                </span>`
+                : "",
+            !model.hasMaterials
+                ? `<span class="profession-tool-context-status is-missing">Brakuje materiałów</span>`
+                : "",
+            model.hasMaterials && !model.hasGold
+                ? `<span class="profession-tool-context-status is-missing">Brakuje złota</span>`
+                : "",
+            model.canUpgrade
+                ? `<span class="profession-tool-context-status is-ready">✓ Ulepszenie dostępne</span>`
+                : ""
+        ].join("")
+        : "";
+
     container.innerHTML = `
         <section class="profession-tool-context-card tool-tier-${activeTier} ${isMaster ? "is-master" : ""}">
             <header class="profession-tool-context-header">
@@ -517,9 +577,9 @@ function renderLegacyProfessionToolContextPanel(
                                     ${model.nextTool.name}
                                 </strong>
                             </div>
-                            <span class="profession-tool-context-status ${status.className}">
-                                ${status.text}
-                            </span>
+                            <div class="profession-tool-context-status-group">
+                                ${statusBadges}
+                            </div>
                         </div>
 
                         <div class="profession-tool-context-materials">
@@ -542,6 +602,7 @@ function renderLegacyProfessionToolContextPanel(
                     </div>
                 `}
             </div>
+            ${getProfessionMasteryContextHtml(model.definition.toolType)}
         </section>
     `;
 }

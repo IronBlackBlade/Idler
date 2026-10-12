@@ -5,6 +5,21 @@ var enemySlowUntil = 0;
 var enemyAttackSkipChance = 0;
 var isRespawning = false;
 var respawnTimeLeft = 0;
+
+// Minimalna przerwa między jedną walką a drugą (po pokonaniu przeciwnika).
+var NEXT_FIGHT_DELAY_MS = 2000;
+var nextFightAllowedAt = 0;
+
+// Wpis o nowym przeciwniku pojawia się dopiero po przerwie ("szukanie").
+function announceNextEnemyAfterPause() {
+  const enemyName = enemy && enemy.name;
+
+  setTimeout(() => {
+    if (isFighting && enemy && enemy.name === enemyName) {
+      addCombatLog("👹 Pojawił się nowy przeciwnik: " + enemyName + ".");
+    }
+  }, NEXT_FIGHT_DELAY_MS);
+}
 var explorationRespawnShieldHp = 0;
 
 const COMBAT_REENTRY_COOLDOWN_MS = 15 * 1000;
@@ -614,7 +629,10 @@ function schedulePlayerAttack() {
     return;
   }
 
-  const attackInterval = getPlayerAttackIntervalMs();
+  // Po przerwie na "szukanie" nowy przeciwnik jest widoczny co najmniej
+  // przez jeden normalny odstęp ataku, zanim padnie pierwszy cios.
+  const attackInterval =
+    getPlayerAttackIntervalMs() + Math.max(0, nextFightAllowedAt - Date.now());
 
   intervalId = setTimeout(() => {
     if (!isFighting) {
@@ -627,7 +645,7 @@ function schedulePlayerAttack() {
 }
 
 function autoAttack() {
-  if (isRespawning) {
+  if (isRespawning || Date.now() < nextFightAllowedAt) {
     return;
   }
 
@@ -840,7 +858,7 @@ function autoAttack() {
       addCombatLog("👑 Boss został pokonany!");
       spawnEnemy();
       applyCombatMonsterBalance();
-      addCombatLog("👹 Pojawił się nowy przeciwnik: " + enemy.name + ".");
+      announceNextEnemyAfterPause();
     } else {
       updateBossChanceAfterKill();
 
@@ -849,7 +867,7 @@ function autoAttack() {
       if (!bossSpawned) {
         spawnEnemy();
         applyCombatMonsterBalance();
-        addCombatLog("👹 Pojawił się nowy przeciwnik: " + enemy.name + ".");
+        announceNextEnemyAfterPause();
       }
     }
     if (typeof refreshLocationProgressInterface === "function") {
@@ -859,6 +877,8 @@ function autoAttack() {
     if (typeof refreshJournalLocationInterface === "function") {
       refreshJournalLocationInterface();
     }
+
+    nextFightAllowedAt = Date.now() + NEXT_FIGHT_DELAY_MS;
 
     checkLevelUp();
     saveGame();
@@ -872,7 +892,7 @@ function autoAttack() {
 }
 
 function autoEnemyAttack() {
-  if (!isFighting || isRespawning) {
+  if (!isFighting || isRespawning || Date.now() < nextFightAllowedAt) {
     return;
   }
 
@@ -1487,6 +1507,7 @@ function startFight() {
 
   isFighting = true;
   player.isFighting = true;
+  nextFightAllowedAt = 0;
 
   schedulePlayerAttack();
 
