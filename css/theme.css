@@ -2471,3 +2471,239 @@ button:not(:disabled):hover,
         display: none;
     }
 }
+
+/* ===== Telefon: zwijane receptury alchemii ===== */
+@media (max-width: 700px) {
+    #alchemy-recipes-list .alchemy-recipe-card .alchemy-recipe-header {
+        cursor: pointer;
+        position: relative;
+        padding-right: 22px;
+    }
+
+    #alchemy-recipes-list .alchemy-recipe-card .alchemy-recipe-header::after {
+        content: "▾";
+        position: absolute;
+        right: 2px;
+        bottom: 2px;
+        color: #b09a78;
+        transition: transform .15s;
+    }
+
+    #alchemy-recipes-list .alchemy-recipe-card.alchemy-collapsed .alchemy-recipe-header::after {
+        transform: rotate(-90deg);
+    }
+
+    #alchemy-recipes-list .alchemy-recipe-card.alchemy-collapsed > *:not(.alchemy-recipe-header) {
+        display: none !important;
+    }
+
+    #alchemy-recipes-list .alchemy-recipe-card.alchemy-collapsed {
+        padding-top: 8px !important;
+        padding-bottom: 8px !important;
+        min-height: 0 !important;
+        gap: 4px !important;
+    }
+
+    #alchemy-recipes-list .alchemy-recipe-card.alchemy-collapsed h3 {
+        margin: 2px 0 0;
+        font-size: 16px;
+    }
+}
+
+/* ===== Telefon: zwarte karty zadań ===== */
+@media (max-width: 700px) {
+    #quests .quest {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 4px 10px;
+        padding: 8px 10px !important;
+        margin: 0 !important;
+    }
+
+    #quests .quest > * {
+        grid-column: 1 / -1;
+        margin: 0 !important;
+    }
+
+    #quests .quest > h3 {
+        grid-column: 1;
+        font-size: 15px;
+        line-height: 1.2;
+    }
+
+    #quests .quest > .quest-progress-text {
+        grid-column: 2;
+        grid-row: 1;
+        display: flex;
+        gap: 6px;
+        align-items: baseline;
+        font-size: 11px;
+        white-space: nowrap;
+    }
+
+    #quests .quest > p {
+        font-size: 12px;
+        line-height: 1.3;
+    }
+
+    #quests .quest > .quest-progress-bar {
+        height: 6px;
+    }
+
+    #quests .quest > .quest-reward {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+
+    #quests .quest > .quest-reward span {
+        padding: 2px 7px !important;
+        font-size: 11px !important;
+        border-radius: 2px !important;
+    }
+
+    #quests .quest > .quest-action:empty {
+        display: none;
+    }
+}
+
+@media (max-width: 700px) {
+    #quests .quest-category-tabs {
+        display: grid !important;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 6px !important;
+        padding: 8px !important;
+    }
+
+    #quests .quest-category-tab-button {
+        flex-direction: column;
+        gap: 2px;
+        min-width: 0;
+        padding: 6px 4px !important;
+        font-size: 11px !important;
+        line-height: 1.2;
+        text-align: center;
+    }
+}
+
+/* ===== Telefon: dziennik – kompendium materiałów jako siatka ===== */
+@media (max-width: 700px) {
+    .journal-material-grid {
+        display: grid !important;
+        grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+        gap: 6px !important;
+    }
+
+    .journal-material-grid > .journal-material-card {
+        grid-column: 1 / -1;
+    }
+
+    .journal-material-grid > .journal-material-card.locked {
+        grid-column: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 0 !important;
+        padding: 8px 0 !important;
+    }
+
+    .journal-material-card.locked .journal-material-header {
+        margin: 0;
+    }
+
+    .journal-material-card.locked .journal-material-header > div,
+    .journal-material-card.locked .journal-material-locked-text {
+        display: none !important;
+    }
+}
+
+@media (max-width: 700px) {
+    .journal-material-grid > .journal-material-card.locked {
+        background: transparent !important;
+        border-color: transparent !important;
+        box-shadow: none !important;
+    }
+}
+
+/* ===== Telefon: dziennik – zwarty bestiariusz ===== */
+@media (max-width: 700px) {
+    .journal-bestiary-location {
+        padding: 10px !important;
+    }
+
+    .journal-bestiary-grid {
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 6px !important;
+    }
+
+    .journal-bestiary-card.locked {
+        padding: 6px 8px !important;
+        min-height: 0 !important;
+    }
+
+    .journal-bestiary-card.locked > p {
+        display: none !important;
+    }
+
+    .journal-bestiary-card.locked .journal-bestiary-card-header {
+        gap: 8px;
+    }
+
+    .journal-bestiary-card.locked .journal-bestiary-icon {
+        width: 32px !important;
+        height: 32px !important;
+        font-size: 15px !important;
+    }
+
+    .journal-bestiary-card.locked .journal-bestiary-card-header span:not(.journal-bestiary-icon) {
+        display: none;
+    }
+}
+
+/* ===== Telefon: dziennik – zwarte osiągnięcia ===== */
+@media (max-width: 700px) {
+    .journal-achievement-tabs {
+        display: grid !important;
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        gap: 6px !important;
+    }
+
+    .journal-achievement-tab {
+        min-width: 0;
+        padding: 6px 4px !important;
+        font-size: 11px !important;
+    }
+
+    .journal-achievement-card {
+        padding: 8px 10px !important;
+        gap: 4px !important;
+        min-height: 0 !important;
+    }
+
+    .journal-achievement-card .journal-achievement-header {
+        gap: 8px !important;
+    }
+
+    .journal-achievement-card .journal-achievement-header > :first-child {
+        width: 36px !important;
+        height: 36px !important;
+        flex: 0 0 36px;
+        font-size: 17px !important;
+    }
+
+    .journal-achievement-card > p {
+        margin: 0 !important;
+        font-size: 12px !important;
+        line-height: 1.3;
+    }
+
+    .journal-achievement-card .journal-achievement-progress-info {
+        font-size: 11px !important;
+    }
+
+    .journal-achievement-card .journal-achievement-track {
+        height: 6px !important;
+    }
+}

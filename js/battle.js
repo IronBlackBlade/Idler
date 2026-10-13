@@ -823,6 +823,8 @@ function autoAttack() {
         handleDungeonEnemyDefeat(enemy);
       }
 
+      nextFightAllowedAt = Date.now() + NEXT_FIGHT_DELAY_MS;
+
       checkLevelUp();
       saveGame();
       refreshCombatInterface();

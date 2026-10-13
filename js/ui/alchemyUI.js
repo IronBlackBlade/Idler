@@ -1627,3 +1627,87 @@ function formatAlchemyDuration(
         " s"
     );
 }
+
+/*
+ * Telefon: receptury alchemii są zwijane do nagłówka (nazwa, poziom, status),
+ * a po dotknięciu rozwijają się do pełnej karty. Stan przeżywa przerysowanie.
+ */
+(function () {
+    const MOBILE_QUERY = "(max-width: 700px)";
+    const expandedRecipes = new Set();
+    const autoExpanded = new Set();
+    let scheduled = false;
+
+    function isMobile() {
+        return window.matchMedia(MOBILE_QUERY).matches;
+    }
+
+    function applyAlchemyCollapse() {
+        scheduled = false;
+
+        const mobile = isMobile();
+
+        document
+            .querySelectorAll("#alchemy-recipes-list .alchemy-recipe-card")
+            .forEach(function (card) {
+                const id = card.dataset.alchemyRecipeId;
+
+                if (
+                    card.classList.contains("alchemy-recipe-active") &&
+                    !autoExpanded.has(id)
+                ) {
+                    autoExpanded.add(id);
+                    expandedRecipes.add(id);
+                }
+
+                card.classList.toggle(
+                    "alchemy-collapsed",
+                    mobile && !expandedRecipes.has(id)
+                );
+            });
+    }
+
+    function scheduleApply() {
+        if (scheduled) return;
+        scheduled = true;
+        window.requestAnimationFrame(applyAlchemyCollapse);
+    }
+
+    function init() {
+        const list = document.getElementById("alchemy-recipes-list");
+
+        if (!list) return;
+
+        new MutationObserver(scheduleApply).observe(list, {
+            childList: true,
+            subtree: true,
+        });
+
+        list.addEventListener("click", function (event) {
+            if (!isMobile()) return;
+
+            const header = event.target.closest(".alchemy-recipe-header");
+
+            if (!header) return;
+
+            const card = header.closest(".alchemy-recipe-card");
+            const id = card && card.dataset.alchemyRecipeId;
+
+            if (!id) return;
+
+            if (expandedRecipes.has(id)) expandedRecipes.delete(id);
+            else expandedRecipes.add(id);
+
+            applyAlchemyCollapse();
+        });
+
+        window.addEventListener("resize", scheduleApply);
+        applyAlchemyCollapse();
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", init);
+    } else {
+        init();
+    }
+})();
