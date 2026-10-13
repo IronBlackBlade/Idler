@@ -49,7 +49,7 @@
             '<span class="mobile-topbar-avatar" data-mt="avatar">🐢</span>' +
             "<div>" +
             '<strong data-mt="name">Bohater</strong>' +
-            '<small>Poz. <span data-mt="level">1</span></small>' +
+            '<small>Poz. <span data-mt="level">1</span><span class="mobile-topbar-screen" data-mt="screen"></span></small>' +
             "</div>" +
             "</div>" +
             '<div class="mobile-topbar-bars">' +
@@ -96,6 +96,23 @@
         }
     }
 
+    function getScreenTitle() {
+        const screens = document.querySelectorAll(".screen");
+
+        for (const screen of screens) {
+            if (screen.style.display === "none" || !screen.offsetParent) {
+                continue;
+            }
+
+            const heading = screen.querySelector("h1, h2");
+            const label = heading ? heading.textContent.replace(/\s+/g, " ").trim() : "";
+
+            return label ? " · " + label : "";
+        }
+
+        return "";
+    }
+
     function syncTopbar() {
         if (!topbar || document.hidden) {
             return;
@@ -107,6 +124,7 @@
         setField("name", title ? title.textContent.trim() : "Bohater");
         setField("avatar", avatar ? avatar.textContent.trim() : "🐢");
         setField("level", text("player-level"));
+        setField("screen", getScreenTitle());
         setField("hp", text("player-hp"));
         setField("mana", text("player-mana"));
         setField("gold", text("player-gold"));

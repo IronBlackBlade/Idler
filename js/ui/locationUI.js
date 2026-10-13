@@ -1120,3 +1120,148 @@ function showHuntingLocationsScreen() {
 
     window.addEventListener("resize", applyLocationCollapse);
 })();
+
+/*
+ * Telefon: karty łowisk i zleceń rybaków są zwijane do samego nagłówka.
+ * Domyślnie rozwinięte jest wybrane łowisko i odblokowane zlecenia;
+ * ręczne rozwinięcie/zwinięcie jest zapamiętywane między odświeżeniami.
+ */
+(function () {
+    const MOBILE_QUERY = "(max-width: 700px)";
+    const overrides = new Map();
+    let scheduled = false;
+
+    const GROUPS = [
+        {
+            list: "#screen-dungeons #dungeons-list",
+            card: ".journal-boss-card",
+            header: ".journal-boss-header",
+            title: "strong",
+            isOpen: function (card) {
+                return !card.classList.contains("locked");
+            }
+        },
+        {
+            list: "#screen-mining-locations #mining-areas-list",
+            card: ".mining-area-card",
+            header: ".mining-area-card-header",
+            title: "h3",
+            isOpen: function (card) {
+                return card.classList.contains("mining-area-selected");
+            }
+        },
+        {
+            list: "#screen-herbalism-locations #herbalism-areas-list",
+            card: ".herbalism-area-card",
+            header: ".herbalism-area-card-header",
+            title: "h3",
+            isOpen: function (card) {
+                return card.classList.contains("herbalism-area-selected");
+            }
+        },
+        {
+            list: "#screen-journal .journal-location-grid",
+            card: ".journal-location-card",
+            header: ".journal-location-header",
+            title: "strong",
+            isOpen: function (card) {
+                return card.classList.contains("current");
+            }
+        },
+        {
+            list: "#screen-cooking .cooking-recipes-list",
+            card: ".cooking-recipe-card",
+            header: "header",
+            title: "h3",
+            isOpen: function (card) {
+                return !card.classList.contains("is-locked");
+            }
+        },
+        {
+            list: "#screen-cooking .tavern-orders-grid",
+            card: ".tavern-order-card",
+            header: "header",
+            title: "h4",
+            isOpen: function (card) {
+                return card.classList.contains("is-ready");
+            }
+        },
+        {
+            list: "#screen-fishing-locations .fishing-inline-areas-list",
+            card: ".fishing-area-card",
+            header: ".fishing-area-card-header",
+            title: "h3",
+            isOpen: function (card) {
+                return card.classList.contains("fishing-area-selected");
+            }
+        },
+        {
+            list: "#screen-fishing-locations .fishing-orders-grid",
+            card: ".fishing-order-card",
+            header: ".fishing-order-card-header",
+            title: "h4",
+            isOpen: function (card) {
+                return !card.classList.contains("fishing-order-locked");
+            }
+        }
+    ];
+
+    function isMobile() {
+        return window.matchMedia(MOBILE_QUERY).matches;
+    }
+
+    function keyOf(group, card) {
+        const t = card.querySelector(group.title);
+        const index = card.parentElement ? Array.prototype.indexOf.call(card.parentElement.children, card) : 0;
+        return group.card + ":" + index + ":" + (t ? t.textContent.trim() : "");
+    }
+
+    function apply() {
+        scheduled = false;
+        GROUPS.forEach(function (group) {
+            document.querySelectorAll(group.list + " " + group.card).forEach(function (card) {
+                const key = keyOf(group, card);
+                const open = overrides.has(key) ? overrides.get(key) : group.isOpen(card);
+                const collapsed = isMobile() && !open;
+                if (card.classList.contains("accordion-collapsed") !== collapsed) {
+                    card.classList.toggle("accordion-collapsed", collapsed);
+                }
+            });
+        });
+    }
+
+    function schedule() {
+        if (scheduled) return;
+        scheduled = true;
+        requestAnimationFrame(apply);
+    }
+
+    function init() {
+        const observer = new MutationObserver(schedule);
+        ["screen-fishing-locations", "screen-cooking", "screen-journal", "screen-herbalism-locations", "screen-mining-locations", "screen-dungeons"].forEach(function (id) {
+            const screen = document.getElementById(id);
+            if (screen) observer.observe(screen, { childList: true, subtree: true });
+        });
+        apply();
+    }
+
+    document.addEventListener("click", function (event) {
+        if (!isMobile()) return;
+        for (const group of GROUPS) {
+            const header = event.target.closest(group.list + " " + group.header);
+            if (!header) continue;
+            const card = header.closest(group.card);
+            const key = keyOf(group, card);
+            overrides.set(key, card.classList.contains("accordion-collapsed"));
+            apply();
+            return;
+        }
+    });
+
+    window.addEventListener("resize", schedule);
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", init);
+    } else {
+        init();
+    }
+})();

@@ -2707,3 +2707,328 @@ button:not(:disabled):hover,
         height: 6px !important;
     }
 }
+
+/* ===== Łowienie: zwijane karty łowisk i zleceń (telefon) ===== */
+@media (max-width: 700px) {
+    .fishing-area-card-header,
+    .fishing-order-card-header {
+        position: relative;
+        cursor: pointer;
+        padding-right: 22px;
+    }
+
+    .fishing-area-card-header::after,
+    .fishing-order-card-header::after {
+        content: "▾";
+        position: absolute;
+        right: 2px;
+        top: 4px;
+        color: #b09a78;
+        transition: transform .15s;
+    }
+
+    .accordion-collapsed .fishing-area-card-header::after,
+    .accordion-collapsed .fishing-order-card-header::after {
+        transform: rotate(-90deg);
+    }
+
+    .fishing-area-card.accordion-collapsed > *:not(.fishing-area-card-header),
+    .fishing-order-card.accordion-collapsed > *:not(.fishing-order-card-header) {
+        display: none !important;
+    }
+
+    .fishing-area-card.accordion-collapsed,
+    .fishing-order-card.accordion-collapsed {
+        padding-top: 10px !important;
+        padding-bottom: 10px !important;
+        min-height: 0 !important;
+        gap: 6px;
+    }
+}
+
+/* ===== Gotowanie: zwijane przepisy i zamówienia karczmy (telefon) ===== */
+@media (max-width: 700px) {
+    .cooking-recipe-card > header,
+    .tavern-order-card > header {
+        position: relative;
+        cursor: pointer;
+        padding-right: 22px;
+    }
+
+    .cooking-recipe-card > header::after,
+    .tavern-order-card > header::after {
+        content: "▾";
+        position: absolute;
+        right: 2px;
+        top: 4px;
+        color: #b09a78;
+        transition: transform .15s;
+    }
+
+    .accordion-collapsed > header::after {
+        transform: rotate(-90deg);
+    }
+
+    .cooking-recipe-card.accordion-collapsed > *:not(header),
+    .tavern-order-card.accordion-collapsed > *:not(header) {
+        display: none !important;
+    }
+
+    .cooking-recipe-card.accordion-collapsed,
+    .tavern-order-card.accordion-collapsed {
+        padding-top: 10px !important;
+        padding-bottom: 10px !important;
+        min-height: 0 !important;
+        gap: 6px;
+    }
+}
+
+/* ===== Dziennik → Profesje: zwarty układ (telefon) ===== */
+@media (max-width: 700px) {
+    .journal-profession-tabs {
+        display: grid !important;
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        gap: 6px !important;
+    }
+
+    .journal-profession-tab {
+        padding: 6px 4px !important;
+        min-height: 0 !important;
+        font-size: 12px !important;
+        line-height: 1.15 !important;
+    }
+
+    .journal-profession-stats {
+        display: grid !important;
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        gap: 6px !important;
+    }
+
+    .journal-profession-stat {
+        padding: 6px !important;
+    }
+
+    .journal-profession-area-grid {
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 8px !important;
+    }
+
+    .journal-profession-area {
+        padding: 8px !important;
+        min-height: 0 !important;
+    }
+
+    .journal-profession-discovery-grid {
+        display: grid !important;
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+        gap: 6px !important;
+    }
+
+    .journal-profession-discovery.locked {
+        padding: 6px 2px !important;
+        min-height: 0 !important;
+        text-align: center;
+    }
+
+    .journal-profession-discovery.locked > *:not(:first-child) {
+        display: none !important;
+    }
+
+    .journal-profession-discovery:not(.locked) {
+        grid-column: 1 / -1;
+    }
+}
+
+/* ===== Dziennik → Lokacje: zwijane karty (telefon) ===== */
+@media (max-width: 700px) {
+    .journal-location-header {
+        position: relative;
+        cursor: pointer;
+        padding-right: 22px !important;
+    }
+
+    .journal-location-header::after {
+        content: "▾";
+        position: absolute;
+        right: 2px;
+        top: 2px;
+        color: #b09a78;
+        transition: transform .15s;
+    }
+
+    .journal-location-card.accordion-collapsed .journal-location-header::after {
+        transform: rotate(-90deg);
+    }
+
+    .journal-location-card.accordion-collapsed > *:not(.journal-location-header) {
+        display: none !important;
+    }
+
+    .journal-location-card.accordion-collapsed {
+        padding-top: 10px !important;
+        padding-bottom: 10px !important;
+        min-height: 0 !important;
+        gap: 6px;
+    }
+}
+
+/* ===== Zielarstwo: zwijane karty obszarów (telefon) ===== */
+@media (max-width: 700px) {
+    .herbalism-area-card-header {
+        position: relative;
+        cursor: pointer;
+        padding-right: 22px;
+    }
+
+    .herbalism-area-card-header::after {
+        content: "▾";
+        position: absolute;
+        right: 2px;
+        top: 4px;
+        color: #b09a78;
+        transition: transform .15s;
+    }
+
+    .herbalism-area-card.accordion-collapsed .herbalism-area-card-header::after {
+        transform: rotate(-90deg);
+    }
+
+    .herbalism-area-card.accordion-collapsed > *:not(.herbalism-area-card-header) {
+        display: none !important;
+    }
+
+    .herbalism-area-card.accordion-collapsed {
+        padding-top: 10px !important;
+        padding-bottom: 10px !important;
+        min-height: 0 !important;
+        gap: 6px;
+    }
+}
+/* ===== Kopalnia: zwijane karty obszarów (telefon) ===== */
+@media (max-width: 700px) {
+    .mining-area-card-header {
+        position: relative;
+        cursor: pointer;
+        padding-right: 22px;
+    }
+
+    .mining-area-card-header::after {
+        content: "▾";
+        position: absolute;
+        right: 2px;
+        top: 4px;
+        color: #b09a78;
+        transition: transform .15s;
+    }
+
+    .mining-area-card.accordion-collapsed .mining-area-card-header::after {
+        transform: rotate(-90deg);
+    }
+
+    .mining-area-card.accordion-collapsed > *:not(.mining-area-card-header) {
+        display: none !important;
+    }
+
+    .mining-area-card.accordion-collapsed {
+        padding-top: 10px !important;
+        padding-bottom: 10px !important;
+        min-height: 0 !important;
+        gap: 6px;
+    }
+}
+
+/* ===== Lochy: zwijane karty (telefon) ===== */
+@media (max-width: 700px) {
+    #dungeons-list .journal-boss-header {
+        position: relative;
+        cursor: pointer;
+        padding-right: 22px;
+    }
+
+    #dungeons-list .journal-boss-header::after {
+        content: "▾";
+        position: absolute;
+        right: 2px;
+        top: 4px;
+        color: #b09a78;
+        transition: transform .15s;
+    }
+
+    #dungeons-list .journal-boss-card.accordion-collapsed .journal-boss-header::after {
+        transform: rotate(-90deg);
+    }
+
+    #dungeons-list .journal-boss-card.accordion-collapsed > *:not(.journal-boss-header) {
+        display: none !important;
+    }
+
+    #dungeons-list .journal-boss-card.accordion-collapsed {
+        padding-top: 10px !important;
+        padding-bottom: 10px !important;
+        min-height: 0 !important;
+        gap: 6px;
+    }
+}
+
+/* ===== Bohater → Podsumowanie: dwie kolumny (telefon) ===== */
+@media (max-width: 700px) {
+    .hero-summary-grid {
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 6px !important;
+    }
+
+    .hero-summary-card {
+        padding: 6px 8px !important;
+        gap: 8px !important;
+        min-height: 0 !important;
+    }
+
+    .hero-summary-icon {
+        width: 30px !important;
+        height: 30px !important;
+        min-width: 30px !important;
+        font-size: 16px !important;
+    }
+
+    .hero-summary-content span {
+        font-size: 11px !important;
+        line-height: 1.15 !important;
+    }
+
+    .hero-summary-content strong {
+        font-size: 15px !important;
+        overflow-wrap: anywhere;
+    }
+
+    .hero-summary-group {
+        padding: 10px !important;
+    }
+}
+
+/* ===== Menu mobilne: nazwa ekranu na pasku i krótsza szuflada ===== */
+@media (max-width: 700px) {
+    .mobile-topbar-hero > div {
+        min-width: 0;
+    }
+
+    .mobile-topbar-hero small {
+        display: block;
+        max-width: 92px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .mobile-topbar-screen {
+        color: #c9a24a;
+    }
+
+    /* HP, mana i złoto są już na górnym pasku - w szufladzie je ukrywamy */
+    #menu .side-hero-gold,
+    #menu .side-hero-bar-group:has(#hp-fill),
+    #menu .side-hero-bar-group:has(#mana-fill) {
+        display: none !important;
+    }
+}
