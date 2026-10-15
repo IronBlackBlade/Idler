@@ -830,3 +830,102 @@ function activateBestProfessionToolFromPanel(
         model.bestOwnedTool.id
     );
 }
+
+/*
+ * Dziennik → Profesje: panel mistrzostwa (bonus co 25 poziomów profesji)
+ * dopisywany do przeglądu wybranej profesji. Nie zmienia pliku dziennika,
+ * tylko opakowuje renderJournalProfessions.
+ */
+(function () {
+    function findToolTypeByProfessionName(name) {
+        if (typeof professionToolTypeConfig === "undefined") {
+            return null;
+        }
+
+        const entry = professionToolTypeConfig.find(function (item) {
+            return item.professionName === name;
+        });
+
+        return entry ? entry.toolType : null;
+    }
+
+    function buildJournalMasteryHtml(toolType) {
+        const info =
+            typeof getProfessionMasteryInfo === "function"
+                ? getProfessionMasteryInfo(toolType)
+                : null;
+
+        if (!info) {
+            return "";
+        }
+
+        const labels =
+            typeof professionToolsBonusLabels !== "undefined"
+                ? professionToolsBonusLabels
+                : {};
+        const interval = PROFESSION_MASTERY_INTERVAL;
+        const into = info.level % interval;
+        const percent = Math.round((into / interval) * 100);
+        const left = info.nextLevel - info.level;
+
+        return `
+            <div class="journal-mastery-panel">
+                <div class="journal-mastery-head">
+                    <span class="journal-mastery-title">🏅 Mistrzostwo ×${info.milestones}</span>
+                    <span class="journal-mastery-next">Następny bonus za ${left} ${left === 1 ? "poziom" : "poziomów"} (Lv. ${info.nextLevel})</span>
+                </div>
+                <div class="journal-mastery-track"><div class="journal-mastery-fill" style="width:${percent}%"></div></div>
+                <div class="journal-mastery-bonuses">
+                    <span>${labels[info.primaryKey] || info.primaryKey} <strong>+${formatMasteryPercent(info.primaryBonus)}%</strong></span>
+                    <span>${labels[info.secondaryKey] || info.secondaryKey} <strong>+${formatMasteryPercent(info.secondaryBonus)}%</strong></span>
+                </div>
+                <small>Co ${interval} poziomów dostajesz stały bonus, niezależnie od narzędzia. Poziomy nie mają limitu.</small>
+            </div>
+        `;
+    }
+
+    function addJournalMastery() {
+        const overview = document.querySelector(".journal-profession-overview");
+
+        if (!overview || overview.querySelector(".journal-mastery-panel")) {
+            return;
+        }
+
+        const nameElement = overview.querySelector(".journal-profession-overview-header strong");
+        const toolType = nameElement
+            ? findToolTypeByProfessionName(nameElement.textContent.trim())
+            : null;
+        const html = toolType ? buildJournalMasteryHtml(toolType) : "";
+
+        if (html) {
+            overview.insertAdjacentHTML("beforeend", html);
+        }
+    }
+
+    function install() {
+        const original = window.renderJournalProfessions;
+
+        if (typeof original !== "function" || original.__masteryWrapped) {
+            return;
+        }
+
+        const wrapped = function () {
+            const result = original.apply(this, arguments);
+            try {
+                addJournalMastery();
+            } catch (error) {
+                console.error("Mistrzostwo w dzienniku:", error);
+            }
+            return result;
+        };
+
+        wrapped.__masteryWrapped = true;
+        window.renderJournalProfessions = wrapped;
+    }
+
+    if (document.readyState === "complete") {
+        install();
+    } else {
+        window.addEventListener("load", install);
+    }
+})();

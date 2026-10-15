@@ -104,7 +104,7 @@
                 continue;
             }
 
-            const heading = screen.querySelector("h1, h2");
+            const heading = screen.querySelector("h1, h2, .card-header");
             const label = heading ? heading.textContent.replace(/\s+/g, " ").trim() : "";
 
             return label ? " · " + label : "";

@@ -3032,3 +3032,240 @@ button:not(:disabled):hover,
         display: none !important;
     }
 }
+
+/* ===== Dziennik → Profesje: panel mistrzostwa ===== */
+.journal-mastery-panel {
+    margin-top: 12px;
+    padding: 10px 12px;
+    background: #231810;
+    border: 1px solid #1d130d;
+    border-left: 3px solid #c9a24a;
+    border-radius: 2px;
+    color: #cdbb97;
+    font-size: 13px;
+}
+
+.journal-mastery-head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 4px 12px;
+    margin-bottom: 8px;
+}
+
+.journal-mastery-title {
+    color: #e9c46a;
+    font-family: var(--font-head);
+    font-size: 15px;
+}
+
+.journal-mastery-next {
+    color: #b09a78;
+}
+
+.journal-mastery-track {
+    height: 8px;
+    background: #1d130d;
+    border: 1px solid #6a4a30;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.journal-mastery-fill {
+    height: 100%;
+    background: linear-gradient(#e9c46a, #c9a24a);
+}
+
+.journal-mastery-bonuses {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 16px;
+    margin-top: 8px;
+}
+
+.journal-mastery-bonuses strong {
+    color: #f0dcb4;
+}
+
+.journal-mastery-panel small {
+    display: block;
+    margin-top: 6px;
+    color: #b09a78;
+    font-size: 11px;
+}
+
+/* ===== Telefon: mniej zmarnowanej szerokości (ramki i marginesy) ===== */
+@media (max-width: 700px) {
+    #content {
+        padding-left: 4px !important;
+        padding-right: 4px !important;
+    }
+
+    .screen {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+
+    .screen .game-card {
+        border-width: 3px !important;
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+}
+
+/* ===== Telefon: minimalna czytelna wielkość drobnego tekstu ===== */
+@media (max-width: 700px) {
+    /* etykiety, statusy, plakietki, opisy (było 8-10 px) */
+    .crafting-item-meta span,
+    .crafting-meta-badge,
+    .alchemy-recipe-status,
+    .alchemy-level-badge,
+    .alchemy-progress-header span,
+    .alchemy-queue-header small,
+    .journal-boss-header > div > span,
+    .journal-boss-status,
+    .mining-area-status, .mining-level-badge,
+    .herbalism-area-status, .herbalism-level-badge,
+    .fishing-area-status, .fishing-level-badge,
+    .location-status,
+    .combat-spell-status span,
+    .combat-spell-type,
+    .combat-food-active-effect span,
+    .combat-food-active-effect small,
+    .location-info-box span,
+    .location-mastery-header span,
+    .location-mastery-footer span,
+    .location-mastery-milestone strong,
+    .location-mastery-milestone small,
+    .location-mastery-kills,
+    .location-boss-kill-badge,
+    .location-boss-header span,
+    .location-boss-loot strong,
+    .location-boss-loot-item span,
+    .location-boss-loot-item strong,
+    .location-first-reward-header strong,
+    .location-first-reward-header span,
+    .location-first-reward-list span,
+    .enemy-stat-box span,
+    .boss-chance-header span,
+    .boss-chance-panel > div,
+    .boss-chance-message,
+    .mining-drop-group span,
+    .herbalism-drop-group span,
+    .fishing-drop-group span,
+    .mining-drop-group strong,
+    .herbalism-drop-group strong,
+    .fishing-drop-group strong,
+    .mining-area-info strong,
+    .herbalism-area-info strong,
+    .fishing-area-info strong,
+    .mining-activity-header > div > span,
+    .herbalism-activity-header > div > span,
+    .fishing-activity-header > div > span,
+    .profession-tool-context-title small,
+    .profession-tool-context-empty-body p,
+    .fishing-section-heading small,
+    .fishing-section-heading span,
+    .fishing-baits-header span,
+    .fishing-bait-details strong,
+    .fishing-bait-details small,
+    .fishing-bait-details em,
+    .fishing-bait-quantity,
+    .fishing-bait-card span,
+    .fishing-inline-areas-header small,
+    .fishing-inline-areas-header span,
+    .fishing-record-book-header span,
+    .fishing-record-book p,
+    .fishing-statistics strong,
+    .fishing-last-result-header small,
+    .fishing-orders-header small,
+    .fishing-orders-header span,
+    .fishing-order-card-header small,
+    .fishing-order-card p,
+    .fishing-order-requirement span,
+    .fishing-order-requirement strong,
+    .fishing-order-rewards strong,
+    .fishing-order-tier-progress span,
+    .fishing-order-tier-progress strong,
+    .fishing-order-complete-button,
+    .tavern-summary span,
+    .tavern-reputation-row small,
+    .quest-category-tab-button small,
+    .quest-completion-summary-header span,
+    .hero-summary-group-header span {
+        font-size: 11.5px !important;
+    }
+
+    /* wartości i etykiety o wielkości 11 px podnosimy do 12 px */
+    .quest-progress-text span,
+    .quest-progress-text strong,
+    .quest-reward span,
+    .hero-summary-content span,
+    .journal-bestiary-summary span,
+    .mining-exp-label span,
+    .herbalism-exp-label span,
+    .fishing-exp-label span,
+    .alchemy-exp-label span,
+    .mining-exp-label strong,
+    .herbalism-exp-label strong,
+    .fishing-exp-label strong,
+    .alchemy-exp-label strong,
+    .mining-cycle-label span,
+    .herbalism-cycle-label span,
+    .fishing-cycle-label span,
+    .alchemy-cycle-label span,
+    .mining-cycle-label strong ,
+    .herbalism-cycle-label strong ,
+    .fishing-cycle-label strong ,
+    .alchemy-cycle-label strong {
+        font-size: 12px !important;
+    }
+}
+
+/* ===== Zadania: limit widocznych kart na telefonie ===== */
+.quest-hidden-mobile {
+    display: none !important;
+}
+
+.quest-show-more {
+    display: block;
+    width: 100%;
+    margin: 8px 0 4px;
+    padding: 12px 10px;
+    background: linear-gradient(#4b392a, #392a1e);
+    border: 1px solid #6a4a30;
+    border-radius: 2px;
+    color: #f0dcb4;
+    font-family: var(--font-head);
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* ===== Telefon: węższy dolny pasek logu ===== */
+@media (max-width: 700px) {
+    #system-log-panel .system-log-header {
+        padding-top: 4px !important;
+        padding-bottom: 4px !important;
+        min-height: 0 !important;
+    }
+
+    #system-log-panel .system-log-header > div:first-child span {
+        display: none !important;
+    }
+
+    #system-log-panel .system-log-header-actions button {
+        width: 34px !important;
+        height: 34px !important;
+        min-width: 34px !important;
+        min-height: 34px !important;
+        padding: 0 !important;
+    }
+
+    #system-log-panel:not(.system-log-mobile-open) {
+        height: 44px !important;
+    }
+
+    body.has-mobile-menu {
+        padding-bottom: 48px !important;
+    }
+}

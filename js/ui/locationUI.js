@@ -1265,3 +1265,92 @@ function showHuntingLocationsScreen() {
         init();
     }
 })();
+
+/*
+ * Telefon: lista zadań pokazuje na starcie 12 zadań z przyciskiem
+ * „Pokaż więcej". Zadania do odebrania są zawsze widoczne. Limit jest
+ * zapamiętywany osobno dla każdej zakładki kategorii.
+ */
+(function () {
+    const MOBILE_QUERY = "(max-width: 700px)";
+    const PAGE_SIZE = 12;
+    const limits = new Map();
+    let observer = null;
+    let scheduled = false;
+
+    function isMobile() {
+        return window.matchMedia(MOBILE_QUERY).matches;
+    }
+
+    function categoryKey(container) {
+        const active = container.querySelector(".quest-category-tab-button.active");
+        return active ? active.textContent.replace(/\s+/g, " ").trim() : "all";
+    }
+
+    function apply() {
+        scheduled = false;
+        const container = document.getElementById("quests");
+        if (!container) return;
+
+        if (observer) observer.disconnect();
+
+        const key = categoryKey(container);
+        const limit = limits.get(key) || PAGE_SIZE;
+        const cards = Array.from(container.querySelectorAll(":scope > .quest"));
+        const old = container.querySelector(":scope > .quest-show-more");
+        if (old) old.remove();
+
+        let shown = 0;
+        let hidden = 0;
+
+        cards.forEach(function (card) {
+            let hide = false;
+            if (isMobile()) {
+                const claimable = card.classList.contains("quest-completed") || Boolean(card.querySelector(".quest-action button"));
+                if (shown >= limit && !claimable) {
+                    hide = true;
+                } else {
+                    shown += 1;
+                }
+            }
+            card.classList.toggle("quest-hidden-mobile", hide);
+            if (hide) hidden += 1;
+        });
+
+        if (hidden > 0) {
+            const button = document.createElement("button");
+            button.type = "button";
+            button.className = "quest-show-more";
+            button.textContent =
+                "Pokaż więcej (+" + Math.min(PAGE_SIZE, hidden) + ", pozostało " + hidden + ")";
+            button.addEventListener("click", function () {
+                limits.set(key, limit + PAGE_SIZE);
+                apply();
+            });
+            container.appendChild(button);
+        }
+
+        if (observer) observer.observe(container, { childList: true });
+    }
+
+    function schedule() {
+        if (scheduled) return;
+        scheduled = true;
+        requestAnimationFrame(apply);
+    }
+
+    function init() {
+        const container = document.getElementById("quests");
+        if (!container) return;
+        observer = new MutationObserver(schedule);
+        observer.observe(container, { childList: true });
+        apply();
+    }
+
+    window.addEventListener("resize", schedule);
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", init);
+    } else {
+        init();
+    }
+})();
