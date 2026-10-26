@@ -96,9 +96,10 @@ const miningAreas = [
         rareChance: 10,
         exceptionalChance: 1,
         basicDrops: [
-            { itemId: "obsidian", weight: 35, miningExp: 20 },
-            { itemId: "platinum_ore", weight: 35, miningExp: 23 },
-            { itemId: "deep_coal", weight: 30, miningExp: 26 }
+            { itemId: "obsidian", weight: 30, miningExp: 20 },
+            { itemId: "platinum_ore", weight: 30, miningExp: 23 },
+            { itemId: "deep_coal", weight: 25, miningExp: 26 },
+            { itemId: "mithril_ore", weight: 15, miningExp: 32 }
         ],
         rareDrops: [
             { itemId: "mithril_ore", weight: 55, miningExp: 64 },

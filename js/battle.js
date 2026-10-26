@@ -669,12 +669,47 @@ function autoAttack() {
       ? collectDragonWrathBurnDamage()
       : 0;
 
+  const riftEchoDamage =
+    typeof rollRiftEchoDamage === "function"
+      ? rollRiftEchoDamage(attackResult.damage)
+      : 0;
+
+  const prismRefraction =
+    attackResult.isCritical && typeof getPrismRefractionEffect === "function"
+      ? getPrismRefractionEffect(
+          attackResult.damage,
+          getDerivedStats().maxHp,
+        )
+      : { damage: 0, healing: 0 };
+
   enemy.hp -=
     attackResult.damage +
     bleedDamage +
     igniteDamage +
     poisonDamage +
-    dragonBurnDamage;
+    dragonBurnDamage +
+    riftEchoDamage +
+    prismRefraction.damage;
+
+  if (riftEchoDamage > 0) {
+    addCombatLog("🌀 Echo rozdarcia powtarza atak: " + riftEchoDamage + " obrażeń.");
+  }
+
+  if (prismRefraction.damage > 0) {
+    const refractionMaxHp = getDerivedStats().maxHp;
+
+    player.hp = Math.min(refractionMaxHp, player.hp + prismRefraction.healing);
+
+    addCombatLog(
+      "💎 Rozszczepienie zadaje " +
+        prismRefraction.damage +
+        " obrażeń" +
+        (prismRefraction.healing > 0
+          ? " i leczy " + prismRefraction.healing + " HP"
+          : "") +
+        ".",
+    );
+  }
 
   if (attackResult.isCritical) {
     addCombatLog(
@@ -791,13 +826,38 @@ function autoAttack() {
 
     addCombatLog("☠️ Pokonałeś: " + enemy.name + ".");
 
-    player.gold += enemy.gold;
+    const setRewardBonuses =
+      typeof getSetKillRewardBonuses === "function"
+        ? getSetKillRewardBonuses()
+        : { goldPercent: 0, expPercent: 0 };
 
-    player.exp += enemy.exp;
-
-    addCombatLog(
-      "⭐ Zdobyto " + enemy.exp + " EXP i " + enemy.gold + " złota.",
+    const goldGain = Math.floor(
+      enemy.gold * (1 + setRewardBonuses.goldPercent / 100),
     );
+
+    const expGain = Math.floor(
+      enemy.exp * (1 + setRewardBonuses.expPercent / 100),
+    );
+
+    player.gold += goldGain;
+
+    player.exp += expGain;
+
+    addCombatLog("⭐ Zdobyto " + expGain + " EXP i " + goldGain + " złota.");
+
+    const devourHealing =
+      typeof getVoidDevourHealing === "function"
+        ? getVoidDevourHealing(getDerivedStats().maxHp)
+        : 0;
+
+    if (devourHealing > 0) {
+      player.hp = Math.min(
+        getDerivedStats().maxHp,
+        player.hp + devourHealing,
+      );
+
+      addCombatLog("🌑 Żer Otchłani przywraca " + devourHealing + " HP.");
+    }
 
     const defeatedEnemyWasBoss = player.isBossFight === true;
 
@@ -1068,6 +1128,21 @@ function enemyAttackPlayer() {
     );
   }
 
+  const tideWardResult =
+    typeof applyTideWardToDamage === "function"
+      ? applyTideWardToDamage(reducedDamage)
+      : { damage: reducedDamage, triggered: false, reducedBy: 0 };
+
+  reducedDamage = tideWardResult.damage;
+
+  if (tideWardResult.triggered) {
+    addCombatLog(
+      "🌊 Bariera przypływu osłabiła uderzenie o " +
+        tideWardResult.reducedBy +
+        " obrażeń.",
+    );
+  }
+
   const manaShieldResult =
     typeof applyManaShieldToDamage === "function"
       ? applyManaShieldToDamage(reducedDamage)
@@ -1108,6 +1183,19 @@ function enemyAttackPlayer() {
   // Minimalne obrażenia nie mogą niwelować wartości pełnego pancerza.
   reducedDamage = Math.max(1, reducedDamage);
   player.hp -= reducedDamage;
+
+  const royalRetributionDamage =
+    typeof getRoyalRetributionDamage === "function"
+      ? getRoyalRetributionDamage(reducedDamage)
+      : 0;
+
+  if (royalRetributionDamage > 0 && enemy) {
+    enemy.hp -= royalRetributionDamage;
+
+    addCombatLog(
+      "👑 Odpłata króla odbija " + royalRetributionDamage + " obrażeń.",
+    );
+  }
 
   if (typeof consumeGuardianGuardCharge === "function") {
     consumeGuardianGuardCharge();

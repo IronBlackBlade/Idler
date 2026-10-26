@@ -835,6 +835,12 @@ function getOfflineCombatSurvivalData(
         (
             1 -
             frostAttackReduction / 100
+        ) *
+        (
+            typeof getOfflineTideWardMultiplier ===
+                "function"
+                ? getOfflineTideWardMultiplier()
+                : 1
         );
 
     const defensiveSpellHealingPerSecond =
@@ -892,10 +898,20 @@ function getOfflineCombatSurvivalData(
         guardianClassRegenPercent /
         100;
 
+    const equipmentSetHealingPerSecond =
+        typeof getOfflineSetSustainHealingPerSecond ===
+            "function"
+            ? getOfflineSetSustainHealingPerSecond(
+                location.enemies,
+                derived.maxHp
+            )
+            : 0;
+
     const healingPerSecond =
         defensiveSpellHealingPerSecond +
         guardianHealingPerSecond +
-        guardianClassHealingPerSecond;
+        guardianClassHealingPerSecond +
+        equipmentSetHealingPerSecond;
 
 
     const averageDamagePerSecond =
@@ -1101,6 +1117,17 @@ function getOfflineCombatSurvivalData(
 
         commanderDefenseEffectiveHp:
             commanderDefenseEffectiveHp,
+
+        royalRetributionDamage:
+            typeof getOfflineRoyalRetributionDamage ===
+                "function"
+                ? getOfflineRoyalRetributionDamage(
+                    damageBeforeHealing,
+                    healingPotionSimulation
+                        .activeDuration /
+                    1000
+                )
+                : 0,
 
         usedHealingPotionCount:
             healingPotionSimulation
@@ -3111,6 +3138,41 @@ function calculateOfflineCombatDamage(
             )
             : 0;
 
+    const equipmentSetEffectDamage =
+        Math.floor(
+            (
+                typeof getOfflineRiftEchoDamage ===
+                    "function"
+                    ? getOfflineRiftEchoDamage(
+                        basicAttackDamage
+                    )
+                    : 0
+            ) +
+            (
+                typeof getOfflinePrismRefractionDamage ===
+                    "function"
+                    ? getOfflinePrismRefractionDamage(
+                        normalAttackGroup
+                            .criticalHits,
+                        normalAttackGroup
+                            .criticalDamage
+                    ) +
+                    getOfflinePrismRefractionDamage(
+                        boostedAttackGroup
+                            .criticalHits,
+                        boostedAttackGroup
+                            .criticalDamage
+                    )
+                    : 0
+            ) +
+            (
+                Number(
+                    survivalData
+                        .royalRetributionDamage
+                ) || 0
+            )
+        );
+
     let warriorBasicAttackDamage =
         basicAttackDamage;
 
@@ -3813,6 +3875,7 @@ function calculateOfflineCombatDamage(
             guardianRetaliationDamage +
             roguePoisonDamage +
             equipmentSetBurnDamage +
+            equipmentSetEffectDamage +
             offensiveSpellData.damage,
 
         combatEfficiency:
@@ -5394,6 +5457,11 @@ function processOfflineCombatProgress(
     let totalGold = 0;
     let totalExperience = 0;
 
+    const setRewardBonuses =
+        typeof getSetKillRewardBonuses === "function"
+            ? getSetKillRewardBonuses()
+            : { goldPercent: 0, expPercent: 0 };
+
     enemyKills.forEach(enemyKill => {
         totalGold +=
             Math.max(
@@ -5413,6 +5481,16 @@ function processOfflineCombatProgress(
             ) *
             enemyKill.quantity;
     });
+
+    totalGold = Math.floor(
+        totalGold *
+        (1 + setRewardBonuses.goldPercent / 100)
+    );
+
+    totalExperience = Math.floor(
+        totalExperience *
+        (1 + setRewardBonuses.expPercent / 100)
+    );
 
     const lootRewards =
         collectOfflineCombatLoot(

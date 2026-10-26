@@ -1004,7 +1004,7 @@ window.craftingWeaponRecipes = [
       { itemId: "herald_blade", quantity: 10 },
       { itemId: "prismatic_whetstone", quantity: 2 },
       { itemId: "rift_core", quantity: 1 },
-      { itemId: "adamantite_ingot", quantity: 4 },
+      { itemId: "mithril_ingot", quantity: 4 },
     ],
   },
 
@@ -1027,7 +1027,7 @@ window.craftingWeaponRecipes = [
       { itemId: "herald_blade", quantity: 10 },
       { itemId: "abyss_mace_head", quantity: 2 },
       { itemId: "rift_core", quantity: 1 },
-      { itemId: "adamantite_ingot", quantity: 4 },
+      { itemId: "mithril_ingot", quantity: 4 },
     ],
   },
 
@@ -1050,7 +1050,7 @@ window.craftingWeaponRecipes = [
       { itemId: "astral_pupil", quantity: 10 },
       { itemId: "dimensional_bowstring", quantity: 2 },
       { itemId: "rift_core", quantity: 1 },
-      { itemId: "adamantite_ingot", quantity: 4 },
+      { itemId: "mithril_ingot", quantity: 4 },
     ],
   },
 
@@ -1073,7 +1073,7 @@ window.craftingWeaponRecipes = [
       { itemId: "astral_pupil", quantity: 10 },
       { itemId: "abyss_echo_crossbow_mechanism", quantity: 2 },
       { itemId: "rift_core", quantity: 1 },
-      { itemId: "adamantite_ingot", quantity: 4 },
+      { itemId: "mithril_ingot", quantity: 4 },
     ],
   },
 
@@ -1096,7 +1096,7 @@ window.craftingWeaponRecipes = [
       { itemId: "weaver_armor_shard", quantity: 10 },
       { itemId: "spirit_bloom", quantity: 4 },
       { itemId: "rift_core", quantity: 1 },
-      { itemId: "adamantite_ingot", quantity: 4 },
+      { itemId: "mithril_ingot", quantity: 4 },
     ],
   },
 
@@ -1119,7 +1119,7 @@ window.craftingWeaponRecipes = [
       { itemId: "weaver_armor_shard", quantity: 10 },
       { itemId: "diamond", quantity: 4 },
       { itemId: "rift_core", quantity: 1 },
-      { itemId: "adamantite_ingot", quantity: 4 },
+      { itemId: "mithril_ingot", quantity: 4 },
     ],
   },
 
@@ -1142,7 +1142,7 @@ window.craftingWeaponRecipes = [
       { itemId: "herald_blade", quantity: 10 },
       { itemId: "abyssal_whetstone", quantity: 2 },
       { itemId: "abyss_heart", quantity: 1 },
-      { itemId: "adamantite_ingot", quantity: 5 },
+      { itemId: "adamantite_ingot", quantity: 4 },
     ],
   },
 
@@ -1165,7 +1165,7 @@ window.craftingWeaponRecipes = [
       { itemId: "herald_blade", quantity: 10 },
       { itemId: "abyss_mace_head", quantity: 3 },
       { itemId: "abyss_heart", quantity: 1 },
-      { itemId: "adamantite_ingot", quantity: 5 },
+      { itemId: "adamantite_ingot", quantity: 4 },
     ],
   },
 
@@ -1188,7 +1188,7 @@ window.craftingWeaponRecipes = [
       { itemId: "astral_pupil", quantity: 10 },
       { itemId: "dimensional_bowstring", quantity: 3 },
       { itemId: "abyss_heart", quantity: 1 },
-      { itemId: "adamantite_ingot", quantity: 5 },
+      { itemId: "adamantite_ingot", quantity: 4 },
     ],
   },
 
@@ -1211,7 +1211,7 @@ window.craftingWeaponRecipes = [
       { itemId: "astral_pupil", quantity: 10 },
       { itemId: "abyss_echo_crossbow_mechanism", quantity: 3 },
       { itemId: "abyss_heart", quantity: 1 },
-      { itemId: "adamantite_ingot", quantity: 5 },
+      { itemId: "adamantite_ingot", quantity: 4 },
     ],
   },
 
@@ -1234,7 +1234,7 @@ window.craftingWeaponRecipes = [
       { itemId: "weaver_armor_shard", quantity: 10 },
       { itemId: "witch_root", quantity: 4 },
       { itemId: "abyss_heart", quantity: 1 },
-      { itemId: "adamantite_ingot", quantity: 5 },
+      { itemId: "adamantite_ingot", quantity: 4 },
     ],
   },
 
@@ -1257,7 +1257,7 @@ window.craftingWeaponRecipes = [
       { itemId: "weaver_armor_shard", quantity: 10 },
       { itemId: "prismatic_gem", quantity: 3 },
       { itemId: "abyss_heart", quantity: 1 },
-      { itemId: "adamantite_ingot", quantity: 5 },
+      { itemId: "adamantite_ingot", quantity: 4 },
     ],
   },
 
@@ -1280,7 +1280,7 @@ window.craftingWeaponRecipes = [
       { itemId: "rusted_guard_medal", quantity: 10 },
       { itemId: "abyssal_whetstone", quantity: 3 },
       { itemId: "coral_heart", quantity: 1 },
-      { itemId: "adamantite_ingot", quantity: 7 },
+      { itemId: "adamantite_ingot", quantity: 5 },
     ],
   },
 
@@ -1303,7 +1303,7 @@ window.craftingWeaponRecipes = [
       { itemId: "rusted_guard_medal", quantity: 10 },
       { itemId: "deep_mace_head", quantity: 2 },
       { itemId: "coral_heart", quantity: 1 },
-      { itemId: "adamantite_ingot", quantity: 7 },
+      { itemId: "adamantite_ingot", quantity: 5 },
     ],
   },
 
@@ -1326,7 +1326,7 @@ window.craftingWeaponRecipes = [
       { itemId: "living_coral_shard", quantity: 10 },
       { itemId: "deep_bowstring", quantity: 2 },
       { itemId: "coral_heart", quantity: 1 },
-      { itemId: "adamantite_ingot", quantity: 7 },
+      { itemId: "adamantite_ingot", quantity: 5 },
     ],
   },
 
@@ -1349,7 +1349,7 @@ window.craftingWeaponRecipes = [
       { itemId: "living_coral_shard", quantity: 10 },
       { itemId: "leviathan_pressure_crossbow_mechanism", quantity: 2 },
       { itemId: "coral_heart", quantity: 1 },
-      { itemId: "adamantite_ingot", quantity: 7 },
+      { itemId: "adamantite_ingot", quantity: 5 },
     ],
   },
 
@@ -1372,7 +1372,7 @@ window.craftingWeaponRecipes = [
       { itemId: "soaked_scroll", quantity: 10 },
       { itemId: "celestial_lotus", quantity: 3 },
       { itemId: "coral_heart", quantity: 1 },
-      { itemId: "adamantite_ingot", quantity: 7 },
+      { itemId: "adamantite_ingot", quantity: 5 },
     ],
   },
 
@@ -1395,7 +1395,7 @@ window.craftingWeaponRecipes = [
       { itemId: "soaked_scroll", quantity: 10 },
       { itemId: "crystal_heart", quantity: 3 },
       { itemId: "coral_heart", quantity: 1 },
-      { itemId: "adamantite_ingot", quantity: 7 },
+      { itemId: "adamantite_ingot", quantity: 5 },
     ],
   },
 
@@ -1418,7 +1418,7 @@ window.craftingWeaponRecipes = [
       { itemId: "rusted_guard_medal", quantity: 10 },
       { itemId: "deepsea_whetstone", quantity: 2 },
       { itemId: "leviathan_crown", quantity: 1 },
-      { itemId: "dragonsteel_ingot", quantity: 5 },
+      { itemId: "dragonsteel_ingot", quantity: 4 },
     ],
   },
 
@@ -1441,7 +1441,7 @@ window.craftingWeaponRecipes = [
       { itemId: "rusted_guard_medal", quantity: 10 },
       { itemId: "deep_mace_head", quantity: 3 },
       { itemId: "leviathan_crown", quantity: 1 },
-      { itemId: "dragonsteel_ingot", quantity: 5 },
+      { itemId: "dragonsteel_ingot", quantity: 4 },
     ],
   },
 
@@ -1464,7 +1464,7 @@ window.craftingWeaponRecipes = [
       { itemId: "living_coral_shard", quantity: 10 },
       { itemId: "deep_bowstring", quantity: 3 },
       { itemId: "leviathan_crown", quantity: 1 },
-      { itemId: "dragonsteel_ingot", quantity: 5 },
+      { itemId: "dragonsteel_ingot", quantity: 4 },
     ],
   },
 
@@ -1487,7 +1487,7 @@ window.craftingWeaponRecipes = [
       { itemId: "living_coral_shard", quantity: 10 },
       { itemId: "leviathan_pressure_crossbow_mechanism", quantity: 3 },
       { itemId: "leviathan_crown", quantity: 1 },
-      { itemId: "dragonsteel_ingot", quantity: 5 },
+      { itemId: "dragonsteel_ingot", quantity: 4 },
     ],
   },
 
@@ -1510,7 +1510,7 @@ window.craftingWeaponRecipes = [
       { itemId: "soaked_scroll", quantity: 10 },
       { itemId: "time_bloom", quantity: 3 },
       { itemId: "leviathan_crown", quantity: 1 },
-      { itemId: "dragonsteel_ingot", quantity: 5 },
+      { itemId: "dragonsteel_ingot", quantity: 4 },
     ],
   },
 
@@ -1533,7 +1533,7 @@ window.craftingWeaponRecipes = [
       { itemId: "soaked_scroll", quantity: 10 },
       { itemId: "astral_diamond", quantity: 3 },
       { itemId: "leviathan_crown", quantity: 1 },
-      { itemId: "dragonsteel_ingot", quantity: 5 },
+      { itemId: "dragonsteel_ingot", quantity: 4 },
     ],
   },
 
@@ -1556,7 +1556,7 @@ window.craftingWeaponRecipes = [
       { itemId: "geode_fragment", quantity: 10 },
       { itemId: "deepsea_whetstone", quantity: 3 },
       { itemId: "mountain_heart", quantity: 1 },
-      { itemId: "dragonsteel_ingot", quantity: 7 },
+      { itemId: "dragonsteel_ingot", quantity: 5 },
     ],
   },
 
@@ -1579,7 +1579,7 @@ window.craftingWeaponRecipes = [
       { itemId: "geode_fragment", quantity: 10 },
       { itemId: "prismatic_mace_head", quantity: 2 },
       { itemId: "mountain_heart", quantity: 1 },
-      { itemId: "dragonsteel_ingot", quantity: 7 },
+      { itemId: "dragonsteel_ingot", quantity: 5 },
     ],
   },
 
@@ -1602,7 +1602,7 @@ window.craftingWeaponRecipes = [
       { itemId: "crystal_stinger", quantity: 10 },
       { itemId: "prismatic_bowstring", quantity: 2 },
       { itemId: "mountain_heart", quantity: 1 },
-      { itemId: "dragonsteel_ingot", quantity: 7 },
+      { itemId: "dragonsteel_ingot", quantity: 5 },
     ],
   },
 
@@ -1625,7 +1625,7 @@ window.craftingWeaponRecipes = [
       { itemId: "crystal_stinger", quantity: 10 },
       { itemId: "prismatic_spectral_crossbow_mechanism", quantity: 2 },
       { itemId: "mountain_heart", quantity: 1 },
-      { itemId: "dragonsteel_ingot", quantity: 7 },
+      { itemId: "dragonsteel_ingot", quantity: 5 },
     ],
   },
 
@@ -1648,7 +1648,7 @@ window.craftingWeaponRecipes = [
       { itemId: "refracted_venom", quantity: 10 },
       { itemId: "worldroot_sprout", quantity: 3 },
       { itemId: "mountain_heart", quantity: 1 },
-      { itemId: "dragonsteel_ingot", quantity: 7 },
+      { itemId: "dragonsteel_ingot", quantity: 5 },
     ],
   },
 
@@ -1671,7 +1671,7 @@ window.craftingWeaponRecipes = [
       { itemId: "refracted_venom", quantity: 10 },
       { itemId: "sunstone", quantity: 3 },
       { itemId: "mountain_heart", quantity: 1 },
-      { itemId: "dragonsteel_ingot", quantity: 7 },
+      { itemId: "dragonsteel_ingot", quantity: 5 },
     ],
   },
 

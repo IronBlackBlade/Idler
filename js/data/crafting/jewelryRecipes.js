@@ -515,7 +515,7 @@ window.craftingJewelryRecipes = [
       { itemId: "memory_fragment", quantity: 10 },
       { itemId: "prismatic_gem", quantity: 3 },
       { itemId: "rift_core", quantity: 1 },
-      { itemId: "adamantite_ingot", quantity: 4 },
+      { itemId: "mithril_ingot", quantity: 4 },
     ],
   },
 
@@ -538,7 +538,7 @@ window.craftingJewelryRecipes = [
       { itemId: "memory_fragment", quantity: 10 },
       { itemId: "diamond", quantity: 4 },
       { itemId: "rift_core", quantity: 1 },
-      { itemId: "adamantite_ingot", quantity: 4 },
+      { itemId: "mithril_ingot", quantity: 4 },
     ],
   },
 
@@ -561,7 +561,7 @@ window.craftingJewelryRecipes = [
       { itemId: "astral_pupil", quantity: 10 },
       { itemId: "silvervine", quantity: 4 },
       { itemId: "rift_core", quantity: 1 },
-      { itemId: "adamantite_ingot", quantity: 4 },
+      { itemId: "mithril_ingot", quantity: 4 },
     ],
   },
 
@@ -584,7 +584,7 @@ window.craftingJewelryRecipes = [
       { itemId: "memory_fragment", quantity: 10 },
       { itemId: "crystal_heart", quantity: 3 },
       { itemId: "abyss_heart", quantity: 1 },
-      { itemId: "adamantite_ingot", quantity: 5 },
+      { itemId: "adamantite_ingot", quantity: 4 },
     ],
   },
 
@@ -607,7 +607,7 @@ window.craftingJewelryRecipes = [
       { itemId: "memory_fragment", quantity: 10 },
       { itemId: "prismatic_gem", quantity: 3 },
       { itemId: "abyss_heart", quantity: 1 },
-      { itemId: "adamantite_ingot", quantity: 5 },
+      { itemId: "adamantite_ingot", quantity: 4 },
     ],
   },
 
@@ -630,7 +630,7 @@ window.craftingJewelryRecipes = [
       { itemId: "astral_pupil", quantity: 10 },
       { itemId: "lunar_essence", quantity: 3 },
       { itemId: "abyss_heart", quantity: 1 },
-      { itemId: "adamantite_ingot", quantity: 5 },
+      { itemId: "adamantite_ingot", quantity: 4 },
     ],
   },
 
@@ -653,7 +653,7 @@ window.craftingJewelryRecipes = [
       { itemId: "song_crystal", quantity: 10 },
       { itemId: "crystal_heart", quantity: 4 },
       { itemId: "coral_heart", quantity: 1 },
-      { itemId: "adamantite_ingot", quantity: 7 },
+      { itemId: "adamantite_ingot", quantity: 5 },
     ],
   },
 
@@ -676,7 +676,7 @@ window.craftingJewelryRecipes = [
       { itemId: "song_crystal", quantity: 10 },
       { itemId: "crystal_heart", quantity: 3 },
       { itemId: "coral_heart", quantity: 1 },
-      { itemId: "adamantite_ingot", quantity: 7 },
+      { itemId: "adamantite_ingot", quantity: 5 },
     ],
   },
 
@@ -699,7 +699,7 @@ window.craftingJewelryRecipes = [
       { itemId: "living_coral_shard", quantity: 10 },
       { itemId: "spirit_bloom", quantity: 4 },
       { itemId: "coral_heart", quantity: 1 },
-      { itemId: "adamantite_ingot", quantity: 7 },
+      { itemId: "adamantite_ingot", quantity: 5 },
     ],
   },
 
@@ -722,7 +722,7 @@ window.craftingJewelryRecipes = [
       { itemId: "song_crystal", quantity: 10 },
       { itemId: "astral_diamond", quantity: 3 },
       { itemId: "leviathan_crown", quantity: 1 },
-      { itemId: "dragonsteel_ingot", quantity: 5 },
+      { itemId: "dragonsteel_ingot", quantity: 4 },
     ],
   },
 
@@ -745,7 +745,7 @@ window.craftingJewelryRecipes = [
       { itemId: "song_crystal", quantity: 10 },
       { itemId: "astral_diamond", quantity: 3 },
       { itemId: "leviathan_crown", quantity: 1 },
-      { itemId: "dragonsteel_ingot", quantity: 5 },
+      { itemId: "dragonsteel_ingot", quantity: 4 },
     ],
   },
 
@@ -768,7 +768,7 @@ window.craftingJewelryRecipes = [
       { itemId: "living_coral_shard", quantity: 10 },
       { itemId: "life_essence", quantity: 3 },
       { itemId: "leviathan_crown", quantity: 1 },
-      { itemId: "dragonsteel_ingot", quantity: 5 },
+      { itemId: "dragonsteel_ingot", quantity: 4 },
     ],
   },
 
@@ -791,7 +791,7 @@ window.craftingJewelryRecipes = [
       { itemId: "geode_heart", quantity: 10 },
       { itemId: "astral_diamond", quantity: 4 },
       { itemId: "mountain_heart", quantity: 1 },
-      { itemId: "dragonsteel_ingot", quantity: 7 },
+      { itemId: "dragonsteel_ingot", quantity: 5 },
     ],
   },
 
@@ -814,7 +814,7 @@ window.craftingJewelryRecipes = [
       { itemId: "geode_heart", quantity: 10 },
       { itemId: "sunstone", quantity: 3 },
       { itemId: "mountain_heart", quantity: 1 },
-      { itemId: "dragonsteel_ingot", quantity: 7 },
+      { itemId: "dragonsteel_ingot", quantity: 5 },
     ],
   },
 
@@ -837,7 +837,7 @@ window.craftingJewelryRecipes = [
       { itemId: "mountain_essence", quantity: 10 },
       { itemId: "phoenix_herb", quantity: 4 },
       { itemId: "mountain_heart", quantity: 1 },
-      { itemId: "dragonsteel_ingot", quantity: 7 },
+      { itemId: "dragonsteel_ingot", quantity: 5 },
     ],
   },
 

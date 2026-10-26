@@ -188,6 +188,191 @@ const equipmentSetDefinitions = [
                 }
             }
         ]
+    },
+    {
+        id: "voidforged_set",
+        name: "Rynsztunek pustki",
+        icon: "🌑",
+        theme: "void",
+        itemIds: [
+            "voidforged_shield",
+            "voidforged_helmet",
+            "voidforged_armor",
+            "voidforged_pants",
+            "voidforged_boots",
+            "voidforged_gloves"
+        ],
+        thresholds: [
+            {
+                pieces: 3,
+                name: "Pochłonięcie",
+                description: "+12% złota z potworów",
+                bonuses: {
+                    goldBonusPercent: 12
+                }
+            },
+            {
+                pieces: 6,
+                name: "Żer Otchłani",
+                description:
+                    "Po pokonaniu przeciwnika odzyskujesz 8% maks. HP.",
+                uniqueEffect: {
+                    id: "void_devour",
+                    name: "Żer Otchłani",
+                    description: "Po pokonaniu przeciwnika odzyskujesz 8% maks. HP.",
+                    healPercent: 8
+                }
+            }
+        ]
+    },
+    {
+        id: "riftwoven_set",
+        name: "Rynsztunek rozdarcia",
+        icon: "🌀",
+        theme: "rift",
+        itemIds: [
+            "riftwoven_shield",
+            "riftwoven_helmet",
+            "riftwoven_armor",
+            "riftwoven_pants",
+            "riftwoven_boots",
+            "riftwoven_gloves"
+        ],
+        thresholds: [
+            {
+                pieces: 3,
+                name: "Szczelina czasu",
+                description: "+10% EXP z walk",
+                bonuses: {
+                    expBonusPercent: 10
+                }
+            },
+            {
+                pieces: 6,
+                name: "Echo rozdarcia",
+                description:
+                    "Każdy atak ma 15% szansy na powtórzenie się z 60% obrażeń.",
+                uniqueEffect: {
+                    id: "rift_echo",
+                    name: "Echo rozdarcia",
+                    description: "Każdy atak ma 15% szansy na powtórzenie się z 60% obrażeń.",
+                    chancePercent: 15,
+                    damagePercent: 60
+                }
+            }
+        ]
+    },
+    {
+        id: "tidecaller_set",
+        name: "Rynsztunek głębin",
+        icon: "🌊",
+        theme: "tide",
+        itemIds: [
+            "tidecaller_shield",
+            "tidecaller_helmet",
+            "tidecaller_armor",
+            "tidecaller_pants",
+            "tidecaller_boots",
+            "tidecaller_gloves"
+        ],
+        thresholds: [
+            {
+                pieces: 3,
+                name: "Skarby głębin",
+                description: "+15% szansy na łup z polowania",
+                bonuses: {
+                    huntingLootBonusPercent: 15
+                }
+            },
+            {
+                pieces: 6,
+                name: "Bariera przypływu",
+                description:
+                    "Każde uderzenie przeciwnika ma 15% szansy na osłabienie o 50%.",
+                uniqueEffect: {
+                    id: "tide_ward",
+                    name: "Bariera przypływu",
+                    description: "Każde uderzenie przeciwnika ma 15% szansy na osłabienie o 50%.",
+                    chancePercent: 15,
+                    damageReductionPercent: 50
+                }
+            }
+        ]
+    },
+    {
+        id: "deepcrown_set",
+        name: "Rynsztunek głębokiego króla",
+        icon: "👑",
+        theme: "royal",
+        itemIds: [
+            "deepcrown_shield",
+            "deepcrown_helmet",
+            "deepcrown_armor",
+            "deepcrown_pants",
+            "deepcrown_boots",
+            "deepcrown_gloves"
+        ],
+        thresholds: [
+            {
+                pieces: 3,
+                name: "Królewskie przywileje",
+                description: "+10% szybkości kopania i zielarstwa",
+                bonuses: {
+                    miningSpeedPercent: 10,
+                    herbalismSpeedPercent: 10
+                }
+            },
+            {
+                pieces: 6,
+                name: "Odpłata króla",
+                description:
+                    "Odbijasz 20% otrzymanych obrażeń z powrotem w przeciwnika.",
+                uniqueEffect: {
+                    id: "royal_retribution",
+                    name: "Odpłata króla",
+                    description: "Odbijasz 20% otrzymanych obrażeń z powrotem w przeciwnika.",
+                    reflectPercent: 20
+                }
+            }
+        ]
+    },
+    {
+        id: "prismforged_set",
+        name: "Pryzmatyczny rynsztunek",
+        icon: "💎",
+        theme: "prism",
+        itemIds: [
+            "prismforged_shield",
+            "prismforged_helmet",
+            "prismforged_armor",
+            "prismforged_pants",
+            "prismforged_boots",
+            "prismforged_gloves"
+        ],
+        thresholds: [
+            {
+                pieces: 3,
+                name: "Pryzmatyczny blask",
+                description: "+8% złota z potworów i +8% EXP z walk",
+                bonuses: {
+                    goldBonusPercent: 8,
+                    expBonusPercent: 8
+                }
+            },
+            {
+                pieces: 6,
+                name: "Rozszczepienie",
+                description:
+                    "Trafienia krytyczne zadają dodatkowe 40% obrażeń i leczą 3% maks. HP.",
+                uniqueEffect: {
+                    id: "prism_refraction",
+                    name: "Rozszczepienie",
+                    description: "Trafienia krytyczne zadają dodatkowe 40% obrażeń i leczą 3% maks. HP.",
+                    damagePercent: 40,
+                    healPercent: 3
+                }
+            }
+        ]
     }
 ];
 
@@ -287,7 +472,9 @@ function getActiveEquipmentSetBonuses(
         critChance: 0,
         miningSpeedPercent: 0,
         herbalismSpeedPercent: 0,
-        huntingLootBonusPercent: 0
+        huntingLootBonusPercent: 0,
+        goldBonusPercent: 0,
+        expBonusPercent: 0
     };
 
     equipmentSetDefinitions.forEach(definition => {
@@ -323,7 +510,9 @@ function getActiveEquipmentSetActivityBonus(
     const supportedBonusKeys = [
         "miningSpeedPercent",
         "herbalismSpeedPercent",
-        "huntingLootBonusPercent"
+        "huntingLootBonusPercent",
+        "goldBonusPercent",
+        "expBonusPercent"
     ];
 
     if (!supportedBonusKeys.includes(bonusKey)) {

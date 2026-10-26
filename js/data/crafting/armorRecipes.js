@@ -1006,7 +1006,7 @@ window.craftingArmorRecipes = [
       { itemId: "interdimensional_bone", quantity: 10 },
       { itemId: "void_plate", quantity: 4 },
       { itemId: "rift_core", quantity: 1 },
-      { itemId: "adamantite_ingot", quantity: 4 },
+      { itemId: "mithril_ingot", quantity: 4 },
     ],
   },
 
@@ -1029,7 +1029,7 @@ window.craftingArmorRecipes = [
       { itemId: "interdimensional_bone", quantity: 10 },
       { itemId: "void_plate", quantity: 4 },
       { itemId: "rift_core", quantity: 1 },
-      { itemId: "adamantite_ingot", quantity: 4 },
+      { itemId: "mithril_ingot", quantity: 4 },
     ],
   },
 
@@ -1052,7 +1052,7 @@ window.craftingArmorRecipes = [
       { itemId: "interdimensional_bone", quantity: 10 },
       { itemId: "void_plate", quantity: 4 },
       { itemId: "rift_core", quantity: 1 },
-      { itemId: "adamantite_ingot", quantity: 4 },
+      { itemId: "mithril_ingot", quantity: 4 },
     ],
   },
 
@@ -1075,7 +1075,7 @@ window.craftingArmorRecipes = [
       { itemId: "interdimensional_bone", quantity: 10 },
       { itemId: "void_plate", quantity: 4 },
       { itemId: "rift_core", quantity: 1 },
-      { itemId: "adamantite_ingot", quantity: 4 },
+      { itemId: "mithril_ingot", quantity: 4 },
     ],
   },
 
@@ -1098,7 +1098,7 @@ window.craftingArmorRecipes = [
       { itemId: "interdimensional_bone", quantity: 10 },
       { itemId: "void_plate", quantity: 4 },
       { itemId: "rift_core", quantity: 1 },
-      { itemId: "adamantite_ingot", quantity: 4 },
+      { itemId: "mithril_ingot", quantity: 4 },
     ],
   },
 
@@ -1121,7 +1121,7 @@ window.craftingArmorRecipes = [
       { itemId: "interdimensional_bone", quantity: 10 },
       { itemId: "void_plate", quantity: 4 },
       { itemId: "rift_core", quantity: 1 },
-      { itemId: "adamantite_ingot", quantity: 4 },
+      { itemId: "mithril_ingot", quantity: 4 },
     ],
   },
 
@@ -1144,7 +1144,7 @@ window.craftingArmorRecipes = [
       { itemId: "interdimensional_bone", quantity: 10 },
       { itemId: "void_plate", quantity: 5 },
       { itemId: "abyss_heart", quantity: 1 },
-      { itemId: "adamantite_ingot", quantity: 5 },
+      { itemId: "adamantite_ingot", quantity: 4 },
     ],
   },
 
@@ -1167,7 +1167,7 @@ window.craftingArmorRecipes = [
       { itemId: "interdimensional_bone", quantity: 10 },
       { itemId: "void_plate", quantity: 5 },
       { itemId: "abyss_heart", quantity: 1 },
-      { itemId: "adamantite_ingot", quantity: 5 },
+      { itemId: "adamantite_ingot", quantity: 4 },
     ],
   },
 
@@ -1190,7 +1190,7 @@ window.craftingArmorRecipes = [
       { itemId: "interdimensional_bone", quantity: 10 },
       { itemId: "void_plate", quantity: 5 },
       { itemId: "abyss_heart", quantity: 1 },
-      { itemId: "adamantite_ingot", quantity: 5 },
+      { itemId: "adamantite_ingot", quantity: 4 },
     ],
   },
 
@@ -1213,7 +1213,7 @@ window.craftingArmorRecipes = [
       { itemId: "interdimensional_bone", quantity: 10 },
       { itemId: "void_plate", quantity: 5 },
       { itemId: "abyss_heart", quantity: 1 },
-      { itemId: "adamantite_ingot", quantity: 5 },
+      { itemId: "adamantite_ingot", quantity: 4 },
     ],
   },
 
@@ -1236,7 +1236,7 @@ window.craftingArmorRecipes = [
       { itemId: "interdimensional_bone", quantity: 10 },
       { itemId: "void_plate", quantity: 5 },
       { itemId: "abyss_heart", quantity: 1 },
-      { itemId: "adamantite_ingot", quantity: 5 },
+      { itemId: "adamantite_ingot", quantity: 4 },
     ],
   },
 
@@ -1259,7 +1259,7 @@ window.craftingArmorRecipes = [
       { itemId: "interdimensional_bone", quantity: 10 },
       { itemId: "void_plate", quantity: 5 },
       { itemId: "abyss_heart", quantity: 1 },
-      { itemId: "adamantite_ingot", quantity: 5 },
+      { itemId: "adamantite_ingot", quantity: 4 },
     ],
   },
 
@@ -1282,7 +1282,7 @@ window.craftingArmorRecipes = [
       { itemId: "sunken_cult_relic", quantity: 10 },
       { itemId: "deep_scale_plate", quantity: 4 },
       { itemId: "coral_heart", quantity: 1 },
-      { itemId: "adamantite_ingot", quantity: 7 },
+      { itemId: "adamantite_ingot", quantity: 5 },
     ],
   },
 
@@ -1305,7 +1305,7 @@ window.craftingArmorRecipes = [
       { itemId: "sunken_cult_relic", quantity: 10 },
       { itemId: "deep_scale_plate", quantity: 4 },
       { itemId: "coral_heart", quantity: 1 },
-      { itemId: "adamantite_ingot", quantity: 7 },
+      { itemId: "adamantite_ingot", quantity: 5 },
     ],
   },
 
@@ -1328,7 +1328,7 @@ window.craftingArmorRecipes = [
       { itemId: "sunken_cult_relic", quantity: 10 },
       { itemId: "deep_scale_plate", quantity: 4 },
       { itemId: "coral_heart", quantity: 1 },
-      { itemId: "adamantite_ingot", quantity: 7 },
+      { itemId: "adamantite_ingot", quantity: 5 },
     ],
   },
 
@@ -1351,7 +1351,7 @@ window.craftingArmorRecipes = [
       { itemId: "sunken_cult_relic", quantity: 10 },
       { itemId: "deep_scale_plate", quantity: 4 },
       { itemId: "coral_heart", quantity: 1 },
-      { itemId: "adamantite_ingot", quantity: 7 },
+      { itemId: "adamantite_ingot", quantity: 5 },
     ],
   },
 
@@ -1374,7 +1374,7 @@ window.craftingArmorRecipes = [
       { itemId: "sunken_cult_relic", quantity: 10 },
       { itemId: "deep_scale_plate", quantity: 4 },
       { itemId: "coral_heart", quantity: 1 },
-      { itemId: "adamantite_ingot", quantity: 7 },
+      { itemId: "adamantite_ingot", quantity: 5 },
     ],
   },
 
@@ -1397,7 +1397,7 @@ window.craftingArmorRecipes = [
       { itemId: "sunken_cult_relic", quantity: 10 },
       { itemId: "deep_scale_plate", quantity: 4 },
       { itemId: "coral_heart", quantity: 1 },
-      { itemId: "adamantite_ingot", quantity: 7 },
+      { itemId: "adamantite_ingot", quantity: 5 },
     ],
   },
 
@@ -1420,7 +1420,7 @@ window.craftingArmorRecipes = [
       { itemId: "sunken_cult_relic", quantity: 10 },
       { itemId: "deep_scale_plate", quantity: 5 },
       { itemId: "leviathan_crown", quantity: 1 },
-      { itemId: "dragonsteel_ingot", quantity: 5 },
+      { itemId: "dragonsteel_ingot", quantity: 4 },
     ],
   },
 
@@ -1443,7 +1443,7 @@ window.craftingArmorRecipes = [
       { itemId: "sunken_cult_relic", quantity: 10 },
       { itemId: "deep_scale_plate", quantity: 5 },
       { itemId: "leviathan_crown", quantity: 1 },
-      { itemId: "dragonsteel_ingot", quantity: 5 },
+      { itemId: "dragonsteel_ingot", quantity: 4 },
     ],
   },
 
@@ -1466,7 +1466,7 @@ window.craftingArmorRecipes = [
       { itemId: "sunken_cult_relic", quantity: 10 },
       { itemId: "deep_scale_plate", quantity: 5 },
       { itemId: "leviathan_crown", quantity: 1 },
-      { itemId: "dragonsteel_ingot", quantity: 5 },
+      { itemId: "dragonsteel_ingot", quantity: 4 },
     ],
   },
 
@@ -1489,7 +1489,7 @@ window.craftingArmorRecipes = [
       { itemId: "sunken_cult_relic", quantity: 10 },
       { itemId: "deep_scale_plate", quantity: 5 },
       { itemId: "leviathan_crown", quantity: 1 },
-      { itemId: "dragonsteel_ingot", quantity: 5 },
+      { itemId: "dragonsteel_ingot", quantity: 4 },
     ],
   },
 
@@ -1512,7 +1512,7 @@ window.craftingArmorRecipes = [
       { itemId: "sunken_cult_relic", quantity: 10 },
       { itemId: "deep_scale_plate", quantity: 5 },
       { itemId: "leviathan_crown", quantity: 1 },
-      { itemId: "dragonsteel_ingot", quantity: 5 },
+      { itemId: "dragonsteel_ingot", quantity: 4 },
     ],
   },
 
@@ -1535,7 +1535,7 @@ window.craftingArmorRecipes = [
       { itemId: "sunken_cult_relic", quantity: 10 },
       { itemId: "deep_scale_plate", quantity: 5 },
       { itemId: "leviathan_crown", quantity: 1 },
-      { itemId: "dragonsteel_ingot", quantity: 5 },
+      { itemId: "dragonsteel_ingot", quantity: 4 },
     ],
   },
 
@@ -1558,7 +1558,7 @@ window.craftingArmorRecipes = [
       { itemId: "spire_armor_fragment", quantity: 10 },
       { itemId: "prismatic_plate", quantity: 4 },
       { itemId: "mountain_heart", quantity: 1 },
-      { itemId: "dragonsteel_ingot", quantity: 7 },
+      { itemId: "dragonsteel_ingot", quantity: 5 },
     ],
   },
 
@@ -1581,7 +1581,7 @@ window.craftingArmorRecipes = [
       { itemId: "spire_armor_fragment", quantity: 10 },
       { itemId: "prismatic_plate", quantity: 4 },
       { itemId: "mountain_heart", quantity: 1 },
-      { itemId: "dragonsteel_ingot", quantity: 7 },
+      { itemId: "dragonsteel_ingot", quantity: 5 },
     ],
   },
 
@@ -1604,7 +1604,7 @@ window.craftingArmorRecipes = [
       { itemId: "spire_armor_fragment", quantity: 10 },
       { itemId: "prismatic_plate", quantity: 4 },
       { itemId: "mountain_heart", quantity: 1 },
-      { itemId: "dragonsteel_ingot", quantity: 7 },
+      { itemId: "dragonsteel_ingot", quantity: 5 },
     ],
   },
 
@@ -1627,7 +1627,7 @@ window.craftingArmorRecipes = [
       { itemId: "spire_armor_fragment", quantity: 10 },
       { itemId: "prismatic_plate", quantity: 4 },
       { itemId: "mountain_heart", quantity: 1 },
-      { itemId: "dragonsteel_ingot", quantity: 7 },
+      { itemId: "dragonsteel_ingot", quantity: 5 },
     ],
   },
 
@@ -1650,7 +1650,7 @@ window.craftingArmorRecipes = [
       { itemId: "spire_armor_fragment", quantity: 10 },
       { itemId: "prismatic_plate", quantity: 4 },
       { itemId: "mountain_heart", quantity: 1 },
-      { itemId: "dragonsteel_ingot", quantity: 7 },
+      { itemId: "dragonsteel_ingot", quantity: 5 },
     ],
   },
 
@@ -1673,7 +1673,7 @@ window.craftingArmorRecipes = [
       { itemId: "spire_armor_fragment", quantity: 10 },
       { itemId: "prismatic_plate", quantity: 4 },
       { itemId: "mountain_heart", quantity: 1 },
-      { itemId: "dragonsteel_ingot", quantity: 7 },
+      { itemId: "dragonsteel_ingot", quantity: 5 },
     ],
   },
 
