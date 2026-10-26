@@ -161,7 +161,7 @@ const herbalismAreas = [
         description:
             "Magiczne miejsce porośnięte roślinami pamiętającymi dawne czasy.",
 
-        requiredHerbalismLevel: 30,
+        requiredHerbalismLevel: 35,
         durationSeconds: 21,
 
         rareChance: 12,
@@ -171,17 +171,17 @@ const herbalismAreas = [
             {
                 itemId: "ancient_bark",
                 weight: 35,
-                herbalismExp: 11
+                herbalismExp: 13
             },
             {
                 itemId: "glowing_moss",
                 weight: 35,
-                herbalismExp: 13
+                herbalismExp: 15
             },
             {
                 itemId: "moon_leaf",
                 weight: 30,
-                herbalismExp: 15
+                herbalismExp: 18
             }
         ],
 
@@ -189,12 +189,12 @@ const herbalismAreas = [
             {
                 itemId: "star_flower",
                 weight: 55,
-                herbalismExp: 35
+                herbalismExp: 41
             },
             {
                 itemId: "mandrake_root",
                 weight: 45,
-                herbalismExp: 40
+                herbalismExp: 47
             }
         ],
 
@@ -202,7 +202,7 @@ const herbalismAreas = [
             {
                 itemId: "ancient_tree_seed",
                 weight: 100,
-                herbalismExp: 100
+                herbalismExp: 118
             }
         ]
     },
@@ -213,7 +213,7 @@ const herbalismAreas = [
         description:
             "Niebezpieczna kraina pełna toksycznych i magicznie wypaczonych roślin.",
 
-        requiredHerbalismLevel: 40,
+        requiredHerbalismLevel: 50,
         durationSeconds: 27,
 
         rareChance: 10,
@@ -223,17 +223,17 @@ const herbalismAreas = [
             {
                 itemId: "corrupted_thorn",
                 weight: 35,
-                herbalismExp: 16
+                herbalismExp: 20
             },
             {
                 itemId: "ash_flower",
                 weight: 35,
-                herbalismExp: 18
+                herbalismExp: 23
             },
             {
                 itemId: "toxic_root",
                 weight: 30,
-                herbalismExp: 20
+                herbalismExp: 26
             }
         ],
 
@@ -241,12 +241,12 @@ const herbalismAreas = [
             {
                 itemId: "shadow_fern",
                 weight: 55,
-                herbalismExp: 50
+                herbalismExp: 64
             },
             {
                 itemId: "void_spore",
                 weight: 45,
-                herbalismExp: 60
+                herbalismExp: 77
             }
         ],
 
@@ -254,7 +254,7 @@ const herbalismAreas = [
             {
                 itemId: "corruption_essence",
                 weight: 100,
-                herbalismExp: 150
+                herbalismExp: 192
             }
         ]
     },
@@ -265,7 +265,7 @@ const herbalismAreas = [
         description:
             "Ukryty ogród rozkwitający pomiędzy dniem a nocą, pełen roślin reagujących na sny i magię księżyca.",
 
-        requiredHerbalismLevel: 50,
+        requiredHerbalismLevel: 65,
         durationSeconds: 32,
 
         rareChance: 9,
@@ -275,17 +275,17 @@ const herbalismAreas = [
             {
                 itemId: "dusk_leaf",
                 weight: 40,
-                herbalismExp: 22
+                herbalismExp: 34
             },
             {
                 itemId: "dream_moss",
                 weight: 35,
-                herbalismExp: 24
+                herbalismExp: 37
             },
             {
                 itemId: "silvervine",
                 weight: 25,
-                herbalismExp: 27
+                herbalismExp: 42
             }
         ],
 
@@ -293,12 +293,12 @@ const herbalismAreas = [
             {
                 itemId: "spirit_bloom",
                 weight: 55,
-                herbalismExp: 65
+                herbalismExp: 101
             },
             {
                 itemId: "witch_root",
                 weight: 45,
-                herbalismExp: 75
+                herbalismExp: 117
             }
         ],
 
@@ -306,7 +306,7 @@ const herbalismAreas = [
             {
                 itemId: "lunar_essence",
                 weight: 100,
-                herbalismExp: 180
+                herbalismExp: 281
             }
         ]
     },
@@ -317,7 +317,7 @@ const herbalismAreas = [
         description:
             "Sanktuarium poza zwykłym rytmem natury, gdzie pradawne rośliny czerpią siłę z eteru i czasu.",
 
-        requiredHerbalismLevel: 60,
+        requiredHerbalismLevel: 85,
         durationSeconds: 38,
 
         rareChance: 8,
@@ -327,17 +327,17 @@ const herbalismAreas = [
             {
                 itemId: "aether_petals",
                 weight: 40,
-                herbalismExp: 32
+                herbalismExp: 56
             },
             {
                 itemId: "phoenix_herb",
                 weight: 35,
-                herbalismExp: 35
+                herbalismExp: 61
             },
             {
                 itemId: "worldroot_sprout",
                 weight: 25,
-                herbalismExp: 38
+                herbalismExp: 66
             }
         ],
 
@@ -345,12 +345,12 @@ const herbalismAreas = [
             {
                 itemId: "celestial_lotus",
                 weight: 55,
-                herbalismExp: 90
+                herbalismExp: 157
             },
             {
                 itemId: "time_bloom",
                 weight: 45,
-                herbalismExp: 105
+                herbalismExp: 183
             }
         ],
 
@@ -358,7 +358,7 @@ const herbalismAreas = [
             {
                 itemId: "life_essence",
                 weight: 100,
-                herbalismExp: 250
+                herbalismExp: 435
             }
         ]
     }

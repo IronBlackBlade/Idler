@@ -1357,6 +1357,18 @@ span:last-child:nth-of-type(odd) {
   --equipment-upgrade-accent: #ffbd38;
 }
 
+#crafting-list .equipment-upgrade-grandmaster {
+  --equipment-upgrade-accent: #ff7a45;
+}
+
+#crafting-list .equipment-upgrade-mythic {
+  --equipment-upgrade-accent: #ff4f7b;
+}
+
+#crafting-list .equipment-upgrade-transcendent {
+  --equipment-upgrade-accent: #4fe3ff;
+}
+
 #crafting-list .equipment-upgrade-basic {
   --equipment-upgrade-accent: #c9ad68;
 }

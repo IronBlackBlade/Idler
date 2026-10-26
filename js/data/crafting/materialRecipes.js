@@ -190,8 +190,8 @@ window.craftingMaterialRecipes = [
         quantity: 3,
       },
       {
-        itemId: "deep_coal",
-        quantity: 2,
+        itemId: "coal",
+        quantity: 4,
       },
     ],
   },
@@ -576,7 +576,7 @@ window.craftingMaterialRecipes = [
 
     materials: [
       {
-        itemId: "titan_stone",
+        itemId: "adamantite_ore",
         quantity: 5,
       },
       {
@@ -713,16 +713,16 @@ window.craftingMaterialRecipes = [
     unlockCost: 0,
     materials: [
       {
-        itemId: "runic_stone",
-        quantity: 3,
+        itemId: "ancient_rune_fragment",
+        quantity: 4,
       },
       {
         itemId: "ice_elemental_core",
         quantity: 1,
       },
       {
-        itemId: "deep_coal",
-        quantity: 1,
+        itemId: "coal",
+        quantity: 2,
       },
     ],
   },
@@ -912,7 +912,7 @@ window.craftingMaterialRecipes = [
     unlockCost: 0,
     materials: [
       {
-        itemId: "adamantite_ingot",
+        itemId: "mithril_ingot",
         quantity: 2,
       },
       {

@@ -1025,7 +1025,7 @@ const combatQuests = [
         targetEnemyName:
             "Mroźny ognik",
 
-        requiredLevel: 35,
+        requiredLevel: 30,
         requiredKills: 10,
         currentKills: 0,
 
@@ -1046,7 +1046,7 @@ const combatQuests = [
         targetEnemyName:
             "Mroźny ognik",
 
-        requiredLevel: 35,
+        requiredLevel: 30,
 
         requiredKills: [
             25,
@@ -1084,7 +1084,7 @@ const combatQuests = [
         targetEnemyName:
             "Lodowy wilk",
 
-        requiredLevel: 35,
+        requiredLevel: 30,
         requiredKills: 10,
         currentKills: 0,
 
@@ -1105,7 +1105,7 @@ const combatQuests = [
         targetEnemyName:
             "Lodowy wilk",
 
-        requiredLevel: 35,
+        requiredLevel: 30,
 
         requiredKills: [
             25,
@@ -1143,7 +1143,7 @@ const combatQuests = [
         targetEnemyName:
             "Zamarznięty wojownik",
 
-        requiredLevel: 35,
+        requiredLevel: 30,
         requiredKills: 10,
         currentKills: 0,
 
@@ -1164,7 +1164,7 @@ const combatQuests = [
         targetEnemyName:
             "Zamarznięty wojownik",
 
-        requiredLevel: 35,
+        requiredLevel: 30,
 
         requiredKills: [
             25,
@@ -1202,7 +1202,7 @@ const combatQuests = [
         targetEnemyName:
             "Lodowy olbrzym",
 
-        requiredLevel: 35,
+        requiredLevel: 30,
         requiredKills: 8,
         currentKills: 0,
 
@@ -1223,7 +1223,7 @@ const combatQuests = [
         targetEnemyName:
             "Lodowy olbrzym",
 
-        requiredLevel: 35,
+        requiredLevel: 30,
 
         requiredKills: [
             25,
@@ -1261,7 +1261,7 @@ const combatQuests = [
         targetEnemyName:
             "Żywiołak lodu",
 
-        requiredLevel: 35,
+        requiredLevel: 30,
         requiredKills: 8,
         currentKills: 0,
 
@@ -1282,7 +1282,7 @@ const combatQuests = [
         targetEnemyName:
             "Żywiołak lodu",
 
-        requiredLevel: 35,
+        requiredLevel: 30,
 
         requiredKills: [
             25,
@@ -1320,7 +1320,7 @@ const combatQuests = [
         targetEnemyName:
             "👑 Królowa Mrozu",
 
-        requiredLevel: 35,
+        requiredLevel: 30,
         requiredKills: 1,
         currentKills: 0,
 
@@ -1341,7 +1341,7 @@ const combatQuests = [
         targetEnemyName:
             "👑 Królowa Mrozu",
 
-        requiredLevel: 35,
+        requiredLevel: 30,
 
         requiredKills: [
             3,
@@ -1379,7 +1379,7 @@ const combatQuests = [
         targetEnemyName:
             "Popielny skorpion",
 
-        requiredLevel: 50,
+        requiredLevel: 45,
         requiredKills: 10,
         currentKills: 0,
 
@@ -1400,7 +1400,7 @@ const combatQuests = [
         targetEnemyName:
             "Popielny skorpion",
 
-        requiredLevel: 50,
+        requiredLevel: 45,
 
         requiredKills: [
             25,
@@ -1438,7 +1438,7 @@ const combatQuests = [
         targetEnemyName:
             "Ogar lawy",
 
-        requiredLevel: 50,
+        requiredLevel: 45,
         requiredKills: 10,
         currentKills: 0,
 
@@ -1459,7 +1459,7 @@ const combatQuests = [
         targetEnemyName:
             "Ogar lawy",
 
-        requiredLevel: 50,
+        requiredLevel: 45,
 
         requiredKills: [
             25,
@@ -1497,7 +1497,7 @@ const combatQuests = [
         targetEnemyName:
             "Zwęglony szkielet",
 
-        requiredLevel: 50,
+        requiredLevel: 45,
         requiredKills: 10,
         currentKills: 0,
 
@@ -1518,7 +1518,7 @@ const combatQuests = [
         targetEnemyName:
             "Zwęglony szkielet",
 
-        requiredLevel: 50,
+        requiredLevel: 45,
 
         requiredKills: [
             25,
@@ -1556,7 +1556,7 @@ const combatQuests = [
         targetEnemyName:
             "Magmowy golem",
 
-        requiredLevel: 50,
+        requiredLevel: 45,
         requiredKills: 8,
         currentKills: 0,
 
@@ -1577,7 +1577,7 @@ const combatQuests = [
         targetEnemyName:
             "Magmowy golem",
 
-        requiredLevel: 50,
+        requiredLevel: 45,
 
         requiredKills: [
             25,
@@ -1615,7 +1615,7 @@ const combatQuests = [
         targetEnemyName:
             "Żywiołak ognia",
 
-        requiredLevel: 50,
+        requiredLevel: 45,
         requiredKills: 8,
         currentKills: 0,
 
@@ -1636,7 +1636,7 @@ const combatQuests = [
         targetEnemyName:
             "Żywiołak ognia",
 
-        requiredLevel: 50,
+        requiredLevel: 45,
 
         requiredKills: [
             25,
@@ -1674,7 +1674,7 @@ const combatQuests = [
         targetEnemyName:
             "🐉 Pradawny Smok Wulkanu",
 
-        requiredLevel: 50,
+        requiredLevel: 45,
         requiredKills: 1,
         currentKills: 0,
 
@@ -1695,7 +1695,7 @@ const combatQuests = [
         targetEnemyName:
             "🐉 Pradawny Smok Wulkanu",
 
-        requiredLevel: 50,
+        requiredLevel: 45,
 
         requiredKills: [
             3,
@@ -1715,6 +1715,1056 @@ const combatQuests = [
         rewardExp: [
             105000,
             236000
+        ]
+    }),
+
+    {
+        id: "kill_memory_devourers_1",
+        chainStage: 1,
+        chainLength: 4,
+        title: "Żerujący na wspomnieniach",
+        description:
+            "Pokonaj 10 pożeraczy wspomnień.",
+
+        targetEnemyName:
+            "Pożeracz wspomnień",
+
+        requiredLevel: 65,
+        requiredKills: 10,
+        currentKills: 0,
+
+        rewardGold: 25250,
+        rewardExp: 36000,
+
+        completed: false,
+        claimed: false
+    },
+
+    ...createQuestFollowUpStages({
+        idPrefix:
+            "kill_memory_devourers",
+
+        title:
+            "Żerujący na wspomnieniach",
+
+        targetEnemyName:
+            "Pożeracz wspomnień",
+
+        requiredLevel: 65,
+
+        requiredKills: [
+            25,
+            50,
+            100
+        ],
+
+        descriptions: [
+            "Pokonaj łącznie 25 pożeraczy wspomnień.",
+            "Pokonaj łącznie 50 pożeraczy wspomnień.",
+            "Pokonaj łącznie 100 pożeraczy wspomnień."
+        ],
+
+        rewardGold: [
+            78000,
+            175000,
+            397000
+        ],
+
+        rewardExp: [
+            111000,
+            251000,
+            564250
+        ]
+    }),
+
+    {
+        id: "kill_dimension_weavers_1",
+        chainStage: 1,
+        chainLength: 4,
+        title: "Przędza wymiarów",
+        description:
+            "Pokonaj 10 tkaczy wymiarów.",
+
+        targetEnemyName:
+            "Tkacz wymiarów",
+
+        requiredLevel: 65,
+        requiredKills: 10,
+        currentKills: 0,
+
+        rewardGold: 31500,
+        rewardExp: 45000,
+
+        completed: false,
+        claimed: false
+    },
+
+    ...createQuestFollowUpStages({
+        idPrefix:
+            "kill_dimension_weavers",
+
+        title:
+            "Przędza wymiarów",
+
+        targetEnemyName:
+            "Tkacz wymiarów",
+
+        requiredLevel: 65,
+
+        requiredKills: [
+            25,
+            50,
+            100
+        ],
+
+        descriptions: [
+            "Pokonaj łącznie 25 tkaczy wymiarów.",
+            "Pokonaj łącznie 50 tkaczy wymiarów.",
+            "Pokonaj łącznie 100 tkaczy wymiarów."
+        ],
+
+        rewardGold: [
+            97750,
+            222250,
+            501750
+        ],
+
+        rewardExp: [
+            139750,
+            316000,
+            708500
+        ]
+    }),
+
+    {
+        id: "kill_nameless_observers_1",
+        chainStage: 1,
+        chainLength: 4,
+        title: "Spojrzenie z ciemności",
+        description:
+            "Pokonaj 10 bezimiennych obserwatorów.",
+
+        targetEnemyName:
+            "Bezimienny obserwator",
+
+        requiredLevel: 65,
+        requiredKills: 10,
+        currentKills: 0,
+
+        rewardGold: 38500,
+        rewardExp: 55000,
+
+        completed: false,
+        claimed: false
+    },
+
+    ...createQuestFollowUpStages({
+        idPrefix:
+            "kill_nameless_observers",
+
+        title:
+            "Spojrzenie z ciemności",
+
+        targetEnemyName:
+            "Bezimienny obserwator",
+
+        requiredLevel: 65,
+
+        requiredKills: [
+            25,
+            50,
+            100
+        ],
+
+        descriptions: [
+            "Pokonaj łącznie 25 bezimiennych obserwatorów.",
+            "Pokonaj łącznie 50 bezimiennych obserwatorów.",
+            "Pokonaj łącznie 100 bezimiennych obserwatorów."
+        ],
+
+        rewardGold: [
+            119250,
+            271250,
+            612250
+        ],
+
+        rewardExp: [
+            170500,
+            385000,
+            865250
+        ]
+    }),
+
+    {
+        id: "kill_void_heralds_1",
+        chainStage: 1,
+        chainLength: 4,
+        title: "Echo Pustki",
+        description:
+            "Pokonaj 8 heroldów Pustki.",
+
+        targetEnemyName:
+            "Herold Pustki",
+
+        requiredLevel: 65,
+        requiredKills: 8,
+        currentKills: 0,
+
+        rewardGold: 37750,
+        rewardExp: 53500,
+
+        completed: false,
+        claimed: false
+    },
+
+    ...createQuestFollowUpStages({
+        idPrefix:
+            "kill_void_heralds",
+
+        title:
+            "Echo Pustki",
+
+        targetEnemyName:
+            "Herold Pustki",
+
+        requiredLevel: 65,
+
+        requiredKills: [
+            25,
+            50,
+            100
+        ],
+
+        descriptions: [
+            "Pokonaj łącznie 25 heroldów Pustki.",
+            "Pokonaj łącznie 50 heroldów Pustki.",
+            "Pokonaj łącznie 100 heroldów Pustki."
+        ],
+
+        rewardGold: [
+            120250,
+            271500,
+            611500
+        ],
+
+        rewardExp: [
+            171750,
+            384750,
+            865750
+        ]
+    }),
+
+    {
+        id: "kill_rift_architects_1",
+        chainStage: 1,
+        chainLength: 4,
+        title: "Rozdarcie rzeczywistości",
+        description:
+            "Pokonaj 8 architektów Rozdarcia.",
+
+        targetEnemyName:
+            "Architekt Rozdarcia",
+
+        requiredLevel: 65,
+        requiredKills: 8,
+        currentKills: 0,
+
+        rewardGold: 47000,
+        rewardExp: 66500,
+
+        completed: false,
+        claimed: false
+    },
+
+    ...createQuestFollowUpStages({
+        idPrefix:
+            "kill_rift_architects",
+
+        title:
+            "Rozdarcie rzeczywistości",
+
+        targetEnemyName:
+            "Architekt Rozdarcia",
+
+        requiredLevel: 65,
+
+        requiredKills: [
+            25,
+            50,
+            100
+        ],
+
+        descriptions: [
+            "Pokonaj łącznie 25 architektów Rozdarcia.",
+            "Pokonaj łącznie 50 architektów Rozdarcia.",
+            "Pokonaj łącznie 100 architektów Rozdarcia."
+        ],
+
+        rewardGold: [
+            146500,
+            332000,
+            748500
+        ],
+
+        rewardExp: [
+            208250,
+            468750,
+            1054500
+        ]
+    }),
+
+    {
+        id: "kill_abyss_lord_1",
+        chainStage: 1,
+        chainLength: 3,
+        title: "Kres Otchłani",
+        description:
+            "Pokonaj Władcę Otchłani.",
+
+        targetEnemyName:
+            "👑 Władca Otchłani",
+
+        requiredLevel: 65,
+        requiredKills: 1,
+        currentKills: 0,
+
+        rewardGold: 38250,
+        rewardExp: 55500,
+
+        completed: false,
+        claimed: false
+    },
+
+    ...createQuestFollowUpStages({
+        idPrefix:
+            "kill_abyss_lord",
+
+        title:
+            "Kres Otchłani",
+
+        targetEnemyName:
+            "👑 Władca Otchłani",
+
+        requiredLevel: 65,
+
+        requiredKills: [
+            3,
+            5
+        ],
+
+        descriptions: [
+            "Pokonaj Władcę Otchłani łącznie 3 razy.",
+            "Pokonaj Władcę Otchłani łącznie 5 razy."
+        ],
+
+        rewardGold: [
+            124750,
+            280500
+        ],
+
+        rewardExp: [
+            181750,
+            408500
+        ]
+    }),
+
+    {
+        id: "kill_drowned_guards_1",
+        chainStage: 1,
+        chainLength: 4,
+        title: "Straż pod falami",
+        description:
+            "Pokonaj 10 topielców Królewskiej Gwardii.",
+
+        targetEnemyName:
+            "Topielec Królewskiej Gwardii",
+
+        requiredLevel: 80,
+        requiredKills: 10,
+        currentKills: 0,
+
+        rewardGold: 52250,
+        rewardExp: 74500,
+
+        completed: false,
+        claimed: false
+    },
+
+    ...createQuestFollowUpStages({
+        idPrefix:
+            "kill_drowned_guards",
+
+        title:
+            "Straż pod falami",
+
+        targetEnemyName:
+            "Topielec Królewskiej Gwardii",
+
+        requiredLevel: 80,
+
+        requiredKills: [
+            25,
+            50,
+            100
+        ],
+
+        descriptions: [
+            "Pokonaj łącznie 25 topielców Królewskiej Gwardii.",
+            "Pokonaj łącznie 50 topielców Królewskiej Gwardii.",
+            "Pokonaj łącznie 100 topielców Królewskiej Gwardii."
+        ],
+
+        rewardGold: [
+            161000,
+            362500,
+            821500
+        ],
+
+        rewardExp: [
+            229500,
+            519500,
+            1167750
+        ]
+    }),
+
+    {
+        id: "kill_deep_hunters_1",
+        chainStage: 1,
+        chainLength: 4,
+        title: "Łowy w głębinie",
+        description:
+            "Pokonaj 10 głębinowych łowców.",
+
+        targetEnemyName:
+            "Głębinowy Łowca",
+
+        requiredLevel: 80,
+        requiredKills: 10,
+        currentKills: 0,
+
+        rewardGold: 63500,
+        rewardExp: 90500,
+
+        completed: false,
+        claimed: false
+    },
+
+    ...createQuestFollowUpStages({
+        idPrefix:
+            "kill_deep_hunters",
+
+        title:
+            "Łowy w głębinie",
+
+        targetEnemyName:
+            "Głębinowy Łowca",
+
+        requiredLevel: 80,
+
+        requiredKills: [
+            25,
+            50,
+            100
+        ],
+
+        descriptions: [
+            "Pokonaj łącznie 25 głębinowych łowców.",
+            "Pokonaj łącznie 50 głębinowych łowców.",
+            "Pokonaj łącznie 100 głębinowych łowców."
+        ],
+
+        rewardGold: [
+            196500,
+            446750,
+            1009000
+        ],
+
+        rewardExp: [
+            281250,
+            635500,
+            1425000
+        ]
+    }),
+
+    {
+        id: "kill_abyss_sirens_1",
+        chainStage: 1,
+        chainLength: 4,
+        title: "Pieśń syren",
+        description:
+            "Pokonaj 10 syren Otchłani.",
+
+        targetEnemyName:
+            "Syrena Otchłani",
+
+        requiredLevel: 80,
+        requiredKills: 10,
+        currentKills: 0,
+
+        rewardGold: 77000,
+        rewardExp: 110000,
+
+        completed: false,
+        claimed: false
+    },
+
+    ...createQuestFollowUpStages({
+        idPrefix:
+            "kill_abyss_sirens",
+
+        title:
+            "Pieśń syren",
+
+        targetEnemyName:
+            "Syrena Otchłani",
+
+        requiredLevel: 80,
+
+        requiredKills: [
+            25,
+            50,
+            100
+        ],
+
+        descriptions: [
+            "Pokonaj łącznie 25 syren Otchłani.",
+            "Pokonaj łącznie 50 syren Otchłani.",
+            "Pokonaj łącznie 100 syren Otchłani."
+        ],
+
+        rewardGold: [
+            238250,
+            542750,
+            1224750
+        ],
+
+        rewardExp: [
+            341000,
+            770000,
+            1730750
+        ]
+    }),
+
+    {
+        id: "kill_coral_colossi_1",
+        chainStage: 1,
+        chainLength: 4,
+        title: "Koralowa twierdza",
+        description:
+            "Pokonaj 8 koralowych kolosów.",
+
+        targetEnemyName:
+            "Koralowy Kolos",
+
+        requiredLevel: 80,
+        requiredKills: 8,
+        currentKills: 0,
+
+        rewardGold: 75000,
+        rewardExp: 106500,
+
+        completed: false,
+        claimed: false
+    },
+
+    ...createQuestFollowUpStages({
+        idPrefix:
+            "kill_coral_colossi",
+
+        title:
+            "Koralowa twierdza",
+
+        targetEnemyName:
+            "Koralowy Kolos",
+
+        requiredLevel: 80,
+
+        requiredKills: [
+            25,
+            50,
+            100
+        ],
+
+        descriptions: [
+            "Pokonaj łącznie 25 koralowych kolosów.",
+            "Pokonaj łącznie 50 koralowych kolosów.",
+            "Pokonaj łącznie 100 koralowych kolosów."
+        ],
+
+        rewardGold: [
+            238750,
+            539000,
+            1214000
+        ],
+
+        rewardExp: [
+            341000,
+            764000,
+            1718750
+        ]
+    }),
+
+    {
+        id: "kill_throne_priests_1",
+        chainStage: 1,
+        chainLength: 4,
+        title: "Zatopiony tron",
+        description:
+            "Pokonaj 8 kapłanów Zatopionego Tronu.",
+
+        targetEnemyName:
+            "Kapłan Zatopionego Tronu",
+
+        requiredLevel: 80,
+        requiredKills: 8,
+        currentKills: 0,
+
+        rewardGold: 91000,
+        rewardExp: 128750,
+
+        completed: false,
+        claimed: false
+    },
+
+    ...createQuestFollowUpStages({
+        idPrefix:
+            "kill_throne_priests",
+
+        title:
+            "Zatopiony tron",
+
+        targetEnemyName:
+            "Kapłan Zatopionego Tronu",
+
+        requiredLevel: 80,
+
+        requiredKills: [
+            25,
+            50,
+            100
+        ],
+
+        descriptions: [
+            "Pokonaj łącznie 25 kapłanów Zatopionego Tronu.",
+            "Pokonaj łącznie 50 kapłanów Zatopionego Tronu.",
+            "Pokonaj łącznie 100 kapłanów Zatopionego Tronu."
+        ],
+
+        rewardGold: [
+            284000,
+            644000,
+            1452250
+        ],
+
+        rewardExp: [
+            404000,
+            909250,
+            2045750
+        ]
+    }),
+
+    {
+        id: "kill_crown_leviathan_1",
+        chainStage: 1,
+        chainLength: 3,
+        title: "Gniew Lewiatana",
+        description:
+            "Pokonaj Lewiatana Korony.",
+
+        targetEnemyName:
+            "👑 Lewiatan Korony",
+
+        requiredLevel: 80,
+        requiredKills: 1,
+        currentKills: 0,
+
+        rewardGold: 50000,
+        rewardExp: 72750,
+
+        completed: false,
+        claimed: false
+    },
+
+    ...createQuestFollowUpStages({
+        idPrefix:
+            "kill_crown_leviathan",
+
+        title:
+            "Gniew Lewiatana",
+
+        targetEnemyName:
+            "👑 Lewiatan Korony",
+
+        requiredLevel: 80,
+
+        requiredKills: [
+            3,
+            5
+        ],
+
+        descriptions: [
+            "Pokonaj Lewiatana Korony łącznie 3 razy.",
+            "Pokonaj Lewiatana Korony łącznie 5 razy."
+        ],
+
+        rewardGold: [
+            164000,
+            368750
+        ],
+
+        rewardExp: [
+            239000,
+            537250
+        ]
+    }),
+
+    {
+        id: "kill_crystal_beetles_1",
+        chainStage: 1,
+        chainLength: 4,
+        title: "Chrzęst kryształów",
+        description:
+            "Pokonaj 10 kryształowych żuków.",
+
+        targetEnemyName:
+            "Kryształowy żuk",
+
+        requiredLevel: 100,
+        requiredKills: 10,
+        currentKills: 0,
+
+        rewardGold: 107500,
+        rewardExp: 153000,
+
+        completed: false,
+        claimed: false
+    },
+
+    ...createQuestFollowUpStages({
+        idPrefix:
+            "kill_crystal_beetles",
+
+        title:
+            "Chrzęst kryształów",
+
+        targetEnemyName:
+            "Kryształowy żuk",
+
+        requiredLevel: 100,
+
+        requiredKills: [
+            25,
+            50,
+            100
+        ],
+
+        descriptions: [
+            "Pokonaj łącznie 25 kryształowych żuków.",
+            "Pokonaj łącznie 50 kryształowych żuków.",
+            "Pokonaj łącznie 100 kryształowych żuków."
+        ],
+
+        rewardGold: [
+            331000,
+            744250,
+            1687250
+        ],
+
+        rewardExp: [
+            471500,
+            1066750,
+            2398500
+        ]
+    }),
+
+    {
+        id: "kill_shardlings_1",
+        chainStage: 1,
+        chainLength: 4,
+        title: "Odłamki w mroku",
+        description:
+            "Pokonaj 10 odpryskowców.",
+
+        targetEnemyName:
+            "Odpryskowiec",
+
+        requiredLevel: 100,
+        requiredKills: 10,
+        currentKills: 0,
+
+        rewardGold: 129500,
+        rewardExp: 184500,
+
+        completed: false,
+        claimed: false
+    },
+
+    ...createQuestFollowUpStages({
+        idPrefix:
+            "kill_shardlings",
+
+        title:
+            "Odłamki w mroku",
+
+        targetEnemyName:
+            "Odpryskowiec",
+
+        requiredLevel: 100,
+
+        requiredKills: [
+            25,
+            50,
+            100
+        ],
+
+        descriptions: [
+            "Pokonaj łącznie 25 odpryskowców.",
+            "Pokonaj łącznie 50 odpryskowców.",
+            "Pokonaj łącznie 100 odpryskowców."
+        ],
+
+        rewardGold: [
+            400500,
+            910750,
+            2057000
+        ],
+
+        rewardExp: [
+            573250,
+            1295500,
+            2905000
+        ]
+    }),
+
+    {
+        id: "kill_geode_breakers_1",
+        chainStage: 1,
+        chainLength: 4,
+        title: "Pęknięte geody",
+        description:
+            "Pokonaj 10 łamaczy geod.",
+
+        targetEnemyName:
+            "Łamacz geod",
+
+        requiredLevel: 100,
+        requiredKills: 10,
+        currentKills: 0,
+
+        rewardGold: 158500,
+        rewardExp: 226500,
+
+        completed: false,
+        claimed: false
+    },
+
+    ...createQuestFollowUpStages({
+        idPrefix:
+            "kill_geode_breakers",
+
+        title:
+            "Pęknięte geody",
+
+        targetEnemyName:
+            "Łamacz geod",
+
+        requiredLevel: 100,
+
+        requiredKills: [
+            25,
+            50,
+            100
+        ],
+
+        descriptions: [
+            "Pokonaj łącznie 25 łamaczy geod.",
+            "Pokonaj łącznie 50 łamaczy geod.",
+            "Pokonaj łącznie 100 łamaczy geod."
+        ],
+
+        rewardGold: [
+            490750,
+            1117500,
+            2521750
+        ],
+
+        rewardExp: [
+            702250,
+            1585500,
+            3563500
+        ]
+    }),
+
+    {
+        id: "kill_prismatic_manticores_1",
+        chainStage: 1,
+        chainLength: 4,
+        title: "Pryzmatyczny pazur",
+        description:
+            "Pokonaj 8 pryzmatycznych mantykorów.",
+
+        targetEnemyName:
+            "Pryzmatyczny mantykor",
+
+        requiredLevel: 100,
+        requiredKills: 8,
+        currentKills: 0,
+
+        rewardGold: 154250,
+        rewardExp: 218750,
+
+        completed: false,
+        claimed: false
+    },
+
+    ...createQuestFollowUpStages({
+        idPrefix:
+            "kill_prismatic_manticores",
+
+        title:
+            "Pryzmatyczny pazur",
+
+        targetEnemyName:
+            "Pryzmatyczny mantykor",
+
+        requiredLevel: 100,
+
+        requiredKills: [
+            25,
+            50,
+            100
+        ],
+
+        descriptions: [
+            "Pokonaj łącznie 25 pryzmatycznych mantykorów.",
+            "Pokonaj łącznie 50 pryzmatycznych mantykorów.",
+            "Pokonaj łącznie 100 pryzmatycznych mantykorów."
+        ],
+
+        rewardGold: [
+            491000,
+            1108000,
+            2496500
+        ],
+
+        rewardExp: [
+            701250,
+            1570750,
+            3534500
+        ]
+    }),
+
+    {
+        id: "kill_spire_guardians_1",
+        chainStage: 1,
+        chainLength: 4,
+        title: "Kryształowa Iglica",
+        description:
+            "Pokonaj 8 strażników Kryształowej Iglicy.",
+
+        targetEnemyName:
+            "Strażnik Kryształowej Iglicy",
+
+        requiredLevel: 100,
+        requiredKills: 8,
+        currentKills: 0,
+
+        rewardGold: 189750,
+        rewardExp: 268750,
+
+        completed: false,
+        claimed: false
+    },
+
+    ...createQuestFollowUpStages({
+        idPrefix:
+            "kill_spire_guardians",
+
+        title:
+            "Kryształowa Iglica",
+
+        targetEnemyName:
+            "Strażnik Kryształowej Iglicy",
+
+        requiredLevel: 100,
+
+        requiredKills: [
+            25,
+            50,
+            100
+        ],
+
+        descriptions: [
+            "Pokonaj łącznie 25 strażników Kryształowej Iglicy.",
+            "Pokonaj łącznie 50 strażników Kryształowej Iglicy.",
+            "Pokonaj łącznie 100 strażników Kryształowej Iglicy."
+        ],
+
+        rewardGold: [
+            593000,
+            1344000,
+            3030750
+        ],
+
+        rewardExp: [
+            843250,
+            1897500,
+            4269250
+        ]
+    }),
+
+    {
+        id: "kill_mountain_heart_1",
+        chainStage: 1,
+        chainLength: 3,
+        title: "Bicie serca góry",
+        description:
+            "Pokonaj Serce Góry.",
+
+        targetEnemyName:
+            "💠 Serce Góry",
+
+        requiredLevel: 100,
+        requiredKills: 1,
+        currentKills: 0,
+
+        rewardGold: 158750,
+        rewardExp: 231000,
+
+        completed: false,
+        claimed: false
+    },
+
+    ...createQuestFollowUpStages({
+        idPrefix:
+            "kill_mountain_heart",
+
+        title:
+            "Bicie serca góry",
+
+        targetEnemyName:
+            "💠 Serce Góry",
+
+        requiredLevel: 100,
+
+        requiredKills: [
+            3,
+            5
+        ],
+
+        descriptions: [
+            "Pokonaj Serce Góry łącznie 3 razy.",
+            "Pokonaj Serce Góry łącznie 5 razy."
+        ],
+
+        rewardGold: [
+            519500,
+            1168750
+        ],
+
+        rewardExp: [
+            757500,
+            1702750
         ]
     }),
 

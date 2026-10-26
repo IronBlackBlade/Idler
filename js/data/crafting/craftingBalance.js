@@ -4,6 +4,8 @@ const craftingBalance = {
     linearPerLevel: 110,
     power: 1.65,
     powerMultiplier: 28,
+    // Mnożnik całej krzywej poziomów wytwarzania (0.6 = o 40% mniej EXP na poziom).
+    levelCurveMultiplier: 0.6,
     defaultRecipeExp: 10,
   },
 
@@ -64,6 +66,36 @@ const craftingBalance = {
         random: [9, 17],
         jewelryRandom: [8, 12],
       },
+
+      65: {
+        main: [27, 36],
+        random: [11, 20],
+        jewelryRandom: [9, 14],
+      },
+
+      72: {
+        main: [29, 39],
+        random: [12, 22],
+        jewelryRandom: [10, 15],
+      },
+
+      80: {
+        main: [32, 43],
+        random: [13, 24],
+        jewelryRandom: [11, 16],
+      },
+
+      90: {
+        main: [35, 47],
+        random: [14, 26],
+        jewelryRandom: [12, 18],
+      },
+
+      100: {
+        main: [38, 52],
+        random: [16, 29],
+        jewelryRandom: [13, 20],
+      },
     },
   },
   upgradePresentation: {
@@ -90,6 +122,31 @@ const craftingBalance = {
     50: {
       rank: "master",
       rankLabel: "Mistrzowskie ulepszenie",
+    },
+
+    65: {
+      rank: "grandmaster",
+      rankLabel: "Wielkomistrzowskie ulepszenie",
+    },
+
+    72: {
+      rank: "grandmaster",
+      rankLabel: "Wielkomistrzowskie ulepszenie",
+    },
+
+    80: {
+      rank: "mythic",
+      rankLabel: "Mityczne ulepszenie",
+    },
+
+    90: {
+      rank: "mythic",
+      rankLabel: "Mityczne ulepszenie",
+    },
+
+    100: {
+      rank: "transcendent",
+      rankLabel: "Transcendentne ulepszenie",
     },
   },
   upgradeStats: {
@@ -234,42 +291,34 @@ const craftingBalance = {
       { location: 3, quantity: 10 },
     ],
     5: [
-      { location: 3, quantity: 10 },
-      { location: 3, quantity: 10 },
+      { location: 3, quantity: 15 },
+      { location: 3, quantity: 15 },
     ],
     6: [
-      { location: 3, quantity: 12 },
-      { location: 4, quantity: 10 },
+      { location: 3, quantity: 19 },
+      { location: 4, quantity: 16 },
     ],
     7: [
-      { location: 4, quantity: 10 },
-      { location: 4, quantity: 10 },
+      { location: 4, quantity: 33 },
+      { location: 4, quantity: 33 },
     ],
     8: [
-      { location: 4, quantity: 12 },
-      { location: 5, quantity: 10 },
-    ],
-    9: [
-      { location: 5, quantity: 10 },
-      { location: 5, quantity: 10 },
-    ],
-    10: [
       { location: 5, quantity: 12 },
       { location: 6, quantity: 10 },
     ],
+    9: [
+      { location: 6, quantity: 13 },
+      { location: 6, quantity: 13 },
+    ],
+    10: [
+      { location: 6, quantity: 15 },
+      { location: 7, quantity: 13 },
+    ],
     11: [
-      { location: 6, quantity: 10 },
-      { location: 6, quantity: 10 },
+      { location: 7, quantity: 10 },
+      { location: 7, quantity: 10 },
     ],
     12: [
-      { location: 6, quantity: 12 },
-      { location: 7, quantity: 10 },
-    ],
-    13: [
-      { location: 7, quantity: 10 },
-      { location: 7, quantity: 10 },
-    ],
-    14: [
       { location: 7, quantity: 12 },
       { location: 8, quantity: 10 },
     ],

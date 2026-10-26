@@ -171,8 +171,8 @@ const dungeons = {
             {
                 id: "runic_sentinel",
                 name: "Runiczny wartownik",
-                hp: 3500,
-                attack: 85,
+                hp: 2590,
+                attack: 63,
                 gold: 420,
                 exp: 600,
                 loot: [
@@ -183,8 +183,8 @@ const dungeons = {
             {
                 id: "guardian_phantom",
                 name: "Widmo strażnika",
-                hp: 5000,
-                attack: 96,
+                hp: 3700,
+                attack: 71,
                 gold: 580,
                 exp: 820,
                 loot: [
@@ -195,8 +195,8 @@ const dungeons = {
             {
                 id: "ancient_arbiter",
                 name: "Pradawny arbiter",
-                hp: 7000,
-                attack: 108,
+                hp: 5180,
+                attack: 80,
                 gold: 760,
                 exp: 1080,
                 loot: [
@@ -207,8 +207,8 @@ const dungeons = {
             {
                 id: "sanctum_colossus",
                 name: "Kolos sanktuarium",
-                hp: 9500,
-                attack: 122,
+                hp: 7020,
+                attack: 90,
                 gold: 980,
                 exp: 1400,
                 loot: [
@@ -219,8 +219,8 @@ const dungeons = {
             {
                 id: "eternal_guardian",
                 name: "Wieczny Strażnik",
-                hp: 15000,
-                attack: 140,
+                hp: 11100,
+                attack: 104,
                 gold: 2100,
                 exp: 3000,
                 isBoss: true,
@@ -252,8 +252,8 @@ const dungeons = {
             {
                 id: "frostbound_knight",
                 name: "Rycerz skutej lodem straży",
-                hp: 12500,
-                attack: 142,
+                hp: 6910,
+                attack: 79,
                 gold: 1600,
                 exp: 2200,
                 loot: [
@@ -264,8 +264,8 @@ const dungeons = {
             {
                 id: "glacial_hunter",
                 name: "Lodowcowy łowca",
-                hp: 17200,
-                attack: 158,
+                hp: 9510,
+                attack: 87,
                 gold: 2100,
                 exp: 2900,
                 loot: [
@@ -276,8 +276,8 @@ const dungeons = {
             {
                 id: "winter_oracle",
                 name: "Wyrocznia zimy",
-                hp: 23000,
-                attack: 176,
+                hp: 12700,
+                attack: 97,
                 gold: 2800,
                 exp: 3800,
                 loot: [
@@ -288,8 +288,8 @@ const dungeons = {
             {
                 id: "icebound_colossus",
                 name: "Kolos lodowej twierdzy",
-                hp: 31000,
-                attack: 198,
+                hp: 17100,
+                attack: 109,
                 gold: 3600,
                 exp: 5000,
                 loot: [
@@ -300,8 +300,8 @@ const dungeons = {
             {
                 id: "winter_sovereign",
                 name: "Władca Wiecznej Zimy",
-                hp: 52000,
-                attack: 225,
+                hp: 28800,
+                attack: 124,
                 gold: 7600,
                 exp: 11000,
                 isBoss: true,
@@ -328,15 +328,15 @@ const dungeons = {
         name: "Serce Wulkanu",
         icon: "🌋",
         keyItemId: "volcano_heart_key",
-        recommendedLevel: 60,
+        recommendedLevel: 65,
         rooms: [
             {
                 id: "magma_warrior",
                 name: "Wojownik magmy",
-                hp: 40000,
-                attack: 235,
+                hp: 16800,
+                attack: 98,
                 gold: 4200,
-                exp: 6000,
+                exp: 8340,
                 loot: [
                     { item: "magma_golem_plate", chance: 55 },
                     { item: "ember_essence", chance: 45 }
@@ -345,10 +345,10 @@ const dungeons = {
             {
                 id: "ember_stalker",
                 name: "Łowca żaru",
-                hp: 55000,
-                attack: 255,
+                hp: 23200,
+                attack: 107,
                 gold: 5500,
-                exp: 7800,
+                exp: 10800,
                 loot: [
                     { item: "lava_hound_hide", chance: 60 },
                     { item: "obsidian_shard", chance: 35 }
@@ -357,10 +357,10 @@ const dungeons = {
             {
                 id: "obsidian_sage",
                 name: "Obsydianowy mędrzec",
-                hp: 73000,
-                attack: 280,
+                hp: 30700,
+                attack: 117,
                 gold: 7200,
-                exp: 10100,
+                exp: 14000,
                 loot: [
                     { item: "magma_core", chance: 45 },
                     { item: "volcanic_heart_fragment", chance: 35 }
@@ -369,10 +369,10 @@ const dungeons = {
             {
                 id: "inferno_colossus",
                 name: "Kolos inferna",
-                hp: 98000,
-                attack: 310,
+                hp: 41400,
+                attack: 129,
                 gold: 9300,
-                exp: 13000,
+                exp: 18100,
                 loot: [
                     { item: "magma_core", chance: 65 },
                     { item: "obsidian_shard", chance: 60 }
@@ -381,10 +381,10 @@ const dungeons = {
             {
                 id: "flame_tyrant",
                 name: "Tyran Płomieni",
-                hp: 170000,
-                attack: 350,
+                hp: 71500,
+                attack: 147,
                 gold: 19000,
-                exp: 27000,
+                exp: 37500,
                 isBoss: true,
                 loot: [
                     { item: "volcanic_heart_fragment", chance: 100 },
@@ -394,7 +394,7 @@ const dungeons = {
         ],
         completionRewards: {
             gold: 22000,
-            exp: 32000,
+            exp: 44500,
             items: [
                 {
                     item: "flame_tyrant_trophy",
@@ -408,16 +408,16 @@ const dungeons = {
         name: "Cytadela Otchłani",
         icon: "🌌",
         keyItemId: "abyss_citadel_key",
-        recommendedLevel: 70,
+        recommendedLevel: 80,
 
         rooms: [
             {
                 id: "memory_keeper",
                 name: "Strażnik wspomnień",
-                hp: 120000,
-                attack: 340,
+                hp: 35900,
+                attack: 100,
                 gold: 12000,
-                exp: 17000,
+                exp: 17800,
                 loot: [
                     {
                         item: "memory_fragment",
@@ -432,10 +432,10 @@ const dungeons = {
             {
                 id: "rift_stalker",
                 name: "Tropiciel Rozdarcia",
-                hp: 155000,
-                attack: 375,
+                hp: 46100,
+                attack: 110,
                 gold: 15000,
-                exp: 21500,
+                exp: 22600,
                 loot: [
                     {
                         item: "dimensional_thread",
@@ -450,10 +450,10 @@ const dungeons = {
             {
                 id: "void_seer",
                 name: "Wieszcz Pustki",
-                hp: 200000,
-                attack: 415,
+                hp: 59700,
+                attack: 122,
                 gold: 19000,
-                exp: 27000,
+                exp: 28400,
                 loot: [
                     {
                         item: "astral_pupil",
@@ -468,10 +468,10 @@ const dungeons = {
             {
                 id: "chaos_colossus",
                 name: "Kolos Chaosu",
-                hp: 275000,
-                attack: 465,
+                hp: 82000,
+                attack: 137,
                 gold: 24500,
-                exp: 35000,
+                exp: 36800,
                 loot: [
                     {
                         item: "rift_core",
@@ -490,10 +490,10 @@ const dungeons = {
             {
                 id: "abyss_citadel_sovereign",
                 name: "Suweren Otchłani",
-                hp: 480000,
-                attack: 540,
+                hp: 143000,
+                attack: 160,
                 gold: 48000,
-                exp: 70000,
+                exp: 73500,
                 isBoss: true,
                 loot: [
                     {
@@ -514,7 +514,7 @@ const dungeons = {
 
         completionRewards: {
             gold: 55000,
-            exp: 80000,
+            exp: 84000,
             items: [
                 {
                     item: "abyss_sovereign_trophy",
@@ -529,16 +529,16 @@ const dungeons = {
         name: "Pałac Głębin",
         icon: "🏛️",
         keyItemId: "deep_palace_key",
-        recommendedLevel: 80,
+        recommendedLevel: 90,
 
         rooms: [
             {
                 id: "sunken_gate_guardian",
                 name: "Strażnik Zatopionej Bramy",
-                hp: 260000,
-                attack: 500,
+                hp: 52800,
+                attack: 100,
                 gold: 27000,
-                exp: 38000,
+                exp: 26800,
                 loot: [
                     {
                         item: "rusted_guard_medal",
@@ -553,10 +553,10 @@ const dungeons = {
             {
                 id: "court_hydromancer",
                 name: "Nadworny Hydromanta",
-                hp: 340000,
-                attack: 550,
+                hp: 69100,
+                attack: 110,
                 gold: 34000,
-                exp: 48000,
+                exp: 33800,
                 loot: [
                     {
                         item: "enchanted_shell",
@@ -571,10 +571,10 @@ const dungeons = {
             {
                 id: "royal_siren",
                 name: "Królewska Syrena",
-                hp: 440000,
-                attack: 610,
+                hp: 89400,
+                attack: 123,
                 gold: 43000,
-                exp: 61000,
+                exp: 43000,
                 loot: [
                     {
                         item: "song_crystal",
@@ -589,10 +589,10 @@ const dungeons = {
             {
                 id: "palace_reef_colossus",
                 name: "Kolos Pałacowych Raf",
-                hp: 580000,
-                attack: 680,
+                hp: 118000,
+                attack: 137,
                 gold: 55000,
-                exp: 78000,
+                exp: 55000,
                 loot: [
                     {
                         item: "living_coral_shard",
@@ -611,10 +611,10 @@ const dungeons = {
             {
                 id: "spectral_deep_king",
                 name: "Widmowy Król Głębin",
-                hp: 950000,
-                attack: 780,
+                hp: 194000,
+                attack: 156,
                 gold: 105000,
-                exp: 150000,
+                exp: 106000,
                 isBoss: true,
                 loot: [
                     {
@@ -635,7 +635,7 @@ const dungeons = {
 
         completionRewards: {
             gold: 120000,
-            exp: 175000,
+            exp: 123000,
             items: [
                 {
                     item:
@@ -650,16 +650,16 @@ const dungeons = {
         name: "Pryzmatyczna Iglica",
         icon: "💎",
         keyItemId: "crystal_spire_key",
-        recommendedLevel: 90,
+        recommendedLevel: 100,
 
         rooms: [
             {
                 id: "spire_crystal_sentinel",
                 name: "Kryształowy Wartownik",
-                hp: 1400000,
-                attack: 1050,
-                gold: 260000,
-                exp: 360000,
+                hp: 173000,
+                attack: 129,
+                gold: 86800,
+                exp: 77400,
 
                 loot: [
                     {
@@ -676,10 +676,10 @@ const dungeons = {
             {
                 id: "prismatic_channeler",
                 name: "Pryzmatyczny Kanałowiec",
-                hp: 1750000,
-                attack: 1130,
-                gold: 320000,
-                exp: 440000,
+                hp: 217000,
+                attack: 139,
+                gold: 107000,
+                exp: 94600,
 
                 loot: [
                     {
@@ -696,10 +696,10 @@ const dungeons = {
             {
                 id: "geode_titan",
                 name: "Tytan Geod",
-                hp: 2200000,
-                attack: 1220,
-                gold: 390000,
-                exp: 540000,
+                hp: 273000,
+                attack: 151,
+                gold: 130000,
+                exp: 116000,
 
                 loot: [
                     {
@@ -720,10 +720,10 @@ const dungeons = {
             {
                 id: "spire_prismatic_guardian",
                 name: "Strażnik Pryzmatycznego Tronu",
-                hp: 2900000,
-                attack: 1320,
-                gold: 480000,
-                exp: 670000,
+                hp: 360000,
+                attack: 163,
+                gold: 160000,
+                exp: 144000,
 
                 loot: [
                     {
@@ -744,10 +744,10 @@ const dungeons = {
             {
                 id: "prismatic_spire_sovereign",
                 name: "Władca Pryzmatycznej Iglicy",
-                hp: 4800000,
-                attack: 1450,
-                gold: 900000,
-                exp: 1250000,
+                hp: 596000,
+                attack: 178,
+                gold: 301000,
+                exp: 269000,
                 isBoss: true,
 
                 loot: [
@@ -768,8 +768,8 @@ const dungeons = {
         ],
 
         completionRewards: {
-            gold: 1100000,
-            exp: 1500000,
+            gold: 367000,
+            exp: 322000,
 
             items: [
                 {

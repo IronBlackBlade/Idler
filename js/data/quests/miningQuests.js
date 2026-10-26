@@ -246,7 +246,7 @@ const miningQuests = [
             "miningLevel",
 
         chainStage: 1,
-        chainLength: 4,
+        chainLength: 7,
 
         title:
             "Doświadczony górnik",
@@ -284,31 +284,46 @@ const miningQuests = [
         requiredKills: [
             10,
             20,
-            30
+            30,
+            50,
+            65,
+            85
         ],
 
         descriptions: [
             "Osiągnij 10. poziom kopania.",
             "Osiągnij 20. poziom kopania.",
-            "Osiągnij 30. poziom kopania."
+            "Osiągnij 30. poziom kopania.",
+            "Osiągnij 50. poziom kopania.",
+            "Osiągnij 65. poziom kopania.",
+            "Osiągnij 85. poziom kopania."
         ],
 
         rewardGold: [
             2500,
             9000,
-            22000
+            22000,
+            45300,
+            69500,
+            108000
         ],
 
         rewardExp: [
             1200,
             4500,
-            11000
+            11000,
+            22650,
+            34750,
+            54000
         ],
 
         rewardActivityExp: [
             800,
             2500,
-            6000
+            6000,
+            12450,
+            19100,
+            29700
         ]
     }),
 
@@ -610,6 +625,126 @@ const miningQuests = [
         rewardActivityExp: [
             360,
             1200
+        ]
+    }),
+
+    {
+        id: "explore_crystal_rift_1",
+        activityId: "mining",
+        progressSource: "areaCycles",
+        targetAreaId: "crystal_rift",
+
+        chainStage: 1,
+        chainLength: 3,
+
+        title: "Odkrywca Kryształowej rozpadliny",
+        description:
+            "Ukończ 10 cykli wydobycia w Kryształowej rozpadlinie.",
+
+        requiredLevel: 1,
+        requiredKills: 10,
+        currentKills: 0,
+
+        rewardGold: 170,
+        rewardExp: 110,
+        rewardActivityExp: 135,
+
+        completed: false,
+        claimed: false
+    },
+
+    ...createQuestFollowUpStages({
+        idPrefix: "explore_crystal_rift",
+        activityId: "mining",
+        progressSource: "areaCycles",
+        targetAreaId: "crystal_rift",
+
+        title: "Odkrywca Kryształowej rozpadliny",
+        requiredLevel: 1,
+
+        requiredKills: [
+            50,
+            150
+        ],
+
+        descriptions: [
+            "Ukończ łącznie 50 cykli wydobycia w Kryształowej rozpadlinie.",
+            "Ukończ łącznie 150 cykli wydobycia w Kryształowej rozpadlinie."
+        ],
+
+        rewardGold: [
+            670,
+            2240
+        ],
+
+        rewardExp: [
+            420,
+            1340
+        ],
+
+        rewardActivityExp: [
+            505,
+            1680
+        ]
+    }),
+
+    {
+        id: "explore_titans_abyss_1",
+        activityId: "mining",
+        progressSource: "areaCycles",
+        targetAreaId: "titans_abyss",
+
+        chainStage: 1,
+        chainLength: 3,
+
+        title: "Pogromca Otchłani tytanów",
+        description:
+            "Ukończ 10 cykli wydobycia w Otchłani tytanów.",
+
+        requiredLevel: 1,
+        requiredKills: 10,
+        currentKills: 0,
+
+        rewardGold: 235,
+        rewardExp: 155,
+        rewardActivityExp: 185,
+
+        completed: false,
+        claimed: false
+    },
+
+    ...createQuestFollowUpStages({
+        idPrefix: "explore_titans_abyss",
+        activityId: "mining",
+        progressSource: "areaCycles",
+        targetAreaId: "titans_abyss",
+
+        title: "Pogromca Otchłani tytanów",
+        requiredLevel: 1,
+
+        requiredKills: [
+            50,
+            150
+        ],
+
+        descriptions: [
+            "Ukończ łącznie 50 cykli wydobycia w Otchłani tytanów.",
+            "Ukończ łącznie 150 cykli wydobycia w Otchłani tytanów."
+        ],
+
+        rewardGold: [
+            940,
+            3140
+        ],
+
+        rewardExp: [
+            590,
+            1880
+        ],
+
+        rewardActivityExp: [
+            705,
+            2350
         ]
     })
 ];

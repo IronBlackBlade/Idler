@@ -6,8 +6,9 @@ const ice = {
     description:
         "Skuta lodem kraina zamieszkana przez mroźne duchy, olbrzymy i żywiołaki.",
 
-    recommendedLevel: 35,
-    requiredLevel: 35,
+    recommendedLevel: 30,
+    chestGoldMultiplier: 58,
+    requiredLevel: 30,
 
     boss: {
         id: "frost_queen",

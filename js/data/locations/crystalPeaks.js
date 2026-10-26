@@ -7,21 +7,22 @@ const crystalPeaks = {
         "Wysokogórska kraina pełna lewitujących kryształów, " +
         "pryzmatycznych bestii i pradawnych konstruktów.",
 
-    recommendedLevel: 80,
-    requiredLevel: 80,
+    recommendedLevel: 100,
+    chestGoldMultiplier: 2170,
+    requiredLevel: 100,
 
     boss: {
         id: "heart_of_the_mountain",
         name: "💠 Serce Góry",
 
         hp: 35000,
-        attack: 340,
+        attack: 260,
         gold: 210000,
-        exp: 300000,
+        exp: 93800,
 
         firstKillReward: {
             gold: 275000,
-            exp: 400000,
+            exp: 125000,
 
             items: [
                 {
@@ -59,7 +60,7 @@ const crystalPeaks = {
             hp: 1500,
             attack: 180,
             gold: 70000,
-            exp: 98000,
+            exp: 30600,
 
             loot: [
                 {
@@ -84,7 +85,7 @@ const crystalPeaks = {
             hp: 1680,
             attack: 195,
             gold: 85000,
-            exp: 118000,
+            exp: 36900,
 
             loot: [
                 {
@@ -109,7 +110,7 @@ const crystalPeaks = {
             hp: 1900,
             attack: 210,
             gold: 103000,
-            exp: 145000,
+            exp: 45300,
 
             loot: [
                 {
@@ -134,7 +135,7 @@ const crystalPeaks = {
             hp: 2200,
             attack: 225,
             gold: 125000,
-            exp: 175000,
+            exp: 54700,
 
             loot: [
                 {
@@ -159,7 +160,7 @@ const crystalPeaks = {
             hp: 2500,
             attack: 242,
             gold: 152000,
-            exp: 215000,
+            exp: 67200,
 
             loot: [
                 {

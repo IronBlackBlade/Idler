@@ -832,6 +832,12 @@ function getAlchemyRecipeExp(recipe) {
         return 0;
     }
 
+    const customExp = Math.floor(Number(recipe.alchemyExp) || 0);
+
+    if (customExp > 0) {
+        return customExp;
+    }
+
     const durationSeconds =
         Math.max(
             1,

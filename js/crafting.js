@@ -74,11 +74,18 @@ function getCraftingExpToNextLevel(level) {
    * - materiały pozostają głównym
    *   ograniczeniem późnej gry.
    */
-  return Math.floor(
-    craftingBalance.experience.base +
-      levelIndex * craftingBalance.experience.linearPerLevel +
-      Math.pow(levelIndex, craftingBalance.experience.power) *
-        craftingBalance.experience.powerMultiplier,
+  const curveMultiplier =
+    Number(craftingBalance.experience.levelCurveMultiplier) || 1;
+
+  return Math.max(
+    1,
+    Math.floor(
+      (craftingBalance.experience.base +
+        levelIndex * craftingBalance.experience.linearPerLevel +
+        Math.pow(levelIndex, craftingBalance.experience.power) *
+          craftingBalance.experience.powerMultiplier) *
+        curveMultiplier,
+    ),
   );
 }
 

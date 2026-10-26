@@ -10,7 +10,7 @@ const professionToolTierConfig = Object.freeze([
     primaryBonus: 2,
     secondaryBonus: 1,
     value: 50,
-    shopPrice: 100,
+    shopPrice: 150,
   }),
   Object.freeze({
     tier: 2,
@@ -21,7 +21,7 @@ const professionToolTierConfig = Object.freeze([
     primaryBonus: 5,
     secondaryBonus: 2,
     value: 140,
-    shopPrice: 280,
+    shopPrice: 1500,
   }),
   Object.freeze({
     tier: 3,
@@ -32,7 +32,7 @@ const professionToolTierConfig = Object.freeze([
     primaryBonus: 9,
     secondaryBonus: 4,
     value: 380,
-    shopPrice: 850,
+    shopPrice: 8500,
   }),
   Object.freeze({
     tier: 4,
@@ -43,7 +43,7 @@ const professionToolTierConfig = Object.freeze([
     primaryBonus: 14,
     secondaryBonus: 7,
     value: 1400,
-    shopPrice: 3200,
+    shopPrice: 30000,
   }),
   Object.freeze({
     tier: 5,
@@ -54,7 +54,7 @@ const professionToolTierConfig = Object.freeze([
     primaryBonus: 20,
     secondaryBonus: 10,
     value: 6000,
-    shopPrice: 12000,
+    shopPrice: 66000,
   }),
 ]);
 

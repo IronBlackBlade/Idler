@@ -69,21 +69,21 @@ const miningAreas = [
         id: "right_shaft",
         name: "Prawy szyb",
         description: "Niebezpieczne, gorące tunele z obsydianem i rudą platyny.",
-        requiredMiningLevel: 30,
+        requiredMiningLevel: 35,
         durationSeconds: 21,
         rareChance: 12,
         exceptionalChance: 1.2,
         basicDrops: [
-            { itemId: "silver_ore", weight: 35, miningExp: 10 },
-            { itemId: "gold_ore", weight: 35, miningExp: 13 },
-            { itemId: "obsidian", weight: 30, miningExp: 15 }
+            { itemId: "silver_ore", weight: 35, miningExp: 12 },
+            { itemId: "gold_ore", weight: 35, miningExp: 15 },
+            { itemId: "obsidian", weight: 30, miningExp: 18 }
         ],
         rareDrops: [
-            { itemId: "ruby", weight: 55, miningExp: 35 },
-            { itemId: "platinum_ore", weight: 45, miningExp: 40 }
+            { itemId: "ruby", weight: 55, miningExp: 42 },
+            { itemId: "platinum_ore", weight: 45, miningExp: 48 }
         ],
         exceptionalDrops: [
-            { itemId: "burning_crystal", weight: 100, miningExp: 100 }
+            { itemId: "burning_crystal", weight: 100, miningExp: 119 }
         ]
     },
 
@@ -91,21 +91,21 @@ const miningAreas = [
         id: "deep_tunnels",
         name: "Głębokie tunele",
         description: "Najgłębsza część kopalni. Kryje najcenniejsze minerały i odłamki mocy ziemi.",
-        requiredMiningLevel: 40,
+        requiredMiningLevel: 50,
         durationSeconds: 27,
         rareChance: 10,
         exceptionalChance: 1,
         basicDrops: [
-            { itemId: "obsidian", weight: 35, miningExp: 16 },
-            { itemId: "platinum_ore", weight: 35, miningExp: 18 },
-            { itemId: "deep_coal", weight: 30, miningExp: 20 }
+            { itemId: "obsidian", weight: 35, miningExp: 20 },
+            { itemId: "platinum_ore", weight: 35, miningExp: 23 },
+            { itemId: "deep_coal", weight: 30, miningExp: 26 }
         ],
         rareDrops: [
-            { itemId: "mithril_ore", weight: 55, miningExp: 50 },
-            { itemId: "diamond", weight: 45, miningExp: 60 }
+            { itemId: "mithril_ore", weight: 55, miningExp: 64 },
+            { itemId: "diamond", weight: 45, miningExp: 77 }
         ],
         exceptionalDrops: [
-            { itemId: "earth_core_shard", weight: 100, miningExp: 150 }
+            { itemId: "earth_core_shard", weight: 100, miningExp: 192 }
         ]
     },
 
@@ -113,21 +113,21 @@ const miningAreas = [
         id: "crystal_rift",
         name: "Kryształowa rozpadlina",
         description: "Pęknięcie w głębi ziemi odsłaniające runiczne skały, adamantyt i minerały nasycone magią.",
-        requiredMiningLevel: 50,
+        requiredMiningLevel: 65,
         durationSeconds: 32,
         rareChance: 9,
         exceptionalChance: 0.8,
         basicDrops: [
-            { itemId: "adamantite_ore", weight: 40, miningExp: 22 },
-            { itemId: "runic_stone", weight: 35, miningExp: 24 },
-            { itemId: "crystal_shard", weight: 25, miningExp: 27 }
+            { itemId: "adamantite_ore", weight: 40, miningExp: 34 },
+            { itemId: "runic_stone", weight: 35, miningExp: 37 },
+            { itemId: "crystal_shard", weight: 25, miningExp: 42 }
         ],
         rareDrops: [
-            { itemId: "orichalcum_ore", weight: 55, miningExp: 65 },
-            { itemId: "prismatic_gem", weight: 45, miningExp: 75 }
+            { itemId: "orichalcum_ore", weight: 55, miningExp: 101 },
+            { itemId: "prismatic_gem", weight: 45, miningExp: 117 }
         ],
         exceptionalDrops: [
-            { itemId: "crystal_heart", weight: 100, miningExp: 180 }
+            { itemId: "crystal_heart", weight: 100, miningExp: 281 }
         ]
     },
 
@@ -135,21 +135,21 @@ const miningAreas = [
         id: "titans_abyss",
         name: "Otchłań tytanów",
         description: "Mityczne wyrobisko pod fundamentami świata, gdzie skały przechowują moc tytanów i gwiazd.",
-        requiredMiningLevel: 60,
+        requiredMiningLevel: 85,
         durationSeconds: 38,
         rareChance: 8,
         exceptionalChance: 0.6,
         basicDrops: [
-            { itemId: "titan_stone", weight: 40, miningExp: 32 },
-            { itemId: "dragonsteel_ore", weight: 35, miningExp: 35 },
-            { itemId: "astral_ore", weight: 25, miningExp: 38 }
+            { itemId: "titan_stone", weight: 40, miningExp: 56 },
+            { itemId: "dragonsteel_ore", weight: 35, miningExp: 61 },
+            { itemId: "astral_ore", weight: 25, miningExp: 66 }
         ],
         rareDrops: [
-            { itemId: "sunstone", weight: 55, miningExp: 90 },
-            { itemId: "astral_diamond", weight: 45, miningExp: 105 }
+            { itemId: "sunstone", weight: 55, miningExp: 157 },
+            { itemId: "astral_diamond", weight: 45, miningExp: 183 }
         ],
         exceptionalDrops: [
-            { itemId: "titan_core", weight: 100, miningExp: 250 }
+            { itemId: "titan_core", weight: 100, miningExp: 435 }
         ]
     }
 ];

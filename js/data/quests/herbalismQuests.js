@@ -245,7 +245,7 @@ const herbalismQuests = [
         "herbalismLevel",
 
     chainStage: 1,
-    chainLength: 4,
+    chainLength: 7,
 
     title:
         "Doświadczony zielarz",
@@ -283,31 +283,46 @@ const herbalismQuests = [
     requiredKills: [
         10,
         20,
-        30
+        30,
+        50,
+        65,
+        85
     ],
 
     descriptions: [
         "Osiągnij 10. poziom zielarstwa.",
         "Osiągnij 20. poziom zielarstwa.",
-        "Osiągnij 30. poziom zielarstwa."
+        "Osiągnij 30. poziom zielarstwa.",
+        "Osiągnij 50. poziom zielarstwa.",
+        "Osiągnij 65. poziom zielarstwa.",
+        "Osiągnij 85. poziom zielarstwa."
     ],
 
     rewardGold: [
         2300,
         8500,
-        20000
+        20000,
+        45300,
+        69500,
+        108000
     ],
 
     rewardExp: [
         1100,
         4200,
-        10000
+        10000,
+        22650,
+        34750,
+        54000
     ],
 
     rewardActivityExp: [
         750,
         2300,
-        5500
+        5500,
+        12450,
+        19100,
+        29700
     ]
 }),
 
@@ -775,6 +790,162 @@ const herbalismQuests = [
     rewardActivityExp: [
         340,
         1150
+    ]
+}),
+
+{
+    id:
+        "explore_twilight_garden_1",
+
+    activityId:
+        "herbalism",
+
+    progressSource:
+        "areaCycles",
+
+    targetAreaId:
+        "twilight_garden",
+
+    chainStage: 1,
+    chainLength: 3,
+
+    title:
+        "Strażnik Ogrodu zmierzchu",
+
+    description:
+        "Ukończ 10 cykli zielarstwa w Ogrodzie zmierzchu.",
+
+    requiredLevel: 1,
+    requiredKills: 10,
+    currentKills: 0,
+
+    rewardGold: 155,
+    rewardExp: 105,
+    rewardActivityExp: 125,
+
+    completed: false,
+    claimed: false
+},
+
+...createQuestFollowUpStages({
+    idPrefix:
+        "explore_twilight_garden",
+
+    activityId:
+        "herbalism",
+
+    progressSource:
+        "areaCycles",
+
+    targetAreaId:
+        "twilight_garden",
+
+    title:
+        "Strażnik Ogrodu zmierzchu",
+
+    requiredLevel: 1,
+
+    requiredKills: [
+        50,
+        150
+    ],
+
+    descriptions: [
+        "Ukończ łącznie 50 cykli zielarstwa w Ogrodzie zmierzchu.",
+        "Ukończ łącznie 150 cykli zielarstwa w Ogrodzie zmierzchu."
+    ],
+
+    rewardGold: [
+        630,
+        2100
+    ],
+
+    rewardExp: [
+        390,
+        1260
+    ],
+
+    rewardActivityExp: [
+        475,
+        1610
+    ]
+}),
+
+{
+    id:
+        "explore_aether_sanctuary_1",
+
+    activityId:
+        "herbalism",
+
+    progressSource:
+        "areaCycles",
+
+    targetAreaId:
+        "aether_sanctuary",
+
+    chainStage: 1,
+    chainLength: 3,
+
+    title:
+        "Opiekun Eterycznego sanktuarium",
+
+    description:
+        "Ukończ 10 cykli zielarstwa w Eterycznym sanktuarium.",
+
+    requiredLevel: 1,
+    requiredKills: 10,
+    currentKills: 0,
+
+    rewardGold: 215,
+    rewardExp: 145,
+    rewardActivityExp: 175,
+
+    completed: false,
+    claimed: false
+},
+
+...createQuestFollowUpStages({
+    idPrefix:
+        "explore_aether_sanctuary",
+
+    activityId:
+        "herbalism",
+
+    progressSource:
+        "areaCycles",
+
+    targetAreaId:
+        "aether_sanctuary",
+
+    title:
+        "Opiekun Eterycznego sanktuarium",
+
+    requiredLevel: 1,
+
+    requiredKills: [
+        50,
+        150
+    ],
+
+    descriptions: [
+        "Ukończ łącznie 50 cykli zielarstwa w Eterycznym sanktuarium.",
+        "Ukończ łącznie 150 cykli zielarstwa w Eterycznym sanktuarium."
+    ],
+
+    rewardGold: [
+        880,
+        2940
+    ],
+
+    rewardExp: [
+        550,
+        1760
+    ],
+
+    rewardActivityExp: [
+        665,
+        2250
     ]
 })
 

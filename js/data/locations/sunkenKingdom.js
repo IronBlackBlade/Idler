@@ -3,18 +3,19 @@ const sunkenKingdom = {
     name: "🌊 Zatopione Królestwo",
     description:
         "Ruiny dawnego królestwa spoczywające pod wzburzonym morzem, zamieszkane przez topielców i istoty głębin.",
-    recommendedLevel: 70,
-    requiredLevel: 70,
+    recommendedLevel: 80,
+    chestGoldMultiplier: 783,
+    requiredLevel: 80,
     boss: {
         id: "crown_leviathan",
         name: "👑 Lewiatan Korony",
         hp: 24000,
-        attack: 240,
+        attack: 215,
         gold: 28000,
-        exp: 40500,
+        exp: 29600,
         firstKillReward: {
             gold: 40000,
-            exp: 58000,
+            exp: 42400,
             items: [
                 {
                     item: "leviathan_crown",
@@ -48,7 +49,7 @@ const sunkenKingdom = {
             hp: 1100,
             attack: 125,
             gold: 14500,
-            exp: 20400,
+            exp: 14900,
             loot: [
                 {
                     item: "royal_uniform_scrap",
@@ -70,7 +71,7 @@ const sunkenKingdom = {
             hp: 1280,
             attack: 138,
             gold: 17600,
-            exp: 24800,
+            exp: 18100,
             loot: [
                 {
                     item: "deep_scale",
@@ -92,7 +93,7 @@ const sunkenKingdom = {
             hp: 1500,
             attack: 152,
             gold: 21300,
-            exp: 30000,
+            exp: 22000,
             loot: [
                 {
                     item: "siren_scale",
@@ -114,7 +115,7 @@ const sunkenKingdom = {
             hp: 1750,
             attack: 166,
             gold: 25800,
-            exp: 36300,
+            exp: 26600,
             loot: [
                 {
                     item: "living_coral_shard",
@@ -136,7 +137,7 @@ const sunkenKingdom = {
             hp: 2050,
             attack: 182,
             gold: 31200,
-            exp: 44000,
+            exp: 32200,
             loot: [
                 {
                     item: "soaked_scroll",

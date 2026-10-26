@@ -3,6 +3,7 @@ const cave = {
     name: "⛰️ Jaskinia",
     description: "Ciemna jaskinia pełna niebezpiecznych stworzeń.",
     recommendedLevel: 10,
+    chestGoldMultiplier: 4.7,
     requiredLevel: 10,
 
     boss: {

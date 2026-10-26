@@ -6,8 +6,9 @@ const volcano = {
     description:
         "Spalona kraina pełna lawy, ognistych bestii i rozgrzanych żywiołaków.",
 
-    recommendedLevel: 50,
-    requiredLevel: 50,
+    recommendedLevel: 45,
+    chestGoldMultiplier: 117,
+    requiredLevel: 45,
 
     boss: {
         id: "volcanic_dragon",

@@ -3,8 +3,9 @@ const abyss = {
     name: "🌌 Rubieże Otchłani",
     description:
         "Niestabilna kraina rozdarć wymiarowych, utraconych wspomnień i istot zrodzonych poza znanym światem.",
-    recommendedLevel: 60,
-    requiredLevel: 60,
+    recommendedLevel: 65,
+    chestGoldMultiplier: 283,
+    requiredLevel: 65,
     boss: {
         id: "abyss_lord",
         name: "👑 Władca Otchłani",

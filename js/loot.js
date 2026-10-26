@@ -303,6 +303,21 @@ function getHuntingChestLocationGoldMultiplier() {
     const location =
         locations[player.location];
 
+    // chestGoldMultiplier utrzymuje stałą proporcję złota ze skrzyń
+    // do złota z potworów w każdej lokacji (jak w Lesie, ok. 3%).
+    const explicitMultiplier =
+        Number(
+            location
+                ?.chestGoldMultiplier
+        );
+
+    if (
+        Number.isFinite(explicitMultiplier) &&
+        explicitMultiplier > 0
+    ) {
+        return explicitMultiplier;
+    }
+
     const recommendedLevel =
         Math.max(
             1,

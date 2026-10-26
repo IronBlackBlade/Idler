@@ -14,191 +14,191 @@ const merchantItems = {
     // PIERŚCIENIE
     // ==================================================
 
-    simple_ring: 120,
-    lucky_ring: 180,
-    iron_ring: 450,
-    steel_ring: 1500,
-    knight_ring: 6200,
-    master_ring: 23000,
+    simple_ring: 180,
+    lucky_ring: 990,
+    iron_ring: 4500,
+    steel_ring: 14000,
+    knight_ring: 34000,
+    master_ring: 640000,
 
 
     // ==================================================
     // AMULETY
     // ==================================================
 
-    simple_amulet: 140,
-    lucky_amulet: 210,
-    iron_amulet: 500,
-    steel_amulet: 1600,
-    knight_amulet: 6500,
-    master_amulet: 24000,
+    simple_amulet: 210,
+    lucky_amulet: 1200,
+    iron_amulet: 5000,
+    steel_amulet: 15000,
+    knight_amulet: 36000,
+    master_amulet: 670000,
 
 
     // ==================================================
     // TALIZMANY
     // ==================================================
 
-    simple_talisman: 160,
-    lucky_talisman: 240,
-    iron_talisman: 600,
-    steel_talisman: 1900,
-    knight_talisman: 7200,
-    master_talisman: 27000,
+    simple_talisman: 240,
+    lucky_talisman: 1300,
+    iron_talisman: 6000,
+    steel_talisman: 18000,
+    knight_talisman: 40000,
+    master_talisman: 760000,
 
 
     // ==================================================
     // BUTY
     // ==================================================
 
-    simple_boots: 30,
-    old_boots: 75,
-    iron_boots: 220,
-    steel_boots: 750,
-    knight_boots: 3300,
-    captain_boots: 6500,
-    master_boots: 13000,
+    simple_boots: 45,
+    old_boots: 410,
+    iron_boots: 2200,
+    steel_boots: 7100,
+    knight_boots: 18000,
+    captain_boots: 72000,
+    master_boots: 360000,
 
 
     // ==================================================
     // HEŁMY
     // ==================================================
 
-    simple_helmet: 40,
-    leather_helmet: 120,
-    iron_helmet: 320,
-    steel_helmet: 1100,
-    knight_helmet: 5000,
-    captain_helmet: 9000,
-    master_helmet: 18000,
+    simple_helmet: 60,
+    leather_helmet: 660,
+    iron_helmet: 3200,
+    steel_helmet: 10000,
+    knight_helmet: 28000,
+    captain_helmet: 99000,
+    master_helmet: 500000,
 
 
     // ==================================================
     // LASKI
     // ==================================================
 
-    simple_staff: 90,
-    apprentice_staff: 280,
-    adept_staff: 800,
-    battle_staff: 2600,
-    mage_staff: 7000,
-    heavy_battle_staff: 15000,
-    master_staff: 28000,
+    simple_staff: 140,
+    apprentice_staff: 1500,
+    adept_staff: 8000,
+    battle_staff: 25000,
+    mage_staff: 38000,
+    heavy_battle_staff: 170000,
+    master_staff: 780000,
 
 
     // ==================================================
     // KUSZE
     // ==================================================
 
-    simple_crossbow: 90,
-    light_crossbow: 260,
-    hunting_crossbow: 850,
-    steel_crossbow: 2800,
-    battle_crossbow: 7000,
-    heavy_crossbow: 15000,
-    master_crossbow: 28000,
+    simple_crossbow: 140,
+    light_crossbow: 1400,
+    hunting_crossbow: 8500,
+    steel_crossbow: 27000,
+    battle_crossbow: 38000,
+    heavy_crossbow: 170000,
+    master_crossbow: 780000,
 
 
     // ==================================================
     // MIECZE
     // ==================================================
 
-    old_sword: 60,
-    kobold_sword: 180,
-    iron_sword: 450,
-    steel_sword: 1500,
-    knight_sword: 5500,
-    war_sword: 12000,
-    heavy_war_sword: 22000,
+    old_sword: 90,
+    kobold_sword: 990,
+    iron_sword: 4500,
+    steel_sword: 14000,
+    knight_sword: 30000,
+    war_sword: 130000,
+    heavy_war_sword: 620000,
 
 
     // ==================================================
     // BROŃ OBUCHOWA
     // ==================================================
 
-    club: 50,
-    kobold_mace: 220,
-    battle_club: 700,
-    iron_club: 2200,
-    war_hammer: 6000,
-    mace: 13000,
-    heavy_war_hammer: 24000,
+    club: 75,
+    kobold_mace: 1200,
+    battle_club: 7000,
+    iron_club: 21000,
+    war_hammer: 33000,
+    mace: 140000,
+    heavy_war_hammer: 670000,
 
 
     // ==================================================
     // ZBROJE
     // ==================================================
 
-    simple_armor: 70,
-    leather_armor: 180,
-    iron_armor: 500,
-    steel_armor: 1800,
-    knight_armor: 9000,
-    captain_armor: 15000,
-    master_armor: 28000,
+    simple_armor: 100,
+    leather_armor: 990,
+    iron_armor: 5000,
+    steel_armor: 17000,
+    knight_armor: 50000,
+    captain_armor: 170000,
+    master_armor: 780000,
 
 
     // ==================================================
     // RÓŻDŻKI
     // ==================================================
 
-    wooden_wand: 80,
-    simple_wand: 240,
-    apprentice_wand: 700,
-    arcane_wand: 2400,
-    magic_wand: 6500,
-    master_wand_base: 14000,
-    archmaster_wand: 26000,
+    wooden_wand: 120,
+    simple_wand: 1300,
+    apprentice_wand: 7000,
+    arcane_wand: 23000,
+    magic_wand: 36000,
+    master_wand_base: 150000,
+    archmaster_wand: 730000,
 
 
     // ==================================================
     // RĘKAWICE
     // ==================================================
 
-    simple_gloves: 35,
-    leather_gloves: 90,
-    iron_gloves: 220,
-    steel_gloves: 800,
-    knight_gloves: 3500,
-    captain_gloves: 6500,
-    master_gloves: 13000,
+    simple_gloves: 52,
+    leather_gloves: 500,
+    iron_gloves: 2200,
+    steel_gloves: 7600,
+    knight_gloves: 19000,
+    captain_gloves: 72000,
+    master_gloves: 360000,
 
 
     // ==================================================
     // SPODNIE
     // ==================================================
 
-    simple_pants: 45,
-    leather_pants: 120,
-    iron_pants: 320,
-    steel_pants: 1200,
-    knight_pants: 5200,
-    captain_pants: 9500,
-    master_pants: 19000,
+    simple_pants: 68,
+    leather_pants: 660,
+    iron_pants: 3200,
+    steel_pants: 11000,
+    knight_pants: 29000,
+    captain_pants: 100000,
+    master_pants: 530000,
 
 
     // ==================================================
     // TARCZE
     // ==================================================
 
-    simple_shield: 40,
-    wooden_shield: 100,
-    iron_shield: 300,
-    steel_shield: 1000,
-    knight_shield: 4800,
-    captain_shield: 8500,
-    master_shield: 17000,
+    simple_shield: 60,
+    wooden_shield: 550,
+    iron_shield: 3000,
+    steel_shield: 9500,
+    knight_shield: 26000,
+    captain_shield: 94000,
+    master_shield: 480000,
 
 
     // ==================================================
     // ŁUKI
     // ==================================================
 
-    old_bow: 50,
-    hunter_bow: 160,
-    long_bow: 500,
-    oak_bow: 1700,
-    ranger_bow: 5800,
-    war_bow: 12500,
-    master_bow: 23000
+    old_bow: 75,
+    hunter_bow: 880,
+    long_bow: 5000,
+    oak_bow: 16000,
+    ranger_bow: 32000,
+    war_bow: 140000,
+    master_bow: 640000
 
 };

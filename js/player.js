@@ -713,9 +713,23 @@ function getExpToNextLevel(level) {
         ) *
         0.25;
 
+    // Dodatkowe wydłużenie ścieżki 1-100: ok. 1.0x na początku,
+    // ok. 6.5x na 99. poziomie (cel: ok. 60 godzin ciągłej gry).
+    const progressionPacingMultiplier =
+        1 +
+        5.5 *
+        Math.pow(
+            Math.min(
+                1,
+                levelIndex / 99
+            ),
+            1.5
+        );
+
     return Math.floor(
         baseRequirement *
-        progressionMultiplier
+        progressionMultiplier *
+        progressionPacingMultiplier
     );
 }
 

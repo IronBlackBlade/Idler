@@ -8,6 +8,7 @@ const ruins = {
         "Pozostałości pradawnej twierdzy, strzeżone przez ożywione zbroje i niespokojne duchy.",
 
     recommendedLevel: 20,
+    chestGoldMultiplier: 20,
     requiredLevel: 20,
 
     boss: {

@@ -48,8 +48,9 @@ const alchemyRecipes = [
         description:
             "Silniejsza mikstura natychmiast przywracająca zdrowie bohatera.",
 
-        requiredAlchemyLevel: 10,
+        requiredAlchemyLevel: 20,
         craftingDurationSeconds: 180,
+        alchemyExp: 465,
 
         resultItemId:
             "health_potion",
@@ -85,8 +86,9 @@ const alchemyRecipes = [
         description:
             "Potężna mikstura natychmiast przywracająca dużą część zdrowia.",
 
-        requiredAlchemyLevel: 20,
+        requiredAlchemyLevel: 35,
         craftingDurationSeconds: 360,
+        alchemyExp: 850,
 
         resultItemId:
             "large_health_potion",
@@ -126,8 +128,9 @@ const alchemyRecipes = [
     description:
         "Legendarny eliksir natychmiast odnawiający większość zdrowia bohatera.",
 
-    requiredAlchemyLevel: 35,
-    craftingDurationSeconds: 600,
+    requiredAlchemyLevel: 65,
+        craftingDurationSeconds: 600,
+        alchemyExp: 1630,
 
     resultItemId:
         "renewal_elixir",
@@ -223,8 +226,9 @@ const alchemyRecipes = [
         description:
             "Mikstura zwiększająca szansę na zdobycie dodatkowego łupu.",
 
-        requiredAlchemyLevel: 5,
+        requiredAlchemyLevel: 10,
         craftingDurationSeconds: 120,
+        alchemyExp: 245,
 
         resultItemId:
             "hunter_potion",
@@ -254,8 +258,9 @@ const alchemyRecipes = [
         description:
             "Zwiększa obrażenia broni w zwarciu.",
 
-        requiredAlchemyLevel: 8,
+        requiredAlchemyLevel: 10,
         craftingDurationSeconds: 180,
+        alchemyExp: 235,
 
         resultItemId:
             "strength_potion",
@@ -285,8 +290,9 @@ const alchemyRecipes = [
         description:
             "Mikstura zwiększająca obronę bohatera.",
 
-        requiredAlchemyLevel: 10,
+        requiredAlchemyLevel: 20,
         craftingDurationSeconds: 240,
+        alchemyExp: 620,
 
         resultItemId:
             "protection_potion",
@@ -320,8 +326,9 @@ const alchemyRecipes = [
         description:
             "Mikstura przyspieszająca regenerację many.",
 
-        requiredAlchemyLevel: 15,
+        requiredAlchemyLevel: 35,
         craftingDurationSeconds: 300,
+        alchemyExp: 1080,
 
         resultItemId:
             "focus_potion",
@@ -353,8 +360,9 @@ const alchemyRecipes = [
         description:
             "Zwiększa obrażenia łuków i kusz.",
 
-        requiredAlchemyLevel: 8,
+        requiredAlchemyLevel: 10,
         craftingDurationSeconds: 180,
+        alchemyExp: 235,
 
         resultItemId:
             "precision_potion",
@@ -385,8 +393,9 @@ const alchemyRecipes = [
         description:
             "Zwiększa obrażenia zwykłych ataków różdżkami i kosturami.",
 
-        requiredAlchemyLevel: 10,
+        requiredAlchemyLevel: 20,
         craftingDurationSeconds: 240,
+        alchemyExp: 620,
 
         resultItemId:
             "arcane_weapon_potion",
@@ -421,8 +430,9 @@ const alchemyRecipes = [
         description:
             "Zwiększa obrażenia czarów ofensywnych.",
 
-        requiredAlchemyLevel: 15,
+        requiredAlchemyLevel: 35,
         craftingDurationSeconds: 300,
+        alchemyExp: 1080,
 
         resultItemId:
             "magic_power_potion",
@@ -456,8 +466,9 @@ const alchemyRecipes = [
         description:
             "Potężny eliksir zmniejszający otrzymywane obrażenia.",
 
-        requiredAlchemyLevel: 15,
+        requiredAlchemyLevel: 35,
         craftingDurationSeconds: 360,
+        alchemyExp: 1300,
 
         resultItemId:
             "ancient_protection_elixir",
@@ -492,8 +503,9 @@ const alchemyRecipes = [
         description:
             "Potężny eliksir wzmacniający broń w zwarciu.",
 
-        requiredAlchemyLevel: 20,
+        requiredAlchemyLevel: 50,
         craftingDurationSeconds: 420,
+        alchemyExp: 1770,
 
         resultItemId:
             "corrupted_strength_elixir",
@@ -530,8 +542,9 @@ const alchemyRecipes = [
         description:
             "Potężny eliksir wzmacniający łuki i kusze.",
 
-        requiredAlchemyLevel: 20,
+        requiredAlchemyLevel: 50,
         craftingDurationSeconds: 420,
+        alchemyExp: 1770,
 
         resultItemId:
             "corrupted_precision_elixir",
@@ -568,8 +581,9 @@ const alchemyRecipes = [
         description:
             "Potężny eliksir wzmacniający różdżki i kostury.",
 
-        requiredAlchemyLevel: 20,
+        requiredAlchemyLevel: 50,
         craftingDurationSeconds: 420,
+        alchemyExp: 1770,
 
         resultItemId:
             "corrupted_arcane_elixir",
@@ -606,8 +620,9 @@ const alchemyRecipes = [
         description:
             "Legendarny eliksir wzmacniający czary ofensywne.",
 
-        requiredAlchemyLevel: 20,
+        requiredAlchemyLevel: 50,
         craftingDurationSeconds: 480,
+        alchemyExp: 2020,
 
         resultItemId:
             "void_power_elixir",
@@ -639,8 +654,9 @@ const alchemyRecipes = [
         name: "Eliksir pryzmatycznego górnika",
         description:
             "Ekspercki eliksir przyspieszający wydobycie minerałów.",
-        requiredAlchemyLevel: 35,
+        requiredAlchemyLevel: 65,
         craftingDurationSeconds: 600,
+        alchemyExp: 1630,
         resultItemId: "prismatic_mining_elixir",
         resultQuantity: 1,
         ingredients: [
@@ -665,8 +681,9 @@ const alchemyRecipes = [
         name: "Eliksir księżycowego zielarza",
         description:
             "Ekspercki eliksir przyspieszający zbieranie ziół.",
-        requiredAlchemyLevel: 35,
+        requiredAlchemyLevel: 65,
         craftingDurationSeconds: 600,
+        alchemyExp: 1630,
         resultItemId: "lunar_herbalism_elixir",
         resultQuantity: 1,
         ingredients: [
@@ -691,8 +708,9 @@ const alchemyRecipes = [
         name: "Esencja tytanicznego wydobycia",
         description:
             "Mistrzowska esencja nasycająca górnika siłą tytanów.",
-        requiredAlchemyLevel: 50,
+        requiredAlchemyLevel: 85,
         craftingDurationSeconds: 900,
+        alchemyExp: 2150,
         resultItemId: "titan_mining_essence",
         resultQuantity: 1,
         ingredients: [
@@ -717,8 +735,9 @@ const alchemyRecipes = [
         name: "Esencja eterycznych zbiorów",
         description:
             "Mistrzowska esencja przyspieszająca zbiory dzięki mocy eteru.",
-        requiredAlchemyLevel: 50,
+        requiredAlchemyLevel: 85,
         craftingDurationSeconds: 900,
+        alchemyExp: 2150,
         resultItemId: "aether_herbalism_essence",
         resultQuantity: 1,
         ingredients: [
