@@ -112,7 +112,7 @@ window.craftingWeaponRecipes = [
       { itemId: "ice_elemental_core", quantity: 6 },
       { itemId: "obsidian_whetstone", quantity: 3 },
       { itemId: "guardian_emblem", quantity: 1 },
-      { itemId: "iron_ingot", quantity: 5 },
+      { itemId: "steel_ingot", quantity: 5 },
     ],
   },
 
@@ -135,7 +135,7 @@ window.craftingWeaponRecipes = [
       { itemId: "frost_essence", quantity: 7 },
       { itemId: "obsidian_whetstone", quantity: 4 },
       { itemId: "frost_crown_fragment", quantity: 1 },
-      { itemId: "iron_ingot", quantity: 7 },
+      { itemId: "steel_ingot", quantity: 7 },
     ],
   },
 
@@ -275,7 +275,7 @@ window.craftingWeaponRecipes = [
       { itemId: "ice_elemental_core", quantity: 6 },
       { itemId: "runic_core", quantity: 3 },
       { itemId: "guardian_emblem", quantity: 1 },
-      { itemId: "iron_ingot", quantity: 5 },
+      { itemId: "steel_ingot", quantity: 5 },
     ],
   },
 
@@ -298,7 +298,7 @@ window.craftingWeaponRecipes = [
       { itemId: "frost_essence", quantity: 7 },
       { itemId: "runic_core", quantity: 4 },
       { itemId: "frost_crown_fragment", quantity: 1 },
-      { itemId: "iron_ingot", quantity: 7 },
+      { itemId: "steel_ingot", quantity: 7 },
     ],
   },
 
@@ -439,7 +439,7 @@ window.craftingWeaponRecipes = [
       { itemId: "ice_elemental_core", quantity: 6 },
       { itemId: "tanned_ice_wolf_leather", quantity: 5 },
       { itemId: "guardian_emblem", quantity: 1 },
-      { itemId: "iron_ingot", quantity: 5 },
+      { itemId: "steel_ingot", quantity: 5 },
     ],
   },
 
@@ -462,7 +462,7 @@ window.craftingWeaponRecipes = [
       { itemId: "frost_essence", quantity: 7 },
       { itemId: "tanned_ice_wolf_leather", quantity: 7 },
       { itemId: "frost_crown_fragment", quantity: 1 },
-      { itemId: "iron_ingot", quantity: 7 },
+      { itemId: "steel_ingot", quantity: 7 },
     ],
   },
 
@@ -603,7 +603,7 @@ window.craftingWeaponRecipes = [
       { itemId: "ice_elemental_core", quantity: 6 },
       { itemId: "reinforced_crossbow_mechanism", quantity: 5 },
       { itemId: "guardian_emblem", quantity: 1 },
-      { itemId: "iron_ingot", quantity: 5 },
+      { itemId: "steel_ingot", quantity: 5 },
     ],
   },
 
@@ -626,7 +626,7 @@ window.craftingWeaponRecipes = [
       { itemId: "frost_essence", quantity: 7 },
       { itemId: "crossbow_tension_mechanism", quantity: 3 },
       { itemId: "frost_crown_fragment", quantity: 1 },
-      { itemId: "iron_ingot", quantity: 7 },
+      { itemId: "steel_ingot", quantity: 7 },
     ],
   },
 

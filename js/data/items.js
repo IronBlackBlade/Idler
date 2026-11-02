@@ -1353,6 +1353,16 @@ const items = {
         value: 35
     },
 
+    steel_ingot: {
+        id: "steel_ingot",
+        name: "Sztabka stali",
+        description:
+            "Żelazo hartowane w węglu. Twardszy stop do solidnych zbroi i broni.",
+        rarity: "uncommon",
+        type: "processed_material",
+        value: 75
+    },
+
     silver_ingot: {
         id: "silver_ingot",
         name: "Sztabka srebra",

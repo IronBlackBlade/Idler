@@ -169,6 +169,34 @@ window.craftingMaterialRecipes = [
   },
 
   {
+    id: "steel_ingot_recipe",
+    name: "Sztabka stali",
+
+    category: "materials",
+    subcategory: "metallurgy",
+
+    resultItemId: "steel_ingot",
+    tier: 2,
+    requiredCraftingLevel: 10,
+    craftingExp: 50,
+    craftingTimeSeconds: 14,
+
+    requiresScroll: false,
+    unlockCost: 0,
+
+    materials: [
+      {
+        itemId: "iron_ingot",
+        quantity: 1,
+      },
+      {
+        itemId: "coal",
+        quantity: 3,
+      },
+    ],
+  },
+
+  {
     id: "platinum_ingot_recipe",
     name: "Sztabka platyny",
 

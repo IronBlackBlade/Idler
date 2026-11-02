@@ -158,7 +158,7 @@ const professionToolUpgradeMaterialConfig = Object.freeze({
       Object.freeze({ itemId: "whetstone", quantity: 1 }),
     ]),
     3: Object.freeze([
-      Object.freeze({ itemId: "gold_ingot", quantity: 4 }),
+      Object.freeze({ itemId: "steel_ingot", quantity: 4 }),
       Object.freeze({ itemId: "amethyst", quantity: 2 }),
     ]),
     4: Object.freeze([
@@ -177,7 +177,7 @@ const professionToolUpgradeMaterialConfig = Object.freeze({
       Object.freeze({ itemId: "tanned_wolf_leather", quantity: 2 }),
     ]),
     3: Object.freeze([
-      Object.freeze({ itemId: "gold_ingot", quantity: 3 }),
+      Object.freeze({ itemId: "steel_ingot", quantity: 3 }),
       Object.freeze({ itemId: "silver_leaf", quantity: 3 }),
     ]),
     4: Object.freeze([
@@ -255,7 +255,7 @@ const professionToolUpgradeMaterialConfig = Object.freeze({
       Object.freeze({ itemId: "whetstone", quantity: 2 }),
     ]),
     3: Object.freeze([
-      Object.freeze({ itemId: "mithril_ingot", quantity: 4 }),
+      Object.freeze({ itemId: "steel_ingot", quantity: 6 }),
       Object.freeze({ itemId: "stone_core", quantity: 2 }),
     ]),
     4: Object.freeze([

@@ -121,6 +121,10 @@ function buySelectedShopQuantity(itemId, unitPrice) {
 }
 
 function renderShop() {
+  if (typeof renderTravelingMerchant === "function") {
+    renderTravelingMerchant();
+  }
+
   rebuildShopItems();
 
   const container = document.getElementById("shop-list");

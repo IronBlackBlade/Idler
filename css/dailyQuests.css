@@ -1,0 +1,20 @@
+.daily-quests-section { margin-bottom: 24px; }
+.daily-quests-section h3 { margin: 12px 0 8px; }
+.daily-quests-section h3 small { font-weight: normal; opacity: .7; margin-left: 8px; }
+.daily-quests-streak { margin: 0 0 8px; opacity: .85; }
+.daily-quest-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 10px; }
+.daily-quest-card { border: 1px solid rgba(255,255,255,.18); border-radius: 8px; padding: 10px; display: flex; flex-direction: column; gap: 6px; background: rgba(0,0,0,.2); }
+.daily-quest-card.complete { border-color: #e6c04a; }
+.daily-quest-card.claimed { opacity: .55; }
+.daily-quest-title { font-weight: bold; }
+.daily-quest-bar { height: 8px; border-radius: 4px; background: rgba(255,255,255,.12); overflow: hidden; }
+.daily-quest-bar > div { height: 100%; background: #4cc38a; }
+.daily-quest-meta { display: flex; justify-content: space-between; font-size: .85em; gap: 8px; }
+.daily-bonus-button { margin: 10px 0 4px; width: 100%; padding: 8px; }
+#menu-quests-button.has-daily-reward::after { content: " 🎁"; }
+.traveling-merchant .card-header small { font-weight: normal; opacity: .7; margin-left: 8px; }
+.traveling-merchant-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; padding: 10px; }
+.traveling-merchant-card { border: 1px solid rgba(255,255,255,.18); border-radius: 8px; padding: 10px; display: flex; flex-direction: column; gap: 6px; background: rgba(0,0,0,.2); }
+.traveling-merchant-card.featured { border-color: #e6c04a; }
+.traveling-merchant-card.sold-out { opacity: .5; }
+.traveling-merchant-name { font-weight: bold; }

@@ -113,7 +113,7 @@ window.craftingArmorRecipes = [
       { itemId: "ice_elemental_core", quantity: 6 },
       { itemId: "ancient_chitin_plate", quantity: 3 },
       { itemId: "guardian_emblem", quantity: 1 },
-      { itemId: "iron_ingot", quantity: 5 },
+      { itemId: "steel_ingot", quantity: 5 },
     ],
   },
 
@@ -136,7 +136,7 @@ window.craftingArmorRecipes = [
       { itemId: "frost_essence", quantity: 7 },
       { itemId: "ancient_chitin_plate", quantity: 4 },
       { itemId: "frost_crown_fragment", quantity: 1 },
-      { itemId: "iron_ingot", quantity: 7 },
+      { itemId: "steel_ingot", quantity: 7 },
     ],
   },
 
@@ -277,7 +277,7 @@ window.craftingArmorRecipes = [
       { itemId: "ice_elemental_core", quantity: 6 },
       { itemId: "ancient_chitin_plate", quantity: 3 },
       { itemId: "guardian_emblem", quantity: 1 },
-      { itemId: "iron_ingot", quantity: 5 },
+      { itemId: "steel_ingot", quantity: 5 },
     ],
   },
 
@@ -300,7 +300,7 @@ window.craftingArmorRecipes = [
       { itemId: "frost_essence", quantity: 7 },
       { itemId: "ancient_chitin_plate", quantity: 4 },
       { itemId: "frost_crown_fragment", quantity: 1 },
-      { itemId: "iron_ingot", quantity: 7 },
+      { itemId: "steel_ingot", quantity: 7 },
     ],
   },
 
@@ -441,7 +441,7 @@ window.craftingArmorRecipes = [
       { itemId: "ice_elemental_core", quantity: 6 },
       { itemId: "ancient_chitin_plate", quantity: 3 },
       { itemId: "guardian_emblem", quantity: 1 },
-      { itemId: "iron_ingot", quantity: 5 },
+      { itemId: "steel_ingot", quantity: 5 },
     ],
   },
 
@@ -464,7 +464,7 @@ window.craftingArmorRecipes = [
       { itemId: "frost_essence", quantity: 7 },
       { itemId: "ancient_chitin_plate", quantity: 4 },
       { itemId: "frost_crown_fragment", quantity: 1 },
-      { itemId: "iron_ingot", quantity: 7 },
+      { itemId: "steel_ingot", quantity: 7 },
     ],
   },
 
@@ -605,7 +605,7 @@ window.craftingArmorRecipes = [
       { itemId: "ice_elemental_core", quantity: 6 },
       { itemId: "ancient_chitin_plate", quantity: 3 },
       { itemId: "guardian_emblem", quantity: 1 },
-      { itemId: "iron_ingot", quantity: 5 },
+      { itemId: "steel_ingot", quantity: 5 },
     ],
   },
 
@@ -628,7 +628,7 @@ window.craftingArmorRecipes = [
       { itemId: "frost_essence", quantity: 7 },
       { itemId: "ancient_chitin_plate", quantity: 4 },
       { itemId: "frost_crown_fragment", quantity: 1 },
-      { itemId: "iron_ingot", quantity: 7 },
+      { itemId: "steel_ingot", quantity: 7 },
     ],
   },
 
@@ -769,7 +769,7 @@ window.craftingArmorRecipes = [
       { itemId: "ice_elemental_core", quantity: 6 },
       { itemId: "ancient_chitin_plate", quantity: 3 },
       { itemId: "guardian_emblem", quantity: 1 },
-      { itemId: "iron_ingot", quantity: 5 },
+      { itemId: "steel_ingot", quantity: 5 },
     ],
   },
 
@@ -792,7 +792,7 @@ window.craftingArmorRecipes = [
       { itemId: "frost_essence", quantity: 7 },
       { itemId: "ancient_chitin_plate", quantity: 4 },
       { itemId: "frost_crown_fragment", quantity: 1 },
-      { itemId: "iron_ingot", quantity: 7 },
+      { itemId: "steel_ingot", quantity: 7 },
     ],
   },
 
@@ -933,7 +933,7 @@ window.craftingArmorRecipes = [
       { itemId: "ice_elemental_core", quantity: 6 },
       { itemId: "ancient_chitin_plate", quantity: 3 },
       { itemId: "guardian_emblem", quantity: 1 },
-      { itemId: "iron_ingot", quantity: 5 },
+      { itemId: "steel_ingot", quantity: 5 },
     ],
   },
 
@@ -956,7 +956,7 @@ window.craftingArmorRecipes = [
       { itemId: "frost_essence", quantity: 7 },
       { itemId: "ancient_chitin_plate", quantity: 4 },
       { itemId: "frost_crown_fragment", quantity: 1 },
-      { itemId: "iron_ingot", quantity: 7 },
+      { itemId: "steel_ingot", quantity: 7 },
     ],
   },
 

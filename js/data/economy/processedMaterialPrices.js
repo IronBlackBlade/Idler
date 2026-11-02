@@ -9,6 +9,7 @@ window.processedMaterialPrices = {
     iron_ingot: 70,
     bronze_ingot: 90,
     silver_ingot: 120,
+    steel_ingot: 150,
     gold_ingot: 180,
     platinum_ingot: 350,
     mithril_ingot: 700,

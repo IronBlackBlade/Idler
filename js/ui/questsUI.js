@@ -252,6 +252,10 @@ function getQuestCompletionSummary(
 }
 
 function renderQuests() {
+  if (typeof renderDailyQuests === "function") {
+    renderDailyQuests();
+  }
+
   const container = document.getElementById("quests");
   if (!container) return;
 
