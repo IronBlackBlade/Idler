@@ -1353,6 +1353,16 @@ const items = {
         value: 35
     },
 
+    upgrade_protection_stone: {
+        id: "upgrade_protection_stone",
+        name: "Kamień ochronny",
+        description:
+            "Chroni przedmiot przed spadkiem poziomu ulepszenia po nieudanej próbie. Zużywany tylko wtedy, gdy spadek by nastąpił.",
+        rarity: "epic",
+        type: "processed_material",
+        value: 4000
+    },
+
     steel_ingot: {
         id: "steel_ingot",
         name: "Sztabka stali",

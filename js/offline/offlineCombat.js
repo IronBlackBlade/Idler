@@ -5482,14 +5482,21 @@ function processOfflineCombatProgress(
             enemyKill.quantity;
     });
 
+    const locationRewardMultiplier =
+        typeof getLocationRewardMultiplier === "function"
+            ? getLocationRewardMultiplier(player.location)
+            : 1;
+
     totalGold = Math.floor(
         totalGold *
-        (1 + setRewardBonuses.goldPercent / 100)
+        (1 + setRewardBonuses.goldPercent / 100) *
+        locationRewardMultiplier
     );
 
     totalExperience = Math.floor(
         totalExperience *
-        (1 + setRewardBonuses.expPercent / 100)
+        (1 + setRewardBonuses.expPercent / 100) *
+        locationRewardMultiplier
     );
 
     const lootRewards =

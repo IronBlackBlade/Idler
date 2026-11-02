@@ -36,11 +36,11 @@ function getTotalStats() {
 
         if (!item) return;
 
-        if (item.strength) stats.strength += item.strength;
-        if (item.dexterity) stats.dexterity += item.dexterity;
-        if (item.intelligence) stats.intelligence += item.intelligence;
-        if (item.endurance) stats.endurance += item.endurance;
-        if (item.luck) stats.luck += item.luck;
+        if (item.strength) stats.strength += getUpgradedItemStat(item, item.strength);
+        if (item.dexterity) stats.dexterity += getUpgradedItemStat(item, item.dexterity);
+        if (item.intelligence) stats.intelligence += getUpgradedItemStat(item, item.intelligence);
+        if (item.endurance) stats.endurance += getUpgradedItemStat(item, item.endurance);
+        if (item.luck) stats.luck += getUpgradedItemStat(item, item.luck);
     });
 
     return stats;
@@ -71,9 +71,11 @@ function getEquipmentFlatBonuses() {
         Object.keys(bonuses)
             .forEach(statKey => {
                 bonuses[statKey] +=
-                    Number(
-                        item[statKey]
-                    ) || 0;
+                    getUpgradedItemStat(
+                        item,
+                        item[statKey],
+                        statKey
+                    );
             });
     });
 
@@ -743,7 +745,7 @@ function getAttack() {
                 : 0;
 
         const baseDamage =
-            (weapon.damage || 0) +
+            getUpgradedItemStat(weapon, weapon.damage) +
             derived.meleeDamage +
             slashingFlatDamageBonus;
 
@@ -776,7 +778,7 @@ function getAttack() {
                 : 0;
 
         const baseDamage =
-            (weapon.damage || 0) +
+            getUpgradedItemStat(weapon, weapon.damage) +
             derived.rangedDamage;
 
         const combatSettings =
@@ -826,7 +828,7 @@ function getAttack() {
                 : 0;
 
         const baseDamage =
-            (weapon.damage || 0) +
+            getUpgradedItemStat(weapon, weapon.damage) +
             derived.magicDamage +
             staffManaDamageBonus +
             staffCapstoneManaDamageBonus;
@@ -844,7 +846,7 @@ function getAttack() {
         );
     } else {
         damage = Math.floor(
-            (weapon.damage || 0) +
+            getUpgradedItemStat(weapon, weapon.damage) +
             derived.meleeDamage
         );
     }

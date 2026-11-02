@@ -237,6 +237,9 @@ function updateActiveMenuButton(
         "screen-crafting":
             "crafting",
 
+        "screen-forge":
+            "forge",
+
         "screen-quests":
             "quests",
 
@@ -373,6 +376,13 @@ function showScreen(screenId) {
         "function"
     ) {
         renderCrafting();
+    }
+
+    if (
+        screenId === "screen-forge" &&
+        typeof renderForge === "function"
+    ) {
+        renderForge();
     }
 
     if (

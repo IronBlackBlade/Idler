@@ -1725,17 +1725,17 @@ function renderEquipmentSlots() {
 
         let stats = "";
 
-        if (item.damage) stats += `<span>Obrażenia: ${item.damage}</span>`;
-        if (item.attack) stats += `<span>Atak: +${item.attack}</span>`;
-        if (item.armor) stats += `<span>Pancerz: +${item.armor}</span>`;
-        if (item.strength) stats += `<span>Siła: +${item.strength}</span>`;
-        if (item.dexterity) stats += `<span>Zręczność: +${item.dexterity}</span>`;
-        if (item.intelligence) stats += `<span>Inteligencja: +${item.intelligence}</span>`;
-        if (item.endurance) stats += `<span>Wytrzymałość: +${item.endurance}</span>`;
-        if (item.critChance) stats += `<span>Szansa na krytyk: +${item.critChance} p.p.</span>`;
-        if (item.critDamage) stats += `<span>Obrażenia krytyczne: +${item.critDamage} p.p.</span>`;
-        if (item.dodgeChance) stats += `<span>Szansa na unik: +${item.dodgeChance} p.p.</span>`;
-        if (item.lootBonus) stats += `<span>Bonus do łupu: +${item.lootBonus} p.p.</span>`;
+        if (item.damage) stats += `<span>Obrażenia: ${typeof getUpgradedItemStat === "function" ? getUpgradedItemStat(item, item.damage) : item.damage}</span>`;
+        if (item.attack) stats += `<span>Atak: +${typeof getUpgradedItemStat === "function" ? getUpgradedItemStat(item, item.attack) : item.attack}</span>`;
+        if (item.armor) stats += `<span>Pancerz: +${typeof getUpgradedItemStat === "function" ? getUpgradedItemStat(item, item.armor, "armor") : item.armor}</span>`;
+        if (item.strength) stats += `<span>Siła: +${typeof getUpgradedItemStat === "function" ? getUpgradedItemStat(item, item.strength) : item.strength}</span>`;
+        if (item.dexterity) stats += `<span>Zręczność: +${typeof getUpgradedItemStat === "function" ? getUpgradedItemStat(item, item.dexterity) : item.dexterity}</span>`;
+        if (item.intelligence) stats += `<span>Inteligencja: +${typeof getUpgradedItemStat === "function" ? getUpgradedItemStat(item, item.intelligence) : item.intelligence}</span>`;
+        if (item.endurance) stats += `<span>Wytrzymałość: +${typeof getUpgradedItemStat === "function" ? getUpgradedItemStat(item, item.endurance) : item.endurance}</span>`;
+        if (item.critChance) stats += `<span>Szansa na krytyk: +${typeof getUpgradedItemStat === "function" ? getUpgradedItemStat(item, item.critChance) : item.critChance} p.p.</span>`;
+        if (item.critDamage) stats += `<span>Obrażenia krytyczne: +${typeof getUpgradedItemStat === "function" ? getUpgradedItemStat(item, item.critDamage) : item.critDamage} p.p.</span>`;
+        if (item.dodgeChance) stats += `<span>Szansa na unik: +${typeof getUpgradedItemStat === "function" ? getUpgradedItemStat(item, item.dodgeChance) : item.dodgeChance} p.p.</span>`;
+        if (item.lootBonus) stats += `<span>Bonus do łupu: +${typeof getUpgradedItemStat === "function" ? getUpgradedItemStat(item, item.lootBonus) : item.lootBonus} p.p.</span>`;
 
         getWeaponCombatLabels(
             item
@@ -1768,6 +1768,7 @@ function renderEquipmentSlots() {
                     </span>
                 ` : ""}
                 ${stats}
+                ${typeof getEquipmentUpgradeSlotHtml === "function" ? getEquipmentUpgradeSlotHtml(slot, itemId) : ""}
             </div>
         </div>
 

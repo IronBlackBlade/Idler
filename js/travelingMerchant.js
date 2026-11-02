@@ -7,6 +7,7 @@
 const TRAVELING_MERCHANT_OFFER_COUNT = 6;
 const TRAVELING_MERCHANT_MARKUP = 2.5;
 const TRAVELING_MERCHANT_FEATURED_DISCOUNT = 0.25;
+const TRAVELING_MERCHANT_PROTECTION_STONE_PRICE = 25000;
 
 function getTravelingMerchantMaxBasePrice() {
     const level = Math.max(1, player.level || 1);
@@ -41,11 +42,24 @@ function ensureTravelingMerchantState() {
                 featured: i === 0
             });
         }
+        if ((player.level || 1) >= 10 && items.upgrade_protection_stone) {
+            state.offers.push({
+                itemId: "upgrade_protection_stone",
+                stock: 2,
+                featured: false,
+                fixedPrice: TRAVELING_MERCHANT_PROTECTION_STONE_PRICE
+            });
+        }
     }
     return state;
 }
 
 function getTravelingMerchantUnitPrice(offer) {
+    if (offer.fixedPrice) {
+        return typeof getFinalShopItemPrice === "function"
+            ? Math.max(1, Math.round(getFinalShopItemPrice(offer.fixedPrice)))
+            : offer.fixedPrice;
+    }
     const base = window.processedMaterialPrices[offer.itemId] || 0;
     const discount = offer.featured ? 1 - TRAVELING_MERCHANT_FEATURED_DISCOUNT : 1;
     const price = Math.max(1, Math.round(base * TRAVELING_MERCHANT_MARKUP * discount));

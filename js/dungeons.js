@@ -342,6 +342,17 @@ function completeDungeonRun(state) {
         addItemToInventory(reward.item, reward.quantity || 1);
     });
 
+    (rewards.chanceItems || []).forEach(reward => {
+        if (Math.random() < (Number(reward.chance) || 0)) {
+            const quantity = reward.quantity || 1;
+            addItemToInventory(reward.item, quantity);
+            addCombatLog(
+                "💎 Znaleziono: " + (items[reward.item]?.name || reward.item) +
+                " ×" + quantity + "."
+            );
+        }
+    });
+
     addCombatLog(
         "🏆 Ukończono loch: " + dungeon.name + "!"
     );

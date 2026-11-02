@@ -983,7 +983,12 @@ function generateTavernHuntingRewards(job, location) {
             Math.max(
                 0,
                 Math.floor(
-                    Number(enemyData.gold) || 0
+                    (Number(enemyData.gold) || 0) *
+                    (
+                        typeof getLocationRewardMultiplier === "function"
+                            ? getLocationRewardMultiplier(location.id)
+                            : 1
+                    )
                 )
             );
 

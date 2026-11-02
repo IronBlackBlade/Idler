@@ -831,12 +831,23 @@ function autoAttack() {
         ? getSetKillRewardBonuses()
         : { goldPercent: 0, expPercent: 0 };
 
+    const locationRewardMultiplier =
+      enemy.isDungeonEncounter !== true &&
+      player.isBossFight !== true &&
+      typeof getLocationRewardMultiplier === "function"
+        ? getLocationRewardMultiplier(player.location)
+        : 1;
+
     const goldGain = Math.floor(
-      enemy.gold * (1 + setRewardBonuses.goldPercent / 100),
+      enemy.gold *
+        (1 + setRewardBonuses.goldPercent / 100) *
+        locationRewardMultiplier,
     );
 
     const expGain = Math.floor(
-      enemy.exp * (1 + setRewardBonuses.expPercent / 100),
+      enemy.exp *
+        (1 + setRewardBonuses.expPercent / 100) *
+        locationRewardMultiplier,
     );
 
     player.gold += goldGain;

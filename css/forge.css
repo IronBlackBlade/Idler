@@ -1,0 +1,61 @@
+#screen-forge .forge-layout { display: grid; grid-template-columns: 300px 1fr; gap: 16px; align-items: start; padding: 4px; }
+#screen-forge .forge-sidebar { display: flex; flex-direction: column; gap: 8px; }
+#screen-forge .forge-filter-select { width: 100%; padding: 8px; font-size: 1em; }
+#screen-forge .forge-list { display: flex; flex-direction: column; gap: 6px; max-height: 65vh; overflow-y: auto; padding-right: 4px; }
+#screen-forge .forge-item { display: grid; grid-template-columns: 1fr auto; gap: 2px 8px; text-align: left; padding: 8px 10px; border: 1px solid #8a7355; border-left: 5px solid #8a8174; border-radius: 6px; background: #120d09 !important; background-image: none !important; color: #f1e3c6; box-shadow: none; }
+#screen-forge .forge-item:hover { background: #2b1e14 !important; border-color: #c8a96a; }
+#screen-forge .forge-item[data-rarity="uncommon"] { border-left-color: #5fbf6a; }
+#screen-forge .forge-item[data-rarity="rare"] { border-left-color: #4a90e2; }
+#screen-forge .forge-item[data-rarity="epic"] { border-left-color: #b565e0; }
+#screen-forge .forge-item[data-rarity="legendary"] { border-left-color: #f0a830; }
+#screen-forge .forge-item.selected { outline: 2px solid #e6c04a; background: #4a3822 !important; border-color: #e6c04a; }
+#screen-forge .forge-item.selected .forge-item-name { color: #ffe9a8; }
+#screen-forge .forge-item-meta { color: #cdb893; opacity: 1; }
+#screen-forge .forge-item-name { font-weight: bold; }
+#screen-forge .forge-item-badge { opacity: .6; font-weight: bold; background: #000; padding: 0 6px; border-radius: 4px; }
+#screen-forge .forge-item-badge.has-level { opacity: 1; color: #e6c04a; }
+#screen-forge .forge-item-meta { grid-column: 1 / -1; font-size: .85em; opacity: .75; }
+#screen-forge .forge-detail { display: flex; flex-direction: column; gap: 10px; }
+#screen-forge .forge-head { border-left: 5px solid #8a8174; padding-left: 12px; }
+#screen-forge .forge-head[data-rarity="uncommon"] { border-left-color: #5fbf6a; }
+#screen-forge .forge-head[data-rarity="rare"] { border-left-color: #4a90e2; }
+#screen-forge .forge-head[data-rarity="epic"] { border-left-color: #b565e0; }
+#screen-forge .forge-head[data-rarity="legendary"] { border-left-color: #f0a830; }
+#screen-forge .forge-head h3 { margin: 0; font-size: 1.4em; }
+#screen-forge .forge-head-meta { opacity: .75; font-size: .9em; }
+#screen-forge .forge-section-title { text-transform: uppercase; letter-spacing: .08em; font-size: .8em; opacity: .7; margin-top: 4px; border-bottom: 1px solid rgba(255,255,255,.12); padding-bottom: 3px; }
+#screen-forge .forge-track { display: grid; grid-template-columns: repeat(10, 1fr); gap: 4px; }
+#screen-forge .forge-pip { text-align: center; padding: 5px 0; border-radius: 4px; background: rgba(255,255,255,.08); font-size: .8em; opacity: .55; }
+#screen-forge .forge-pip.done { background: #e6c04a; color: #2a1a0f; opacity: 1; font-weight: bold; }
+#screen-forge .forge-pip.next { outline: 2px dashed #e6c04a; opacity: 1; }
+#screen-forge .forge-stat-row { display: grid; grid-template-columns: 1fr 90px 120px; gap: 8px; padding: 4px 6px; border-radius: 4px; }
+#screen-forge .forge-stat-row:nth-child(even) { background: rgba(255,255,255,.05); }
+#screen-forge .forge-stat-header { opacity: .6; font-size: .85em; }
+#screen-forge .forge-stat-now, #screen-forge .forge-stat-after { text-align: right; }
+#screen-forge .forge-stat-after { color: #8fdc9a; }
+#screen-forge .forge-stat-after em { font-style: normal; font-size: .85em; opacity: .85; }
+#screen-forge .forge-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+#screen-forge .forge-tile { border: 1px solid rgba(255,255,255,.2); border-radius: 8px; padding: 10px; text-align: center; background: rgba(0,0,0,.2); }
+#screen-forge .forge-tile.ok { border-color: #5fbf6a; }
+#screen-forge .forge-tile.bad { border-color: #d9534f; }
+#screen-forge .forge-tile.bad .forge-tile-detail { color: #f08a86; }
+#screen-forge .forge-tile.chance { border-color: #e6c04a; }
+#screen-forge .forge-tile-label { font-size: .8em; text-transform: uppercase; opacity: .7; }
+#screen-forge .forge-tile-value { font-size: 1.25em; font-weight: bold; margin: 4px 0; }
+#screen-forge .forge-tile-detail { font-size: .85em; opacity: .8; }
+#screen-forge .forge-risk, #screen-forge .forge-hint { margin: 0; font-size: .92em; opacity: .85; }
+#screen-forge .forge-hint { color: #f08a86; }
+#screen-forge .forge-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+#screen-forge .forge-actions button { padding: 10px 14px; }
+#screen-forge .forge-primary { flex: 1 1 200px; font-weight: bold; }
+#screen-forge .forge-actions button:disabled { opacity: .45; cursor: not-allowed; }
+#screen-forge .forge-maxed { padding: 12px; text-align: center; border: 1px solid #5fbf6a; border-radius: 8px; }
+#screen-forge .forge-stone { display: flex; align-items: center; gap: 8px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,.12); cursor: pointer; }
+#screen-forge .forge-stone span { opacity: .7; }
+#screen-forge .forge-empty { opacity: .7; padding: 12px; }
+@media (max-width: 760px) {
+  #screen-forge .forge-layout { grid-template-columns: 1fr; }
+  #screen-forge .forge-list { max-height: 220px; }
+  #screen-forge .forge-tiles { grid-template-columns: 1fr; }
+  #screen-forge .forge-stat-row { grid-template-columns: 1fr 70px 90px; }
+}

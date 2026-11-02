@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/theme.css?v=1">
     <link rel="stylesheet" href="css/mobileMenu.css?v=1">
     <link rel="stylesheet" href="css/dailyQuests.css?v=1">
+    <link rel="stylesheet" href="css/forge.css?v=1">
 </head>
 
 
@@ -177,6 +178,10 @@
 
                         <button data-menu-section="crafting" onclick="showScreen('screen-crafting')">
                             🛠️ Wytwarzanie
+                        </button>
+
+                        <button data-menu-section="forge" onclick="showScreen('screen-forge')">
+                            🔨 Kuźnia
                         </button>
                     </div>
                 </section>
@@ -771,6 +776,13 @@
                 <div class="game-card">
                     <div class="card-header">Towary kupca</div>
                     <div id="shop-list"></div>
+                </div>
+            </section>
+
+            <section id="screen-forge" class="screen">
+                <div class="game-card">
+                    <div class="card-header">🔨 Kuźnia – ulepszanie sprzętu</div>
+                    <div id="forge-content"></div>
                 </div>
             </section>
 
@@ -1700,7 +1712,9 @@
     <script src="js/equipmentSetCombat.js?v=20260802-set-unique-effects"></script>
     <script src="js/enemy.js"></script>
     <script src="js/quests.js"></script>
+    <script src="js/locationPenalty.js"></script>
     <script src="js/dailyQuests.js"></script>
+    <script src="js/equipmentUpgrades.js"></script>
     <script src="js/travelingMerchant.js"></script>
     <script src="js/shop.js?v=20260802-tool-tiers"></script>
     <script src="js/ui/notificationsUI.js"></script>
@@ -1777,6 +1791,7 @@
     <script src="js/ui/journalMaterialsUI.js"></script>
     <script src="js/ui/journalUI.js?v=20260731-achievements"></script>
     <script src="js/ui/questsUI.js"></script>
+    <script src="js/ui/forgeUI.js"></script>
     <script src="js/ui/dungeonsUI.js?v=20260808-kobold-tunnels"></script>
     <script src="js/ui/ui.js?v=20260802-profession-panels"></script>
 

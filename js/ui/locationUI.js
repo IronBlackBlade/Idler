@@ -393,6 +393,9 @@ function renderLocations() {
                     </div>
 
                     <h3>${location.name}</h3>
+                    ${isUnlocked && typeof getLocationRewardPenalty === "function" && getLocationRewardPenalty(location.id) > 0
+                ? `<div class="location-penalty">⚠️ Starsza lokacja: -${Math.round(getLocationRewardPenalty(location.id) * 100)}% EXP i złota</div>`
+                : ""}
                 </div>
 
                 <div class="location-level-badge">

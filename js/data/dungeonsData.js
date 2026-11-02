@@ -69,6 +69,9 @@ const dungeons = {
             }
         ],
         completionRewards: {
+            chanceItems: [
+                { item: "upgrade_protection_stone", quantity: 1, chance: 0.15 }
+            ],
             gold: 206,
             exp: 225,
             items: [
@@ -150,6 +153,9 @@ const dungeons = {
             }
         ],
         completionRewards: {
+            chanceItems: [
+                { item: "upgrade_protection_stone", quantity: 1, chance: 0.15 }
+            ],
             gold: 1740,
             exp: 1560,
             items: [
@@ -231,6 +237,9 @@ const dungeons = {
             }
         ],
         completionRewards: {
+            chanceItems: [
+                { item: "upgrade_protection_stone", quantity: 1, chance: 0.25 }
+            ],
             gold: 5600,
             exp: 8640,
             items: [
@@ -312,6 +321,9 @@ const dungeons = {
             }
         ],
         completionRewards: {
+            chanceItems: [
+                { item: "upgrade_protection_stone", quantity: 1, chance: 0.25 }
+            ],
             gold: 14000,
             exp: 47500,
             items: [
@@ -393,6 +405,9 @@ const dungeons = {
             }
         ],
         completionRewards: {
+            chanceItems: [
+                { item: "upgrade_protection_stone", quantity: 1, chance: 0.35 }
+            ],
             gold: 42900,
             exp: 278000,
             items: [
@@ -513,6 +528,9 @@ const dungeons = {
         ],
 
         completionRewards: {
+            chanceItems: [
+                { item: "upgrade_protection_stone", quantity: 1, chance: 0.35 }
+            ],
             gold: 137000,
             exp: 764000,
             items: [
@@ -634,6 +652,9 @@ const dungeons = {
         ],
 
         completionRewards: {
+            chanceItems: [
+                { item: "upgrade_protection_stone", quantity: 1, chance: 0.35 }
+            ],
             gold: 182000,
             exp: 1020000,
             items: [
@@ -768,6 +789,9 @@ const dungeons = {
         ],
 
         completionRewards: {
+            chanceItems: [
+                { item: "upgrade_protection_stone", quantity: 1, chance: 0.35 }
+            ],
             gold: 543000,
             exp: 2930000,
 
