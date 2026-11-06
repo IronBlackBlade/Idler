@@ -20,3 +20,12 @@
 .traveling-merchant-name { font-weight: bold; }
 .equipment-upgrade-btn { margin-top: 6px; }
 .location-penalty { font-size: .85em; color: #e8a33d; margin-top: 4px; }
+.daily-reroll-button { font-size: .85em; opacity: .85; }
+.bestiary-tier { font-size: .85em; margin: 4px 0; }
+.bestiary-stars { color: #e6c04a; letter-spacing: 2px; }
+.bestiary-location-bonus { margin-left: 12px; font-size: .85em; color: #8fdc9a; }
+.side-hero-player-title { font-size: .85em; color: #e6c04a; font-style: italic; }
+.achievement-title { font-size: .85em; margin: 4px 0; color: #e6c04a; }
+.achievement-title-button { margin-left: 8px; font-size: .85em; padding: 1px 8px; }
+.enemy-card.rare-card { border-color: #e6c04a; box-shadow: 0 0 22px rgba(230, 192, 74, .35); }
+.rare-card .boss-label, .rare-card #enemy-name { color: #ffe08a; }

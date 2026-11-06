@@ -88,6 +88,8 @@ const DAILY_QUEST_TEMPLATES = Object.freeze({
 const DAILY_QUEST_COUNT = 3;
 const WEEKLY_QUEST_COUNT = 2;
 const WEEKLY_TARGET_MULTIPLIER = 6;
+// Dzienny limit przerzutów (resetuje się razem ze zleceniami dziennymi).
+const DAILY_REROLL_LIMIT = Object.freeze({ daily: 3, weekly: 1 });
 const DAILY_STREAK_BONUS_PER_DAY = 0.05;
 const DAILY_STREAK_BONUS_MAX = 0.5;
 
@@ -236,6 +238,11 @@ function ensureDailyQuestState() {
         changed = true;
     }
 
+    if (!state.rerolls || state.rerolls.dayKey !== today) {
+        state.rerolls = { dayKey: today, daily: 0, weekly: 0 };
+        changed = true;
+    }
+
     // Uzupełnienie, gdyby zestaw zapisany wcześniej był krótszy.
     [["daily", DAILY_QUEST_COUNT], ["weekly", WEEKLY_QUEST_COUNT]].forEach(
         ([scope, count]) => {
@@ -303,6 +310,9 @@ function claimDailyQuest(scope, index) {
         return;
     }
     entry.claimed = true;
+    if (typeof recordWorldStat === "function") {
+        recordWorldStat(scope === "weekly" ? "weeklyClaimed" : "dailyClaimed");
+    }
     const multiplier = scope === "daily" ? getDailyStreakMultiplier() : 1;
     grantDailyQuestReward(
         Math.floor(getDailyQuestGoldReward(scope) * multiplier),
@@ -310,6 +320,48 @@ function claimDailyQuest(scope, index) {
         (scope === "weekly" ? "Zlecenie tygodniowe: " : "Zlecenie dzienne: ") +
         DAILY_QUEST_TEMPLATES[entry.type].title
     );
+    finishDailyQuestAction();
+}
+
+function getDailyRerollsLeft(scope) {
+    ensureDailyQuestState();
+    return Math.max(0, DAILY_REROLL_LIMIT[scope] - (player.dailyQuests.rerolls[scope] || 0));
+}
+
+function rerollDailyQuest(scope, index) {
+    ensureDailyQuestState();
+    const state = player.dailyQuests;
+    const list = scope === "weekly" ? state.weekly : state.daily;
+    const entry = list[index];
+    if (!entry || entry.claimed || isDailyQuestComplete(entry)) {
+        return;
+    }
+    if (getDailyRerollsLeft(scope) <= 0) {
+        return;
+    }
+    const usedTypes = list.map((e) => e.type);
+    const candidates = Object.keys(DAILY_QUEST_TEMPLATES).filter(
+        (type) =>
+            !usedTypes.includes(type) &&
+            (isDailyQuestTypeAvailable(type) || type !== "garden")
+    );
+    if (candidates.length === 0) {
+        return;
+    }
+    const random = createDailyQuestRandom(
+        "reroll-" + scope + "-" + state.dayKey + "-" + index + "-" + state.rerolls[scope]
+    );
+    const type = candidates[Math.floor(random() * candidates.length)];
+    list[index] = {
+        type,
+        target: getDailyQuestTarget(type, scope),
+        baseline: DAILY_QUEST_TEMPLATES[type].getCounter(),
+        claimed: false
+    };
+    state.rerolls[scope] = (state.rerolls[scope] || 0) + 1;
+    if (typeof showNotification === "function") {
+        showNotification("Przerzucono zlecenie: " + DAILY_QUEST_TEMPLATES[type].title + ".", "success");
+    }
     finishDailyQuestAction();
 }
 
@@ -323,6 +375,9 @@ function claimDailyBonus() {
     if (state.lastCompletedDay !== state.dayKey) {
         state.streak = (state.streak || 0) + 1;
         state.lastCompletedDay = state.dayKey;
+    }
+    if (typeof recordWorldStatMax === "function") {
+        recordWorldStatMax("bestStreak", state.streak);
     }
     const multiplier = getDailyStreakMultiplier();
     grantDailyQuestReward(
@@ -374,6 +429,12 @@ function renderDailyQuestCard(scope, entry, index) {
     const gold = Math.floor(getDailyQuestGoldReward(scope) * multiplier);
     const exp = Math.floor(getDailyQuestHeroExp(scope) * multiplier);
     const percent = Math.floor((progress / entry.target) * 100);
+    const canReroll = !entry.claimed && !complete && getDailyRerollsLeft(scope) > 0;
+    const rerollButton = entry.claimed || complete
+        ? ""
+        : '<button class="daily-reroll-button" ' + (canReroll ? "" : "disabled ") +
+        'onclick="rerollDailyQuest(\'' + scope + "'," + index + ')">🔄 Przerzuć (' +
+        getDailyRerollsLeft(scope) + "/" + DAILY_REROLL_LIMIT[scope] + ")</button>";
     const button = entry.claimed
         ? '<button disabled>✔ Odebrano</button>'
         : '<button ' + (complete ? "" : "disabled ") +
@@ -387,7 +448,7 @@ function renderDailyQuestCard(scope, entry, index) {
         '<div class="daily-quest-bar"><div style="width:' + percent + '%"></div></div>' +
         '<div class="daily-quest-meta"><span>' + progress + " / " + entry.target +
         "</span><span>+" + exp + " EXP, +" + gold + " 💰</span></div>" +
-        button + "</div>"
+        button + rerollButton + "</div>"
     );
 }
 

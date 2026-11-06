@@ -247,6 +247,7 @@ ${getEnemyIcon(
                                             </span>
                                         </div>
                                     </div>
+                                    ${typeof getEnemyBestiaryTierHtml === "function" ? getEnemyBestiaryTierHtml(enemyData.id) : ""}
 
                                     <div
                                         class="
@@ -336,6 +337,7 @@ ${getEnemyIcon(
                                 ${enemies.length}
                                 przeciwników
                             </span>
+                            ${typeof getLocationBestiarySummaryHtml === "function" ? getLocationBestiarySummaryHtml(location.id) : ""}
                         </div>
 
                         <div
@@ -380,6 +382,7 @@ ${getEnemyIcon(
                     ${totalKills}
                 </strong>
             </div>
+            ${typeof getGlobalBestiarySummaryHtml === "function" ? getGlobalBestiarySummaryHtml() : ""}
         </div>
 
         ${locationsHtml}

@@ -1087,6 +1087,11 @@ function renderCombat() {
         ) {
             bossLabel.textContent =
                 "⭐ SILNY";
+        } else if (
+            encounterType === "rare"
+        ) {
+            bossLabel.textContent =
+                "✨ ZŁOTY POTWÓR";
         } else {
             bossLabel.textContent = "";
         }
@@ -1115,7 +1120,8 @@ function renderCombat() {
         enemyCard.classList.remove(
             "boss-card",
             "strong-card",
-            "elite-card"
+            "elite-card",
+            "rare-card"
         );
 
         if (encounterType === "boss") {
@@ -1133,6 +1139,12 @@ function renderCombat() {
         ) {
             enemyCard.classList.add(
                 "strong-card"
+            );
+        } else if (
+            encounterType === "rare"
+        ) {
+            enemyCard.classList.add(
+                "rare-card"
             );
         }
     }

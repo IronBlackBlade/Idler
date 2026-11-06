@@ -23,6 +23,11 @@ const journalAchievementCategories = [
         id: "character",
         icon: "🧙",
         name: "Postać"
+    },
+    {
+        id: "world",
+        icon: "🌍",
+        name: "Świat"
     }
 ];
 
@@ -273,6 +278,7 @@ const journal =
                         <p>
                             ${achievement.description}
                         </p>
+                        ${typeof getAchievementTitleHtml === "function" ? getAchievementTitleHtml(achievement, unlocked) : ""}
 
                         <div
                             class="

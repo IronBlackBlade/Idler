@@ -131,11 +131,17 @@ function attemptItemUpgrade(itemId, silent = false) {
     }
     player.gold -= cost.gold;
     removeItemFromInventory(cost.ingotId, cost.ingots);
+    if (typeof recordWorldStat === "function") {
+        recordWorldStat("forgeAttempts");
+    }
     if (!player.equipmentUpgrades || typeof player.equipmentUpgrades !== "object") {
         player.equipmentUpgrades = {};
     }
     if (Math.random() < cost.chance) {
         player.equipmentUpgrades[itemId] = cost.target;
+        if (typeof recordWorldStat === "function") {
+            recordWorldStat("forgeSuccesses");
+        }
         showNotification(item.name + " ulepszono do +" + cost.target + "!", "success");
         if (typeof addCombatLog === "function") {
             addCombatLog("🔨 Ulepszono: " + item.name + " +" + cost.target + ".");
@@ -152,6 +158,9 @@ function attemptItemUpgrade(itemId, silent = false) {
         getInventoryItemQuantity(PROTECTION_STONE_ID) > 0
     ) {
         removeItemFromInventory(PROTECTION_STONE_ID, 1);
+        if (typeof recordWorldStat === "function") {
+            recordWorldStat("stonesUsed");
+        }
         downgraded = false;
         protectedByStone = true;
     }

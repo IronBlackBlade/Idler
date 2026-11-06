@@ -838,16 +838,24 @@ function autoAttack() {
         ? getLocationRewardMultiplier(player.location)
         : 1;
 
+    const bestiaryMultipliers =
+      enemy.isDungeonEncounter !== true &&
+      typeof getBestiaryRewardMultipliers === "function"
+        ? getBestiaryRewardMultipliers(player.location)
+        : { gold: 1, exp: 1 };
+
     const goldGain = Math.floor(
       enemy.gold *
         (1 + setRewardBonuses.goldPercent / 100) *
-        locationRewardMultiplier,
+        locationRewardMultiplier *
+        bestiaryMultipliers.gold,
     );
 
     const expGain = Math.floor(
       enemy.exp *
         (1 + setRewardBonuses.expPercent / 100) *
-        locationRewardMultiplier,
+        locationRewardMultiplier *
+        bestiaryMultipliers.exp,
     );
 
     player.gold += goldGain;

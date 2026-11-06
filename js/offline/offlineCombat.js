@@ -5487,16 +5487,23 @@ function processOfflineCombatProgress(
             ? getLocationRewardMultiplier(player.location)
             : 1;
 
+    const bestiaryMultipliers =
+        typeof getBestiaryRewardMultipliers === "function"
+            ? getBestiaryRewardMultipliers(player.location)
+            : { gold: 1, exp: 1 };
+
     totalGold = Math.floor(
         totalGold *
         (1 + setRewardBonuses.goldPercent / 100) *
-        locationRewardMultiplier
+        locationRewardMultiplier *
+        bestiaryMultipliers.gold
     );
 
     totalExperience = Math.floor(
         totalExperience *
         (1 + setRewardBonuses.expPercent / 100) *
-        locationRewardMultiplier
+        locationRewardMultiplier *
+        bestiaryMultipliers.exp
     );
 
     const lootRewards =

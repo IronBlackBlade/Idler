@@ -81,6 +81,9 @@ function buyTravelingMerchantOffer(index, quantity) {
     player.gold -= total;
     offer.stock -= amount;
     addItemToInventory(offer.itemId, amount);
+    if (typeof recordWorldStat === "function") {
+        recordWorldStat("merchantPurchases");
+    }
     const name = items[offer.itemId].name;
     showNotification("Kupiono: " + name + " ×" + amount, "success");
     if (typeof addSystemLog === "function") {
