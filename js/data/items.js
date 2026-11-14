@@ -1020,6 +1020,153 @@ const items = {
         value: 3600
     },
 
+
+    deep_chitin_plate: {
+        id: "deep_chitin_plate",
+        name: "Chitynowa płytka głębin",
+        rarity: "common",
+        type: "crafting_material",
+        value: 520
+    },
+
+    blind_pincer: {
+        id: "blind_pincer",
+        name: "Ślepe szczypce",
+        rarity: "uncommon",
+        type: "crafting_material",
+        value: 1100
+    },
+
+    pale_gland: {
+        id: "pale_gland",
+        name: "Blady gruczoł",
+        rarity: "rare",
+        type: "crafting_material",
+        value: 1700
+    },
+
+    rusted_gear: {
+        id: "rusted_gear",
+        name: "Zardzewiałe koło zębate",
+        rarity: "common",
+        type: "crafting_material",
+        value: 560
+    },
+
+    golem_slag_core: {
+        id: "golem_slag_core",
+        name: "Żużlowy rdzeń golema",
+        rarity: "uncommon",
+        type: "crafting_material",
+        value: 1250
+    },
+
+    runed_plate: {
+        id: "runed_plate",
+        name: "Runiczna płyta",
+        rarity: "rare",
+        type: "crafting_material",
+        value: 1900
+    },
+
+    wraith_dust: {
+        id: "wraith_dust",
+        name: "Pył widma",
+        rarity: "common",
+        type: "crafting_material",
+        value: 600
+    },
+
+    cursed_pickaxe_head: {
+        id: "cursed_pickaxe_head",
+        name: "Przeklęty grot kilofa",
+        rarity: "uncommon",
+        type: "crafting_material",
+        value: 1350
+    },
+
+    ghostlight_lantern: {
+        id: "ghostlight_lantern",
+        name: "Latarnia widmowego światła",
+        rarity: "rare",
+        type: "crafting_material",
+        value: 2100
+    },
+
+    clockwork_spring: {
+        id: "clockwork_spring",
+        name: "Sprężyna mechanizmu",
+        rarity: "common",
+        type: "crafting_material",
+        value: 640
+    },
+
+    dwarven_alloy: {
+        id: "dwarven_alloy",
+        name: "Krasnoludzki stop",
+        rarity: "uncommon",
+        type: "crafting_material",
+        value: 1500
+    },
+
+    automaton_heart: {
+        id: "automaton_heart",
+        name: "Serce automatu",
+        rarity: "rare",
+        type: "crafting_material",
+        value: 2400
+    },
+
+    forge_ember: {
+        id: "forge_ember",
+        name: "Żar kuźni",
+        rarity: "common",
+        type: "crafting_material",
+        value: 700
+    },
+
+    magma_anvil_shard: {
+        id: "magma_anvil_shard",
+        name: "Odłamek magmowego kowadła",
+        rarity: "uncommon",
+        type: "crafting_material",
+        value: 1650
+    },
+
+    forgemaster_tongs: {
+        id: "forgemaster_tongs",
+        name: "Szczypce mistrza kuźni",
+        rarity: "rare",
+        type: "crafting_material",
+        value: 2600
+    },
+
+    titan_forged_plating: {
+        id: "titan_forged_plating",
+        name: "Płyta kuźni Tytana",
+        rarity: "epic",
+        type: "crafting_material",
+        value: 2700
+    },
+
+    forge_essence: {
+        id: "forge_essence",
+        name: "Esencja kuźni",
+        rarity: "epic",
+        type: "crafting_material",
+        value: 3200
+    },
+
+    forge_titan_heart: {
+        id: "forge_titan_heart",
+        name: "Serce Tytana Kuźni",
+        rarity: "legendary",
+        type: "crafting_material",
+        description:
+            "Wciąż rozżarzone serce pradawnego Tytana Kuźni z Zapomnianych Głębi.",
+        value: 5400
+    },
+
     crystal_spire_key: {
         id: "crystal_spire_key",
         name: "Klucz do Pryzmatycznej Iglicy",

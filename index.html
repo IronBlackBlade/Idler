@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="css/mobileMenu.css?v=1">
     <link rel="stylesheet" href="css/dailyQuests.css?v=1">
     <link rel="stylesheet" href="css/forge.css?v=1">
+    <link rel="stylesheet" href="css/account.css?v=2">
+    <link rel="stylesheet" href="css/ranking.css?v=2">
 </head>
 
 
@@ -25,7 +27,7 @@
                     </div>
 
                     <div class="side-hero-identity">
-                        <div class="side-hero-title">
+                        <div class="side-hero-title" id="side-hero-name">
                             Maciuś
                         </div>
 
@@ -184,6 +186,10 @@
 
                         <button data-menu-section="forge" onclick="showScreen('screen-forge')">
                             🔨 Kuźnia
+                        </button>
+
+                        <button data-menu-section="ranking" onclick="openRankingScreen()">
+                            🏆 Ranking
                         </button>
                     </div>
                 </section>
@@ -785,6 +791,13 @@
                 <div class="game-card">
                     <div class="card-header">🔨 Kuźnia – ulepszanie sprzętu</div>
                     <div id="forge-content"></div>
+                </div>
+            </section>
+
+            <section id="screen-ranking" class="screen">
+                <div class="game-card">
+                    <div class="card-header">🏆 Ranking graczy</div>
+                    <div id="ranking-content"></div>
                 </div>
             </section>
 
@@ -1566,8 +1579,24 @@
                 <h2>⚙️ Ustawienia</h2>
 
                 <div class="game-card">
+                    <div class="card-header">🌐 Konto</div>
+                    <div id="account-card-body"></div>
+                </div>
+
+                <div class="game-card">
                     <div class="card-header">Zarządzanie zapisem</div>
 
+                    <div class="save-transfer-actions">
+                        <button onclick="exportSaveToFile()">💾 Eksportuj zapis do pliku</button>
+                        <button onclick="document.getElementById('save-import-input').click()">📂 Importuj zapis z pliku</button>
+                        <button onclick="copySaveToClipboard()">📋 Kopiuj zapis do schowka</button>
+                        <button id="restore-save-backup-button" onclick="restoreSaveBackup()" hidden>↩️ Przywróć kopię sprzed importu</button>
+                        <input id="save-import-input" type="file" accept=".json,application/json" hidden onchange="importSaveFromFile(this)">
+                    </div>
+                    <p class="save-transfer-hint">Eksportuj zapis przed czyszczeniem danych przeglądarki albo przeniesieniem gry na inne urządzenie.</p>
+                    <div id="save-transfer-status" class="save-transfer-status" role="status"></div>
+
+                    <hr class="save-transfer-separator">
                     <button onclick="resetGame()">Resetuj postać</button>
                 </div>
             </section>
@@ -1662,6 +1691,7 @@
     <script src="js/data/locations/abyss.js"></script>
     <script src="js/data/locations/sunkenKingdom.js"></script>
     <script src="js/data/locations/crystalPeaks.js"></script>
+    <script src="js/data/locations/forgottenDepths.js"></script>
 
     <script src="js/data/professionTools.js?v=20260802-late-areas"></script>
     <script src="js/data/items.js"></script>
@@ -1681,6 +1711,7 @@
     <script src="js/data/crafting/armorRecipes.js"></script>
     <script src="js/data/crafting/jewelryRecipes.js"></script>
     <script src="js/data/crafting/materialRecipes.js"></script>
+    <script src="js/data/crafting/reinforcedGear.js"></script>
     <script src="js/data/crafting/recipes.js"></script>
     <script src="js/data/crafting/recipeLoader.js?v=20260826-excel"></script>
     <script src="js/data/equipmentBalance.js"></script>
@@ -1789,6 +1820,14 @@
     <script src="js/ui/journalBestiaryUI.js"></script>
     <script src="js/ui/journalAchievementsUI.js?v=20260731-achievements"></script>
     <script src="js/titles.js"></script>
+    <script src="js/saveTransfer.js"></script>
+    <script src="js/vendor/supabase-js-2.45.4.js"></script>
+    <script src="js/online/onlineConfig.js"></script>
+    <script src="js/online/accounts.js"></script>
+    <script src="js/ui/accountUI.js"></script>
+    <script src="js/online/cloudSave.js"></script>
+    <script src="js/ui/cloudSaveUI.js"></script>
+    <script src="js/ui/rankingUI.js"></script>
     <script src="js/randomEncounters.js"></script>
     <script src="js/ui/journalLocationsUI.js"></script>
     <script src="js/ui/journalBossesUI.js"></script>

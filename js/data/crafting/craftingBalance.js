@@ -96,6 +96,12 @@ const craftingBalance = {
         random: [16, 29],
         jewelryRandom: [13, 20],
       },
+
+      110: {
+        main: [41, 56],
+        random: [17, 31],
+        jewelryRandom: [14, 22],
+      },
     },
   },
   upgradePresentation: {
@@ -147,6 +153,11 @@ const craftingBalance = {
     100: {
       rank: "transcendent",
       rankLabel: "Transcendentne ulepszenie",
+    },
+
+    110: {
+      rank: "reinforced",
+      rankLabel: "Wzmocnienie",
     },
   },
   upgradeStats: {

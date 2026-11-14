@@ -391,7 +391,7 @@ function getEquipmentSetForItemId(itemId) {
             : null;
 
     const baseItemId =
-        item?.baseItemId || itemId;
+        item?.setPieceId || item?.baseItemId || itemId;
 
     return (
         equipmentSetDefinitions.find(definition => {
@@ -425,7 +425,7 @@ function getEquippedEquipmentSetPieceIds(
                     : null;
 
             equippedBaseItemIds.add(
-                item?.baseItemId || itemId
+                item?.setPieceId || item?.baseItemId || itemId
             );
         });
 

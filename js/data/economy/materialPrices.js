@@ -144,7 +144,31 @@ window.materialPrices = {
     spire_armor_fragment: 4000,
     living_crystal: 6000,
     prismatic_core: 9000,
-    mountain_essence: 12000
+    mountain_essence: 12000,
+
+
+    // ==================================================
+    // ZAPOMNIANE GŁĘBIE
+    // ==================================================
+
+    deep_chitin_plate: 2700,
+    blind_pincer: 3600,
+    pale_gland: 4800,
+    rusted_gear: 3000,
+    golem_slag_core: 4100,
+    runed_plate: 5600,
+    wraith_dust: 3300,
+    cursed_pickaxe_head: 4400,
+    ghostlight_lantern: 6000,
+    clockwork_spring: 3500,
+    dwarven_alloy: 4800,
+    automaton_heart: 6800,
+    forge_ember: 3900,
+    magma_anvil_shard: 5200,
+    forgemaster_tongs: 7500,
+    titan_forged_plating: 10000,
+    forge_essence: 14000,
+    forge_titan_heart: 22000
 };
 
 

@@ -845,7 +845,7 @@ function getEquipmentSetInventoryQuantity(
                 entry.itemId === itemId ||
                 (
                     inventoryItem?.customEquipment === true &&
-                    inventoryItem?.baseItemId === itemId
+                    (inventoryItem?.setPieceId || inventoryItem?.baseItemId) === itemId
                 )
             ) {
                 return (
@@ -906,7 +906,7 @@ const isEquipped =
 
             return (
                 equippedItem?.customEquipment === true &&
-                equippedItem?.baseItemId === itemId
+                (equippedItem?.setPieceId || equippedItem?.baseItemId) === itemId
             );
         }
     );

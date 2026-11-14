@@ -29,3 +29,9 @@
 .achievement-title-button { margin-left: 8px; font-size: .85em; padding: 1px 8px; }
 .enemy-card.rare-card { border-color: #e6c04a; box-shadow: 0 0 22px rgba(230, 192, 74, .35); }
 .rare-card .boss-label, .rare-card #enemy-name { color: #ffe08a; }
+.save-transfer-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.save-transfer-hint { opacity: .75; font-size: .9em; }
+.save-transfer-status { min-height: 1.2em; font-size: .9em; }
+.save-transfer-status.ok { color: #8fdc9a; }
+.save-transfer-status.error { color: #f08a86; }
+.save-transfer-separator { border: none; border-top: 1px solid rgba(255,255,255,.15); margin: 14px 0; }

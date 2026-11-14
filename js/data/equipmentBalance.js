@@ -190,3 +190,7 @@ applyEquipmentArmorBalance();
 applyMerchantWeaponBalance();
 applyCraftedWeaponBalance();
 applyCraftedArmorBalance();
+
+if (typeof window.applyReinforcedGearBalance === "function") {
+    window.applyReinforcedGearBalance();
+}

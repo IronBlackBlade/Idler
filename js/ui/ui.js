@@ -240,6 +240,9 @@ function updateActiveMenuButton(
         "screen-forge":
             "forge",
 
+        "screen-ranking":
+            "ranking",
+
         "screen-quests":
             "quests",
 

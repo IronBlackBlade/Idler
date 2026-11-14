@@ -1,0 +1,224 @@
+/* ===== Konto online: karta w ustawieniach, okno logowania, wskaźnik w panelu bohatera ===== */
+
+.account-card-status {
+  margin: 0 0 10px;
+  font-size: 1.05em;
+  line-height: 1.4;
+}
+
+.account-card-status strong {
+  color: #e6c04a;
+}
+
+.account-card-hint {
+  margin: 8px 0 0;
+  opacity: .75;
+  font-size: .9em;
+}
+
+.account-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* ----- Okno ----- */
+
+.account-dialog .game-dialog-title {
+  margin-bottom: 10px;
+}
+
+.account-tabs {
+  display: flex;
+  gap: 6px;
+  margin: 0 0 12px;
+}
+
+.account-tab {
+  flex: 1 1 0;
+  padding: 9px 8px;
+  font-size: 17px;
+  background: linear-gradient(#4b392a, #392a1e);
+  color: #e4d1b0;
+  border: 0;
+  box-shadow: inset 0 0 0 1px #6a4a30;
+  cursor: pointer;
+}
+
+.account-tab[aria-selected="true"] {
+  background: linear-gradient(#a03b2f, #6f241c);
+  color: #f6e8cc;
+  box-shadow: inset 0 0 0 1px #e3c27a;
+}
+
+.account-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 14px 16px;
+  background: linear-gradient(var(--parch-1, #c8b08a), var(--parch-2, #b39a72));
+  color: #3a2614;
+  box-shadow: inset 0 0 18px #5b432599, 0 3px 0 #150f0b;
+  border-radius: 2px;
+}
+
+.account-intro {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.35;
+}
+
+.account-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.account-field label {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.account-field input[type="text"],
+.account-field input[type="email"],
+.account-field input[type="password"] {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  font-family: inherit;
+  font-size: 17px;
+  color: #ead9bd;
+  background: #1d130d;
+  border: 0;
+  border-radius: 2px;
+  box-shadow: inset 0 2px 5px #000c, 0 0 0 1px #6a4a30;
+}
+
+.account-field input:focus-visible {
+  outline: 2px solid #e3c27a;
+  outline-offset: 2px;
+}
+
+.account-field-hint {
+  font-size: 13px;
+  opacity: .8;
+}
+
+.account-show-password {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+}
+
+.account-message {
+  min-height: 1.2em;
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.35;
+  font-weight: 700;
+}
+
+.account-message.error {
+  color: #8e1f17;
+}
+
+.account-message.ok {
+  color: #1f5a2c;
+}
+
+.account-form .account-link-button {
+  background: none !important;
+  box-shadow: none !important;
+  text-shadow: none;
+  align-self: flex-start;
+  padding: 0;
+  background: none;
+  border: 0;
+  box-shadow: none;
+  color: #5a2a14;
+  font-size: 15px;
+  text-decoration: underline;
+  cursor: pointer;
+  min-width: 0;
+}
+
+.account-dialog .game-dialog-actions {
+  flex-wrap: wrap;
+}
+
+.account-dialog .game-dialog-actions button[disabled] {
+  opacity: .6;
+  cursor: wait;
+}
+
+@media (max-width: 480px) {
+  .game-dialog.account-dialog {
+    padding: 16px 14px;
+  }
+
+  .account-dialog .game-dialog-actions button {
+    flex: 1 1 100%;
+  }
+}
+
+/* ===== Zapis w chmurze ===== */
+
+.cloud-save-block {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid #6a4a30;
+}
+
+.cloud-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.cloud-option {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 12px;
+  background: #00000022;
+  box-shadow: inset 0 0 0 1px #5b4325;
+  border-radius: 2px;
+}
+
+.cloud-option-title {
+  font-weight: 700;
+}
+
+.cloud-option .cloud-option-title,
+.cloud-option .cloud-option-details {
+  background: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  color: #3a2614 !important;
+}
+
+.cloud-option .cloud-option-details {
+  font-size: 15px;
+}
+
+.cloud-option-note {
+  align-self: flex-start;
+  padding: 1px 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #1f5a2c;
+  background: #1f5a2c22;
+  border-radius: 8px;
+}
+
+.cloud-option button {
+  align-self: flex-start;
+  min-width: 0;
+}
+
+.cloud-dialog .game-dialog-message {
+  max-height: 70vh;
+  overflow-y: auto;
+}

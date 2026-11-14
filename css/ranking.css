@@ -1,0 +1,51 @@
+/* ===== Ranking graczy ===== */
+
+.ranking-tabs { display: flex; gap: 6px; margin: 0 0 12px; flex-wrap: wrap; }
+.ranking-tab {
+  flex: 1 1 0; min-width: 90px; padding: 9px 8px; font-size: 16px;
+  background: linear-gradient(#4b392a, #392a1e); color: #e4d1b0; border: 0;
+  box-shadow: inset 0 0 0 1px #6a4a30; cursor: pointer;
+}
+.ranking-tab[aria-selected="true"] {
+  background: linear-gradient(#a03b2f, #6f241c); color: #f6e8cc;
+  box-shadow: inset 0 0 0 1px #e3c27a;
+}
+.ranking-message { margin: 8px 0; opacity: .9; }
+.ranking-hint { margin: 10px 0 0; font-size: .85em; opacity: .7; }
+.ranking-mine {
+  margin: 0 0 10px; padding: 8px 12px; font-weight: 700; color: #e6c04a;
+  background: #00000033; box-shadow: inset 0 0 0 1px #6a4a30;
+}
+.ranking-mine.flagged { color: #e8a090; }
+.ranking-list { list-style: none; margin: 0 0 10px; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.ranking-row {
+  display: grid; grid-template-columns: 52px 1fr auto auto; gap: 10px; align-items: center;
+  padding: 7px 10px; background: #00000026; box-shadow: inset 0 0 0 1px #4a3520;
+}
+.ranking-row.me { box-shadow: inset 0 0 0 2px #e3c27a; background: #e3c27a22; }
+.ranking-pos { font-weight: 700; color: #e6c04a; }
+.ranking-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ranking-level { opacity: .75; font-size: .9em; }
+.ranking-value { font-weight: 700; text-align: right; min-width: 56px; }
+@media (max-width: 480px) {
+  .ranking-row { grid-template-columns: 44px 1fr auto; }
+  .ranking-level { display: none; }
+}
+.ranking-row span { background: none !important; box-shadow: none !important; padding: 0 !important; }
+
+button.ranking-name {
+  background: none !important; box-shadow: none !important; border: 0;
+  color: #e4d1b0; font: inherit; text-align: left; padding: 0 !important;
+  cursor: pointer; text-decoration: underline dotted; min-width: 0;
+}
+button.ranking-name:hover { color: #f6e8cc; }
+.profile-facts { display: flex; flex-direction: column; gap: 4px; margin: 6px 0 12px; }
+.profile-fact {
+  display: flex; justify-content: space-between; gap: 12px; padding: 6px 10px;
+  background: #00000026; box-shadow: inset 0 0 0 1px #4a3520;
+}
+.profile-fact span { background: none !important; box-shadow: none !important; padding: 0 !important; }
+.profile-label { opacity: .8; }
+.profile-value { font-weight: 700; text-align: right; }
+.profile-subtitle { margin: 6px 0 0; font-size: 1.05em; }
+.ranking-profile .game-dialog-message { max-height: 70vh; overflow-y: auto; }

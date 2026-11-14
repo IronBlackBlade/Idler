@@ -7,4 +7,5 @@ const locations = {
     abyss: abyss,
     sunkenKingdom: sunkenKingdom,
     crystalPeaks: crystalPeaks,
+    forgottenDepths: forgottenDepths,
 };
