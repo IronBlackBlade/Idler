@@ -105,6 +105,46 @@ update idler_limits set value = 300000 where key = 'max_exp_per_second';
 
 **Uwaga:** przy pierwszym wysłaniu starego zapisu serwer sprawdza, czy EXP ma pokrycie w zabójstwach. Starsze zapisy mogą nie mieć liczników zabójstw i zostać oznaczone przez pomyłkę. Wtedy zdejmij flagę zapytaniem wyżej. Wzór krzywej EXP w SQL (`idler_exp_to_next`) musi pozostać zgodny z grą.
 
+## 8. Czat globalny
+
+**Jednorazowa konfiguracja:** w Supabase otwórz **SQL Editor → New query**, wklej całą zawartość `supabase/chat.sql` i kliknij **Run** (po `schema.sql` i `anticheat_ranking.sql`). Skrypt można uruchamiać ponownie.
+
+**Jak to działa**
+- Czat jest w menu Miasto → 💬 Czat. Jeden wspólny pokój dla zalogowanych graczy, wiadomości pojawiają się na żywo (gdy Realtime nie działa, gra odświeża czat co kilka sekund).
+- Wiadomość ma do 300 znaków. Limity: co najmniej 1,5 s między wiadomościami, do 12 na minutę, bez powtarzania tej samej wiadomości w ciągu minuty.
+- Konta oznaczone flagą (patrz sekcja 7) i wyciszone nie mogą pisać.
+- Kliknięcie nazwy gracza otwiera jego profil. Przycisk ⚑ zgłasza wiadomość.
+- Wiadomości starsze niż 7 dni są usuwane automatycznie.
+
+**Panel administratora (SQL Editor)**
+
+Zgłoszone wiadomości:
+```sql
+select r.created_at, r.reported_username, r.reported_body, r.reason
+from chat_reports r order by r.created_at desc;
+```
+
+Wyciszenie gracza na 24 godziny:
+```sql
+insert into chat_mutes (user_id, muted_until, reason)
+select id, now() + interval '24 hours', 'spam'
+from player_profiles where lower(username) = lower('NAZWA')
+on conflict (user_id) do update set muted_until = excluded.muted_until, reason = excluded.reason;
+```
+
+Zdjęcie wyciszenia:
+```sql
+delete from chat_mutes
+where user_id = (select id from player_profiles where lower(username) = lower('NAZWA'));
+```
+
+Usunięcie wiadomości:
+```sql
+delete from chat_messages where id = 123;
+```
+
+**Uwaga:** gra nie filtruje wulgaryzmów automatycznie. Moderacja polega na limitach, zgłoszeniach i Twoich wyciszeniach.
+
 ## Dobrze wiedzieć
 
 - Hasła i adresy e-mail trzyma Supabase (Authentication → Users). Gra nigdy nie zapisuje hasła.

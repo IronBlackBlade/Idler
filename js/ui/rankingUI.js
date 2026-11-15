@@ -361,5 +361,27 @@
     render();
   };
 
-  window.IdlerRankingUI = { render, isLoading: () => loading };
+  function onAccountState() {
+    const screen = document.getElementById("screen-ranking");
+
+    if (screen && screen.style.display !== "none" && screen.offsetParent !== null) {
+      render();
+    }
+  }
+
+  function startRanking() {
+    const api = window.IdlerAccounts;
+
+    if (api && typeof api.subscribe === "function") {
+      api.subscribe(onAccountState);
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", startRanking);
+  } else {
+    startRanking();
+  }
+
+  window.IdlerRankingUI = { render, openProfile, isLoading: () => loading };
 })();

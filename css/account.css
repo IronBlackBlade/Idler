@@ -1,5 +1,12 @@
 /* ===== Konto online: karta w ustawieniach, okno logowania, wskaźnik w panelu bohatera ===== */
 
+.account-card-status,
+.account-card-hint {
+  background: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
 .account-card-status {
   margin: 0 0 10px;
   font-size: 1.05em;

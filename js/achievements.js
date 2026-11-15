@@ -458,6 +458,24 @@ function getJournalAchievementDefinitions() {
     const professions =
         getJournalProfessionAchievementData();
 
+    const completedDungeonsCount =
+        typeof dungeons !== "undefined" &&
+        typeof ensureDungeonProgress === "function"
+            ? Object.keys(dungeons).filter(dungeonId => {
+                return ensureDungeonProgress(dungeonId).completionCount > 0;
+            }).length
+            : 0;
+
+    const totalDungeonsCount =
+        typeof dungeons !== "undefined"
+            ? Math.max(1, Object.keys(dungeons).length)
+            : 1;
+
+    const totalCraftedItems = Math.max(
+        0,
+        Math.floor(Number(player.crafting?.statistics?.totalCrafted) || 0)
+    );
+
     const questCompletionByLocation = {
         forest:
             getJournalQuestCompletionData(
@@ -686,6 +704,153 @@ function getJournalAchievementDefinitions() {
             target: 1000000
         },
 
+
+        {
+            id: "character_level_110",
+            category: "character",
+            points: 30,
+            icon: "🌋",
+            name: "Zstąpiłeś w Głębie",
+            description:
+                "Osiągnij 110. poziom postaci.",
+            progress: Math.max(
+                1,
+                Number(player.level) || 1
+            ),
+            target: 110
+        },
+        {
+            id: "character_level_120",
+            category: "character",
+            points: 40,
+            icon: "⛈️",
+            name: "Wysłannik Burzy",
+            description:
+                "Osiągnij 120. poziom postaci.",
+            progress: Math.max(
+                1,
+                Number(player.level) || 1
+            ),
+            target: 120
+        },
+        {
+            id: "character_gold_100000000",
+            category: "character",
+            points: 40,
+            icon: "🏦",
+            name: "Smoczy skarbiec",
+            description:
+                "Zgromadź 100 000 000 złota.",
+            progress: Math.max(
+                0,
+                Number(player.gold) || 0
+            ),
+            target: 100000000
+        },
+        {
+            id: "character_gold_1000000000",
+            category: "character",
+            points: 50,
+            icon: "👑",
+            name: "Król złota",
+            description:
+                "Zgromadź 1 000 000 000 złota.",
+            progress: Math.max(
+                0,
+                Number(player.gold) || 0
+            ),
+            target: 1000000000
+        },
+        {
+            id: "veteran_hunter",
+            points: 20,
+            icon: "🗡️",
+            name: "Weteran",
+            description:
+                "Pokonaj łącznie 2500 przeciwników.",
+            progress: totalKills,
+            target: 2500
+        },
+        {
+            id: "legendary_hunter",
+            points: 30,
+            icon: "🏹",
+            name: "Pogromca Armii",
+            description:
+                "Pokonaj łącznie 10 000 przeciwników.",
+            progress: totalKills,
+            target: 10000
+        },
+        {
+            id: "boss_slayer_50",
+            points: 20,
+            icon: "👹",
+            name: "Łowca Bossów",
+            description:
+                "Pokonaj bossów łącznie 50 razy.",
+            progress: bossKills,
+            target: 50
+        },
+        {
+            id: "boss_slayer_200",
+            points: 30,
+            icon: "🐉",
+            name: "Zmora Tytanów",
+            description:
+                "Pokonaj bossów łącznie 200 razy.",
+            progress: bossKills,
+            target: 200
+        },
+        {
+            id: "dungeon_first",
+            points: 10,
+            icon: "🗝️",
+            name: "Pierwsza wyprawa",
+            description:
+                "Ukończ dowolny loch.",
+            progress: completedDungeonsCount,
+            target: 1
+        },
+        {
+            id: "dungeon_explorer",
+            points: 20,
+            icon: "🧭",
+            name: "Zdobywca lochów",
+            description:
+                "Ukończ 5 różnych lochów.",
+            progress: completedDungeonsCount,
+            target: 5
+        },
+        {
+            id: "dungeon_master",
+            points: 40,
+            icon: "🏰",
+            name: "Mistrz lochów",
+            description:
+                "Ukończ wszystkie lochy w grze.",
+            progress: completedDungeonsCount,
+            target: totalDungeonsCount
+        },
+        {
+            id: "crafting_apprentice",
+            points: 15,
+            icon: "🔨",
+            name: "Czeladnik",
+            description:
+                "Wytwórz łącznie 100 przedmiotów.",
+            progress: totalCraftedItems,
+            target: 100
+        },
+        {
+            id: "crafting_master",
+            points: 25,
+            icon: "⚒️",
+            name: "Mistrz rzemiosła",
+            description:
+                "Wytwórz łącznie 1000 przedmiotów.",
+            progress: totalCraftedItems,
+            target: 1000
+        },
 
         {
             id:

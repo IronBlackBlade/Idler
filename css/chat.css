@@ -1,0 +1,54 @@
+/* ===== Czat globalny ===== */
+
+.chat-notice { margin: 8px 0; opacity: .9; }
+
+.chat-header {
+  display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+  margin: 0 0 8px; font-size: .85em; opacity: .85;
+}
+.chat-header span { background: none !important; box-shadow: none !important; padding: 0 !important; }
+
+.chat-list {
+  display: flex; flex-direction: column; gap: 3px;
+  height: min(52vh, 460px); overflow-y: auto; padding: 8px;
+  background: #00000033; box-shadow: inset 0 0 0 1px #4a3520;
+}
+.chat-empty { margin: auto; opacity: .7; }
+
+.chat-message {
+  display: flex; align-items: baseline; gap: 8px; padding: 3px 4px; line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+.chat-message.mine { background: #e3c27a14; }
+.chat-message span { background: none !important; box-shadow: none !important; padding: 0 !important; }
+.chat-time { flex: 0 0 auto; font-size: .78em; opacity: .6; }
+.chat-body { flex: 1 1 auto; min-width: 0; }
+
+button.chat-name {
+  flex: 0 0 auto; max-width: 40%; background: none !important; box-shadow: none !important;
+  border: 0; padding: 0 !important; min-width: 0; font: inherit; font-weight: 700; color: #e6c04a;
+  cursor: pointer; text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+button.chat-name:hover { text-decoration: underline; }
+
+button.chat-report {
+  flex: 0 0 auto; background: none !important; box-shadow: none !important; border: 0;
+  padding: 0 4px !important; min-width: 0; color: #e4d1b0; opacity: .35; cursor: pointer; font-size: .9em;
+}
+.chat-message:hover button.chat-report, button.chat-report:focus-visible { opacity: .95; }
+
+.chat-form { display: flex; align-items: center; gap: 8px; margin: 10px 0 0; }
+.chat-input {
+  flex: 1 1 auto; min-width: 0; padding: 9px 12px; font-family: inherit; font-size: 16px;
+  color: #ead9bd; background: #1d130d; border: 0; border-radius: 2px;
+  box-shadow: inset 0 2px 5px #000c, 0 0 0 1px #6a4a30;
+}
+.chat-input:focus-visible { outline: 2px solid #e3c27a; outline-offset: 2px; }
+.chat-counter { flex: 0 0 auto; font-size: .78em; opacity: .6; background: none !important; box-shadow: none !important; padding: 0 !important; }
+.chat-send { flex: 0 0 auto; min-width: 0; }
+.chat-error { min-height: 1.2em; margin: 6px 0 0; color: #e8a090; font-weight: 700; font-size: .95em; }
+
+@media (max-width: 480px) {
+  .chat-counter { display: none; }
+  .chat-list { height: 46vh; }
+}

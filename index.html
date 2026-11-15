@@ -11,8 +11,9 @@
     <link rel="stylesheet" href="css/mobileMenu.css?v=1">
     <link rel="stylesheet" href="css/dailyQuests.css?v=1">
     <link rel="stylesheet" href="css/forge.css?v=1">
-    <link rel="stylesheet" href="css/account.css?v=2">
+    <link rel="stylesheet" href="css/account.css?v=3">
     <link rel="stylesheet" href="css/ranking.css?v=2">
+    <link rel="stylesheet" href="css/chat.css?v=1">
 </head>
 
 
@@ -190,6 +191,10 @@
 
                         <button data-menu-section="ranking" onclick="openRankingScreen()">
                             🏆 Ranking
+                        </button>
+
+                        <button data-menu-section="chat" onclick="openChatScreen()">
+                            💬 Czat
                         </button>
                     </div>
                 </section>
@@ -791,6 +796,13 @@
                 <div class="game-card">
                     <div class="card-header">🔨 Kuźnia – ulepszanie sprzętu</div>
                     <div id="forge-content"></div>
+                </div>
+            </section>
+
+            <section id="screen-chat" class="screen">
+                <div class="game-card">
+                    <div class="card-header">💬 Czat globalny</div>
+                    <div id="chat-content"></div>
                 </div>
             </section>
 
@@ -1830,6 +1842,7 @@
     <script src="js/online/cloudSave.js"></script>
     <script src="js/ui/cloudSaveUI.js"></script>
     <script src="js/ui/rankingUI.js"></script>
+    <script src="js/ui/chatUI.js"></script>
     <script src="js/randomEncounters.js"></script>
     <script src="js/ui/journalLocationsUI.js"></script>
     <script src="js/ui/journalBossesUI.js"></script>
