@@ -194,3 +194,7 @@ applyCraftedArmorBalance();
 if (typeof window.applyReinforcedGearBalance === "function") {
     window.applyReinforcedGearBalance();
 }
+
+if (typeof window.applyStormforgedGearBalance === "function") {
+    window.applyStormforgedGearBalance();
+}

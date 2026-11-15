@@ -19,6 +19,10 @@ const combatMonsterBalanceRows = [
     ["drowned_royal_guard", 2360, 232, "normal"], ["deep_hunter", 2832, 260, "normal"], ["abyss_siren", 3304, 289, "normal"], ["coral_colossus", 3776, 317, "normal"], ["sunken_throne_priest", 4248, 345, "normal"], ["crown_leviathan", 10620, 445, "boss"],
     // Kryształowe Szczyty (poz. 100): pełny set 170 pancerza; maksymalny hit: około 296 HP.
     ["crystal_beetle", 3300, 316, "normal"], ["shardling", 3957, 362, "normal"], ["geode_breaker", 4612, 411, "normal"], ["prismatic_manticore", 5269, 457, "normal"], ["crystal_spire_guardian", 5926, 501, "normal"], ["heart_of_the_mountain", 12629, 664, "boss"],
+    // Zapomniane Głębie (poz. 110): pełny set 180 pancerza; wartości pośrednie między Kryształowymi Szczytami a Burzowymi Niebiosami.
+    ["cave_crawler", 3950, 363, "normal"], ["rust_golem", 4730, 418, "normal"], ["deep_wraith", 5510, 473, "normal"], ["dwarven_automaton", 6290, 528, "normal"], ["magma_forgemaster", 7070, 583, "normal"], ["forge_titan", 15000, 775, "boss"],
+    // Burzowe Niebiosa (poz. 120): pełny set 190 pancerza.
+    ["wind_harpy", 4600, 410, "normal"], ["cloud_serpent", 5500, 470, "normal"], ["thunder_roc", 6400, 535, "normal"], ["storm_elemental", 7300, 600, "normal"], ["sky_templar", 8200, 665, "normal"], ["tempest_sovereign", 17400, 885, "boss"],
 ];
 
 window.idlerMonsterBalance = Object.fromEntries(

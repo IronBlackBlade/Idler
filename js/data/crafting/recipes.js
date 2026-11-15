@@ -4,6 +4,7 @@ const recipes = [
   ...window.craftingJewelryRecipes,
   ...window.craftingMaterialRecipes,
   ...(window.craftingReinforcedRecipes || []),
+  ...(window.craftingStormforgedRecipes || []),
 
 
 ];

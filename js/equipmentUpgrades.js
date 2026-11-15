@@ -10,6 +10,16 @@
 const EQUIPMENT_UPGRADE_MAX_LEVEL = 10;
 const EQUIPMENT_UPGRADE_BONUS_PER_LEVEL = 0.025;
 const EQUIPMENT_UPGRADE_GOLD_FACTOR = 2;
+// Mnożnik kosztu złota rosnący z poziomem przedmiotu (dochód z walki rośnie szybciej niż r^2).
+const EQUIPMENT_UPGRADE_GOLD_LEVEL_MULTIPLIERS = Object.freeze([
+    [120, 70], [110, 40], [100, 20], [90, 8], [80, 4], [65, 2], [1, 1]
+]);
+
+function getEquipmentUpgradeGoldMultiplier(requiredLevel) {
+    const band = EQUIPMENT_UPGRADE_GOLD_LEVEL_MULTIPLIERS.find(([minLevel]) => requiredLevel >= minLevel);
+
+    return band ? band[1] : 1;
+}
 // Pancerz odejmuje się od ataku wroga, więc jego bonus z ulepszeń jest słabszy.
 const EQUIPMENT_UPGRADE_ARMOR_BONUS_FACTOR = 0.5;
 const EQUIPMENT_UPGRADE_DOWNGRADE_CHANCE = 0.25;
@@ -85,7 +95,7 @@ function getEquipmentUpgradeCost(itemId) {
     });
     return {
         target,
-        gold: Math.round(EQUIPMENT_UPGRADE_GOLD_FACTOR * requiredLevel * requiredLevel * target) + 50 * target,
+        gold: Math.round(EQUIPMENT_UPGRADE_GOLD_FACTOR * requiredLevel * requiredLevel * target * getEquipmentUpgradeGoldMultiplier(requiredLevel)) + 50 * target,
         ingotId,
         ingots: Math.ceil(target / 5),
         chance: EQUIPMENT_UPGRADE_SUCCESS_CHANCE[target] || 0

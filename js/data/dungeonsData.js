@@ -802,9 +802,281 @@ const dungeons = {
                 }
             ]
         }
+    },
+    titanForge: {
+        id: "titanForge",
+        name: "Kuźnia Tytana",
+        icon: "⚒️",
+        keyItemId: "titan_forge_key",
+        recommendedLevel: 110,
+
+        rooms: [
+            {
+                id: "forge_sentry",
+                name: "Wartownik Kuźni",
+                hp: 234000,
+                attack: 140,
+                gold: 192000,
+                exp: 986000,
+
+                loot: [
+                    {
+                        item: "rusted_gear",
+                        chance: 60
+                    },
+                    {
+                        item: "deep_chitin_plate",
+                        chance: 40
+                    }
+                ]
+            },
+
+            {
+                id: "clockwork_overseer",
+                name: "Nadzorca Mechanizmów",
+                hp: 293000,
+                attack: 151,
+                gold: 237000,
+                exp: 1200000,
+
+                loot: [
+                    {
+                        item: "clockwork_spring",
+                        chance: 65
+                    },
+                    {
+                        item: "dwarven_alloy",
+                        chance: 35
+                    }
+                ]
+            },
+
+            {
+                id: "slag_behemoth",
+                name: "Behemot Żużla",
+                hp: 368000,
+                attack: 164,
+                gold: 288000,
+                exp: 1480000,
+
+                loot: [
+                    {
+                        item: "golem_slag_core",
+                        chance: 55
+                    },
+                    {
+                        item: "runed_plate",
+                        chance: 60
+                    },
+                    {
+                        item: "titan_forged_plating",
+                        chance: 30
+                    }
+                ]
+            },
+
+            {
+                id: "anvil_warden",
+                name: "Strażnik Kowadła",
+                hp: 486000,
+                attack: 177,
+                gold: 355000,
+                exp: 1830000,
+
+                loot: [
+                    {
+                        item: "magma_anvil_shard",
+                        chance: 70
+                    },
+                    {
+                        item: "forgemaster_tongs",
+                        chance: 55
+                    },
+                    {
+                        item: "forge_ember",
+                        chance: 45
+                    }
+                ]
+            },
+
+            {
+                id: "ancient_forge_titan",
+                name: "Pradawny Tytan Kuźni",
+                hp: 805000,
+                attack: 193,
+                gold: 668000,
+                exp: 3430000,
+                isBoss: true,
+
+                loot: [
+                    {
+                        item: "forge_titan_heart",
+                        chance: 100
+                    },
+                    {
+                        item: "titan_forged_plating",
+                        chance: 85
+                    },
+                    {
+                        item: "forge_essence",
+                        chance: 70
+                    }
+                ]
+            }
+        ],
+
+        completionRewards: {
+            chanceItems: [
+                { item: "upgrade_protection_stone", quantity: 1, chance: 0.35 }
+            ],
+            gold: 815000,
+            exp: 4100000,
+
+            items: [
+                {
+                    item: "titan_forge_trophy",
+                    quantity: 1
+                }
+            ]
+        }
+    },
+    lightningCitadel: {
+        id: "lightningCitadel",
+        name: "Błyskawiczna Cytadela",
+        icon: "⚡",
+        keyItemId: "lightning_citadel_key",
+        recommendedLevel: 120,
+
+        rooms: [
+            {
+                id: "storm_sentinel",
+                name: "Wartownik Nawałnicy",
+                hp: 304000,
+                attack: 151,
+                gold: 259000,
+                exp: 1280000,
+
+                loot: [
+                    {
+                        item: "storm_feather",
+                        chance: 60
+                    },
+                    {
+                        item: "sky_steel_rivet",
+                        chance: 40
+                    }
+                ]
+            },
+
+            {
+                id: "cloud_oracle",
+                name: "Wyrocznia Chmur",
+                hp: 381000,
+                attack: 163,
+                gold: 320000,
+                exp: 1560000,
+
+                loot: [
+                    {
+                        item: "cloud_scale",
+                        chance: 65
+                    },
+                    {
+                        item: "vapor_fang",
+                        chance: 35
+                    }
+                ]
+            },
+
+            {
+                id: "thunder_colossus",
+                name: "Kolos Gromów",
+                hp: 478000,
+                attack: 177,
+                gold: 389000,
+                exp: 1920000,
+
+                loot: [
+                    {
+                        item: "thunder_quill",
+                        chance: 55
+                    },
+                    {
+                        item: "static_core",
+                        chance: 60
+                    },
+                    {
+                        item: "tempest_shard",
+                        chance: 30
+                    }
+                ]
+            },
+
+            {
+                id: "gale_templar_captain",
+                name: "Kapitan Templariuszy Wichru",
+                hp: 632000,
+                attack: 191,
+                gold: 479000,
+                exp: 2380000,
+
+                loot: [
+                    {
+                        item: "wind_forged_ingot",
+                        chance: 70
+                    },
+                    {
+                        item: "templar_halo",
+                        chance: 55
+                    },
+                    {
+                        item: "roc_eggshell",
+                        chance: 45
+                    }
+                ]
+            },
+
+            {
+                id: "citadel_stormlord",
+                name: "Pan Błyskawicznej Cytadeli",
+                hp: 1047000,
+                attack: 208,
+                gold: 902000,
+                exp: 4460000,
+                isBoss: true,
+
+                loot: [
+                    {
+                        item: "storm_sovereign_heart",
+                        chance: 100
+                    },
+                    {
+                        item: "sovereign_stormplate",
+                        chance: 85
+                    },
+                    {
+                        item: "storm_essence",
+                        chance: 70
+                    }
+                ]
+            }
+        ],
+
+        completionRewards: {
+            chanceItems: [
+                { item: "upgrade_protection_stone", quantity: 1, chance: 0.35 }
+            ],
+            gold: 1100000,
+            exp: 5300000,
+
+            items: [
+                {
+                    item: "lightning_citadel_trophy",
+                    quantity: 1
+                }
+            ]
+        }
     }
-
-
 
 };
 

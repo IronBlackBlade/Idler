@@ -8,4 +8,5 @@ const locations = {
     sunkenKingdom: sunkenKingdom,
     crystalPeaks: crystalPeaks,
     forgottenDepths: forgottenDepths,
+    stormySkies: stormySkies,
 };

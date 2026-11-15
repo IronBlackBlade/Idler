@@ -32,7 +32,10 @@ insert into public.idler_limits (key, value, note) values
   ('boss_kills_burst', 20, 'Jednorazowy zapas bossów'),
   ('grace_seconds', 30, 'Dodatkowe sekundy doliczane do czasu między zapisami'),
   ('max_exp_per_kill', 150000, 'Największy EXP za jednego potwora (kontrola pierwszego zapisu)'),
-  ('first_submit_exp_slack', 50000000, 'Zapas EXP przy pierwszym zapisie konta')
+  ('first_submit_exp_slack', 50000000, 'Zapas EXP przy pierwszym zapisie konta'),
+  ('max_gold_per_second', 500000, 'Najwięcej przyrostu złota na sekundę (zabójstwa, sprzedaż, nagrody)'),
+  ('gold_burst', 1000000000, 'Jednorazowy zapas złota (np. sprzedaż całego plecaka)'),
+  ('first_submit_gold_max', 5000000000, 'Najwięcej złota przy pierwszym zapisie konta')
 on conflict (key) do nothing;
 
 -- ---------- Statystyki gracza wyciągnięte przez serwer z zapisu ----------
@@ -46,6 +49,7 @@ create table if not exists public.player_stats (
   boss_kills bigint not null default 0,
   elite_kills bigint not null default 0,
   achievement_points integer not null default 0,
+  gold numeric not null default 0,
   flagged boolean not null default false,
   flag_reason text,
   flagged_at timestamptz,
@@ -53,6 +57,7 @@ create table if not exists public.player_stats (
   updated_at timestamptz not null default now()
 );
 
+alter table public.player_stats add column if not exists gold numeric not null default 0;
 alter table public.player_stats enable row level security;
 
 drop policy if exists "Własne statystyki: odczyt" on public.player_stats;
@@ -246,12 +251,23 @@ begin
        + coalesce(public.idler_limit('boss_kills_burst'), 20) then
       v_reasons := array_append(v_reasons, 'bossowie_za_szybko'::text);
     end if;
+
+    -- Złoto może spadać (wydatki, reset), liczy się tylko nierealny przyrost.
+    if v_gold - v_prev.gold >
+       coalesce(public.idler_limit('max_gold_per_second'), 500000) * v_window
+       + coalesce(public.idler_limit('gold_burst'), 1000000000) then
+      v_reasons := array_append(v_reasons, 'zloto_za_szybko'::text);
+    end if;
   else
     -- Pierwszy zapis konta: EXP musi mieć pokrycie w zabójstwach.
     if v_total_exp >
        coalesce(public.idler_limit('max_exp_per_kill'), 150000) * (v_total_kills + v_boss_kills) * 3
        + coalesce(public.idler_limit('first_submit_exp_slack'), 50000000) then
       v_reasons := array_append(v_reasons, 'exp_bez_pokrycia_w_zabojstwach'::text);
+    end if;
+
+    if v_gold > coalesce(public.idler_limit('first_submit_gold_max'), 5000000000) then
+      v_reasons := array_append(v_reasons, 'zloto_bez_pokrycia'::text);
     end if;
   end if;
 
@@ -280,10 +296,11 @@ begin
 
   insert into public.player_stats as s (
     user_id, level, exp, total_exp, total_kills, boss_kills, elite_kills,
-    achievement_points, flagged, flag_reason, flagged_at, checked_at, updated_at
+    achievement_points, gold, flagged, flag_reason, flagged_at, checked_at, updated_at
   ) values (
     v_uid, v_level::integer, v_exp, v_total_exp, v_total_kills::bigint,
     v_boss_kills::bigint, v_elite_kills::bigint, v_points::integer,
+    v_gold,
     v_flagged, v_reason,
     case when v_flagged then now() else null end,
     now(), now()
@@ -296,6 +313,7 @@ begin
     boss_kills = excluded.boss_kills,
     elite_kills = excluded.elite_kills,
     achievement_points = excluded.achievement_points,
+    gold = excluded.gold,
     flagged = excluded.flagged,
     flag_reason = excluded.flag_reason,
     flagged_at = case

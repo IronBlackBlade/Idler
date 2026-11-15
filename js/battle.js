@@ -427,6 +427,24 @@ const dungeonKeyDropConfigs = {
     keyName: "Klucz do Pałacu Głębin",
     icon: "🏛️",
   },
+
+  titanForge: {
+    locationId: "forgottenDepths",
+    bossId: "forge_titan",
+    keyItemId: "titan_forge_key",
+    bossName: "Tytan Kuźni",
+    keyName: "Klucz do Kuźni Tytana",
+    icon: "⚒️",
+  },
+
+  lightningCitadel: {
+    locationId: "stormySkies",
+    bossId: "tempest_sovereign",
+    keyItemId: "lightning_citadel_key",
+    bossName: "Władca Burzy",
+    keyName: "Klucz do Błyskawicznej Cytadeli",
+    icon: "⚡",
+  },
 };
 
 function ensureDungeonKeyProgress(dungeonId) {

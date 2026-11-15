@@ -219,6 +219,30 @@ function stopActivitiesBeforeDungeon() {
     }
 }
 
+// Opłata za wejście: ćwierć sumarycznego złota z nagród lochu (pomieszczenia + ukończenie).
+const DUNGEON_ENTRY_FEE_RATIO = 0.25;
+
+function getDungeonEntryFee(dungeon) {
+    if (!dungeon) {
+        return 0;
+    }
+
+    const roomGold = (dungeon.rooms || []).reduce(
+        (sum, room) => sum + (Number(room.gold) || 0),
+        0
+    );
+    const completionGold = Number(dungeon.completionRewards?.gold) || 0;
+    const total = (roomGold + completionGold) * DUNGEON_ENTRY_FEE_RATIO;
+
+    if (total <= 0) {
+        return 0;
+    }
+
+    const step = total >= 10000 ? 1000 : total >= 1000 ? 100 : 10;
+
+    return Math.max(step, Math.round(total / step) * step);
+}
+
 function startDungeonRun(dungeonId) {
     const dungeon = getDungeonDefinition(dungeonId);
 
@@ -253,6 +277,17 @@ function startDungeonRun(dungeonId) {
         return false;
     }
 
+    const entryFee = getDungeonEntryFee(dungeon);
+
+    if (player.gold < entryFee) {
+        showNotification(
+            "Opłata za wejście: " + entryFee.toLocaleString("pl-PL") + " 💰. Brakuje złota.",
+            "error"
+        );
+
+        return false;
+    }
+
     if (hasActiveActivityBeforeDungeon()) {
         showGameConfirm(
             "Wejście do lochu przerwie aktualne aktywności.\n\n" +
@@ -276,6 +311,13 @@ function beginDungeonRun(dungeonId, dungeon, progress) {
     stopActivitiesBeforeDungeon();
 
     removeItemFromInventory(dungeon.keyItemId, 1);
+
+    const entryFee = getDungeonEntryFee(dungeon);
+
+    if (entryFee > 0) {
+        player.gold = Math.max(0, player.gold - entryFee);
+        addCombatLog("💰 Opłata za wejście: " + entryFee.toLocaleString("pl-PL") + " złota.");
+    }
 
     progress.active = true;
     progress.roomIndex = 0;

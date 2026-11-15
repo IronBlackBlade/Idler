@@ -28,7 +28,10 @@ function getDungeonCardState(dungeonId) {
 function renderDungeonCard(dungeonId, index) {
     const state = getDungeonCardState(dungeonId);
     const { dungeon, progress, keyQuantity, unlocked } = state;
-    const canStart = unlocked && keyQuantity > 0;
+    const entryFee =
+        typeof getDungeonEntryFee === "function" ? getDungeonEntryFee(dungeon) : 0;
+    const hasGold = player.gold >= entryFee;
+    const canStart = unlocked && keyQuantity > 0 && hasGold;
     const roomNumber = progress.roomIndex + 1;
     const trophyItem = dungeon.completionRewards?.items?.[0];
     const trophyName = trophyItem && items[trophyItem.item]
@@ -50,6 +53,9 @@ function renderDungeonCard(dungeonId, index) {
         buttonText = "🚪 Rozpocznij wyprawę";
         buttonAction = "startDungeonRun('" + dungeonId + "')";
         buttonDisabled = false;
+    } else if (unlocked && keyQuantity > 0) {
+        statusText = "Brak złota";
+        buttonText = "💰 Potrzebujesz " + entryFee.toLocaleString("pl-PL") + " złota";
     } else if (unlocked) {
         statusText = "Brak klucza";
         buttonText = "🗝️ Potrzebujesz klucza";
@@ -101,7 +107,7 @@ function renderDungeonCard(dungeonId, index) {
 
                 <div>
                     <span>Koszt wejścia</span>
-                    <strong>1 klucz</strong>
+                    <strong>1 klucz + ${entryFee.toLocaleString("pl-PL")} 💰</strong>
                 </div>
 
                 <div>

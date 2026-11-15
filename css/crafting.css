@@ -1385,6 +1385,10 @@ span:last-child:nth-of-type(odd) {
   --equipment-upgrade-accent: #ff9f43;
 }
 
+#crafting-list .equipment-upgrade-stormforged {
+  --equipment-upgrade-accent: #5ec8ff;
+}
+
 #crafting-list .equipment-upgrade-special {
   --equipment-upgrade-accent: #e66cff;
 }

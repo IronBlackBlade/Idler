@@ -1167,6 +1167,152 @@ const items = {
         value: 5400
     },
 
+    storm_feather: {
+        id: "storm_feather",
+        name: "Burzowe pióro",
+        rarity: "common",
+        type: "crafting_material",
+        value: 740
+    },
+
+    harpy_talon: {
+        id: "harpy_talon",
+        name: "Szpon harpii",
+        rarity: "uncommon",
+        type: "crafting_material",
+        value: 980
+    },
+
+    gale_pearl: {
+        id: "gale_pearl",
+        name: "Perła wichru",
+        rarity: "rare",
+        type: "crafting_material",
+        value: 1300
+    },
+
+    cloud_scale: {
+        id: "cloud_scale",
+        name: "Chmurowa łuska",
+        rarity: "common",
+        type: "crafting_material",
+        value: 800
+    },
+
+    vapor_fang: {
+        id: "vapor_fang",
+        name: "Kieł z oparów",
+        rarity: "uncommon",
+        type: "crafting_material",
+        value: 1060
+    },
+
+    stratus_gem: {
+        id: "stratus_gem",
+        name: "Klejnot stratusa",
+        rarity: "rare",
+        type: "crafting_material",
+        value: 1420
+    },
+
+    thunder_quill: {
+        id: "thunder_quill",
+        name: "Grzmiąca lotka",
+        rarity: "common",
+        type: "crafting_material",
+        value: 880
+    },
+
+    roc_eggshell: {
+        id: "roc_eggshell",
+        name: "Skorupa jaja roca",
+        rarity: "uncommon",
+        type: "crafting_material",
+        value: 1160
+    },
+
+    stormcaller_beak: {
+        id: "stormcaller_beak",
+        name: "Dziób burzowołacza",
+        rarity: "rare",
+        type: "crafting_material",
+        value: 1560
+    },
+
+    static_core: {
+        id: "static_core",
+        name: "Statyczny rdzeń",
+        rarity: "common",
+        type: "crafting_material",
+        value: 960
+    },
+
+    tempest_shard: {
+        id: "tempest_shard",
+        name: "Odłamek nawałnicy",
+        rarity: "uncommon",
+        type: "crafting_material",
+        value: 1280
+    },
+
+    bottled_lightning: {
+        id: "bottled_lightning",
+        name: "Błyskawica w butelce",
+        rarity: "rare",
+        type: "crafting_material",
+        value: 1740
+    },
+
+    sky_steel_rivet: {
+        id: "sky_steel_rivet",
+        name: "Nit z nieboskłonu",
+        rarity: "common",
+        type: "crafting_material",
+        value: 1060
+    },
+
+    wind_forged_ingot: {
+        id: "wind_forged_ingot",
+        name: "Sztabka wichrostali",
+        rarity: "uncommon",
+        type: "crafting_material",
+        value: 1400
+    },
+
+    templar_halo: {
+        id: "templar_halo",
+        name: "Aureola templariusza",
+        rarity: "rare",
+        type: "crafting_material",
+        value: 1920
+    },
+
+    sovereign_stormplate: {
+        id: "sovereign_stormplate",
+        name: "Burzowa płyta Suwerena",
+        rarity: "epic",
+        type: "crafting_material",
+        value: 2600
+    },
+
+    storm_essence: {
+        id: "storm_essence",
+        name: "Esencja burzy",
+        rarity: "epic",
+        type: "crafting_material",
+        value: 3600
+    },
+
+    storm_sovereign_heart: {
+        id: "storm_sovereign_heart",
+        name: "Serce Władcy Burzy",
+        rarity: "legendary",
+        type: "crafting_material",
+        description:
+            "Wciąż iskrzące serce Władcy Burzy z Burzowych Niebios.",
+        value: 7250
+    },
+
     crystal_spire_key: {
         id: "crystal_spire_key",
         name: "Klucz do Pryzmatycznej Iglicy",
@@ -1189,6 +1335,50 @@ const items = {
         canSell: false
     },
 
+
+    titan_forge_key: {
+        id: "titan_forge_key",
+        name: "Klucz do Kuźni Tytana",
+        rarity: "legendary",
+        type: "dungeon_key",
+        description:
+            "Pozwala rozpocząć wyprawę do Kuźni Tytana.",
+        value: 0,
+        canSell: false
+    },
+
+    titan_forge_trophy: {
+        id: "titan_forge_trophy",
+        name: "Trofeum Kuźni Tytana",
+        rarity: "legendary",
+        type: "dungeon_reward",
+        description:
+            "Dowód ukończenia Kuźni Tytana.",
+        value: 0,
+        canSell: false
+    },
+
+    lightning_citadel_key: {
+        id: "lightning_citadel_key",
+        name: "Klucz do Błyskawicznej Cytadeli",
+        rarity: "legendary",
+        type: "dungeon_key",
+        description:
+            "Pozwala rozpocząć wyprawę do Błyskawicznej Cytadeli.",
+        value: 0,
+        canSell: false
+    },
+
+    lightning_citadel_trophy: {
+        id: "lightning_citadel_trophy",
+        name: "Trofeum Błyskawicznej Cytadeli",
+        rarity: "legendary",
+        type: "dungeon_reward",
+        description:
+            "Dowód ukończenia Błyskawicznej Cytadeli.",
+        value: 0,
+        canSell: false
+    },
 
     // SUROWCE Z KOPALNI
 

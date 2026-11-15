@@ -116,6 +116,83 @@ function updateInventoryTrashSellButton() {
   button.disabled = summary.totalQuantity <= 0;
 }
 
+let currentInventorySearch = "";
+let currentInventorySort = "default";
+
+const INVENTORY_SORT_OPTIONS = [
+  { id: "default", name: "Kolejność domyślna" },
+  { id: "name", name: "Nazwa A–Z" },
+  { id: "quantity", name: "Ilość (malejąco)" },
+  { id: "value", name: "Wartość (malejąco)" },
+];
+
+function normalizeInventorySearchText(text) {
+  return String(text || "")
+    .toLowerCase()
+    .replace(/ł/g, "l")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+}
+
+function getInventoryItemSortValue(invItem) {
+  const item = items[invItem.itemId];
+  const price =
+    window.processedMaterialPrices?.[invItem.itemId] ??
+    window.materialPrices?.[invItem.itemId] ??
+    item?.value;
+
+  return Math.max(0, Number(price) || 0);
+}
+
+function buildInventoryToolbar() {
+  const toolbar = document.createElement("div");
+  toolbar.className = "inventory-toolbar";
+
+  const search = document.createElement("input");
+  search.type = "search";
+  search.id = "inventory-search";
+  search.className = "inventory-search";
+  search.placeholder = "🔍 Szukaj przedmiotu...";
+  search.value = currentInventorySearch;
+  search.autocomplete = "off";
+  search.setAttribute("aria-label", "Szukaj przedmiotu w ekwipunku");
+  search.addEventListener("input", () => {
+    currentInventorySearch = search.value;
+    const caret = search.selectionStart;
+    renderInventory();
+    const restored = document.getElementById("inventory-search");
+
+    if (restored) {
+      restored.focus();
+
+      try {
+        restored.setSelectionRange(caret, caret);
+      } catch (error) {
+        /* typ pola nie obsługuje zaznaczenia */
+      }
+    }
+  });
+  toolbar.appendChild(search);
+
+  const sort = document.createElement("select");
+  sort.className = "inventory-sort";
+  sort.setAttribute("aria-label", "Sortowanie ekwipunku");
+  INVENTORY_SORT_OPTIONS.forEach((option) => {
+    const node = document.createElement("option");
+    node.value = option.id;
+    node.textContent = "↕️ " + option.name;
+    node.selected = option.id === currentInventorySort;
+    sort.appendChild(node);
+  });
+  sort.addEventListener("change", () => {
+    currentInventorySort = sort.value;
+    renderInventory();
+  });
+  toolbar.appendChild(sort);
+
+  return toolbar;
+}
+
 function renderInventory() {
   const container = document.getElementById("inventory-list");
 
@@ -255,8 +332,19 @@ function renderInventory() {
     return;
   }
 
+  container.appendChild(buildInventoryToolbar());
+
+  const searchQuery = normalizeInventorySearchText(currentInventorySearch.trim());
+
   const filteredInventory = player.inventory.filter((invItem) => {
     const item = items[invItem.itemId];
+
+    if (
+      searchQuery &&
+      !normalizeInventorySearchText(item ? item.name : invItem.itemId).includes(searchQuery)
+    ) {
+      return false;
+    }
 
     const category = getInventoryItemCategory(item, invItem.itemId);
 
@@ -279,10 +367,27 @@ function renderInventory() {
     return subcategory === currentInventorySubfilter;
   });
 
+  if (currentInventorySort === "name") {
+    filteredInventory.sort((a, b) =>
+      String(items[a.itemId]?.name || a.itemId).localeCompare(
+        String(items[b.itemId]?.name || b.itemId),
+        "pl",
+      ),
+    );
+  } else if (currentInventorySort === "quantity") {
+    filteredInventory.sort((a, b) => (b.quantity || 0) - (a.quantity || 0));
+  } else if (currentInventorySort === "value") {
+    filteredInventory.sort(
+      (a, b) => getInventoryItemSortValue(b) - getInventoryItemSortValue(a),
+    );
+  }
+
   if (filteredInventory.length === 0) {
     const emptyInfo = document.createElement("p");
     emptyInfo.className = "inventory-empty";
-    emptyInfo.textContent = "Brak przedmiotów w tej kategorii.";
+    emptyInfo.textContent = searchQuery
+      ? "Nic nie pasuje do wyszukiwania."
+      : "Brak przedmiotów w tej kategorii.";
     container.appendChild(emptyInfo);
     return;
   }

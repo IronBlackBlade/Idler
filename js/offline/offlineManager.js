@@ -31,6 +31,99 @@ function shouldDisplayOfflineSummary(
     ) >= MINIMUM_OFFLINE_SUMMARY_DURATION_MS;
 }
 
+// Łączny EXP bohatera od poziomu 1 (suma progów poziomów + bieżący EXP).
+function getOfflineTotalExperience() {
+    const level = Math.max(1, Math.floor(Number(player.level) || 1));
+    let total = Math.max(0, Number(player.exp) || 0);
+
+    if (typeof getExpToNextLevel === "function") {
+        for (let current = 1; current < level; current++) {
+            total += Number(getExpToNextLevel(current)) || 0;
+        }
+    }
+
+    return total;
+}
+
+// Poziom odpowiadający łącznemu EXP (także gdy awans nie został jeszcze przeliczony).
+function getOfflineLevelFromTotalExperience(totalExperience) {
+    if (typeof getExpToNextLevel !== "function") {
+        return Math.max(1, Math.floor(Number(player.level) || 1));
+    }
+
+    let level = 1;
+    let remaining = Math.max(0, totalExperience);
+
+    while (level < 5000) {
+        const needed = Number(getExpToNextLevel(level)) || 0;
+
+        if (needed <= 0 || remaining < needed) {
+            break;
+        }
+
+        remaining -= needed;
+        level++;
+    }
+
+    return level;
+}
+
+function buildOfflineOverviewSection(before, durationMilliseconds) {
+    const goldDelta = Math.round((Number(player.gold) || 0) - before.gold);
+    const expDelta = Math.max(
+        0,
+        Math.round(getOfflineTotalExperience() - before.totalExperience)
+    );
+    const levelAfter = getOfflineLevelFromTotalExperience(
+        getOfflineTotalExperience()
+    );
+    const hours = durationMilliseconds / 3600000;
+    const stats = [
+        {
+            label: "Czas offline",
+            value: formatOfflineSummaryDuration(durationMilliseconds)
+        },
+        {
+            label: "Złoto (bilans)",
+            value: goldDelta,
+            prefix: goldDelta > 0 ? "+" : ""
+        },
+        {
+            label: "EXP łącznie",
+            value: expDelta,
+            prefix: expDelta > 0 ? "+" : ""
+        }
+    ];
+
+    if (hours >= 1 / 60) {
+        stats.push(
+            {
+                label: "Złoto na godzinę",
+                value: Math.round(goldDelta / hours),
+                prefix: goldDelta > 0 ? "+" : ""
+            },
+            {
+                label: "EXP na godzinę",
+                value: Math.round(expDelta / hours),
+                prefix: expDelta > 0 ? "+" : ""
+            }
+        );
+    }
+
+    if (levelAfter > before.level) {
+        stats.push({
+            label: "Poziom bohatera",
+            value: before.level + " → " + levelAfter
+        });
+    }
+
+    return {
+        icon: "📊",
+        title: "Podsumowanie offline",
+        stats
+    };
+}
+
 function simulateOfflineProgress(
     offlineSeconds,
     activityType =
@@ -41,6 +134,12 @@ function simulateOfflineProgress(
 ) {
     const offlineFinishedAt =
         Date.now();
+
+    const overviewBefore = {
+        gold: Number(player.gold) || 0,
+        level: Math.max(1, Math.floor(Number(player.level) || 1)),
+        totalExperience: getOfflineTotalExperience()
+    };
 
     let activitySummary = null;
 
@@ -143,6 +242,20 @@ function simulateOfflineProgress(
         return null;
     }
 
+    // Liczymy tyle czasu, ile faktycznie zaliczono (limit offline), a nie czas na zegarze.
+    const overviewDuration =
+        Math.max(
+            0,
+            ...summaries.map(summary => {
+                return Number(summary.durationMilliseconds) || 0;
+            })
+        ) || Math.max(0, offlineFinishedAt - offlineStartedAt);
+
+    const overviewSection = buildOfflineOverviewSection(
+        overviewBefore,
+        overviewDuration
+    );
+
     return {
         durationMilliseconds:
             Math.max(
@@ -155,10 +268,12 @@ function simulateOfflineProgress(
                     }
                 )
             ),
-        sections: summaries.flatMap(
-            summary => {
-                return summary.sections;
-            }
+        sections: [overviewSection].concat(
+            summaries.flatMap(
+                summary => {
+                    return summary.sections;
+                }
+            )
         )
     };
 }

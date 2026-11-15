@@ -102,6 +102,12 @@ const craftingBalance = {
         random: [17, 31],
         jewelryRandom: [14, 22],
       },
+
+      120: {
+        main: [44, 60],
+        random: [18, 33],
+        jewelryRandom: [15, 24],
+      },
     },
   },
   upgradePresentation: {
@@ -158,6 +164,11 @@ const craftingBalance = {
     110: {
       rank: "reinforced",
       rankLabel: "Wzmocnienie",
+    },
+
+    120: {
+      rank: "stormforged",
+      rankLabel: "Burzowe hartowanie",
     },
   },
   upgradeStats: {

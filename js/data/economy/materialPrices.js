@@ -168,7 +168,31 @@ window.materialPrices = {
     forgemaster_tongs: 7500,
     titan_forged_plating: 10000,
     forge_essence: 14000,
-    forge_titan_heart: 22000
+    forge_titan_heart: 22000,
+
+
+    // ==================================================
+    // BURZOWE NIEBIOSA
+    // ==================================================
+
+    storm_feather: 3700,
+    harpy_talon: 4900,
+    gale_pearl: 6500,
+    cloud_scale: 4000,
+    vapor_fang: 5300,
+    stratus_gem: 7100,
+    thunder_quill: 4400,
+    roc_eggshell: 5800,
+    stormcaller_beak: 7800,
+    static_core: 4800,
+    tempest_shard: 6400,
+    bottled_lightning: 8700,
+    sky_steel_rivet: 5300,
+    wind_forged_ingot: 7000,
+    templar_halo: 9600,
+    sovereign_stormplate: 13000,
+    storm_essence: 18000,
+    storm_sovereign_heart: 29000
 };
 
 

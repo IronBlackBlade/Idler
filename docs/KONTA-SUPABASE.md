@@ -75,6 +75,7 @@ Po zalogowaniu gra wysyła zapis postaci do chmury i pozwala grać z kilku urzą
 **Jak to działa**
 - Od teraz zapis do chmury wysyła funkcja serwera `idler_submit_save`. Bezpośrednie zapisywanie do tabeli jest zablokowane.
 - Serwer **zawsze zapisuje** zapis, ale sprawdza postęp: jeśli poziom, zabójstwa lub bossowie rosną nierealnie szybko (albo EXP nie ma pokrycia w zabójstwach), konto dostaje **flagę**. Flaga nic nie kasuje, tylko wyklucza z rankingu.
+- Serwer pilnuje też **złota**: nierealny przyrost między zapisami (limit `max_gold_per_second` plus jednorazowy zapas `gold_burst`, np. na sprzedaż całego plecaka) oraz absurdalna ilość złota przy pierwszym zapisie konta dają flagę. Spadek złota (wydatki) jest zawsze w porządku.
 - Zapisy w oczywiście błędnym formacie (np. ujemne EXP, poziom spoza zakresu) są odrzucane.
 - Ranking (menu Miasto → 🏆 Ranking) ma zakładki Poziom, Bossowie, Zabite potwory. Pokazuje tylko graczy bez flagi.
 - Kliknięcie nazwy gracza w rankingu otwiera jego profil (poziom, klasa, statystyki zabójstw, założony sprzęt). Serwer ujawnia tylko ten bezpieczny podzbiór zapisu, bez złota i ekwipunku.
@@ -99,6 +100,7 @@ Podgląd i zmiana limitów:
 ```sql
 select * from idler_limits;
 update idler_limits set value = 300000 where key = 'max_exp_per_second';
+-- limity złota: max_gold_per_second, gold_burst, first_submit_gold_max
 ```
 
 **Uwaga:** przy pierwszym wysłaniu starego zapisu serwer sprawdza, czy EXP ma pokrycie w zabójstwach. Starsze zapisy mogą nie mieć liczników zabójstw i zostać oznaczone przez pomyłkę. Wtedy zdejmij flagę zapytaniem wyżej. Wzór krzywej EXP w SQL (`idler_exp_to_next`) musi pozostać zgodny z grą.
