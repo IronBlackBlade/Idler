@@ -43,11 +43,14 @@ html body { padding-bottom: 44px; }
 }
 .bottom-tab span { background: none !important; box-shadow: none !important; padding: 0 !important; }
 
+#bottom-log-tab { order: 2; margin-left: auto; }
+.chat-tab { order: 1; }
+
 /* Log postaci: okno rozwijane nad paskiem (zastępuje panel boczny) */
 html body #system-log-panel {
   position: fixed !important;
-  left: 12px !important;
-  right: auto !important;
+  left: auto !important;
+  right: 12px !important;
   top: auto !important;
   bottom: 46px !important;
   z-index: 8900 !important;
@@ -88,6 +91,6 @@ html body #system-log-panel .system-log { flex: 1 1 auto; min-height: 0; }
 }
 
 @media (max-width: 520px) {
-  html body #system-log-panel { left: 12px !important; width: calc(100vw - 24px) !important; }
+  html body #system-log-panel { left: 12px !important; right: 12px !important; width: calc(100vw - 24px) !important; }
   .bottom-tab { padding: 0 12px; font-size: 14px; flex: 1 1 0; justify-content: center; }
 }

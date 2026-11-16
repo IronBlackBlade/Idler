@@ -338,6 +338,10 @@ grant execute on function public.idler_submit_save(jsonb, integer, boolean) to a
 -- ---------- Ranking ----------
 -- Dostępne wskaźniki: 'level' (poziom), 'bosses' (pokonani bossowie), 'kills' (zabite potwory).
 
+-- drop: jeśli wcześniej uruchomiono avatars.sql, zmienia się lista zwracanych kolumn
+-- (po ponownym uruchomieniu tego pliku uruchom avatars.sql jeszcze raz).
+drop function if exists public.idler_get_ranking(text, integer);
+
 create or replace function public.idler_get_ranking(p_metric text, p_limit integer default 50)
 returns table (rank bigint, username text, value numeric, level integer, is_me boolean)
 language sql

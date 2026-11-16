@@ -2,7 +2,7 @@
 
 .chat-dock {
   position: fixed;
-  right: 12px;
+  left: 12px;
   bottom: 50px; /* nad dolnym paskiem */
   z-index: 8900;
   pointer-events: none;
@@ -104,6 +104,8 @@ button.chat-report {
 .chat-rules { flex: 0 0 auto; margin: 4px 0 0; font-size: .72em; opacity: .55; }
 
 @media (max-width: 520px) {
-  .chat-dock { left: 12px; }
+  .chat-dock { left: 12px; right: 12px; }
   .chat-panel { width: 100%; max-width: none; height: min(420px, 58dvh); }
 }
+
+.chat-avatar { flex: 0 0 auto; font-size: 1.1em; line-height: 1; }

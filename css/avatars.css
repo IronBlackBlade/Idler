@@ -1,0 +1,28 @@
+/* ===== Avatary ===== */
+
+.side-hero-avatar.avatar-changeable { cursor: pointer; }
+.side-hero-avatar.avatar-changeable:hover { filter: brightness(1.15); }
+.mobile-topbar-avatar { cursor: pointer; }
+
+.avatar-picker { max-width: 520px; width: calc(100vw - 24px); max-height: 86dvh; overflow-y: auto; }
+
+.avatar-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+  gap: 8px;
+  margin: 8px 0 12px;
+}
+
+.avatar-option {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  min-width: 0; padding: 8px 4px; color: #ead9bd; cursor: pointer;
+  background: linear-gradient(#4b392a, #392a1e); border: 0;
+  box-shadow: inset 0 0 0 1px #6a4a30;
+}
+.avatar-option:hover { background: linear-gradient(#5a4531, #43321f); }
+.avatar-option.selected { box-shadow: inset 0 0 0 2px #e3c27a; background: linear-gradient(#a03b2f, #6f241c); }
+.avatar-option.locked { opacity: .55; cursor: not-allowed; }
+.avatar-option span { background: none !important; box-shadow: none !important; padding: 0 !important; }
+.avatar-option-icon { font-size: 30px; line-height: 1.2; }
+.avatar-option-name { font-size: 13px; text-align: center; }
+.avatar-option-hint { font-size: 10px; opacity: .8; text-align: center; overflow-wrap: anywhere; }

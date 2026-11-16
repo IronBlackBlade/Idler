@@ -150,7 +150,11 @@
       list.forEach((row) => {
         const item = el("li", "ranking-row" + (row.is_me ? " me" : ""));
         item.appendChild(el("span", "ranking-pos", "#" + row.rank));
-        const name = el("button", "ranking-name", row.username);
+        const name = el(
+          "button",
+          "ranking-name",
+          (window.IdlerAvatars?.getAvatarIcon?.(row.avatar_id) || "") + " " + row.username,
+        );
         name.type = "button";
         name.title = "Pokaż profil";
         name.addEventListener("click", () => openProfile(row.username));
@@ -237,7 +241,7 @@
     const dialog = el("section", "game-dialog account-dialog ranking-profile");
     dialog.setAttribute("role", "dialog");
     dialog.setAttribute("aria-modal", "true");
-    dialog.appendChild(el("h2", "game-dialog-title", "🧙 " + data.username));
+    dialog.appendChild(el("h2", "game-dialog-title", (window.IdlerAvatars?.getAvatarIcon?.(data.avatar_id) || "🧙") + " " + data.username));
 
     const body = el("div", "game-dialog-message");
     const facts = el("div", "profile-facts");

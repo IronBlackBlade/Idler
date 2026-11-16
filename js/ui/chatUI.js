@@ -114,6 +114,7 @@
         user_id: row.user_id,
         username: String(row.username || "?"),
         body: String(row.body || ""),
+        avatar_id: typeof row.avatar_id === "string" ? row.avatar_id : null,
         created_at: row.created_at,
       });
       added = true;
@@ -157,7 +158,7 @@
   async function fetchHistory() {
     const result = await getClient()
       .from("chat_messages")
-      .select("id, user_id, username, body, created_at")
+      .select("*")
       .order("id", { ascending: false })
       .limit(HISTORY_LIMIT);
 
@@ -189,7 +190,7 @@
     try {
       const result = await client
         .from("chat_messages")
-        .select("id, user_id, username, body, created_at")
+        .select("*")
         .gt("id", lastId)
         .order("id", { ascending: true })
         .limit(HISTORY_LIMIT);
@@ -451,6 +452,10 @@
       const time = el("span", "chat-time", formatTime(message.created_at));
       time.title = formatFull(message.created_at);
       row.appendChild(time);
+
+      row.appendChild(
+        el("span", "chat-avatar", window.IdlerAvatars?.getAvatarIcon?.(message.avatar_id) || ""),
+      );
 
       const name = el("button", "chat-name", message.username);
       name.type = "button";

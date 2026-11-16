@@ -151,3 +151,10 @@ delete from chat_messages where id = 123;
 - Sesja logowania jest zapamiętywana w przeglądarce osobno od zapisu gry. Reset postaci ani import zapisu jej nie wylogowują.
 - Biblioteka Supabase leży w `js/vendor/supabase-js-2.45.4.js` (licencja MIT, Supabase), więc gra nie ładuje nic z zewnętrznych serwerów poza Twoim projektem Supabase.
 - Darmowy plan Supabase wystarcza na początek. Projekty bez aktywności mogą być po dłuższym czasie wstrzymywane, wtedy wystarczy je wznowić w panelu.
+
+## 9. Avatary graczy
+
+- Avatar wybierasz klikając portret bohatera w lewym górnym rogu (na telefonie: portret w górnym pasku). Część avatarów jest od początku, reszta odblokowuje się osiągnięciami. Wybór zapisuje się razem z postacią.
+- Żeby avatar był widoczny dla innych (ranking, profil gracza, czat), uruchom w SQL Editor plik `supabase/avatars.sql` (po `schema.sql`, `anticheat_ranking.sql` i `chat.sql`; można go uruchamiać wielokrotnie). Bez niego avatary działają tylko lokalnie, a inni gracze widzą domyślnego żółwia.
+- Jeśli kiedyś ponownie uruchomisz `anticheat_ranking.sql`, uruchom po nim jeszcze raz `avatars.sql`.
+- Avatar to wyłącznie kosmetyka: serwer zapisuje tylko krótki identyfikator (np. `dragon`), a gra nieznany identyfikator pokazuje jako żółwia.

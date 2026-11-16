@@ -3269,3 +3269,10 @@ button:not(:disabled):hover,
         padding-bottom: 48px !important;
     }
 }
+
+/* Menu: przyciski w kategorii zawsze na pełną szerokość (Bohater nie jest węższy od Zadań i Dziennika) */
+#menu .menu-category-items > button,
+#menu .menu-category-items > .hero-menu-category {
+    width: 100%;
+    box-sizing: border-box;
+}
