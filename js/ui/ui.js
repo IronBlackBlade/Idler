@@ -243,9 +243,6 @@ function updateActiveMenuButton(
         "screen-ranking":
             "ranking",
 
-        "screen-chat":
-            "chat",
-
         "screen-quests":
             "quests",
 

@@ -13,7 +13,8 @@
     <link rel="stylesheet" href="css/forge.css?v=1">
     <link rel="stylesheet" href="css/account.css?v=3">
     <link rel="stylesheet" href="css/ranking.css?v=2">
-    <link rel="stylesheet" href="css/chat.css?v=1">
+    <link rel="stylesheet" href="css/chat.css?v=3">
+    <link rel="stylesheet" href="css/bottomBar.css?v=1">
 </head>
 
 
@@ -191,10 +192,6 @@
 
                         <button data-menu-section="ranking" onclick="openRankingScreen()">
                             🏆 Ranking
-                        </button>
-
-                        <button data-menu-section="chat" onclick="openChatScreen()">
-                            💬 Czat
                         </button>
                     </div>
                 </section>
@@ -796,13 +793,6 @@
                 <div class="game-card">
                     <div class="card-header">🔨 Kuźnia – ulepszanie sprzętu</div>
                     <div id="forge-content"></div>
-                </div>
-            </section>
-
-            <section id="screen-chat" class="screen">
-                <div class="game-card">
-                    <div class="card-header">💬 Czat globalny</div>
-                    <div id="chat-content"></div>
                 </div>
             </section>
 
@@ -1614,6 +1604,14 @@
             </section>
 
         </main>
+
+        <nav id="bottom-bar" aria-label="Pasek dolny">
+            <button id="bottom-log-tab" class="bottom-tab" type="button" aria-expanded="false"
+                onclick="toggleMobileSystemLog()">
+                <span class="bottom-tab-icon">📋</span>
+                <span class="bottom-tab-label">Log postaci</span>
+            </button>
+        </nav>
 
         <aside id="system-log-panel">
             <div class="system-log-header" onclick="toggleMobileSystemLog()">

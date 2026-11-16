@@ -217,6 +217,15 @@ function renderSystemLog() {
     });
 }
 
+function syncBottomLogTab(isOpen) {
+    const tab = document.getElementById("bottom-log-tab");
+
+    if (tab) {
+        tab.classList.toggle("active", isOpen);
+        tab.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    }
+}
+
 function toggleMobileSystemLog() {
     const panel = document.getElementById("system-log-panel");
     const toggleButton = document.getElementById(
@@ -234,6 +243,8 @@ function toggleMobileSystemLog() {
     if (toggleButton) {
         toggleButton.textContent = isOpen ? "▼" : "▲";
     }
+
+    syncBottomLogTab(isOpen);
 
     localStorage.setItem(
         "idler_mobile_system_log_open",
@@ -267,4 +278,6 @@ function restoreMobileSystemLogState() {
             ? "▼"
             : "▲";
     }
+
+    syncBottomLogTab(shouldBeOpen);
 }

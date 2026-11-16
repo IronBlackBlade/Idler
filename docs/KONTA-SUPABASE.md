@@ -110,7 +110,7 @@ update idler_limits set value = 300000 where key = 'max_exp_per_second';
 **Jednorazowa konfiguracja:** w Supabase otwórz **SQL Editor → New query**, wklej całą zawartość `supabase/chat.sql` i kliknij **Run** (po `schema.sql` i `anticheat_ranking.sql`). Skrypt można uruchamiać ponownie.
 
 **Jak to działa**
-- Czat jest w menu Miasto → 💬 Czat. Jeden wspólny pokój dla zalogowanych graczy, wiadomości pojawiają się na żywo (gdy Realtime nie działa, gra odświeża czat co kilka sekund).
+- Czat to zakładka na długim dolnym pasku (obok 📋 Log postaci); po kliknięciu rozwija się okno nad paskiem, licznik pokazuje nieprzeczytane. Widoczny tylko dla zalogowanych. Jeden wspólny pokój dla zalogowanych graczy, wiadomości pojawiają się na żywo (gdy Realtime nie działa, gra odświeża czat co kilka sekund).
 - Wiadomość ma do 300 znaków. Limity: co najmniej 1,5 s między wiadomościami, do 12 na minutę, bez powtarzania tej samej wiadomości w ciągu minuty.
 - Konta oznaczone flagą (patrz sekcja 7) i wyciszone nie mogą pisać.
 - Kliknięcie nazwy gracza otwiera jego profil. Przycisk ⚑ zgłasza wiadomość.

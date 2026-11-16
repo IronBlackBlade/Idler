@@ -1,14 +1,17 @@
 /*
- * Czat globalny (Supabase): wiadomości na żywo (Realtime) z awaryjnym odpytywaniem,
+ * Czat globalny (Supabase) jako zwijany pasek na dole ekranu (jak komunikator):
+ * wiadomości na żywo (Realtime) z awaryjnym odpytywaniem, licznik nowych wiadomości,
  * wysyłanie przez funkcję serwera idler_chat_send (limity, wyciszenia),
  * zgłaszanie wiadomości przez idler_chat_report.
  */
 (function () {
-  const CONTAINER_ID = "chat-content";
+  const LAST_READ_PREFIX = "idler_chat_last_read_";
+  const OPEN_KEY = "idler_chat_open";
   const HISTORY_LIMIT = 80;
   const MAX_MESSAGES = 200;
   const MAX_LENGTH = 300;
-  const POLL_INTERVAL_MS = 6000;
+  const POLL_OPEN_MS = 6000;
+  const POLL_CLOSED_MS = 15000;
 
   let messages = [];
   let lastId = 0;
@@ -19,7 +22,12 @@
   let sending = false;
   let loadState = "idle"; // idle | loading | ready | error
   let loadError = "";
-  let nodes = null;
+  let loadedFor = null;
+  let open = false;
+  let lastRead = 0;
+  let unread = 0;
+  let dock = null;
+  let ui = null; // węzły panelu (po zbudowaniu formularza)
 
   function accounts() {
     return window.IdlerAccounts || null;
@@ -51,10 +59,20 @@
     return node;
   }
 
-  function isScreenVisible() {
-    const screen = document.getElementById("screen-chat");
+  function readStorage(key) {
+    try {
+      return window.localStorage.getItem(key);
+    } catch (error) {
+      return null;
+    }
+  }
 
-    return Boolean(screen && screen.style.display !== "none" && screen.offsetParent !== null);
+  function writeStorage(key, value) {
+    try {
+      window.localStorage.setItem(key, value);
+    } catch (error) {
+      /* przeglądarka blokuje zapis: czat działa dalej */
+    }
   }
 
   function notify(text, type) {
@@ -116,10 +134,28 @@
     return true;
   }
 
-  async function fetchHistory() {
-    const client = getClient();
+  function recountUnread() {
+    const me = currentUserId();
 
-    const result = await client
+    unread = open
+      ? 0
+      : messages.filter((message) => message.id > lastRead && message.user_id !== me).length;
+  }
+
+  function markRead() {
+    lastRead = Math.max(lastRead, lastId);
+
+    const userId = currentUserId();
+
+    if (userId) {
+      writeStorage(LAST_READ_PREFIX + userId, String(lastRead));
+    }
+
+    unread = 0;
+  }
+
+  async function fetchHistory() {
+    const result = await getClient()
       .from("chat_messages")
       .select("id, user_id, username, body, created_at")
       .order("id", { ascending: false })
@@ -132,10 +168,21 @@
     return (result.data || []).slice().reverse();
   }
 
+  function onNewMessages() {
+    if (open) {
+      markRead();
+    } else {
+      recountUnread();
+    }
+
+    renderMessages(true);
+    renderTab();
+  }
+
   async function fetchNewer() {
     const client = getClient();
 
-    if (!client || !isSignedIn()) {
+    if (!client || !isSignedIn() || loadState !== "ready") {
       return;
     }
 
@@ -148,7 +195,7 @@
         .limit(HISTORY_LIMIT);
 
       if (!result.error && addMessages(result.data)) {
-        renderMessages(true);
+        onNewMessages();
       }
     } catch (error) {
       /* spróbujemy przy następnym odpytaniu */
@@ -194,7 +241,7 @@
           { event: "INSERT", schema: "public", table: "chat_messages" },
           (payload) => {
             if (addMessages([payload.new])) {
-              renderMessages(true);
+              onNewMessages();
             }
           },
         )
@@ -213,32 +260,30 @@
     }
   }
 
-  function startPolling() {
-    if (pollTimer) {
-      return;
-    }
+  function schedulePoll() {
+    window.clearTimeout(pollTimer);
 
-    pollTimer = window.setInterval(() => {
-      if (!isScreenVisible() || !isSignedIn()) {
-        return;
-      }
+    pollTimer = window.setTimeout(
+      () => {
+        if (isSignedIn() && loadState === "ready" && channelStatus !== "SUBSCRIBED") {
+          fetchNewer();
+        }
 
-      if (channelStatus !== "SUBSCRIBED") {
-        fetchNewer();
-      }
-    }, POLL_INTERVAL_MS);
+        schedulePoll();
+      },
+      open ? POLL_OPEN_MS : POLL_CLOSED_MS,
+    );
   }
 
   async function load() {
     if (!isSignedIn()) {
-      messages = [];
-      lastId = 0;
-      loadState = "idle";
       return;
     }
 
+    const userId = currentUserId();
+
     loadState = "loading";
-    renderAll();
+    renderPanel();
 
     try {
       const rows = await fetchHistory();
@@ -246,10 +291,24 @@
       messages = [];
       lastId = 0;
       addMessages(rows);
+
+      const stored = Number(readStorage(LAST_READ_PREFIX + userId));
+
+      // Pierwsze uruchomienie na tym urządzeniu: stara historia nie liczy się jako nowa.
+      lastRead = Number.isFinite(stored) && stored > 0 ? stored : lastId;
+
+      loadedFor = userId;
       loadState = "ready";
       loadError = "";
+
+      if (open) {
+        markRead();
+      } else {
+        recountUnread();
+      }
+
       openChannel();
-      startPolling();
+      schedulePoll();
     } catch (error) {
       const text = String(error?.message || "");
 
@@ -260,7 +319,8 @@
           : "Nie udało się pobrać czatu. Spróbuj ponownie.";
     }
 
-    renderAll();
+    renderPanel();
+    renderTab();
   }
 
   async function send(text) {
@@ -336,26 +396,45 @@
     }
   }
 
-  // ---------- Widok ----------
+  // ---------- Pasek (dok) ----------
 
-  function renderStatus() {
-    if (!nodes) {
+  function positionDock() {
+    // Okno czatu jest przypięte przez CSS nad dolnym paskiem.
+  }
+
+  function renderTab() {
+    if (!dockNodes) {
       return;
     }
 
-    nodes.send.disabled = sending;
-    nodes.send.textContent = sending ? "Wysyłanie..." : "Wyślij";
+    const badge = dockNodes.badge;
 
-    const live = channelStatus === "SUBSCRIBED";
-    nodes.live.textContent = live ? "🟢 Na żywo" : "🟡 Odświeżanie co kilka sekund";
+    badge.textContent = unread > 99 ? "99+" : String(unread);
+    badge.hidden = unread === 0;
+    dockNodes.tab.classList.toggle("has-unread", unread > 0);
+    dockNodes.tab.setAttribute(
+      "aria-label",
+      "Czat" + (unread > 0 ? ", nowe wiadomości: " + unread : ""),
+    );
+  }
+
+  function renderStatus() {
+    if (!ui) {
+      return;
+    }
+
+    ui.send.disabled = sending;
+    ui.send.textContent = sending ? "..." : "Wyślij";
+    ui.live.textContent =
+      channelStatus === "SUBSCRIBED" ? "🟢 Na żywo" : "🟡 Odświeżanie co kilka sekund";
   }
 
   function renderMessages(stickToBottom) {
-    if (!nodes) {
+    if (!ui) {
       return;
     }
 
-    const list = nodes.list;
+    const list = ui.list;
     const nearBottom = list.scrollHeight - list.scrollTop - list.clientHeight < 60;
 
     list.replaceChildren();
@@ -369,8 +448,9 @@
 
     messages.forEach((message) => {
       const row = el("div", "chat-message" + (message.user_id === me ? " mine" : ""));
-      row.appendChild(el("span", "chat-time", formatTime(message.created_at)));
-      row.lastChild.title = formatFull(message.created_at);
+      const time = el("span", "chat-time", formatTime(message.created_at));
+      time.title = formatFull(message.created_at);
+      row.appendChild(time);
 
       const name = el("button", "chat-name", message.username);
       name.type = "button";
@@ -409,16 +489,11 @@
     input.placeholder = "Napisz wiadomość...";
     input.setAttribute("aria-label", "Wiadomość na czacie");
 
-    const counter = el("span", "chat-counter", "0/" + MAX_LENGTH);
     const sendButton = el("button", "chat-send", "Wyślij");
     sendButton.type = "submit";
 
     const error = el("p", "chat-error");
     error.setAttribute("role", "alert");
-
-    input.addEventListener("input", () => {
-      counter.textContent = input.value.length + "/" + MAX_LENGTH;
-    });
 
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
@@ -435,7 +510,6 @@
 
       if (result.ok) {
         input.value = "";
-        counter.textContent = "0/" + MAX_LENGTH;
       } else if (result.message) {
         error.textContent = result.message;
       }
@@ -444,100 +518,196 @@
     });
 
     form.appendChild(input);
-    form.appendChild(counter);
     form.appendChild(sendButton);
 
     return { form, input, error, send: sendButton };
   }
 
-  function renderAll() {
-    const container = document.getElementById(CONTAINER_ID);
-
-    if (!container) {
+  function renderPanel() {
+    if (!dockNodes) {
       return;
     }
 
-    container.replaceChildren();
-    nodes = null;
+    const body = dockNodes.body;
 
-    if (!isSignedIn()) {
-      container.appendChild(
-        el("p", "chat-notice", "Zaloguj się na konto (Ustawienia → Konto), aby korzystać z czatu."),
-      );
-      return;
-    }
+    body.replaceChildren();
+    ui = null;
 
     if (loadState === "loading" || loadState === "idle") {
-      container.appendChild(el("p", "chat-notice", "Ładowanie czatu..."));
+      body.appendChild(el("p", "chat-notice", "Ładowanie czatu..."));
       return;
     }
 
     if (loadState === "error") {
-      container.appendChild(el("p", "chat-notice", loadError));
+      body.appendChild(el("p", "chat-notice", loadError));
       const retry = el("button", "", "Spróbuj ponownie");
       retry.type = "button";
       retry.addEventListener("click", load);
-      container.appendChild(retry);
+      body.appendChild(retry);
       return;
     }
 
-    const header = el("div", "chat-header");
-    const live = el("span", "chat-live");
-    header.appendChild(live);
-    header.appendChild(el("span", "chat-rules", "Bądź miły. Spam i wulgaryzmy kończą się wyciszeniem."));
-    container.appendChild(header);
+    const live = el("div", "chat-live");
+    body.appendChild(live);
 
     const list = el("div", "chat-list");
     list.setAttribute("role", "log");
     list.setAttribute("aria-live", "polite");
-    container.appendChild(list);
+    body.appendChild(list);
 
     const form = buildForm();
-    container.appendChild(form.form);
-    container.appendChild(form.error);
+    body.appendChild(form.form);
+    body.appendChild(form.error);
+    body.appendChild(
+      el("p", "chat-rules", "Bądź miły. Spam i wulgaryzmy kończą się wyciszeniem."),
+    );
 
-    nodes = { list, live, send: form.send, input: form.input };
+    ui = { list, live, send: form.send, input: form.input };
     renderStatus();
     renderMessages(false);
   }
 
-  window.openChatScreen = function openChatScreen() {
-    if (typeof showScreen === "function") {
-      showScreen("screen-chat");
-    }
+  function setOpen(value) {
+    open = Boolean(value);
+    writeStorage(OPEN_KEY, open ? "1" : "0");
 
-    if (loadState === "ready" && isSignedIn()) {
-      renderAll();
-      fetchNewer();
-      openChannel();
+    if (!dock) {
       return;
     }
 
-    if (!isSignedIn()) {
-      renderAll();
-      return;
+    dock.classList.toggle("open", open);
+    dockNodes.tab.classList.toggle("active", open);
+    dockNodes.tab.setAttribute("aria-expanded", open ? "true" : "false");
+    dockNodes.panel.hidden = !open;
+
+    if (open) {
+      if (loadState === "ready") {
+        markRead();
+        fetchNewer();
+        openChannel();
+      } else if (loadState === "idle" || loadState === "error") {
+        load();
+      }
+
+      renderTab();
+      renderMessages(false);
+      positionDock();
+
+      if (ui) {
+        window.setTimeout(() => ui?.input.focus(), 0);
+      }
     }
 
-    load();
-  };
+    schedulePoll();
+  }
+
+  function buildDock() {
+    dock = el("div", "chat-dock");
+    dock.id = "chat-dock";
+    dock.hidden = true;
+
+    const panel = el("section", "chat-panel");
+    panel.hidden = true;
+    panel.setAttribute("aria-label", "Czat globalny");
+
+    const header = el("div", "chat-panel-header");
+    header.appendChild(el("strong", "", "💬 Czat globalny"));
+
+    const minimize = el("button", "chat-minimize", "–");
+    minimize.type = "button";
+    minimize.title = "Zwiń czat";
+    minimize.setAttribute("aria-label", "Zwiń czat");
+    minimize.addEventListener("click", () => setOpen(false));
+    header.appendChild(minimize);
+    panel.appendChild(header);
+
+    const body = el("div", "chat-panel-body");
+    panel.appendChild(body);
+
+    const tab = el("button", "chat-tab");
+    tab.type = "button";
+    tab.setAttribute("aria-expanded", "false");
+    tab.appendChild(el("span", "chat-tab-icon", "💬"));
+    tab.appendChild(el("span", "chat-tab-label", "Czat"));
+    const badge = el("span", "chat-badge", "0");
+    badge.hidden = true;
+    tab.appendChild(badge);
+    tab.addEventListener("click", () => setOpen(!open));
+
+    tab.classList.add("bottom-tab");
+    tab.hidden = true;
+    dock.appendChild(panel);
+    document.body.appendChild(dock);
+
+    const bar = document.getElementById("bottom-bar");
+
+    if (bar) {
+      bar.appendChild(tab);
+    } else {
+      dock.appendChild(tab);
+    }
+
+    dockNodes = { panel, body, tab, badge };
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && open && dock.contains(document.activeElement)) {
+        setOpen(false);
+        tab.focus();
+      }
+    });
+
+    window.addEventListener("resize", positionDock);
+
+  }
+
+  let dockNodes = null;
 
   function onAccountState() {
     const signedIn = isSignedIn();
     const owner = currentUserId();
 
-    if (!signedIn || (channelOwner && channelOwner !== owner)) {
+    if (!signedIn) {
+      closeChannel();
+      window.clearTimeout(pollTimer);
+      messages = [];
+      lastId = 0;
+      unread = 0;
+      loadState = "idle";
+      loadedFor = null;
+
+      if (dock) {
+        dock.hidden = true;
+        dockNodes.tab.hidden = true;
+      }
+
+      return;
+    }
+
+    if (!dock) {
+      buildDock();
+    }
+
+    dock.hidden = false;
+    dockNodes.tab.hidden = false;
+
+    if (loadedFor && loadedFor !== owner) {
       closeChannel();
       messages = [];
       lastId = 0;
+      unread = 0;
       loadState = "idle";
+      loadedFor = null;
     }
 
-    if (isScreenVisible()) {
-      if (signedIn && loadState === "idle") {
-        load();
-      } else {
-        renderAll();
-      }
+    const wantOpen = readStorage(OPEN_KEY) === "1";
+
+    if (loadState === "idle") {
+      open = wantOpen;
+      dock.classList.toggle("open", open);
+      dockNodes.tab.classList.toggle("active", open);
+      dockNodes.panel.hidden = !open;
+      dockNodes.tab.setAttribute("aria-expanded", open ? "true" : "false");
+      load();
     }
   }
 
@@ -548,9 +718,7 @@
       api.subscribe(onAccountState);
     }
 
-    if (isScreenVisible()) {
-      onAccountState();
-    }
+    onAccountState();
   }
 
   if (document.readyState === "loading") {
@@ -559,5 +727,12 @@
     start();
   }
 
-  window.IdlerChatUI = { load, send, isReady: () => loadState === "ready" };
+  window.IdlerChatUI = {
+    load,
+    send,
+    open: () => setOpen(true),
+    close: () => setOpen(false),
+    isReady: () => loadState === "ready",
+    getUnread: () => unread,
+  };
 })();
