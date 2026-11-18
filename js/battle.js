@@ -937,6 +937,10 @@ function autoAttack() {
       tryGrantDungeonKey(enemy, player.location);
     }
 
+    if (defeatedEnemyWasBoss && typeof grantFirstBossKillReward === "function") {
+      grantFirstBossKillReward(player.location);
+    }
+
     updateQuests(enemy.name);
 
     if (typeof updateLocationMasteryAfterKill === "function") {
