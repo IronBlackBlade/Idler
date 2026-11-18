@@ -90,7 +90,7 @@ function updateShopQuantityCost(itemId, unitPrice) {
 
   const totalCost = quantity * finalUnitPrice;
 
-  costElement.textContent = totalCost.toLocaleString("pl-PL") + " 💰";
+  costElement.textContent = formatCompactNumber(totalCost) + " 💰";
   buyButton.disabled = quantity <= 0 || player.gold < totalCost;
   buyButton.textContent =
     quantity <= 0
@@ -175,7 +175,7 @@ function renderShop() {
 <div class="shop-rpg-gold">
 
     💰
-    ${player.gold.toLocaleString("pl-PL")}
+    ${formatCompactNumber(player.gold)}
 
 </div>
 
@@ -589,7 +589,7 @@ ${row.label}
                             <div class="shop-quantity-total">
                                 Łączny koszt
                                 <strong id="shop-quantity-cost-${shopItem.itemId}">
-                                    ${bulkTenTotalPrice.toLocaleString("pl-PL")} 💰
+                                    ${formatCompactNumber(bulkTenTotalPrice)} 💰
                                 </strong>
                             </div>
 

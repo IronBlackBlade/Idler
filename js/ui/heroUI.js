@@ -52,7 +52,10 @@ function renderHero() {
     if (heroMana) heroMana.textContent = player.mana + "/" + derived.maxMana;
 
     if (heroExp) heroExp.textContent = player.exp + "/" + player.expToNextLevel;
-    if (heroGold) heroGold.textContent = player.gold;
+    if (heroGold) {
+        heroGold.textContent = formatCompactNumber(player.gold);
+        heroGold.title = formatFullNumber(player.gold);
+    }
 
     if (heroStrength) {
         heroStrength.textContent =

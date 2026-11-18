@@ -883,6 +883,7 @@ function chooseWeightedMiningDrop(dropList) {
 }
 
 function addMiningExp(amount) {
+    amount = scaleProfessionExp(amount);
     ensureMiningState();
 
     const gainedExp =

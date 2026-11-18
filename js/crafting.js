@@ -801,6 +801,7 @@ function getFinalCraftingGoldCost(recipe) {
 }
 
 function addCraftingExp(amount) {
+  amount = scaleProfessionExp(amount);
   ensureCraftingState();
 
   const expGain =

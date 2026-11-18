@@ -116,6 +116,7 @@ function getGardenUnlockedPlotCount() {
 }
 
 function addGardenExp(amount) {
+    amount = scaleProfessionExp(amount);
     ensureGardenState();
 
     const gainedExp = Math.max(

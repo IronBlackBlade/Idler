@@ -42,5 +42,5 @@ function getLocationRewardPenalty(locationId) {
 }
 
 function getLocationRewardMultiplier(locationId) {
-    return 1 - getLocationRewardPenalty(locationId);
+    return (1 - getLocationRewardPenalty(locationId)) * REWARD_SCALE.combat;
 }

@@ -337,10 +337,10 @@ function getFishingOrderProgress(order) {
         completionsToNextTier:
             5 - completedCount % 5,
         requirements: requirements,
-        goldReward: Math.round(
+        goldReward: scaleGoldReward(Math.round(
             order.goldReward *
             (1 + tierIndex * 0.35)
-        ),
+        )),
         fishingExpReward: Math.round(
             order.fishingExpReward *
             (1 + tierIndex * 0.25)
@@ -1242,6 +1242,7 @@ function recordFishingProgress(
 }
 
 function addFishingExp(amount) {
+    amount = scaleProfessionExp(amount);
     ensureFishingState();
 
     const gainedExp =

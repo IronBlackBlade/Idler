@@ -152,7 +152,7 @@ function generateTavernOrder(excludedTemplateIds = []) {
         return total + itemValue * requirement.quantity;
     }, 0);
     const tavern = player.cooking.tavern;
-    const goldReward = Math.max(
+    const goldReward = scaleGoldReward(Math.max(
         50,
         Math.round(
             (
@@ -161,7 +161,7 @@ function generateTavernOrder(excludedTemplateIds = []) {
             ) /
             10
         ) * 10
-    );
+    ));
     const order = {
         id: "tavern_order_" + tavern.nextOrderSequence,
         templateId: template.id,
@@ -451,6 +451,7 @@ function getCookingRequestedQuantity(recipeId) {
 }
 
 function addCookingExp(amount) {
+    amount = scaleProfessionExp(amount);
     ensureCookingState();
     player.cooking.exp += Math.max(0, Number(amount) || 0);
 

@@ -24,7 +24,10 @@ function renderPlayerHud() {
         playerMana.textContent = player.mana + "/" + derived.maxMana;
     }
 
-    if (playerGold) playerGold.textContent = player.gold;
+    if (playerGold) {
+        playerGold.textContent = formatCompactNumber(player.gold);
+        playerGold.title = formatFullNumber(player.gold);
+    }
     if (playerExp) playerExp.textContent = player.exp;
     if (playerLevel) playerLevel.textContent = player.level;
     if (playerExpNeeded) playerExpNeeded.textContent = player.expToNextLevel;

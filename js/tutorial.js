@@ -217,19 +217,81 @@ function isFreshCharacter() {
 
 function startTutorialIfNeeded() {
     if (typeof player === "undefined" || !player || player.tutorialDone || isTutorialOpen()) {
-        return;
+        return true;
     }
     if (!isFreshCharacter()) {
         // Stara postać z postępem: samouczek nie pokazuje się sam.
         player.tutorialDone = true;
-        return;
+        return true;
     }
     if (document.querySelector(".game-dialog-overlay")) {
-        return;
+        // Otwarte okno (np. logowanie): spróbujemy ponownie za chwilę.
+        return false;
     }
     openTutorial();
+    return true;
+}
+
+/*
+ * Nowe konto online: samouczek uruchamia się automatycznie przy pierwszym
+ * zalogowaniu (konto założone przed chwilą), także gdy na urządzeniu jest już
+ * jakaś postać. Dla każdego konta tylko raz.
+ */
+const TUTORIAL_NEW_ACCOUNT_WINDOW_MS = 15 * 60 * 1000;
+
+function onTutorialAccountState(state) {
+    try {
+        const user = state && state.status === "signedIn" ? state.user : null;
+        const createdAt = user && Date.parse(user.created_at);
+
+        if (!user || !Number.isFinite(createdAt)) {
+            return;
+        }
+        if (Date.now() - createdAt > TUTORIAL_NEW_ACCOUNT_WINDOW_MS) {
+            return;
+        }
+
+        const key = "idler_tutorial_account_" + user.id;
+
+        if (localStorage.getItem(key)) {
+            return;
+        }
+
+        localStorage.setItem(key, "1");
+
+        if (!isTutorialOpen()) {
+            openTutorial();
+        }
+    } catch (error) {
+        // localStorage może być niedostępny; samouczek wtedy startuje zwykłą drogą.
+    }
 }
 
 window.IdlerTutorial = { open: openTutorial, close: () => finishTutorial(true), isOpen: isTutorialOpen };
 
-window.setTimeout(startTutorialIfNeeded, 2500);
+(function scheduleTutorial() {
+    let attempts = 0;
+    const timer = window.setInterval(() => {
+        attempts += 1;
+
+        if (startTutorialIfNeeded() || attempts >= 120) {
+            window.clearInterval(timer);
+        }
+    }, 2500);
+
+    // Konta ładują się po tym pliku, więc podpinamy się po załadowaniu strony.
+    const connectAccounts = () => {
+        const accounts = window.IdlerAccounts;
+
+        if (accounts && typeof accounts.subscribe === "function") {
+            accounts.subscribe(onTutorialAccountState);
+            onTutorialAccountState(accounts.getState?.());
+        }
+    };
+
+    if (document.readyState === "complete") {
+        connectAccounts();
+    } else {
+        window.addEventListener("load", connectAccounts);
+    }
+})();

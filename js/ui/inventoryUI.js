@@ -111,7 +111,7 @@ function updateInventoryTrashSellButton() {
         };
 
   button.textContent =
-    "💰 Sprzedaj śmieci (" + summary.totalGold.toLocaleString("pl-PL") + " 💰)";
+    "💰 Sprzedaj śmieci (" + formatCompactNumber(summary.totalGold) + " 💰)";
 
   button.disabled = summary.totalQuantity <= 0;
 }

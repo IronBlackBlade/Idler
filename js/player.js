@@ -331,6 +331,15 @@ const player = {
 
 function resetPlayer() {
 
+    // Dane nowszych systemów (moduły same odtwarzają pusty stan).
+    // Bez tego po resecie liczniki zostawały i osiągnięcia odblokowywały się od razu.
+    delete player.worldStats;
+    delete player.equipmentUpgrades;
+    delete player.equipmentUpgradeSettings;
+    delete player.dailyQuests;
+    delete player.travelingMerchant;
+    delete player.selectedTitleId;
+
     player.gold = 0;
     player.exp = 0;
     player.level = 1;

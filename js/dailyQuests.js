@@ -154,12 +154,12 @@ function getDailyQuestTarget(type, scope) {
 function getDailyQuestGoldReward(scope) {
     const level = Math.max(1, player.level || 1);
     const gold = Math.round(40 * level * level + 200);
-    return scope === "weekly" ? gold * 5 : gold;
+    return scaleGoldReward(scope === "weekly" ? gold * 5 : gold);
 }
 
 function getDailyQuestHeroExp(scope) {
     const needed = Math.max(1, player.expToNextLevel || 100);
-    return Math.max(1, Math.floor(needed * (scope === "weekly" ? 0.25 : 0.06)));
+    return scaleExpReward(Math.max(1, Math.floor(needed * (scope === "weekly" ? 0.25 : 0.06))));
 }
 
 function pickDailyQuestTypes(seedText, count) {

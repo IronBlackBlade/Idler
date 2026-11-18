@@ -1234,6 +1234,7 @@ function chooseWeightedHerbalismDrop(
 function addHerbalismExp(
     amount
 ) {
+    amount = scaleProfessionExp(amount);
     ensureHerbalismState();
 
     const gainedExp =

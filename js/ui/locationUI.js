@@ -119,7 +119,7 @@ function getLocationBossPanelHtml(
         if (Number(reward.gold) > 0) {
             rewardParts.push(
                 "<span>💰 +" +
-                reward.gold +
+                scaleGoldReward(reward.gold) +
                 " złota</span>"
             );
         }
@@ -127,7 +127,7 @@ function getLocationBossPanelHtml(
         if (Number(reward.exp) > 0) {
             rewardParts.push(
                 "<span>⭐ +" +
-                reward.exp +
+                scaleExpReward(reward.exp) +
                 " EXP</span>"
             );
         }

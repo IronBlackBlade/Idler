@@ -47,7 +47,7 @@ function selectForgeItem(itemId) {
 }
 
 function formatForgeNumber(value) {
-    return Number(value).toLocaleString("pl-PL");
+    return formatCompactNumber(value);
 }
 
 function getForgeStatRowsHtml(item) {

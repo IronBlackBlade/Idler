@@ -226,11 +226,11 @@ function renderBossJournal() {
       const firstRewardParts = [];
 
       if (Number(firstReward.gold) > 0) {
-        firstRewardParts.push("💰 +" + firstReward.gold + " złota");
+        firstRewardParts.push("💰 +" + scaleGoldReward(firstReward.gold) + " złota");
       }
 
       if (Number(firstReward.exp) > 0) {
-        firstRewardParts.push("⭐ +" + firstReward.exp + " EXP");
+        firstRewardParts.push("⭐ +" + scaleExpReward(firstReward.exp) + " EXP");
       }
 
       if (Array.isArray(firstReward.items)) {

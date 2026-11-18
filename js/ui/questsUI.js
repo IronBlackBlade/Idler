@@ -619,15 +619,18 @@ function renderQuests() {
         ? getFinalQuestHeroExperience(quest)
         : baseRewardExp;
 
-    const baseRewardActivityExp = Math.max(
-      0,
-      Number(quest.rewardActivityExp) || 0,
+    // EXP zawodu jest skalowany dopiero przy przyznawaniu (REWARD_SCALE),
+    // więc na karcie pokazujemy wartość już po skalowaniu.
+    const baseRewardActivityExp = Math.round(
+      Math.max(0, Number(quest.rewardActivityExp) || 0) *
+        REWARD_SCALE.professionExp,
     );
 
-    const rewardActivityExp =
-      typeof getFinalQuestActivityExperience === "function"
+    const rewardActivityExp = Math.round(
+      (typeof getFinalQuestActivityExperience === "function"
         ? getFinalQuestActivityExperience(quest)
-        : baseRewardActivityExp;
+        : Number(quest.rewardActivityExp) || 0) * REWARD_SCALE.professionExp,
+    );
 
     const hasQuestExperienceBonus =
       rewardExp > baseRewardExp || rewardActivityExp > baseRewardActivityExp;
@@ -747,11 +750,11 @@ function renderQuests() {
             </del>
 
             <strong>
-                ${rewardGold.toLocaleString("pl-PL")} złota
+                ${formatCompactNumber(rewardGold)} złota
             </strong>
         `
         : `
-            ${rewardGold.toLocaleString("pl-PL")} złota
+            ${formatCompactNumber(rewardGold)} złota
         `
     }
 </span>

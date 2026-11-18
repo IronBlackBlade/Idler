@@ -76,6 +76,7 @@ const defaultMenuCategoryState = {
     activities: true,
     crafting: false,
     town: false,
+    community: false,
     character: false
 };
 

@@ -853,6 +853,7 @@ function getAlchemyRecipeExp(recipe) {
 }
 
 function addAlchemyExp(amount) {
+    amount = scaleProfessionExp(amount);
     ensureAlchemyState();
 
     const gainedExp =

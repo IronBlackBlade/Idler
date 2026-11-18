@@ -300,6 +300,10 @@ function getRandomHuntingChestDrop(
 }
 
 function getHuntingChestLocationGoldMultiplier() {
+    return getBaseHuntingChestLocationGoldMultiplier() * REWARD_SCALE.combat;
+}
+
+function getBaseHuntingChestLocationGoldMultiplier() {
     const location =
         locations[player.location];
 
@@ -532,17 +536,9 @@ function grantFirstBossKillReward(
         return null;
     }
 
-    const gold =
-        Math.max(
-            0,
-            Number(reward.gold) || 0
-        );
+    const gold = scaleGoldReward(reward.gold);
 
-    const experience =
-        Math.max(
-            0,
-            Number(reward.exp) || 0
-        );
+    const experience = scaleExpReward(reward.exp);
 
     const grantedItems = [];
 

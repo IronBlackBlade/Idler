@@ -281,7 +281,7 @@ function startDungeonRun(dungeonId) {
 
     if (player.gold < entryFee) {
         showNotification(
-            "Opłata za wejście: " + entryFee.toLocaleString("pl-PL") + " 💰. Brakuje złota.",
+            "Opłata za wejście: " + formatCompactNumber(entryFee) + " 💰. Brakuje złota.",
             "error"
         );
 
@@ -316,7 +316,7 @@ function beginDungeonRun(dungeonId, dungeon, progress) {
 
     if (entryFee > 0) {
         player.gold = Math.max(0, player.gold - entryFee);
-        addCombatLog("💰 Opłata za wejście: " + entryFee.toLocaleString("pl-PL") + " złota.");
+        addCombatLog("💰 Opłata za wejście: " + formatCompactNumber(entryFee) + " złota.");
     }
 
     progress.active = true;
@@ -374,8 +374,8 @@ function completeDungeonRun(state) {
     progress.completionCount++;
     progress.completedAt = Date.now();
 
-    const goldReward = Math.max(0, Number(rewards.gold) || 0);
-    const expReward = Math.max(0, Number(rewards.exp) || 0);
+    const goldReward = scaleGoldReward(rewards.gold);
+    const expReward = scaleExpReward(rewards.exp);
 
     player.gold += goldReward;
     player.exp += expReward;

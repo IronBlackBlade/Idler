@@ -55,7 +55,7 @@ function renderDungeonCard(dungeonId, index) {
         buttonDisabled = false;
     } else if (unlocked && keyQuantity > 0) {
         statusText = "Brak złota";
-        buttonText = "💰 Potrzebujesz " + entryFee.toLocaleString("pl-PL") + " złota";
+        buttonText = "💰 Potrzebujesz " + formatCompactNumber(entryFee) + " złota";
     } else if (unlocked) {
         statusText = "Brak klucza";
         buttonText = "🗝️ Potrzebujesz klucza";
@@ -107,7 +107,7 @@ function renderDungeonCard(dungeonId, index) {
 
                 <div>
                     <span>Koszt wejścia</span>
-                    <strong>1 klucz + ${entryFee.toLocaleString("pl-PL")} 💰</strong>
+                    <strong>1 klucz + ${formatCompactNumber(entryFee)} 💰</strong>
                 </div>
 
                 <div>

@@ -537,8 +537,8 @@ function createProfessionToolUpgradeCard(recipe) {
       : Math.max(0, Number(recipe.goldCost) || 0);
   const goldCostHtml =
     finalGoldCost < baseGoldCost
-      ? `<s>${baseGoldCost}</s> ${finalGoldCost}`
-      : finalGoldCost;
+      ? `<s>${formatCompactNumber(baseGoldCost)}</s> ${formatCompactNumber(finalGoldCost)}`
+      : formatCompactNumber(finalGoldCost);
   const sourceTier = Math.max(1, Number(sourceItem.toolTier) || 1);
   const targetTier = Math.max(2, Number(resultItem.toolTier) || 2);
   const progressHtml = Array.from(

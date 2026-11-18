@@ -62,9 +62,7 @@ function formatOfflineSummaryValue(
         Number(value);
 
     if (Number.isFinite(numericValue)) {
-        return numericValue.toLocaleString(
-            "pl-PL"
-        );
+        return formatCompactNumber(numericValue);
     }
 
     return String(value ?? "");

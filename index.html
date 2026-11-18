@@ -192,7 +192,17 @@
                         <button data-menu-section="forge" onclick="showScreen('screen-forge')">
                             🔨 Kuźnia
                         </button>
+                    </div>
+                </section>
 
+                <section class="menu-category" data-menu-category="community">
+                    <button class="menu-category-toggle" type="button" aria-expanded="false"
+                        aria-controls="menu-category-community" onclick="toggleMenuCategory('community')">
+                        <span><span class="menu-category-icon">👥</span> Społeczność</span>
+                        <span class="menu-category-chevron" aria-hidden="true"></span>
+                    </button>
+
+                    <div id="menu-category-community" class="menu-category-items" hidden>
                         <button data-menu-section="ranking" onclick="openRankingScreen()">
                             🏆 Ranking
                         </button>
@@ -1737,6 +1747,7 @@
     <script src="js/data/crafting/recipeLoader.js?v=20260826-excel"></script>
     <script src="js/data/equipmentBalance.js"></script>
     <script src="js/data/skillsData.js"></script>
+    <script src="js/rewardScale.js"></script>
     <script src="js/data/locations.js"></script>
     <script src="js/data/dungeonsData.js"></script>
 
@@ -1805,6 +1816,7 @@
     <script src="js/offline/offlineCombat.js?v=20260808-goblin-hideout"></script>
     <script src="js/offline/offlineManager.js?v=20260802-summary-delay"></script>
 
+    <script src="js/numberFormat.js"></script>
     <script src="js/ui/hudUI.js"></script>
     <script src="js/ui/activityHudUI.js"></script>
     <script src="js/ui/systemLogUI.js"></script>

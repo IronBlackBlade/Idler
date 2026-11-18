@@ -31,13 +31,13 @@ function balanceCombatQuestRewards(
             rewardGold:
                 scaleQuestReward(
                     quest.rewardGold,
-                    0.15
+                    0.15 * REWARD_SCALE.gold
                 ),
 
             rewardExp:
                 scaleQuestReward(
                     quest.rewardExp,
-                    0.5
+                    0.5 * REWARD_SCALE.exp
                 )
         };
     });
@@ -72,13 +72,13 @@ function balanceProfessionQuestRewards(
             rewardGold:
                 scaleQuestReward(
                     quest.rewardGold,
-                    goldMultiplier
+                    goldMultiplier * REWARD_SCALE.gold
                 ),
 
             rewardExp:
                 scaleQuestReward(
                     quest.rewardExp,
-                    heroExpMultiplier
+                    heroExpMultiplier * REWARD_SCALE.exp
                 ),
 
             rewardActivityExp:
