@@ -76,10 +76,11 @@ button.chat-minimize {
 }
 .chat-message.mine { background: #e3c27a14; }
 .chat-message span { background: none !important; box-shadow: none !important; padding: 0 !important; }
-.chat-time { flex: 0 0 auto; font-size: .78em; opacity: .6; }
-.chat-body { flex: 1 1 100%; min-width: 0; }
+.chat-time { order: 1; flex: 0 0 auto; font-size: .78em; opacity: .6; }
+.chat-body { order: 5; flex: 1 1 100%; min-width: 0; }
 
 button.chat-name {
+  order: 3; min-height: 0 !important; height: auto !important; line-height: 1.3;
   flex: 0 1 auto; max-width: 55%; background: none !important; box-shadow: none !important;
   border: 0; padding: 0 !important; min-width: 0; font: inherit; font-weight: 700; color: #e6c04a;
   cursor: pointer; text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
@@ -87,7 +88,7 @@ button.chat-name {
 button.chat-name:hover { text-decoration: underline; }
 
 button.chat-report {
-  margin-left: auto; flex: 0 0 auto; background: none !important; box-shadow: none !important; border: 0;
+  order: 4; min-height: 0 !important; height: auto !important; line-height: 1.3; margin-left: auto; flex: 0 0 auto; background: none !important; box-shadow: none !important; border: 0;
   padding: 0 4px !important; min-width: 0; color: #e4d1b0; opacity: .35; cursor: pointer; font-size: .9em;
 }
 .chat-message:hover button.chat-report, button.chat-report:focus-visible { opacity: .95; }
@@ -105,7 +106,10 @@ button.chat-report {
 
 @media (max-width: 520px) {
   .chat-dock { left: 12px; right: 12px; }
-  .chat-panel { width: 100%; max-width: none; height: min(420px, 58dvh); }
+  .chat-panel { width: 100%; max-width: none; height: min(300px, 44dvh); }
+  .chat-rules { display: none; }
+  .chat-message { font-size: 14px; padding: 2px 4px; }
+  .chat-panel-header { padding: 5px 8px; }
 }
 
-.chat-avatar { flex: 0 0 auto; font-size: 1.1em; line-height: 1; }
+.chat-avatar { order: 2; flex: 0 0 auto; font-size: 1.1em; line-height: 1; }

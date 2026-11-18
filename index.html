@@ -13,9 +13,11 @@
     <link rel="stylesheet" href="css/forge.css?v=1">
     <link rel="stylesheet" href="css/account.css?v=3">
     <link rel="stylesheet" href="css/ranking.css?v=2">
-    <link rel="stylesheet" href="css/chat.css?v=4">
+    <link rel="stylesheet" href="css/chat.css?v=6">
     <link rel="stylesheet" href="css/bottomBar.css?v=1">
     <link rel="stylesheet" href="css/avatars.css?v=1">
+    <link rel="stylesheet" href="css/tutorial.css?v=1">
+    <link rel="stylesheet" href="css/mobileCompact.css?v=6">
 </head>
 
 
@@ -1582,6 +1584,12 @@
                 <h2>⚙️ Ustawienia</h2>
 
                 <div class="game-card">
+                    <div class="card-header">📘 Samouczek</div>
+                    <p class="save-transfer-hint">Krótkie wprowadzenie dla początkujących: walka, atrybuty, sprzęt, zawody, lochy i zapis gry.</p>
+                    <button type="button" onclick="openTutorial()">📘 Pokaż samouczek</button>
+                </div>
+
+                <div class="game-card">
                     <div class="card-header">🌐 Konto</div>
                     <div id="account-card-body"></div>
                 </div>
@@ -1834,6 +1842,8 @@
     <script src="js/ui/journalAchievementsUI.js?v=20260731-achievements"></script>
     <script src="js/titles.js"></script>
     <script src="js/avatars.js"></script>
+    <script src="js/tutorial.js"></script>
+    <script src="js/ui/attributeCompact.js"></script>
     <script src="js/saveTransfer.js"></script>
     <script src="js/vendor/supabase-js-2.45.4.js"></script>
     <script src="js/online/onlineConfig.js"></script>

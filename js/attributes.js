@@ -6,6 +6,26 @@ const pendingAttributeChanges = {
     luck: 0
 };
 
+/*
+ * Odświeża widok, ale zachowuje pozycję przewijania (na telefonie dodawanie
+ * punktów nie powinno przerzucać strony na górę).
+ */
+function renderKeepingScroll() {
+    const scrollY = window.scrollY;
+
+    render();
+
+    const restore = () => {
+        if (Math.abs(window.scrollY - scrollY) > 2) {
+            window.scrollTo(0, scrollY);
+        }
+    };
+
+    restore();
+    requestAnimationFrame(restore);
+}
+
+
 function getPendingAttributePointsTotal() {
     return Object.values(
         pendingAttributeChanges
@@ -90,7 +110,7 @@ function addPendingAttributePoint(
         statName
     ] += amount;
 
-    render();
+    renderKeepingScroll();
 }
 
 function addMaximumPendingAttributePoints(
@@ -130,7 +150,7 @@ function removePendingAttributePoint(
         statName
     ] -= amount;
 
-    render();
+    renderKeepingScroll();
 }
 
 function resetPendingAttributeChanges(
@@ -145,7 +165,7 @@ function resetPendingAttributeChanges(
     });
 
     if (shouldRender) {
-        render();
+        renderKeepingScroll();
     }
 }
 
@@ -236,5 +256,5 @@ function confirmPendingAttributeChanges() {
     }
 
     saveGame();
-    render();
+    renderKeepingScroll();
 }

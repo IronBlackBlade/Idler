@@ -1,0 +1,36 @@
+/* ===== Samouczek ===== */
+
+.tutorial-card {
+  position: fixed;
+  left: 50%;
+  bottom: 56px;
+  transform: translateX(-50%);
+  z-index: 8950; /* nad paskiem i oknami czatu/logu, pod oknami dialogowymi (10000) */
+  box-sizing: border-box;
+  width: min(520px, calc(100vw - 24px));
+  max-height: 60dvh;
+  overflow-y: auto;
+  padding: 12px 14px;
+  color: #ead9bd;
+  background: linear-gradient(#2a1d13, #221810);
+  border: 3px solid #1d130d;
+  border-radius: 6px;
+  box-shadow: 0 10px 28px #000d, inset 0 0 0 1px #e3c27a;
+}
+
+.tutorial-header { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
+.tutorial-header strong { font-size: 18px; color: #f6e8cc; background: none !important; box-shadow: none !important; padding: 0 !important; }
+.tutorial-counter { font-size: 12px; opacity: .7; background: none !important; box-shadow: none !important; padding: 0 !important; }
+.tutorial-text { margin: 4px 0; font-size: 15px; line-height: 1.4; }
+
+.tutorial-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 10px; }
+.tutorial-actions button { min-width: 0; padding: 8px 12px; cursor: pointer; }
+.tutorial-actions .tutorial-show { flex: 1 1 100%; }
+.tutorial-actions .tutorial-skip { margin-right: auto; opacity: .75; }
+.tutorial-actions .tutorial-skip[hidden] { display: none; }
+.tutorial-actions .tutorial-next { margin-left: auto; }
+.tutorial-actions button:disabled { opacity: .4; cursor: default; }
+
+@media (max-width: 520px) {
+  .tutorial-card { bottom: 52px; }
+}
