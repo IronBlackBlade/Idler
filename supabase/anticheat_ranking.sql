@@ -279,6 +279,14 @@ begin
     v_reason := v_prev.flag_reason;
   end if;
 
+  -- Administrator jest nieruszalny: nigdy nie dostaje flagi (tabela idler_admins pochodzi z admin.sql).
+  if to_regclass('public.idler_admins') is not null then
+    if exists (select 1 from public.idler_admins where user_id = v_uid) then
+      v_flagged := false;
+      v_reason := null;
+    end if;
+  end if;
+
   -- 4. Zapis.
   if not v_save_exists then
     v_revision := 1;

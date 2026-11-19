@@ -32,9 +32,11 @@
 .chat-panel {
   display: flex;
   flex-direction: column;
-  width: 340px;
+  position: relative;
+  width: var(--panel-w, 340px);
   max-width: calc(100vw - 24px);
-  height: min(440px, 62dvh);
+  height: var(--panel-h, min(440px, 62dvh));
+  max-height: calc(100dvh - 110px);
   padding: 0;
   background: linear-gradient(#2a1d13, #221810);
   border: 3px solid #1d130d;
@@ -106,10 +108,56 @@ button.chat-report {
 
 @media (max-width: 520px) {
   .chat-dock { left: 12px; right: 12px; }
-  .chat-panel { width: 100%; max-width: none; height: min(300px, 44dvh); }
+  .chat-panel { width: 100%; max-width: none; height: min(300px, 44dvh); max-height: none; }
+  .panel-resize { display: none !important; }
   .chat-rules { display: none; }
   .chat-message { font-size: 14px; padding: 2px 4px; }
   .chat-panel-header { padding: 5px 8px; }
 }
 
 .chat-avatar { order: 2; flex: 0 0 auto; font-size: 1.1em; line-height: 1; }
+
+/* Jedna linia: 12:43 🐻 Nick[67]: wiadomość (długie wiadomości zawijają się pod spodem). */
+.chat-message { display: block; }
+.chat-message > * { display: inline; }
+.chat-time { margin-right: 4px; }
+.chat-avatar { margin-right: 3px; }
+button.chat-name { display: inline; max-width: none; white-space: normal; }
+.chat-level { font-size: .85em; opacity: .75; color: #e6c04a; }
+.chat-colon { opacity: .8; }
+.chat-body { flex: none; display: inline; }
+button.chat-report { float: right; margin: 0 0 0 6px; }
+
+.chat-message { cursor: default; }
+button.chat-more { font-weight: 700; letter-spacing: 1px; }
+
+.chat-ctx {
+  position: fixed; z-index: 9500; min-width: 190px; max-width: calc(100vw - 16px); padding: 4px 0;
+  background: linear-gradient(#2a1d13, #221810); border: 2px solid #1d130d; border-radius: 4px;
+  box-shadow: 0 8px 22px #000c, inset 0 0 0 1px #6a4a30; font-size: 14px; color: #f6e8cc;
+}
+.chat-ctx-title { padding: 4px 12px 5px; font-weight: 700; color: #e6c04a; border-bottom: 1px solid #4a3520; margin-bottom: 3px; }
+.chat-ctx-sep { height: 1px; margin: 4px 0; background: #4a3520; }
+.chat-ctx-label { padding: 2px 12px; font-size: .8em; opacity: .65; }
+button.chat-ctx-item {
+  display: block; width: 100%; min-height: 0 !important; height: auto !important; margin: 0; padding: 7px 12px !important;
+  text-align: left; font: inherit; color: inherit; background: none !important; border: 0; box-shadow: none !important; cursor: pointer;
+}
+button.chat-ctx-item:hover, button.chat-ctx-item:focus-visible { background: #6f241c !important; outline: none; }
+button.chat-ctx-item.danger { color: #f1b4a8; }
+.chat-ctx-row { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; padding: 4px 12px; }
+.chat-ctx-rowlabel { margin-right: 2px; }
+button.chat-ctx-chip {
+  min-height: 0 !important; height: auto !important; min-width: 0; margin: 0; padding: 3px 7px !important; font-size: 13px;
+  color: #e4d1b0; background: #00000040; border: 0; box-shadow: inset 0 0 0 1px #6a4a30; cursor: pointer;
+}
+button.chat-ctx-chip:hover { box-shadow: inset 0 0 0 1px #e3c27a; }
+
+/* Uchwyty zmiany rozmiaru (komputer) */
+.panel-resize { position: absolute; z-index: 5; background: none; touch-action: none; }
+.panel-resize-top { top: 0; left: 14px; right: 40px; height: 6px; cursor: ns-resize; }
+.panel-resize-right { top: 40px; right: 0; bottom: 14px; width: 6px; cursor: ew-resize; }
+.panel-resize-corner { top: 0; right: 0; width: 16px; height: 16px; cursor: nesw-resize; }
+.panel-resize:hover { background: #e3c27a44; }
+body.panel-resizing { user-select: none; cursor: nesw-resize; }
+body.panel-resizing .chat-panel { transition: none; }

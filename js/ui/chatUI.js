@@ -115,6 +115,7 @@
         username: String(row.username || "?"),
         body: String(row.body || ""),
         avatar_id: typeof row.avatar_id === "string" ? row.avatar_id : null,
+        level: Number.isFinite(Number(row.level)) && Number(row.level) > 0 ? Math.floor(Number(row.level)) : null,
         created_at: row.created_at,
       });
       added = true;
@@ -243,6 +244,17 @@
           (payload) => {
             if (addMessages([payload.new])) {
               onNewMessages();
+            }
+          },
+        )
+        .on(
+          "postgres_changes",
+          { event: "DELETE", schema: "public", table: "chat_messages" },
+          (payload) => {
+            const id = Number(payload?.old?.id);
+
+            if (Number.isFinite(id)) {
+              removeMessageLocal(id);
             }
           },
         )
@@ -430,6 +442,190 @@
       channelStatus === "SUBSCRIBED" ? "🟢 Na żywo" : "🟡 Odświeżanie co kilka sekund";
   }
 
+  const MUTE_CHOICES = [
+    { minutes: 15, label: "15 min" },
+    { minutes: 60, label: "1 godz." },
+    { minutes: 1440, label: "24 godz." },
+    { minutes: 10080, label: "7 dni" },
+  ];
+
+  function isAdminUser() {
+    return Boolean(window.IdlerAdmin?.isAdmin?.());
+  }
+
+  function removeMessageLocal(id) {
+    const before = messages.length;
+    messages = messages.filter((item) => item.id !== id);
+
+    if (messages.length !== before) {
+      lastId = messages.length ? messages[messages.length - 1].id : lastId;
+      renderMessages(false);
+    }
+  }
+
+  async function adminDelete(message) {
+    const yes = await window.IdlerAdmin.confirmAction(
+      "Usunąć wiadomość gracza " + message.username + "?",
+      "Usuń wiadomość",
+      "Usuń",
+    );
+
+    if (!yes) {
+      return;
+    }
+
+    const result = await window.IdlerAdmin.call("idler_admin_chat_delete", { p_message_id: message.id });
+
+    if (result && !result.error && result.data && result.data.ok === true) {
+      removeMessageLocal(message.id);
+    } else {
+      notify(result?.data?.message || "Nie udało się usunąć wiadomości.", "error");
+    }
+  }
+
+  async function adminMute(message, minutes, label) {
+    const result = await window.IdlerAdmin.call("idler_admin_mute", {
+      p_user_id: message.user_id,
+      p_minutes: minutes,
+      p_reason: "czat",
+    });
+
+    if (result && !result.error && result.data && result.data.ok === true) {
+      notify("🔇 Wyciszono: " + message.username + " (" + label + ")", "success");
+    } else {
+      notify(result?.data?.message || "Nie udało się wyciszyć gracza.", "error");
+    }
+  }
+
+  async function adminBan(message) {
+    const yes = await window.IdlerAdmin.confirmAction(
+      "Zbanować gracza " + message.username + "? Nie będzie mógł się zalogować i zniknie z rankingu, czatu i forum.",
+      "Ban",
+      "Zbanuj",
+    );
+
+    if (!yes) {
+      return;
+    }
+
+    const result = await window.IdlerAdmin.call("idler_admin_ban", {
+      p_user_id: message.user_id,
+      p_reason: "czat",
+    });
+
+    if (result && !result.error && result.data && result.data.ok === true) {
+      notify("🔨 Zbanowano: " + message.username, "success");
+    } else {
+      notify(result?.data?.message || "Nie udało się zbanować gracza.", "error");
+    }
+  }
+
+  // ---------- Menu kontekstowe (prawy przycisk / przycisk ⋯) ----------
+
+  let ctxMenu = null;
+
+  function closeContextMenu() {
+    if (ctxMenu) {
+      ctxMenu.remove();
+      ctxMenu = null;
+    }
+  }
+
+  function openDirectMessage(message) {
+    if (message.user_id === currentUserId()) {
+      return;
+    }
+
+    if (window.IdlerDMUI?.openConversation) {
+      window.IdlerDMUI.openConversation(message.username);
+    } else {
+      notify("Wiadomości prywatne wymagają pliku supabase/dm.sql.", "error");
+    }
+  }
+
+  function openContextMenu(message, x, y) {
+    closeContextMenu();
+
+    const me = currentUserId();
+    const mine = message.user_id === me;
+    const menu = el("div", "chat-ctx");
+    menu.setAttribute("role", "menu");
+
+    const addItem = (text, handler, className) => {
+      const item = el("button", "chat-ctx-item" + (className ? " " + className : ""), text);
+      item.type = "button";
+      item.setAttribute("role", "menuitem");
+      item.addEventListener("click", () => {
+        closeContextMenu();
+        handler();
+      });
+      menu.appendChild(item);
+    };
+
+    menu.appendChild(el("div", "chat-ctx-title", message.username + (message.level ? " [" + message.level + "]" : "")));
+
+    addItem("👤 Profil", () => window.IdlerRankingUI?.openProfile?.(message.username));
+
+    if (!mine) {
+      addItem("✉ Napisz prywatnie", () => openDirectMessage(message));
+      addItem("⚑ Zgłoś wiadomość", () => report(message));
+    }
+
+    if (isAdminUser()) {
+      menu.appendChild(el("div", "chat-ctx-sep"));
+      menu.appendChild(el("div", "chat-ctx-label", "🛡️ Moderacja"));
+      addItem("🗑 Usuń wiadomość", () => adminDelete(message), "danger");
+
+      if (!mine) {
+        const row = el("div", "chat-ctx-row");
+        row.appendChild(el("span", "chat-ctx-rowlabel", "🔇 Wycisz:"));
+        MUTE_CHOICES.forEach((choice) => {
+          const chip = el("button", "chat-ctx-chip", choice.label);
+          chip.type = "button";
+          chip.addEventListener("click", () => {
+            closeContextMenu();
+            adminMute(message, choice.minutes, choice.label);
+          });
+          row.appendChild(chip);
+        });
+        menu.appendChild(row);
+
+        addItem("🔨 Zbanuj", () => adminBan(message), "danger");
+      }
+    }
+
+    document.body.appendChild(menu);
+
+    const margin = 8;
+    const width = menu.offsetWidth;
+    const height = menu.offsetHeight;
+    menu.style.left = Math.max(margin, Math.min(x, window.innerWidth - width - margin)) + "px";
+    menu.style.top = Math.max(margin, Math.min(y, window.innerHeight - height - margin)) + "px";
+    ctxMenu = menu;
+
+    const first = menu.querySelector("button");
+    if (first) {
+      first.focus({ preventScroll: true });
+    }
+  }
+
+  document.addEventListener(
+    "pointerdown",
+    (event) => {
+      if (ctxMenu && !ctxMenu.contains(event.target)) {
+        closeContextMenu();
+      }
+    },
+    true,
+  );
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeContextMenu();
+    }
+  });
+  window.addEventListener("resize", closeContextMenu);
+  window.addEventListener("blur", closeContextMenu);
+
   function renderMessages(stickToBottom) {
     if (!ui) {
       return;
@@ -438,6 +634,7 @@
     const list = ui.list;
     const nearBottom = list.scrollHeight - list.scrollTop - list.clientHeight < 60;
 
+    closeContextMenu();
     list.replaceChildren();
 
     if (messages.length === 0) {
@@ -449,6 +646,34 @@
 
     messages.forEach((message) => {
       const row = el("div", "chat-message" + (message.user_id === me ? " mine" : ""));
+
+      const more = el("button", "chat-report chat-more", "⋯");
+      more.type = "button";
+      more.title = "Menu (prawy przycisk myszy)";
+      more.setAttribute("aria-label", "Menu wiadomości gracza " + message.username);
+      more.setAttribute("aria-haspopup", "menu");
+      more.addEventListener("click", (event) => {
+        const rect = more.getBoundingClientRect();
+        openContextMenu(message, rect.left - 150, rect.bottom + 4);
+        event.stopPropagation();
+      });
+      row.appendChild(more);
+
+      row.addEventListener("contextmenu", (event) => {
+        event.preventDefault();
+        openContextMenu(message, event.clientX, event.clientY);
+      });
+
+      row.addEventListener("dblclick", (event) => {
+        if (event.target.closest("button")) {
+          return;
+        }
+
+        window.getSelection?.()?.removeAllRanges?.();
+        closeContextMenu();
+        openDirectMessage(message);
+      });
+
       const time = el("span", "chat-time", formatTime(message.created_at));
       time.title = formatFull(message.created_at);
       row.appendChild(time);
@@ -465,16 +690,12 @@
       });
       row.appendChild(name);
 
-      row.appendChild(el("span", "chat-body", message.body));
-
-      if (message.user_id !== me) {
-        const flag = el("button", "chat-report", "⚑");
-        flag.type = "button";
-        flag.title = "Zgłoś wiadomość";
-        flag.setAttribute("aria-label", "Zgłoś wiadomość gracza " + message.username);
-        flag.addEventListener("click", () => report(message));
-        row.appendChild(flag);
+      if (message.level) {
+        row.appendChild(el("span", "chat-level", "[" + message.level + "]"));
       }
+
+      row.appendChild(el("span", "chat-colon", ": "));
+      row.appendChild(el("span", "chat-body", message.body));
 
       list.appendChild(row);
     });
@@ -586,6 +807,8 @@
     dockNodes.panel.hidden = !open;
 
     if (open) {
+      window.IdlerDMUI?.close?.();
+
       if (loadState === "ready") {
         markRead();
         fetchNewer();
@@ -614,6 +837,7 @@
     const panel = el("section", "chat-panel");
     panel.hidden = true;
     panel.setAttribute("aria-label", "Czat globalny");
+    window.IdlerPanelResize?.enable(panel);
 
     const header = el("div", "chat-panel-header");
     header.appendChild(el("strong", "", "💬 Czat globalny"));
@@ -731,6 +955,10 @@
   } else {
     start();
   }
+
+  window.addEventListener("idler-admin-change", () => {
+    renderMessages(false);
+  });
 
   window.IdlerChatUI = {
     load,

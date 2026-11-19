@@ -244,6 +244,15 @@ function updateActiveMenuButton(
         "screen-ranking":
             "ranking",
 
+        "screen-bugreport":
+            "bugreport",
+
+        "screen-admin":
+            "admin",
+
+        "screen-forum":
+            "forum",
+
         "screen-quests":
             "quests",
 

@@ -18,6 +18,9 @@ create table if not exists public.chat_messages (
   created_at timestamptz not null default now()
 );
 
+-- Poziom autora w chwili wysłania (uzupełniany po stronie serwera, patrz wyzwalacz niżej).
+alter table public.chat_messages add column if not exists level integer;
+
 create index if not exists chat_messages_created_idx on public.chat_messages (created_at desc);
 create index if not exists chat_messages_user_idx on public.chat_messages (user_id, created_at desc);
 
@@ -65,6 +68,26 @@ begin
     alter publication supabase_realtime add table public.chat_messages;
   end if;
 end $$;
+
+-- Wiadomość dostaje poziom autora z ostatniego zweryfikowanego zapisu (player_stats).
+create or replace function public.idler_chat_fill_level()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $$
+begin
+  select level into new.level from public.player_stats where user_id = new.user_id;
+  return new;
+end;
+$$;
+
+revoke all on function public.idler_chat_fill_level() from public, anon, authenticated;
+
+drop trigger if exists chat_messages_fill_level on public.chat_messages;
+create trigger chat_messages_fill_level
+  before insert on public.chat_messages
+  for each row execute function public.idler_chat_fill_level();
 
 -- ---------- Wysyłanie ----------
 create or replace function public.idler_chat_send(p_body text)

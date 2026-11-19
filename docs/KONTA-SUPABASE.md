@@ -158,3 +158,75 @@ delete from chat_messages where id = 123;
 - Żeby avatar był widoczny dla innych (ranking, profil gracza, czat), uruchom w SQL Editor plik `supabase/avatars.sql` (po `schema.sql`, `anticheat_ranking.sql` i `chat.sql`; można go uruchamiać wielokrotnie). Bez niego avatary działają tylko lokalnie, a inni gracze widzą domyślnego żółwia.
 - Jeśli kiedyś ponownie uruchomisz `anticheat_ranking.sql`, uruchom po nim jeszcze raz `avatars.sql`.
 - Avatar to wyłącznie kosmetyka: serwer zapisuje tylko krótki identyfikator (np. `dragon`), a gra nieznany identyfikator pokazuje jako żółwia.
+
+## 10. Zgłaszanie błędów i pomysłów
+
+1. W Supabase otwórz **SQL Editor**, wklej zawartość pliku `supabase/bug_reports.sql` i kliknij **Run** (można uruchomić ponownie bez szkody).
+2. W grze: menu **Społeczność → 🐞 Zgłoś błąd** (kategorie: Błąd / Pomysł / Inne). Wymaga zalogowanego konta.
+3. Zgłoszenia czytasz w Supabase: **Table Editor → bug_reports** (albo SQL: `select id, created_at, username, category, body, context, status from bug_reports order by id desc;`). Kolumna `context` zawiera ekran, poziom, lokację i typ przeglądarki gracza.
+4. Status zmieniasz ręcznie w Table Editor: `new`, `seen`, `done`, `rejected`.
+5. Limity: min. 10 i maks. 1500 znaków, 5 zgłoszeń na godzinę i 15 na dobę na gracza, bez powtórzeń tej samej treści.
+
+## 11. Forum pomysłów
+
+1. W Supabase otwórz **SQL Editor**, wklej zawartość `supabase/forum.sql` i kliknij **Run**. Wymaga wcześniej uruchomionych: `schema.sql`, `anticheat_ranking.sql` i `chat.sql` (korzysta z ich tabel). Można uruchomić ponownie.
+2. W grze: menu **Społeczność → 💡 Forum pomysłów**. Gracze dodają pomysły, oceniają je kciukiem w górę 👍 lub w dół 👎 (ponowne kliknięcie cofa głos, przeciwny kciuk go zmienia) i komentują. „Popularne" sortuje po różnicy 👍 minus 👎. Listę można sortować (Popularne / Najnowsze) i filtrować po statusie.
+3. Moderacja w **Table Editor**:
+   - `forum_posts.status`: `open` (nowy), `planned` (planowany), `done` (zrobiony), `rejected` (odrzucony),
+   - `forum_posts.admin_note`: Twoja odpowiedź, widoczna pod wpisem jako „Odpowiedź twórcy",
+   - `forum_posts.hidden = true` ukrywa wpis, `forum_comments.hidden = true` ukrywa komentarz.
+4. Wyciszenia z czatu (`chat_mutes`) i flaga anty-cheatowa blokują też pisanie na forum (głosować nadal można).
+5. Limity: 3 wpisy na godzinę i 10 na dobę, 15 komentarzy na godzinę, 60 głosów na godzinę. Jeśli uruchomiłeś już starszą wersję `forum.sql`, uruchom nową ponownie: dodaje kolumnę z rodzajem głosu i podmienia funkcję głosowania.
+
+## 12. Panel administratora
+
+1. W Supabase, w **SQL Editor**, uruchom `supabase/admin.sql` (po `schema.sql`, `anticheat_ranking.sql`, `chat.sql`, `bug_reports.sql` i `forum.sql`). Można uruchomić ponownie.
+2. Nadaj sobie uprawnienia jednorazowym zapytaniem (podmień `TwojaNazwa` na nazwę konta w grze):
+
+```sql
+insert into public.idler_admins (user_id)
+select id from public.player_profiles where lower(username) = lower('TwojaNazwa')
+on conflict do nothing;
+```
+
+3. Wyloguj się i zaloguj ponownie (albo odśwież grę). W menu **Społeczność** pojawi się **🛡️ Panel admina**. Inni gracze go nie widzą, a uprawnienia serwer sprawdza przy każdej akcji.
+4. Zakładki panelu:
+   - **Gracze:** wyszukiwanie po początku nazwy, zdjęcie flagi, ręczna flaga, wyciszenie (15 min, 1 godz., 24 godz., 7 dni) i jego zdjęcie, ban i odbanowanie. Pole „Powód" trafia do wyciszenia, flagi i bana.
+   - **Czat:** zgłoszenia graczy z możliwością usunięcia wiadomości, wyciszenia autora albo odrzucenia zgłoszenia.
+   - **Błędy:** zgłoszenia z kontekstem (ekran, poziom, przeglądarka) i zmianą statusu.
+   - **Dziennik:** ostatnie 40 akcji administratorów.
+5. Na forum administrator widzi dodatkowo pole „Moderacja" przy wpisie (status, odpowiedź twórcy, ukrycie wpisu) i przycisk ukrycia przy komentarzach.
+6. Ban blokuje logowanie (Supabase Auth), wyklucza z rankingu, czatu i forum. Gracz z aktywną sesją może jeszcze do godziny korzystać z gry, ale nic nie zapisze do rankingu. Administrator jest nieruszalny: nie dostanie flagi (także z automatycznej kontroli zapisu), wyciszenia ani bana, nawet zapytaniem SQL, a nowo mianowany admin od razu zostaje oczyszczony z ewentualnej flagi, wyciszenia i bana. Dlatego po aktualizacji uruchom ponownie `anticheat_ranking.sql` (zapis gry pomija wtedy admina), a potem `admin.sql`.
+7. Odebranie uprawnień:
+
+```sql
+delete from public.idler_admins
+where user_id = (select id from public.player_profiles where lower(username) = lower('TwojaNazwa'));
+```
+
+## 13. Poziom na czacie
+
+Wiadomości na czacie mają format `12:43 🐻 Nick[67]: treść`. Poziom jest zapisywany po stronie serwera w chwili wysłania (z ostatniego zweryfikowanego zapisu gracza). Żeby zadziałał, uruchom ponownie `supabase/chat.sql` (dodaje kolumnę `level` i wyzwalacz). Starsze wiadomości i konta bez zapisu w chmurze pokazują nick bez poziomu.
+
+## 14. Menu na czacie i wiadomości prywatne
+
+**Menu wiadomości.** Prawy przycisk myszy na wiadomości (albo przycisk **⋯** po prawej, który działa też na telefonie) otwiera menu: 👤 Profil, ✉ Napisz prywatnie, ⚑ Zgłoś wiadomość. Administrator (sekcja 12) widzi dodatkowo blok „Moderacja”: 🗑 usuń wiadomość (znika od razu u wszystkich z otwartym czatem), 🔇 wycisz na 15 min / 1 godz. / 24 godz. / 7 dni, 🔨 zbanuj. Akcje trafiają do dziennika w panelu admina i wymagają tylko uruchomionego `supabase/admin.sql`.
+
+**Wiadomości prywatne.**
+1. W Supabase, w **SQL Editor**, uruchom `supabase/dm.sql` (po `schema.sql`, `anticheat_ranking.sql` i `chat.sql`; wykorzystuje też `chat_mutes` i `player_stats`). Można uruchomić ponownie.
+2. W grze: dwuklik na wiadomości gracza na czacie (albo menu → ✉) otwiera rozmowę. Zakładka **✉ Wiadomości** w dolnym pasku pokazuje listę rozmów i licznik nieprzeczytanych, a można też wpisać nazwę gracza. Nowe wiadomości przychodzą na żywo, z powiadomieniem, gdy okno jest zamknięte.
+3. Przycisk **📌** w oknie rozmowy przypina ją jako osobną zakładkę w dolnym pasku (z licznikiem nieprzeczytanych, ✕ odpina). Można przypiąć do 5 rozmów, lista zapamiętuje się w przeglądarce. Na telefonie widać dwie pierwsze, reszta jest dostępna w ✉.
+4. Odbiorca może **zablokować** nadawcę (przycisk w oknie rozmowy), a potem odblokować. Zablokowany gracz widzi tylko komunikat, że ten gracz nie przyjmuje od niego wiadomości.
+5. Każdy czyta wyłącznie własne rozmowy (RLS), wysyłanie tylko przez funkcję serwera. Limity: 300 znaków, 20 wiadomości na minutę i 150 na godzinę, maks. 8 nowych rozmówców na godzinę, bez powtórzeń w 30 sekund. Wyciszenie z czatu i flaga anty-cheatowa blokują też prywatne wiadomości, a administrator jest wyjęty spod flag i wyciszeń.
+6. Administrator nie czyta rozmów prywatnych (poza bezpośrednim dostępem do bazy w Supabase).
+
+**Rozmiar okien (komputer).** Okno czatu i wiadomości prywatnych można rozciągać: złap górną krawędź (wysokość), prawą krawędź (szerokość) albo prawy górny róg (oba naraz). Rozmiar jest wspólny dla obu okien, zapamiętuje się w przeglądarce, a dwuklik na uchwycie przywraca rozmiar domyślny. Na telefonie okna mają stały rozmiar.
+
+## 15. Zrzut ekranu w zgłoszeniu błędu
+
+W oknie **Zgłoś błąd** gracz może dołączyć zrzut ekranu: przyciskiem **📎 Dodaj zrzut ekranu** (na telefonie wybiera zdjęcie z galerii) albo wklejając obraz (Ctrl+V) w pole opisu. Gra zmniejsza go do maks. 1280 px i zapisuje jako JPEG (zwykle 100 do 250 KB). Serwer przyjmuje tylko JPEG do ok. 400 KB i maks. 5 zrzutów na gracza na dobę.
+
+1. Uruchom ponownie w **SQL Editor**: najpierw `supabase/bug_reports.sql` (dodaje kolumnę `screenshot` i nową wersję funkcji), potem `supabase/admin.sql`.
+2. Administrator widzi w panelu (zakładka **Błędy**) przycisk **📎 Pokaż zrzut ekranu** przy zgłoszeniach, które go mają. Kliknięcie obrazu otwiera go w pełnym rozmiarze w nowej karcie. Lista zgłoszeń nie ładuje zdjęć, tylko pobiera je na żądanie.
+3. Zrzuty zajmują miejsce w bazie. Żeby je czyścić po rozpatrzeniu zgłoszeń, uruchom w SQL Editor:
+   `update public.bug_reports set screenshot = null where status in ('done', 'rejected');`
