@@ -384,7 +384,7 @@ ${Number(resource.quantity) > 1
                     </span>
 
                     <strong>
-                        +${resource.miningExp} EXP
+                        +${previewProfessionExp(resource.miningExp)} EXP
                         <small>${rarityLabel}</small>
                     </strong>
                 </div>
@@ -400,7 +400,7 @@ ${Number(resource.quantity) > 1
         <div class="mining-result-total">
             Łącznie:
             <strong>
-                +${result.totalMiningExp} EXP kopania
+                +${previewProfessionExp(result.totalMiningExp)} EXP kopania
             </strong>
         </div>
     `;

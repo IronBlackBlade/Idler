@@ -36,7 +36,7 @@ function updateCookingQuantityPreview(recipeId) {
 
     const experience = document.getElementById("cooking-exp-" + recipeId);
     if (experience) {
-        experience.textContent = "+" + recipe.cookingExp * quantity + " EXP";
+        experience.textContent = "+" + previewProfessionExp(recipe.cookingExp * quantity) + " EXP";
     }
 
     const button = document.getElementById("cooking-button-" + recipeId);
@@ -293,7 +293,7 @@ function renderCooking() {
                                 >+</button>
                             </span>
                         </label>
-                        <span id="cooking-exp-${recipe.id}">+${recipe.cookingExp} EXP</span>
+                        <span id="cooking-exp-${recipe.id}">+${previewProfessionExp(recipe.cookingExp)} EXP</span>
                     </div>
                     <div class="cooking-actions">
                         <button

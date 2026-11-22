@@ -233,6 +233,8 @@ function updateActiveMenuButton(
 
         "screen-shop":
             "shop",
+        "screen-traveling-merchant":
+            "traveling-merchant",
         "screen-tavern": "tavern",
 
         "screen-crafting":
@@ -389,6 +391,13 @@ function showScreen(screenId) {
         "function"
     ) {
         renderCrafting();
+    }
+
+    if (
+        screenId === "screen-traveling-merchant" &&
+        typeof renderTravelingMerchant === "function"
+    ) {
+        renderTravelingMerchant();
     }
 
     if (

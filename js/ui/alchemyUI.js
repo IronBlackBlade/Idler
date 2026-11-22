@@ -675,7 +675,7 @@ ${potionEffectText
     <span>
         EXP:
         <strong>
-            +${getAlchemyRecipeExp(recipe)}
+            +${previewProfessionExp(getAlchemyRecipeExp(recipe))}
         </strong>
     </span>
 </div>
@@ -1347,7 +1347,7 @@ function getAlchemyLastResultHtml() {
         <div class="alchemy-result-exp">
             Zdobyte doświadczenie:
             <strong>
-                +${result.alchemyExp} EXP
+                +${previewProfessionExp(result.alchemyExp)} EXP
             </strong>
         </div>
     `;

@@ -31,11 +31,18 @@
 }
 
 /* ---------- tło i typografia ---------- */
+/* Tło: pełny kolor na html (płótno nigdy nie jest białe, także po obrocie tabletu),
+   gradient na elemencie przypiętym do ekranu zamiast background-attachment:fixed (iOS go psuje). */
+html{background-color:var(--oak-1) !important;min-height:100%}
+body{background-color:transparent}
 body{
   font-family:var(--font-body);
   font-size:17px;
   color:var(--text);
-  background:radial-gradient(110% 90% at 60% 10%,#35251b 0%,var(--oak-1) 80%) fixed;
+}
+body::before{
+  content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(110% 90% at 60% 10%,#35251b 0%,var(--oak-1) 80%);
 }
 body::after{ /* winieta */
   content:"";position:fixed;inset:0;pointer-events:none;z-index:9998;

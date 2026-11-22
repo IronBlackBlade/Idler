@@ -681,7 +681,7 @@ function createProfessionToolUpgradeCard(recipe) {
     <footer class="profession-tool-upgrade-action">
       <div>
         <span>💰 <strong>${goldCostHtml}</strong></span>
-        <span>⭐ <strong>+${craftingExp} EXP</strong></span>
+        <span>⭐ <strong>+${previewProfessionExp(craftingExp)} EXP</strong></span>
       </div>
       <button
         type="button"
@@ -1244,7 +1244,7 @@ ${armorComparisonHtml}
                 crafting-exp-badge
             "
         >
-            ⭐ +${craftingExpPerCraft} EXP
+            ⭐ +${previewProfessionExp(craftingExpPerCraft)} EXP
         </span>
 
         <span class="crafting-meta-badge crafting-time-badge">

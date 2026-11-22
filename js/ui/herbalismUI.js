@@ -506,7 +506,7 @@ ${Number(resource.quantity) > 1
                         </span>
 
                         <strong>
-                            +${resource.herbalismExp} EXP
+                            +${previewProfessionExp(resource.herbalismExp)} EXP
 
                             <small>
                                 ${rarityLabel}

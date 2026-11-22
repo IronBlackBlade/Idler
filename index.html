@@ -4,10 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#241810">
     <title>Idler</title>
     <link rel="stylesheet" href="css/style.css?v=20260817-menu-fixed">
     <link rel="stylesheet" href="css/tablet.css?v=1">
-    <link rel="stylesheet" href="css/theme.css?v=1">
+    <link rel="stylesheet" href="css/theme.css?v=3">
     <link rel="stylesheet" href="css/mobileMenu.css?v=1">
     <link rel="stylesheet" href="css/dailyQuests.css?v=1">
     <link rel="stylesheet" href="css/forge.css?v=1">
@@ -185,6 +186,10 @@
 
                         <button data-menu-section="shop" onclick="showScreen('screen-shop')">
                             🛒 Kupiec
+                        </button>
+
+                        <button data-menu-section="traveling-merchant" onclick="showScreen('screen-traveling-merchant')">
+                            🧳 Wędrowny kupiec
                         </button>
 
                         <button data-menu-section="crafting" onclick="showScreen('screen-crafting')">
@@ -807,13 +812,14 @@
 
             <section id="screen-shop" class="screen">
 
-
-                <div id="traveling-merchant"></div>
-
                 <div class="game-card">
                     <div class="card-header">Towary kupca</div>
                     <div id="shop-list"></div>
                 </div>
+            </section>
+
+            <section id="screen-traveling-merchant" class="screen">
+                <div id="traveling-merchant"></div>
             </section>
 
             <section id="screen-forge" class="screen">
@@ -1902,6 +1908,7 @@
     <script src="js/ui/bugReportUI.js"></script>
     <script src="js/ui/adminUI.js"></script>
     <script src="js/ui/forumUI.js"></script>
+    <script src="js/ui/orientationFix.js"></script>
     <script src="js/ui/panelResize.js"></script>
     <script src="js/ui/chatUI.js"></script>
     <script src="js/ui/dmUI.js"></script>

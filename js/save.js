@@ -71,6 +71,12 @@ function loadGame() {
     const savedJson = localStorage.getItem("idler_save");
 
     if (!savedJson) {
+        // Nowa postać: domyślne HP/mana mogą przekraczać maksimum z atrybutów.
+        try {
+            const d = getDerivedStats();
+            player.hp = d.maxHp;
+            player.mana = d.maxMana;
+        } catch (e) {}
         return;
     }
 

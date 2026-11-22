@@ -450,7 +450,7 @@ ${Number(resource.quantity) > 1
 ${sizeHtml}
                     </span>
                     <strong>
-                        +${resource.fishingExp} EXP
+                        +${previewProfessionExp(resource.fishingExp)} EXP
                         <small>${rarityLabel}</small>
                         ${recordHtml}
                     </strong>

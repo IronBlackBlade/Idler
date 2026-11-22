@@ -48,6 +48,21 @@ function scaleProfessionExp(value) {
     return whole + (Math.random() < scaled - whole ? 1 : 0);
 }
 
+/*
+ * Podgląd EXP zawodu pokazywany w interfejsie (wartość oczekiwana po skalowaniu,
+ * bez losowania). Nie zmienia faktycznie przyznawanego EXP.
+ */
+function previewProfessionExp(value) {
+    const number = Number(value);
+
+    if (!Number.isFinite(number) || number <= 0) {
+        return 0;
+    }
+
+    return Math.round(number * REWARD_SCALE.professionExp * 10) / 10;
+}
+
+window.previewProfessionExp = previewProfessionExp;
 window.REWARD_SCALE = REWARD_SCALE;
 window.scaleGoldReward = scaleGoldReward;
 window.scaleExpReward = scaleExpReward;
