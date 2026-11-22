@@ -641,7 +641,7 @@ function renderInventory() {
       div.innerHTML = `
         <div class="inventory-item-header">
             <strong>
-                ${item.name}
+                ${getItemIconHtml(item, invItem.itemId)} ${item.name}
             </strong>
 
             <span class="inventory-quantity">
@@ -735,7 +735,7 @@ Premia sprzedaży:
     div.innerHTML = `
     <div class="inventory-item-header">
         <strong>
-            ${item.name}
+            ${getItemIconHtml(item, invItem.itemId)} ${item.name}
         </strong>
 
         <span class="inventory-quantity">

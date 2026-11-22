@@ -937,3 +937,23 @@ button[data-filter="monster_material"].active {
     outline: 2px solid #e3c27a;
     outline-offset: 2px;
 }
+
+/* Przycisk "Sprzedaj śmieci" – obramowanie przycisku (cień) nie może wychodzić poza nagłówek */
+.inventory-panel-header {
+    padding: 8px 8px 12px 0 !important;
+}
+
+.inventory-panel-header
+.inventory-sell-all-button {
+    margin: 0 4px 3px auto;
+    padding: 6px 10px;
+}
+
+/* Ikona przedmiotu obok nazwy w plecaku */
+.inventory-item-icon {
+    display: inline-block;
+    margin-right: 6px;
+    font-size: 1.35em;
+    line-height: 1;
+    vertical-align: -0.12em;
+}

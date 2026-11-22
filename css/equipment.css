@@ -2257,3 +2257,128 @@
         width: 100%;
     }
 }
+
+/* ========================================
+   KOMPUTER: większe i czytelniejsze kafelki założonego ekwipunku
+======================================== */
+
+@media (min-width: 901px) {
+    .equipment-section-header strong {
+        font-size: 18px;
+    }
+
+    .equipment-section-header>div>span {
+        color: #b9a98a;
+        font-size: 13px;
+    }
+
+    .equipment-grid {
+        gap: 12px;
+    }
+
+    .equipment-slot {
+        min-height: 104px;
+        padding: 12px 14px;
+        gap: 8px;
+        background: #1a1610;
+    }
+
+    .equipment-slot.empty-slot {
+        min-height: 84px;
+    }
+
+    .equipment-slot>span {
+        color: #e8c766;
+        font-size: 13px;
+        letter-spacing: 0.5px;
+    }
+
+    .equipment-slot>strong {
+        color: #f0e6d0;
+        font-size: 16px;
+    }
+
+    .equipment-slot.empty-slot>strong {
+        color: #9a9080;
+        font-size: 14px;
+    }
+
+    .equipment-item-name {
+        font-size: 16px;
+    }
+
+    .equipment-item-tags {
+        gap: 5px;
+        margin-top: 6px;
+    }
+
+    .equipment-item-tags span {
+        padding: 2px 8px;
+        font-size: 12px;
+        color: #e0c677;
+    }
+
+    .equipment-slot button,
+    .equipment-unequip-btn {
+        min-height: 32px;
+        padding: 6px 12px;
+        font-size: 13px;
+    }
+
+    .equipment-slot.selected-slot::after {
+        font-size: 11px;
+    }
+}
+
+@media (min-width: 901px) {
+    .equipment-set-card header small {
+        font-size: 12px;
+    }
+
+    .equipment-set-card header strong {
+        font-size: 18px;
+    }
+
+    .equipment-set-part {
+        padding: 10px 12px;
+    }
+
+    .equipment-set-part-info strong {
+        font-size: 15px;
+    }
+
+    .equipment-set-part-info span {
+        font-size: 13px;
+    }
+
+    .equipment-set-part-action,
+    .equipment-set-part button {
+        font-size: 13px;
+        min-height: 32px;
+    }
+
+    .equipment-set-bulk-action button {
+        font-size: 14px;
+    }
+
+    .equipment-set-bulk-action > span {
+        font-size: 13px;
+    }
+
+    .equipment-set-threshold strong {
+        font-size: 14px;
+    }
+
+    .equipment-set-threshold > div > span {
+        font-size: 13px;
+    }
+
+    .equipment-set-threshold .equipment-set-unique-effect,
+    .equipment-set-threshold .equipment-set-unique-effect span {
+        font-size: 13px;
+    }
+
+    .equipment-set-threshold .equipment-set-unique-effect b {
+        font-size: 11px;
+    }
+}

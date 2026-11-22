@@ -290,7 +290,7 @@ function loadGame() {
         syncJournalMaterialsFromInventory();
     }
 
-    const loadedActivityType =
+    let loadedActivityType =
         resolveLoadedActivityType(
             saveData
         );
@@ -835,6 +835,13 @@ function loadGame() {
                 loadedActivityType,
                 saveTime
             );
+    }
+
+    // Loch ukończony offline: wracamy do aktywności sprzed lochu.
+    if (window.__offlineResumeActivity) {
+        loadedActivityType =
+            window.__offlineResumeActivity.type || null;
+        window.__offlineResumeActivity = null;
     }
 
     if (

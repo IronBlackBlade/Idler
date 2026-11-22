@@ -282,6 +282,107 @@ function getLocationBossPanelHtml(
     `;
 }
 
+/*
+ * Szacunek złota i EXP na godzinę polowania w lokacji (jak przy walce offline).
+ * Liczone na podstawie aktualnych statystyk, ekwipunku i umiejętności gracza.
+ */
+function estimateLocationHourlyRewards(locationId) {
+    const location = locations[locationId];
+
+    if (
+        !location ||
+        !Array.isArray(location.enemies) ||
+        location.enemies.length === 0 ||
+        typeof calculateOfflineCombatDamage !== "function"
+    ) {
+        return null;
+    }
+
+    const previousLocation = player.location;
+    const hourMs = 3600 * 1000;
+    const now = Date.now();
+
+    try {
+        player.location = locationId;
+
+        const combat = calculateOfflineCombatDamage(now - hourMs, now);
+        const damage = Math.max(0, Number(combat.damage) || 0);
+
+        if (damage <= 0) {
+            return { gold: 0, exp: 0 };
+        }
+
+        const mastery =
+            typeof getLocationMasteryPercent === "function"
+                ? getLocationMasteryPercent(locationId)
+                : 0;
+
+        const hpMultiplier =
+            typeof getOfflineAverageEncounterHpMultiplier === "function"
+                ? getOfflineAverageEncounterHpMultiplier(mastery)
+                : 1;
+
+        const count = location.enemies.length;
+        const sum = key => location.enemies.reduce(
+            (total, enemyData) => total + (Number(enemyData[key]) || 0),
+            0
+        );
+
+        const averageHp = Math.max(1, (sum("hp") / count) * hpMultiplier);
+        const kills = damage / averageHp;
+
+        const bonuses =
+            typeof getSetKillRewardBonuses === "function"
+                ? getSetKillRewardBonuses()
+                : { goldPercent: 0, expPercent: 0 };
+
+        const locationMultiplier =
+            typeof getLocationRewardMultiplier === "function"
+                ? getLocationRewardMultiplier(locationId)
+                : 1;
+
+        const bestiary =
+            typeof getBestiaryRewardMultipliers === "function"
+                ? getBestiaryRewardMultipliers(locationId)
+                : { gold: 1, exp: 1 };
+
+        return {
+            gold: Math.floor(
+                kills * (sum("gold") / count) *
+                (1 + (bonuses.goldPercent || 0) / 100) *
+                locationMultiplier * (bestiary.gold || 1)
+            ),
+            exp: Math.floor(
+                kills * (sum("exp") / count) *
+                (1 + (bonuses.expPercent || 0) / 100) *
+                locationMultiplier * (bestiary.exp || 1)
+            )
+        };
+    } catch (error) {
+        return null;
+    } finally {
+        player.location = previousLocation;
+    }
+}
+
+function formatLocationHourlyEstimate(value) {
+    const number = Number(value) || 0;
+
+    if (number <= 0) {
+        return "—";
+    }
+
+    // Zaokrąglamy do 2 cyfr znaczących – to tylko przybliżenie.
+    const magnitude = Math.pow(10, Math.max(0, Math.floor(Math.log10(number)) - 1));
+    const rounded = Math.round(number / magnitude) * magnitude;
+
+    return "~" + (
+        typeof formatCompactNumber === "function"
+            ? formatCompactNumber(rounded)
+            : rounded
+    );
+}
+
 function renderLocations() {
     const container = document.getElementById("locations-list");
     if (!container) return;
@@ -365,6 +466,8 @@ function renderLocations() {
         const bossChanceText = Number.isInteger(bossChance)
             ? bossChance + "%"
             : bossChance.toFixed(1) + "%";
+
+        const hourlyEstimate = estimateLocationHourlyRewards(location.id);
 
         const div =
             document.createElement(
@@ -465,6 +568,22 @@ function renderLocations() {
         ${chestsFound}
     </strong>
 </div>
+</div>
+
+<div class="location-hourly-tile" title="Przybliżone wartości przy obecnych statystykach i ekwipunku">
+    <div class="location-hourly-title">⏱️ Szacowany zysk na godzinę</div>
+
+    <div class="location-hourly-values">
+        <div>
+            <span>💰 Złoto</span>
+            <strong>${hourlyEstimate ? formatLocationHourlyEstimate(hourlyEstimate.gold) : "—"}</strong>
+        </div>
+
+        <div>
+            <span>⭐ EXP</span>
+            <strong>${hourlyEstimate ? formatLocationHourlyEstimate(hourlyEstimate.exp) : "—"}</strong>
+        </div>
+    </div>
 </div>
 
 <div class="location-mastery-panel">

@@ -307,7 +307,20 @@ function startDungeonRun(dungeonId) {
     return beginDungeonRun(dungeonId, dungeon, progress);
 }
 
+const DUNGEON_RETURN_ACTIVITIES = ["combat", "mining", "herbalism", "fishing"];
+
 function beginDungeonRun(dungeonId, dungeon, progress) {
+    // Zapamiętujemy aktywność sprzed lochu, żeby po jego zakończeniu do niej wrócić.
+    const previousActivity =
+        typeof getCurrentActivityTypeForSave === "function"
+            ? getCurrentActivityTypeForSave()
+            : null;
+
+    player.dungeonReturnActivity =
+        DUNGEON_RETURN_ACTIVITIES.includes(previousActivity)
+            ? previousActivity
+            : null;
+
     stopActivitiesBeforeDungeon();
 
     removeItemFromInventory(dungeon.keyItemId, 1);
@@ -365,14 +378,48 @@ function startGoblinHideoutDungeon() {
     return startDungeonRun("goblinHideout");
 }
 
-function completeDungeonRun(state) {
+/*
+ * Wraca do aktywności, którą gracz miał włączoną przed wejściem do lochu
+ * (polowanie, kopanie, zielarstwo, łowienie).
+ */
+function resumeActivityAfterDungeon() {
+    const activityType = player.dungeonReturnActivity || null;
+
+    player.dungeonReturnActivity = null;
+
+    if (!activityType) {
+        return null;
+    }
+
+    try {
+        if (activityType === "combat" && typeof startFight === "function") {
+            startFight();
+        } else if (activityType === "mining" && typeof startMining === "function") {
+            startMining();
+        } else if (activityType === "herbalism" && typeof startHerbalism === "function") {
+            startHerbalism();
+        } else if (activityType === "fishing" && typeof startFishing === "function") {
+            startFishing();
+        } else {
+            return null;
+        }
+    } catch (error) {
+        console.error("Nie udało się wrócić do aktywności po locie:", error);
+        return null;
+    }
+
+    return activityType;
+}
+
+function completeDungeonRun(state, options = {}) {
+    const isOffline = options.offline === true;
     const { dungeon, progress } = state;
     const rewards = dungeon.completionRewards || {};
 
     progress.active = false;
     progress.completed = true;
     progress.completionCount++;
-    progress.completedAt = Date.now();
+    progress.completedAt = Number(options.completedAt) || Date.now();
 
     const goldReward = scaleGoldReward(rewards.gold);
     const expReward = scaleExpReward(rewards.exp);
@@ -411,12 +458,25 @@ function completeDungeonRun(state) {
         );
     }
 
+    if (isOffline) {
+        return { goldReward, expReward };
+    }
+
     stopFight(false);
     clearEnemyCombatEffects();
     spawnEnemy();
+
+    const resumedActivity = resumeActivityAfterDungeon();
+
+    if (resumedActivity) {
+        addCombatLog("↩️ Wracasz do poprzedniej aktywności.");
+    }
+
     saveGame();
     showScreen("screen-dungeons");
     renderDungeons();
+
+    return { goldReward, expReward };
 }
 
 function handleDungeonEnemyDefeat(defeatedEnemy) {

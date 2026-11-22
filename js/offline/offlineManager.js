@@ -142,6 +142,39 @@ function simulateOfflineProgress(
     };
 
     let activitySummary = null;
+    let dungeonSummary = null;
+
+    /*
+     * Loch trwający w chwili zamknięcia gry liczymy osobno. Po jego końcu
+     * wracamy do aktywności sprzed lochu i liczymy ją dla reszty czasu.
+     */
+    if (
+        activityType === "combat" &&
+        typeof processOfflineDungeonProgress === "function" &&
+        typeof isDungeonRunActive === "function" &&
+        isDungeonRunActive()
+    ) {
+        const dungeonResult = processOfflineDungeonProgress(
+            offlineStartedAt,
+            offlineFinishedAt
+        );
+
+        if (dungeonResult) {
+            dungeonSummary = dungeonResult.summary;
+
+            if (dungeonResult.finished) {
+                const returnActivity = dungeonResult.returnActivity;
+
+                if (typeof restoreActivityStateForOffline === "function") {
+                    restoreActivityStateForOffline(returnActivity);
+                }
+
+                window.__offlineResumeActivity = { type: returnActivity };
+                activityType = returnActivity;
+                offlineStartedAt = dungeonResult.finishedAt;
+            }
+        }
+    }
 
     if (
         activityType === "mining" &&
@@ -224,6 +257,7 @@ function simulateOfflineProgress(
             : null;
 
     const summaries = [
+        dungeonSummary,
         activitySummary,
         alchemySummary,
         craftingSummary,

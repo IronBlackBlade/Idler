@@ -339,6 +339,7 @@ function resetPlayer() {
     delete player.dailyQuests;
     delete player.travelingMerchant;
     delete player.selectedTitleId;
+    delete player.dungeonReturnActivity;
 
     player.gold = 0;
     player.exp = 0;
