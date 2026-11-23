@@ -1,3 +1,64 @@
+function getHeroSubclassSectionHtml(selectedClass) {
+    const subclasses = getClassSubclasses(selectedClass.id);
+
+    if (subclasses.length === 0) {
+        return "";
+    }
+
+    const unlocked = Number(player.level) >= SUBCLASS_UNLOCK_LEVEL;
+    const current = player.subclassId;
+    const changeCost = getSubclassChangeCost();
+
+    const cards = subclasses.map(subclass => {
+        const isCurrent = current === subclass.id;
+        let buttonText = "Wybierz podklasę (darmowe)";
+        let disabled = !unlocked;
+
+        if (!unlocked) {
+            buttonText = "Poziom " + SUBCLASS_UNLOCK_LEVEL;
+        } else if (isCurrent) {
+            buttonText = "✔ Wybrana";
+            disabled = true;
+        } else if (current) {
+            buttonText = "Zmień za " + formatFullNumber(changeCost) + " 💰";
+            disabled = player.gold < changeCost;
+        }
+
+        return `
+            <article class="hero-subclass-card ${isCurrent ? "is-current" : ""} ${unlocked ? "" : "is-locked"}">
+                <div class="hero-subclass-top">
+                    <span class="hero-subclass-icon">${subclass.icon}</span>
+                    <strong class="hero-subclass-name">${subclass.name}</strong>
+                </div>
+                <p class="hero-subclass-text">${subclass.description}</p>
+                <div class="hero-subclass-bonuses">${getHeroClassBonusesHtml(subclass)}</div>
+                <button type="button"
+                        class="hero-subclass-button"
+                        onclick="chooseCharacterSubclass('${subclass.id}')"
+                        ${disabled ? "disabled" : ""}>
+                    ${buttonText}
+                </button>
+            </article>
+        `;
+    }).join("");
+
+    return `
+        <div class="hero-subclass-section">
+            <div class="hero-class-header">
+                <div>
+                    <strong>Podklasa</strong>
+                    <span>Odblokowuje się na poziomie ${SUBCLASS_UNLOCK_LEVEL}. Pierwszy wybór jest darmowy, zmiana kosztuje złoto.</span>
+                </div>
+                <span class="hero-class-status ${unlocked ? "unlocked" : ""}">
+                    ${unlocked ? (current ? "Wybrana" : "Dostępna") : "Poziom " + player.level + "/" + SUBCLASS_UNLOCK_LEVEL}
+                </span>
+            </div>
+
+            <div class="hero-subclass-grid">${cards}</div>
+        </div>
+    `;
+}
+
 function getHeroClassBonusesHtml(classDefinition) {
     if (!classDefinition?.bonuses) {
         return "";
@@ -234,6 +295,8 @@ function renderCharacterClassSection() {
                     ${getHeroClassProgressionHtml()}
                 </div>
             </div>
+
+            ${getHeroSubclassSectionHtml(selectedClass)}
         `;
 
         return;

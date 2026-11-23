@@ -543,3 +543,76 @@
     color: #f6e8cc;
     font-size: 22px;
 }
+
+/* Podklasy */
+.hero-subclass-section {
+    margin-top: 14px;
+    width: 100%;
+}
+
+.hero-subclass-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.hero-subclass-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 14px;
+    border: 2px solid #5a4630;
+    border-radius: 10px;
+    background: linear-gradient(#241c12, #17120b);
+}
+
+.hero-subclass-card.is-current {
+    border-color: #f0c24a;
+    background: linear-gradient(#3a2e10, #1d1a12);
+    box-shadow: 0 0 14px rgba(240, 194, 74, 0.35);
+}
+
+.hero-subclass-card.is-locked {
+    opacity: .7;
+}
+
+.hero-subclass-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.hero-subclass-icon {
+    font-size: 30px;
+    line-height: 1;
+}
+
+.hero-subclass-name {
+    color: #f1d98a;
+    font-size: 19px;
+}
+
+.hero-subclass-text {
+    margin: 0;
+    color: #d6c9ad;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.hero-subclass-bonuses {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.hero-subclass-button {
+    margin-top: auto;
+    padding: 8px 12px;
+}
+
+@media (max-width: 700px) {
+    .hero-subclass-grid {
+        grid-template-columns: 1fr;
+    }
+}

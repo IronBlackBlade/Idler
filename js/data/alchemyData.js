@@ -23,15 +23,15 @@ const alchemyRecipes = [
         ingredients: [
             {
                 itemId: "chamomile",
-                quantity: 2
+                quantity: 3
             },
             {
                 itemId: "mint_leaf",
-                quantity: 1
+                quantity: 2
             },
             {
                 itemId: "nettle",
-                quantity: 1
+                quantity: 2
             }
         ]
     },
@@ -60,15 +60,15 @@ const alchemyRecipes = [
         ingredients: [
             {
                 itemId: "blood_flower",
-                quantity: 2
+                quantity: 3
             },
             {
                 itemId: "stone_root",
-                quantity: 1
+                quantity: 2
             },
             {
                 itemId: "wolf_fang",
-                quantity: 1
+                quantity: 2
             }
         ]
     },
@@ -98,19 +98,19 @@ const alchemyRecipes = [
         ingredients: [
             {
                 itemId: "ancient_bark",
-                quantity: 2
+                quantity: 3
             },
             {
                 itemId: "swamp_heart",
-                quantity: 1
+                quantity: 2
             },
             {
                 itemId: "frostbloom",
-                quantity: 1
+                quantity: 2
             },
             {
                 itemId: "iron_ore",
-                quantity: 1
+                quantity: 2
             }
         ]
     },
@@ -140,19 +140,19 @@ const alchemyRecipes = [
     ingredients: [
         {
             itemId: "spirit_bloom",
-            quantity: 2
+            quantity: 3
         },
         {
             itemId: "dream_moss",
-            quantity: 2
+            quantity: 3
         },
         {
             itemId: "silvervine",
-            quantity: 1
+            quantity: 2
         },
         {
             itemId: "crystal_shard",
-            quantity: 1
+            quantity: 2
         }
     ]
 },
@@ -175,15 +175,15 @@ const alchemyRecipes = [
         ingredients: [
             {
                 itemId: "mint_leaf",
-                quantity: 2
+                quantity: 3
             },
             {
                 itemId: "nettle",
-                quantity: 1
+                quantity: 2
             },
             {
                 itemId: "coal",
-                quantity: 1
+                quantity: 2
             }
         ]
     },
@@ -206,15 +206,15 @@ const alchemyRecipes = [
         ingredients: [
             {
                 itemId: "chamomile",
-                quantity: 2
+                quantity: 3
             },
             {
                 itemId: "silver_leaf",
-                quantity: 1
+                quantity: 2
             },
             {
                 itemId: "nettle",
-                quantity: 1
+                quantity: 2
             }
         ]
     },
@@ -238,15 +238,15 @@ const alchemyRecipes = [
         ingredients: [
             {
                 itemId: "red_mushroom",
-                quantity: 2
+                quantity: 3
             },
             {
                 itemId: "swamp_moss",
-                quantity: 1
+                quantity: 2
             },
             {
                 itemId: "wolf_fang",
-                quantity: 2
+                quantity: 3
             }
         ]
     },
@@ -270,15 +270,15 @@ const alchemyRecipes = [
         ingredients: [
             {
                 itemId: "calamus_root",
-                quantity: 2
+                quantity: 3
             },
             {
                 itemId: "blood_flower",
-                quantity: 1
+                quantity: 2
             },
             {
                 itemId: "swamp_heart",
-                quantity: 1
+                quantity: 2
             }
         ]
     },
@@ -302,19 +302,19 @@ const alchemyRecipes = [
         ingredients: [
             {
                 itemId: "stone_root",
-                quantity: 2
+                quantity: 3
             },
             {
                 itemId: "frostbloom",
-                quantity: 1
+                quantity: 2
             },
             {
                 itemId: "mountain_sage",
-                quantity: 1
+                quantity: 2
             },
             {
                 itemId: "iron_ore",
-                quantity: 1
+                quantity: 2
             }
         ]
     },
@@ -338,15 +338,15 @@ const alchemyRecipes = [
         ingredients: [
             {
                 itemId: "moon_leaf",
-                quantity: 2
+                quantity: 3
             },
             {
                 itemId: "glowing_moss",
-                quantity: 1
+                quantity: 2
             },
             {
                 itemId: "mandrake_root",
-                quantity: 1
+                quantity: 2
             }
         ]
     },
@@ -372,15 +372,15 @@ const alchemyRecipes = [
         ingredients: [
             {
                 itemId: "marsh_flower",
-                quantity: 2
+                quantity: 3
             },
             {
                 itemId: "poison_cap",
-                quantity: 1
+                quantity: 2
             },
             {
                 itemId: "dark_feather",
-                quantity: 1
+                quantity: 2
             }
         ]
     },
@@ -405,19 +405,19 @@ const alchemyRecipes = [
         ingredients: [
             {
                 itemId: "blue_saffron",
-                quantity: 2
+                quantity: 3
             },
             {
                 itemId: "wind_flower",
-                quantity: 1
+                quantity: 2
             },
             {
                 itemId: "nymph_tear",
-                quantity: 1
+                quantity: 2
             },
             {
                 itemId: "amethyst",
-                quantity: 1
+                quantity: 2
             }
         ]
     },
@@ -442,15 +442,15 @@ const alchemyRecipes = [
         ingredients: [
             {
                 itemId: "star_flower",
-                quantity: 2
+                quantity: 3
             },
             {
                 itemId: "crystal_orchid",
-                quantity: 1
+                quantity: 2
             },
             {
                 itemId: "pure_crystal",
-                quantity: 1
+                quantity: 2
             }
         ]
     },
@@ -478,16 +478,16 @@ const alchemyRecipes = [
         ingredients: [
             {
                 itemId: "ancient_bark",
-                quantity: 2
+                quantity: 3
             },
             {
                 itemId:
                     "ancient_tree_seed",
-                quantity: 1
+                quantity: 2
             },
             {
                 itemId: "stone_root",
-                quantity: 2
+                quantity: 3
             }
         ]
     },
@@ -516,17 +516,17 @@ const alchemyRecipes = [
             {
                 itemId:
                     "corrupted_thorn",
-                quantity: 2
+                quantity: 3
             },
             {
                 itemId:
                     "ash_flower",
-                quantity: 2
+                quantity: 3
             },
             {
                 itemId:
                     "toxic_root",
-                quantity: 1
+                quantity: 2
             }
         ]
     },
@@ -555,17 +555,17 @@ const alchemyRecipes = [
             {
                 itemId:
                     "toxic_root",
-                quantity: 2
+                quantity: 3
             },
             {
                 itemId:
                     "shadow_fern",
-                quantity: 2
+                quantity: 3
             },
             {
                 itemId:
                     "corrupted_thorn",
-                quantity: 1
+                quantity: 2
             }
         ]
     },
@@ -594,17 +594,17 @@ const alchemyRecipes = [
             {
                 itemId:
                     "void_spore",
-                quantity: 2
+                quantity: 3
             },
             {
                 itemId:
                     "ash_flower",
-                quantity: 1
+                quantity: 2
             },
             {
                 itemId:
                     "shadow_fern",
-                quantity: 1
+                quantity: 2
             }
         ]
     },
@@ -633,17 +633,17 @@ const alchemyRecipes = [
             {
                 itemId:
                     "corruption_essence",
-                quantity: 1
+                quantity: 2
             },
             {
                 itemId:
                     "void_spore",
-                quantity: 1
+                quantity: 2
             },
             {
                 itemId:
                     "shadow_fern",
-                quantity: 1
+                quantity: 2
             }
         ]
     },
@@ -662,15 +662,15 @@ const alchemyRecipes = [
         ingredients: [
             {
                 itemId: "adamantite_ore",
-                quantity: 3
+                quantity: 5
             },
             {
                 itemId: "crystal_shard",
-                quantity: 2
+                quantity: 3
             },
             {
                 itemId: "spirit_bloom",
-                quantity: 1
+                quantity: 2
             }
         ]
     },
@@ -689,15 +689,15 @@ const alchemyRecipes = [
         ingredients: [
             {
                 itemId: "dream_moss",
-                quantity: 3
+                quantity: 5
             },
             {
                 itemId: "silvervine",
-                quantity: 2
+                quantity: 3
             },
             {
                 itemId: "orichalcum_ore",
-                quantity: 1
+                quantity: 2
             }
         ]
     },
@@ -716,15 +716,15 @@ const alchemyRecipes = [
         ingredients: [
             {
                 itemId: "titan_stone",
-                quantity: 3
+                quantity: 5
             },
             {
                 itemId: "astral_ore",
-                quantity: 2
+                quantity: 3
             },
             {
                 itemId: "celestial_lotus",
-                quantity: 1
+                quantity: 2
             }
         ]
     },
@@ -743,15 +743,15 @@ const alchemyRecipes = [
         ingredients: [
             {
                 itemId: "aether_petals",
-                quantity: 3
+                quantity: 5
             },
             {
                 itemId: "phoenix_herb",
-                quantity: 2
+                quantity: 3
             },
             {
                 itemId: "sunstone",
-                quantity: 1
+                quantity: 2
             }
         ]
     }

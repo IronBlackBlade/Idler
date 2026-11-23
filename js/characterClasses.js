@@ -160,36 +160,44 @@ function getPlayerClassBonuses() {
     const progression =
         getClassProgressionBonuses();
 
+    const subclassBonuses =
+        getPlayerSubclassDefinition()?.bonuses || {};
+
     return {
         strength:
             (Number(
                 classDefinition.bonuses?.strength
             ) || 0) +
-            progression.strength,
+            progression.strength +
+            (Number(subclassBonuses.strength) || 0),
 
         dexterity:
             (Number(
                 classDefinition.bonuses?.dexterity
             ) || 0) +
-            progression.dexterity,
+            progression.dexterity +
+            (Number(subclassBonuses.dexterity) || 0),
 
         intelligence:
             (Number(
                 classDefinition.bonuses?.intelligence
             ) || 0) +
-            progression.intelligence,
+            progression.intelligence +
+            (Number(subclassBonuses.intelligence) || 0),
 
         endurance:
             (Number(
                 classDefinition.bonuses?.endurance
             ) || 0) +
-            progression.endurance,
+            progression.endurance +
+            (Number(subclassBonuses.endurance) || 0),
 
         luck:
             (Number(
                 classDefinition.bonuses?.luck
             ) || 0) +
-            progression.luck
+            progression.luck +
+            (Number(subclassBonuses.luck) || 0)
     };
 }
 
@@ -476,4 +484,129 @@ function applyGuardianCombatRegeneration() {
     );
 
     return player.hp - previousHp;
+}
+
+
+/* ========================================
+   PODKLASY
+======================================== */
+
+function getPlayerSubclassDefinition() {
+    if (!player.classId || !player.subclassId) {
+        return null;
+    }
+
+    const subclass =
+        characterSubclasses[player.subclassId];
+
+    if (!subclass || subclass.classId !== player.classId) {
+        return null;
+    }
+
+    return subclass;
+}
+
+function getClassSubclasses(classId) {
+    return Object.values(characterSubclasses)
+        .filter(subclass => subclass.classId === classId);
+}
+
+/*
+ * Pierwszy wybór jest darmowy, każda zmiana kosztuje złoto
+ * i jest o połowę droższa od poprzedniej.
+ */
+function getSubclassChangeCost() {
+    if (!player.subclassId) {
+        return 0;
+    }
+
+    const changes = Math.max(
+        0,
+        Math.floor(Number(player.subclassChangeCount) || 0)
+    );
+
+    return Math.round(
+        SUBCLASS_CHANGE_BASE_COST *
+        Math.pow(SUBCLASS_CHANGE_COST_GROWTH, changes)
+    );
+}
+
+function chooseCharacterSubclass(subclassId) {
+    const subclass = characterSubclasses[subclassId];
+
+    if (!subclass || subclass.classId !== player.classId) {
+        showNotification?.("Ta podklasa nie pasuje do Twojej klasy.", "error");
+        return;
+    }
+
+    if (player.subclassId === subclassId) {
+        return;
+    }
+
+    if (Number(player.level) < SUBCLASS_UNLOCK_LEVEL) {
+        showNotification?.(
+            "Podklasę wybierzesz na poziomie " + SUBCLASS_UNLOCK_LEVEL + ".",
+            "error"
+        );
+        return;
+    }
+
+    const cost = getSubclassChangeCost();
+
+    if (player.gold < cost) {
+        showNotification?.(
+            "Zmiana podklasy kosztuje " + formatFullNumber(cost) + " złota.",
+            "error"
+        );
+        return;
+    }
+
+    const isChange = Boolean(player.subclassId);
+    const bonusSummary = getCharacterClassBonusSummary(subclass);
+
+    showGameConfirm(
+        (isChange
+            ? "Zmienić podklasę na " + subclass.name + "?\n\n" +
+              "Koszt: " + formatFullNumber(cost) + " złota.\n"
+            : "Wybierasz podklasę " + subclass.name + "?\n\n") +
+        "Premie: " + bonusSummary + "\n\n" +
+        (isChange
+            ? "Zmiana jest płatna, a każda kolejna będzie droższa."
+            : "Pierwszy wybór jest darmowy. Późniejsza zmiana kosztuje złoto."),
+        { title: "Wybór podklasy", confirmText: isChange ? "Zmieniam" : "Wybieram" }
+    ).then(confirmed => {
+        if (!confirmed) {
+            return;
+        }
+
+        if (isChange) {
+            if (player.gold < cost) {
+                return;
+            }
+
+            player.gold -= cost;
+            player.subclassChangeCount =
+                (Number(player.subclassChangeCount) || 0) + 1;
+        }
+
+        player.subclassId = subclassId;
+
+        const derived = getDerivedStats();
+
+        player.hp = Math.min(derived.maxHp, Math.max(player.hp, 1));
+        player.mana = Math.min(derived.maxMana, player.mana);
+
+        showNotification?.("Wybrano podklasę: " + subclass.name + ".", "success");
+
+        addSystemLog?.(
+            subclass.icon + " Bohater wybrał podklasę " + subclass.name +
+            ". Premie: " + bonusSummary + ".",
+            "class"
+        );
+
+        saveGame?.();
+        render?.();
+        renderHero?.();
+        renderPlayerHud?.();
+    });
 }

@@ -1,0 +1,83 @@
+/* Okienko szybkiego picia mikstur w ekranach aktywności */
+.quick-potions {
+    margin: 0 0 14px;
+    padding: 10px 12px;
+    border: 2px solid #5b4a8a;
+    border-radius: 8px;
+    background: linear-gradient(#2a2340, #1a1528);
+    box-shadow: inset 0 0 0 1px #0006;
+}
+
+.quick-potions-title {
+    margin-bottom: 8px;
+    color: #cdbcff;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+}
+
+.quick-potions-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.quick-potions-empty {
+    color: #9a90b8;
+    font-size: 13px;
+}
+
+.quick-potion {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 36px;
+    padding: 6px 10px;
+    border: 1px solid #6f5fb0;
+    border-radius: 8px;
+    background: #2f2650;
+    color: #f0eaff;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.quick-potion:hover:not(:disabled) {
+    background: #3b3064;
+    border-color: #a28cf0;
+}
+
+.quick-potion:disabled {
+    opacity: .6;
+    cursor: default;
+}
+
+.quick-potion.is-active {
+    border-color: #6fd07a;
+    background: #233a2a;
+}
+
+.quick-potion-effect {
+    color: #8fe39a;
+    font-weight: 700;
+}
+
+.quick-potion-qty {
+    padding: 1px 7px;
+    border-radius: 999px;
+    background: #0005;
+    color: #ffd166;
+    font-size: 12px;
+}
+
+.quick-potion-timer {
+    color: #8fe39a;
+    font-size: 12px;
+}
+
+@media (max-width: 600px) {
+    .quick-potion {
+        font-size: 13px;
+        padding: 6px 8px;
+    }
+}

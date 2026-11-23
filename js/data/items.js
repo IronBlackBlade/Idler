@@ -2397,13 +2397,13 @@ const items = {
         name: "Mikstura górnika",
 
         description:
-            "Zwiększa szybkość kopania o 15% przez 5 minut.",
+            "Zwiększa szybkość kopania o 10% przez 5 minut.",
 
         rarity: "uncommon",
         type: "potion",
 
         potionEffectId: "mining_speed",
-        effectValue: 15,
+        effectValue: 10,
         durationSeconds: 300,
 
         value: 45
@@ -2414,7 +2414,7 @@ const items = {
         name: "Mała mikstura zdrowia",
 
         description:
-            "Natychmiast przywraca 25% maksymalnego zdrowia.",
+            "Natychmiast przywraca 20% maksymalnego zdrowia.",
 
         rarity: "uncommon",
         type: "potion",
@@ -2422,8 +2422,8 @@ const items = {
         potionEffectId:
             "instant_healing",
 
-        effectValue: 25,
-        healingPercent: 25,
+        effectValue: 20,
+        healingPercent: 20,
 
         /*
          * Zero oznacza, że mikstura
@@ -2438,7 +2438,7 @@ const items = {
         name: "Mikstura zdrowia",
 
         description:
-            "Natychmiast przywraca 35% maksymalnego zdrowia.",
+            "Natychmiast przywraca 28% maksymalnego zdrowia.",
 
         rarity: "rare",
         type: "potion",
@@ -2446,8 +2446,8 @@ const items = {
         potionEffectId:
             "instant_healing",
 
-        effectValue: 35,
-        healingPercent: 35,
+        effectValue: 28,
+        healingPercent: 28,
 
         durationSeconds: 0,
 
@@ -2459,7 +2459,7 @@ const items = {
         name: "Duża mikstura zdrowia",
 
         description:
-            "Natychmiast przywraca 45% maksymalnego zdrowia.",
+            "Natychmiast przywraca 36% maksymalnego zdrowia.",
 
         rarity: "epic",
         type: "potion",
@@ -2467,8 +2467,8 @@ const items = {
         potionEffectId:
             "instant_healing",
 
-        effectValue: 45,
-        healingPercent: 45,
+        effectValue: 36,
+        healingPercent: 36,
 
         durationSeconds: 0,
 
@@ -2480,7 +2480,7 @@ const items = {
         name: "Eliksir odnowienia",
 
         description:
-            "Natychmiast przywraca 60% maksymalnego zdrowia.",
+            "Natychmiast przywraca 48% maksymalnego zdrowia.",
 
         rarity: "legendary",
         type: "potion",
@@ -2488,8 +2488,8 @@ const items = {
         potionEffectId:
             "instant_healing",
 
-        effectValue: 60,
-        healingPercent: 60,
+        effectValue: 48,
+        healingPercent: 48,
 
         durationSeconds: 0,
 
@@ -2501,13 +2501,13 @@ const items = {
         name: "Mikstura zielarza",
 
         description:
-            "Zwiększa szybkość zbierania ziół o 15% przez 5 minut.",
+            "Zwiększa szybkość zbierania ziół o 10% przez 5 minut.",
 
         rarity: "uncommon",
         type: "potion",
 
         potionEffectId: "herbalism_speed",
-        effectValue: 15,
+        effectValue: 10,
         durationSeconds: 300,
 
         value: 45
@@ -2518,13 +2518,13 @@ const items = {
         name: "Mikstura łowcy",
 
         description:
-            "Zwiększa szansę na zdobycie łupu o 10% przez 5 minut.",
+            "Zwiększa szansę na zdobycie łupu o 7% przez 5 minut.",
 
         rarity: "rare",
         type: "potion",
 
         potionEffectId: "hunter_luck",
-        effectValue: 10,
+        effectValue: 7,
         durationSeconds: 300,
 
         value: 75
@@ -2535,13 +2535,13 @@ const items = {
         name: "Mikstura siły",
 
         description:
-            "Zwiększa obrażenia broni w zwarciu o 15% przez 5 minut.",
+            "Zwiększa obrażenia broni w zwarciu o 10% przez 5 minut.",
 
         rarity: "rare",
         type: "potion",
 
         potionEffectId: "melee_weapon_damage",
-        effectValue: 15,
+        effectValue: 10,
         durationSeconds: 300,
 
         value: 80
@@ -2552,13 +2552,13 @@ const items = {
         name: "Mikstura precyzji",
 
         description:
-            "Zwiększa obrażenia łuków i kusz o 15% przez 5 minut.",
+            "Zwiększa obrażenia łuków i kusz o 10% przez 5 minut.",
 
         rarity: "rare",
         type: "potion",
 
         potionEffectId: "ranged_weapon_damage",
-        effectValue: 15,
+        effectValue: 10,
         durationSeconds: 300,
 
         value: 80
@@ -2569,13 +2569,13 @@ const items = {
         name: "Mikstura arkanicznego oręża",
 
         description:
-            "Zwiększa obrażenia zwykłych ataków różdżkami i kosturami o 15% przez 5 minut.",
+            "Zwiększa obrażenia zwykłych ataków różdżkami i kosturami o 10% przez 5 minut.",
 
         rarity: "rare",
         type: "potion",
 
         potionEffectId: "magic_weapon_damage",
-        effectValue: 15,
+        effectValue: 10,
         durationSeconds: 300,
 
         value: 85
@@ -2586,13 +2586,13 @@ const items = {
         name: "Mikstura mocy magicznej",
 
         description:
-            "Zwiększa obrażenia czarów ofensywnych o 15% przez 5 minut.",
+            "Zwiększa obrażenia czarów ofensywnych o 10% przez 5 minut.",
 
         rarity: "rare",
         type: "potion",
 
         potionEffectId: "spell_damage",
-        effectValue: 15,
+        effectValue: 10,
         durationSeconds: 300,
 
         value: 90
@@ -2603,13 +2603,13 @@ const items = {
         name: "Mikstura ochrony",
 
         description:
-            "Zwiększa obronę bohatera o 20% przez 5 minut.",
+            "Zwiększa obronę bohatera o 15% przez 5 minut.",
 
         rarity: "rare",
         type: "potion",
 
         potionEffectId: "combat_defense",
-        effectValue: 20,
+        effectValue: 15,
         durationSeconds: 300,
 
         value: 80
@@ -2620,13 +2620,13 @@ const items = {
         name: "Mikstura skupienia",
 
         description:
-            "Zwiększa regenerację many o 50% przez 5 minut.",
+            "Zwiększa regenerację many o 35% przez 5 minut.",
 
         rarity: "rare",
         type: "potion",
 
         potionEffectId: "mana_regeneration",
-        effectValue: 50,
+        effectValue: 35,
         durationSeconds: 300,
 
         value: 85
@@ -2637,13 +2637,13 @@ const items = {
         name: "Eliksir pradawnej ochrony",
 
         description:
-            "Zmniejsza otrzymywane obrażenia o 35% przez 10 minut.",
+            "Zmniejsza otrzymywane obrażenia o 25% przez 10 minut.",
 
         rarity: "epic",
         type: "potion",
 
         potionEffectId: "combat_defense",
-        effectValue: 35,
+        effectValue: 25,
         durationSeconds: 600,
 
         value: 280
@@ -2657,7 +2657,7 @@ const items = {
             "Eliksir spaczonej siły",
 
         description:
-            "Zwiększa obrażenia broni w zwarciu o 35% przez 10 minut.",
+            "Zwiększa obrażenia broni w zwarciu o 25% przez 10 minut.",
 
         rarity: "epic",
         type: "potion",
@@ -2665,7 +2665,7 @@ const items = {
         potionEffectId:
             "melee_weapon_damage",
 
-        effectValue: 35,
+        effectValue: 25,
         durationSeconds: 600,
 
         value: 220
@@ -2679,7 +2679,7 @@ const items = {
             "Eliksir spaczonej precyzji",
 
         description:
-            "Zwiększa obrażenia łuków i kusz o 35% przez 10 minut.",
+            "Zwiększa obrażenia łuków i kusz o 25% przez 10 minut.",
 
         rarity: "epic",
         type: "potion",
@@ -2687,7 +2687,7 @@ const items = {
         potionEffectId:
             "ranged_weapon_damage",
 
-        effectValue: 35,
+        effectValue: 25,
         durationSeconds: 600,
 
         value: 320
@@ -2701,7 +2701,7 @@ const items = {
             "Eliksir spaczonego oręża",
 
         description:
-            "Zwiększa obrażenia różdżek i kosturów o 35% przez 10 minut.",
+            "Zwiększa obrażenia różdżek i kosturów o 25% przez 10 minut.",
 
         rarity: "epic",
         type: "potion",
@@ -2709,7 +2709,7 @@ const items = {
         potionEffectId:
             "magic_weapon_damage",
 
-        effectValue: 35,
+        effectValue: 25,
         durationSeconds: 600,
 
         value: 380
@@ -2723,7 +2723,7 @@ const items = {
             "Eliksir mocy pustki",
 
         description:
-            "Zwiększa obrażenia czarów ofensywnych o 40% przez 10 minut.",
+            "Zwiększa obrażenia czarów ofensywnych o 30% przez 10 minut.",
 
         rarity: "legendary",
         type: "potion",
@@ -2731,7 +2731,7 @@ const items = {
         potionEffectId:
             "spell_damage",
 
-        effectValue: 40,
+        effectValue: 30,
         durationSeconds: 600,
 
         value: 520
@@ -2741,11 +2741,11 @@ const items = {
         id: "prismatic_mining_elixir",
         name: "Eliksir pryzmatycznego górnika",
         description:
-            "Zwiększa szybkość kopania o 30% przez 15 minut.",
+            "Zwiększa szybkość kopania o 20% przez 15 minut.",
         rarity: "epic",
         type: "potion",
         potionEffectId: "mining_speed",
-        effectValue: 30,
+        effectValue: 20,
         durationSeconds: 900,
         value: 900
     },
@@ -2754,11 +2754,11 @@ const items = {
         id: "lunar_herbalism_elixir",
         name: "Eliksir księżycowego zielarza",
         description:
-            "Zwiększa szybkość zielarstwa o 30% przez 15 minut.",
+            "Zwiększa szybkość zielarstwa o 20% przez 15 minut.",
         rarity: "epic",
         type: "potion",
         potionEffectId: "herbalism_speed",
-        effectValue: 30,
+        effectValue: 20,
         durationSeconds: 900,
         value: 900
     },
@@ -2767,11 +2767,11 @@ const items = {
         id: "titan_mining_essence",
         name: "Esencja tytanicznego wydobycia",
         description:
-            "Zwiększa szybkość kopania o 50% przez 30 minut.",
+            "Zwiększa szybkość kopania o 35% przez 30 minut.",
         rarity: "legendary",
         type: "potion",
         potionEffectId: "mining_speed",
-        effectValue: 50,
+        effectValue: 35,
         durationSeconds: 1800,
         value: 2800
     },
@@ -2780,11 +2780,11 @@ const items = {
         id: "aether_herbalism_essence",
         name: "Esencja eterycznych zbiorów",
         description:
-            "Zwiększa szybkość zielarstwa o 50% przez 30 minut.",
+            "Zwiększa szybkość zielarstwa o 35% przez 30 minut.",
         rarity: "legendary",
         type: "potion",
         potionEffectId: "herbalism_speed",
-        effectValue: 50,
+        effectValue: 35,
         durationSeconds: 1800,
         value: 2800
     },

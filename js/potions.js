@@ -941,3 +941,76 @@ function usePotion(potionItemId) {
         renderActivityHud();
     }
 }
+
+/*
+ * Wypija kilka mikstur czasowych naraz (czasy działania się sumują, maks. 8 godzin).
+ * Mikstury lecznicze mają odnowienie, więc piją się pojedynczo.
+ */
+function usePotionMultiple(potionItemId, count) {
+    const potionItem = items[potionItemId];
+
+    if (
+        !potionItem ||
+        potionItem.type !== "potion" ||
+        Number(potionItem.healingPercent) > 0
+    ) {
+        return usePotion(potionItemId);
+    }
+
+    const getQuantity = () =>
+        Number(
+            player.inventory.find(entry => entry.itemId === potionItemId)
+                ?.quantity
+        ) || 0;
+
+    const wanted = Math.min(Math.max(1, Math.floor(Number(count) || 1)), getQuantity());
+    const originalNotify = window.showNotification;
+    let drunk = 0;
+    let lastMessage = "";
+    let lastType = "success";
+
+    // Zbieramy powiadomienia, żeby nie zasypać ekranu jednym na każdą miksturę.
+    window.showNotification = (message, type) => {
+        lastMessage = message;
+        lastType = type || "success";
+    };
+
+    try {
+        for (let index = 0; index < wanted; index++) {
+            const before = getQuantity();
+
+            usePotion(potionItemId);
+
+            if (getQuantity() >= before) {
+                break;
+            }
+
+            drunk++;
+        }
+    } finally {
+        window.showNotification = originalNotify;
+    }
+
+    if (typeof showNotification === "function") {
+        if (drunk > 0) {
+            showNotification(
+                "Wypito mikstur: " + drunk + " × " + potionItem.name + ".",
+                "success"
+            );
+        } else if (lastMessage) {
+            showNotification(lastMessage, lastType);
+        }
+    }
+
+    if (typeof renderInventory === "function") {
+        renderInventory();
+    }
+
+    if (typeof renderActivePotionEffects === "function") {
+        renderActivePotionEffects();
+    }
+
+    return drunk;
+}
+
+window.usePotionMultiple = usePotionMultiple;

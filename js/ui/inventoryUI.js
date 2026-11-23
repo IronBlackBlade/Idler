@@ -711,6 +711,32 @@ Premia sprzedaży:
                 🧪 Użyj
             </button>
 
+            ${
+              !(Number(item.healingPercent) > 0) && invItem.quantity > 1
+                ? `
+            <button
+                class="inventory-use-potion-button"
+                onclick="usePotionMultiple('${invItem.itemId}', ${Math.min(5, invItem.quantity)})"
+            >
+                🧪 Użyj ×${Math.min(5, invItem.quantity)}
+            </button>
+
+            ${
+              invItem.quantity > 5
+                ? `
+            <button
+                class="inventory-use-potion-button"
+                onclick="usePotionMultiple('${invItem.itemId}', ${invItem.quantity})"
+            >
+                🧪 Użyj wszystkie
+            </button>
+            `
+                : ""
+            }
+            `
+                : ""
+            }
+
             <button
     onclick="sellItem('${invItem.itemId}', 1)"
     ${sellDisabledAttribute}

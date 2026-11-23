@@ -11,6 +11,8 @@ const player = {
     skillResetCount: 0,
     skillGoldSpent: 0,
     classId: null,
+    subclassId: null,
+    subclassChangeCount: 0,
     skills: {},
     selectedWarriorCapstone: null,
     selectedHunterCapstone: null,
@@ -629,6 +631,8 @@ function resetPlayer() {
     player.skillResetCount = 0;
     player.skillGoldSpent = 0;
     player.classId = null;
+    player.subclassId = null;
+    player.subclassChangeCount = 0;
     player.location = "forest";
 
     player.stats = {
