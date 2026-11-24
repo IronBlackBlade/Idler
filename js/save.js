@@ -767,6 +767,10 @@ function loadGame() {
         migrateToSingleRingSlot();
     }
 
+    if (typeof migrateLegacyClassSkills === "function") {
+        migrateLegacyClassSkills();
+    }
+
     if (
         !player.lockedInventoryItems ||
         typeof player.lockedInventoryItems !==

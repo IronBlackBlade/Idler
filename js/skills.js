@@ -1137,11 +1137,22 @@ function isSkillPrerequisiteMet(skill) {
 }
 
 function isSkillClassRequirementMet(skill) {
+    if (skill && skill.legacyClassSkill === true) {
+        return false;
+    }
+
     if (
         !skill ||
         !skill.requiredClass
     ) {
         return true;
+    }
+
+    if (
+        skill.requiredSubclass &&
+        player.subclassId !== skill.requiredSubclass
+    ) {
+        return false;
     }
 
     return (
@@ -5877,6 +5888,10 @@ function castSelectedOffensiveSpell() {
         return false;
     }
 
+    if (spell.classAbility && typeof castClassAbility === "function") {
+        return castClassAbility(spell, manaCost);
+    }
+
     if (spell.id === "fireball") {
         return castFireball(spell, manaCost);
     }
@@ -6399,6 +6414,10 @@ function castSelectedDefensiveSpell() {
 
     if (player.mana < manaCost) {
         return false;
+    }
+
+    if (spell.classAbility && typeof castClassAbility === "function") {
+        return castClassAbility(spell, manaCost);
     }
 
     if (spell.id === "arcane_barrier") {

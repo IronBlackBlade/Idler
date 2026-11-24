@@ -475,6 +475,12 @@ const weaponCombatSettings = {
         label: "Broń sieczna"
     },
 
+    dagger: {
+        attackIntervalMs: 650,
+        damageMultiplier: 0.7,
+        label: "Sztylet"
+    },
+
     blunt: {
         attackIntervalMs: 1200,
         damageMultiplier: 1.2,

@@ -1044,6 +1044,10 @@ function getShopItemIcon(item) {
       return "⚔️";
     }
 
+    if (item.weaponClass === "dagger" || weaponType === "dagger") {
+      return "🗡️";
+    }
+
     if (item.weaponClass === "blunt" || weaponType === "blunt") {
       return "🔨";
     }

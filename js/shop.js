@@ -18,6 +18,10 @@ const shopCategories = [
             name: "🔨 Obuchowa",
           },
           {
+            id: "dagger",
+            name: "🗡️ Sztylety",
+          },
+          {
             id: "bow",
             name: "🏹 Łuki",
           },
@@ -115,6 +119,11 @@ const shopSubcategoryMap = {
   },
 
   blunt: {
+    category: "equipment",
+    subcategory: "weapon",
+  },
+
+  dagger: {
     category: "equipment",
     subcategory: "weapon",
   },
@@ -222,6 +231,7 @@ function getShopItemCategoryData(shopItem) {
     weapon: {
       sword: "sword",
       blunt: "blunt",
+      dagger: "dagger",
       bow: "bow",
       crossbow: "crossbow",
       wand: "wand",
@@ -308,6 +318,8 @@ function rebuildShopItems() {
 
       if (item.weaponClass === "slashing") {
         type = "sword";
+      } else if (item.weaponClass === "dagger") {
+        type = "dagger";
       } else if (item.weaponClass === "blunt") {
         type = "blunt";
       } else if (item.weaponClass === "bow") {
@@ -449,6 +461,8 @@ function getShopItemCategoryDataFromItem(item) {
       type:
         item.weaponClass === "slashing"
           ? "sword"
+          : item.weaponClass === "dagger"
+            ? "dagger"
           : item.weaponClass === "blunt"
             ? "blunt"
             : item.weaponClass === "bow"
@@ -487,6 +501,10 @@ function getShopItemCategoryDataFromItem(item) {
 }
 
 function getShopItemType(itemId) {
+  if (itemId.includes("dagger")) {
+    return "dagger";
+  }
+
   if (itemId.includes("sword")) {
     return "sword";
   }

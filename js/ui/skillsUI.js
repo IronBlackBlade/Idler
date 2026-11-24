@@ -311,9 +311,16 @@ function renderMagicCategoryTabs(
 function getAvailableSkillTrees() {
     return skillTrees.filter(tree => {
         return (
-            !tree.requiredClass ||
-            tree.requiredClass ===
-            player.classId
+            (
+                !tree.requiredClass ||
+                tree.requiredClass ===
+                player.classId
+            ) &&
+            (
+                !tree.requiredSubclass ||
+                tree.requiredSubclass ===
+                player.subclassId
+            )
         );
     });
 }
@@ -472,6 +479,16 @@ function getSkillRequirementText(skill) {
             (
                 requiredClass?.name ||
                 skill.requiredClass
+            )
+        );
+    }
+
+    if (skill.requiredSubclass) {
+        requirements.push(
+            "Podklasa: " +
+            (
+                characterSubclasses?.[skill.requiredSubclass]?.name ||
+                skill.requiredSubclass
             )
         );
     }

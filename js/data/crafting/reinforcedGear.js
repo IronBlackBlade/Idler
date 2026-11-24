@@ -65,6 +65,7 @@
 
   const DEFINITIONS = [
     { base: "sword", name: "Wzmocniony pryzmatyczny miecz", category: "blacksmith", subcategory: "sword" },
+    { base: "dagger", name: "Wzmocniony pryzmatyczny sztylet", category: "blacksmith", subcategory: "dagger" },
     { base: "mace", name: "Wzmocniony pryzmatyczny młot", category: "blacksmith", subcategory: "mace" },
     { base: "bow", name: "Wzmocniony pryzmatyczny łuk", category: "bowyer", subcategory: "bow" },
     { base: "crossbow", name: "Wzmocniona pryzmatyczna kusza", category: "bowyer", subcategory: "crossbow" },

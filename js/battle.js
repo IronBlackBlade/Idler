@@ -839,6 +839,10 @@ function autoAttack() {
     castSelectedOffensiveSpell();
   }
 
+  if (enemy.hp > 0 && typeof tickClassAbilityBleed === "function") {
+    tickClassAbilityBleed();
+  }
+
   if (enemy.hp <= 0) {
     clearEnemyCombatEffects();
 

@@ -259,6 +259,10 @@ const blacksmithSubcategories = [
     id: "blunt",
     name: "🔨 Obuchy",
   },
+  {
+    id: "dagger",
+    name: "🗡️ Sztylety",
+  },
 ];
 
 const bowyerSubcategories = [

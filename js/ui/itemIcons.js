@@ -30,6 +30,7 @@ const ITEM_ICONS_BY_TYPE = Object.freeze({
 
 const ITEM_ICONS_BY_WEAPON_CLASS = Object.freeze({
     slashing: "⚔️",
+    dagger: "🗡️",
     blunt: "🔨",
     bow: "🏹",
     crossbow: "🎯",
