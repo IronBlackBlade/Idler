@@ -19,6 +19,7 @@ const merchantItems = {
     iron_ring: 4500,
     steel_ring: 14000,
     knight_ring: 34000,
+    magic_ring: 150000,
     master_ring: 640000,
 
 
@@ -31,6 +32,7 @@ const merchantItems = {
     iron_amulet: 5000,
     steel_amulet: 15000,
     knight_amulet: 36000,
+    magic_amulet: 160000,
     master_amulet: 670000,
 
 
@@ -43,6 +45,7 @@ const merchantItems = {
     iron_talisman: 6000,
     steel_talisman: 18000,
     knight_talisman: 40000,
+    magic_talisman: 180000,
     master_talisman: 760000,
 
 

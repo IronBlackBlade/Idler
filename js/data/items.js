@@ -3287,10 +3287,10 @@ const items = {
         rarity: "common",
         type: "ring",
         requiredLevel: 75,
-        strength: 8,
-        endurance: 8,
-        dexterity: 5,
-        luck: 6,
+        strength: 6,
+        endurance: 6,
+        dexterity: 4,
+        luck: 5,
         value: 15000
     },
 
@@ -3462,10 +3462,10 @@ const items = {
         rarity: "common",
         type: "amulet",
         requiredLevel: 75,
-        intelligence: 18,
-        endurance: 8,
-        strength: 5,
-        luck: 6,
+        intelligence: 13,
+        endurance: 6,
+        strength: 4,
+        luck: 5,
         value: 15500
     },
 
@@ -3637,10 +3637,10 @@ const items = {
         rarity: "common",
         type: "talisman",
         requiredLevel: 75,
-        luck: 10,
-        strength: 6,
-        dexterity: 6,
-        intelligence: 8,
+        luck: 8,
+        strength: 5,
+        dexterity: 5,
+        intelligence: 6,
         value: 17000
     },
 

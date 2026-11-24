@@ -74,9 +74,30 @@ function getMerchantWeaponDamageAtLevel(level) {
     return last[1];
 }
 
+// Od tego poziomu craft ma być lepszy także od przedmiotów kupca, które
+// gracz kupi w ciągu najbliższych poziomów (inaczej gracz je pominie).
+const CRAFTED_LOOKAHEAD_MIN_LEVEL = 20;
+const CRAFTED_LOOKAHEAD_LEVELS = 10;
+const CRAFTED_LOOKAHEAD_ADVANTAGE = 1.05;
+
 function getCraftedWeaponDamageAtLevel(level) {
     const safeLevel = Math.max(1, Number(level) || 1);
     const baseDamage = getMerchantWeaponDamageAtLevel(safeLevel);
+    const interpolated = getCraftedWeaponDamageBase(safeLevel, baseDamage);
+
+    if (safeLevel < CRAFTED_LOOKAHEAD_MIN_LEVEL) {
+        return interpolated;
+    }
+
+    const lookahead = Math.round(
+        getMerchantWeaponDamageAtLevel(safeLevel + CRAFTED_LOOKAHEAD_LEVELS) *
+        CRAFTED_LOOKAHEAD_ADVANTAGE
+    );
+
+    return Math.max(interpolated, lookahead);
+}
+
+function getCraftedWeaponDamageBase(safeLevel, baseDamage) {
     const nextTier = merchantWeaponDamageByLevel.find(([tierLevel]) => tierLevel > safeLevel);
 
     if (!nextTier) {
@@ -130,11 +151,26 @@ function getCraftedArmorDistribution(level) {
     }
 
     const [, nextSlots] = nextTier;
-
-    return Object.fromEntries(
+    const interpolated = Object.fromEntries(
         Object.keys(baseSlots).map(type => [
             type,
             Math.round(baseSlots[type] + (nextSlots[type] - baseSlots[type]) * 0.55),
+        ])
+    );
+
+    if (safeLevel < CRAFTED_LOOKAHEAD_MIN_LEVEL) {
+        return interpolated;
+    }
+
+    const lookaheadSlots = getArmorDistribution(safeLevel + CRAFTED_LOOKAHEAD_LEVELS);
+
+    return Object.fromEntries(
+        Object.keys(interpolated).map(type => [
+            type,
+            Math.max(
+                interpolated[type],
+                Math.ceil(lookaheadSlots[type] * CRAFTED_LOOKAHEAD_ADVANTAGE)
+            ),
         ])
     );
 }

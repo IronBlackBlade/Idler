@@ -42,12 +42,41 @@ function hasRequiredProfessionLevelForRecipe(recipe) {
   return !requirement || requirement.met;
 }
 
+// Niskopoziomowe receptury na ekwipunek dają więcej EXP profesji
+// (do +80% przy poziomie 1, malejąco do zera przy poziomie 30), bo ich
+// przedmioty gracz nosi krótko, a to one budują poziom rzemiosła.
+function getLowTierCraftingExpFactor(recipe) {
+  const resultItem =
+    typeof items !== "undefined" ? items[recipe?.resultItemId] : null;
+
+  if (
+    !resultItem ||
+    !["weapon", "armor", "helmet", "pants", "boots", "gloves", "shield", "ring", "amulet", "talisman"].includes(
+      resultItem.type,
+    )
+  ) {
+    return 1;
+  }
+
+  const craftingLevel = Math.max(
+    1,
+    Number(recipe?.requiredCraftingLevel) || 1,
+  );
+
+  if (craftingLevel >= 30) {
+    return 1;
+  }
+
+  return 1 + (0.8 * (30 - craftingLevel)) / 29;
+}
+
 function getRecipeCraftingExp(recipe) {
   return Math.max(
     1,
     Math.floor(
-      Number(recipe?.craftingExp) ||
-        craftingBalance.experience.defaultRecipeExp,
+      (Number(recipe?.craftingExp) ||
+        craftingBalance.experience.defaultRecipeExp) *
+        getLowTierCraftingExpFactor(recipe),
     ),
   );
 }
