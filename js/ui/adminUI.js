@@ -463,7 +463,7 @@
       card.appendChild(el("div", "admin-quote", report.body));
 
       const ctx = report.context || {};
-      const info = [ctx.screen, ctx.level != null ? "poz. " + ctx.level : null, ctx.location, ctx.viewport, ctx.page]
+      const info = [ctx.version ? "v" + ctx.version : null, ctx.env === "test" ? "TEST" : null, ctx.screen, ctx.level != null ? "poz. " + ctx.level : null, ctx.location, ctx.viewport, ctx.page]
         .filter(Boolean)
         .join(" · ");
       if (info) card.appendChild(el("div", "forum-meta", info));

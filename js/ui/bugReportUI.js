@@ -116,6 +116,8 @@
       viewport: window.innerWidth + "x" + window.innerHeight,
       ua: String(navigator.userAgent || "").slice(0, 160),
       page: String(location.host || "file").slice(0, 60),
+      version: String(window.IDLER_VERSION || "").slice(0, 20),
+      env: String(window.IDLER_ONLINE_ENV || "prod").slice(0, 10),
     };
   }
 
