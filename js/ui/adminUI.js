@@ -47,6 +47,48 @@
   let message = null; // { text, ok }
   let requestId = 0;
 
+  function openScreenshotViewer(src, id) {
+    const overlay = document.createElement("div");
+    overlay.className = "shot-viewer-overlay";
+    overlay.setAttribute("role", "dialog");
+    overlay.setAttribute("aria-modal", "true");
+
+    const bar = document.createElement("div");
+    bar.className = "shot-viewer-bar";
+    const title = document.createElement("span");
+    title.textContent = "Zrzut ekranu ze zgłoszenia #" + id;
+    const close = document.createElement("button");
+    close.type = "button";
+    close.className = "shot-viewer-close";
+    close.textContent = "✕ Zamknij";
+    bar.append(title, close);
+
+    const img = document.createElement("img");
+    img.className = "shot-viewer-img";
+    img.alt = title.textContent;
+    img.src = src;
+
+    function shut() {
+      document.removeEventListener("keydown", onKey, true);
+      overlay.remove();
+    }
+    function onKey(event) {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        shut();
+      }
+    }
+
+    close.addEventListener("click", shut);
+    overlay.addEventListener("click", (event) => {
+      if (event.target === overlay) shut();
+    });
+    document.addEventListener("keydown", onKey, true);
+
+    overlay.append(bar, img);
+    document.body.appendChild(overlay);
+  }
+
   function el(tag, className, text) {
     const node = document.createElement(tag);
     if (className) node.className = className;
@@ -486,17 +528,7 @@
             img.alt = "Zrzut ekranu ze zgłoszenia #" + report.id;
             img.src = result.data.image;
             img.title = "Kliknij, aby otworzyć w pełnym rozmiarze";
-            img.addEventListener("click", () => {
-              const win = window.open();
-              if (win) {
-                win.document.title = "Zgłoszenie #" + report.id;
-                win.document.body.style.margin = "0";
-                const big = win.document.createElement("img");
-                big.src = result.data.image;
-                big.style.maxWidth = "100%";
-                win.document.body.appendChild(big);
-              }
-            });
+            img.addEventListener("click", () => openScreenshotViewer(result.data.image, report.id));
             holder.appendChild(img);
           } else {
             message = { ok: false, text: failText(result) };
