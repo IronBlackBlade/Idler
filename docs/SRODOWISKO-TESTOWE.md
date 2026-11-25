@@ -35,17 +35,17 @@ W **Authentication → URL Configuration** ustaw **Site URL** na adres, pod któ
 
 ## 5. Jak testerzy wchodzą do środowiska testowego
 
-Masz dwie opcje:
-
-**A. Jedna kopia gry, link z parametrem.** Wyślij testerom adres z `?env=test`, np.
+Wystarczy **jedna kopia gry**. Testerom wyślij adres z końcówką `?env=test`, np.
 `https://twoja-gra.pl/?env=test`. Wybór zapamiętuje się w ich przeglądarce. Powrót do zwykłego projektu: `?env=prod`.
-Zostaw w `testConfig.js` `useByDefault: false`.
 
-**B. Osobna kopia gry dla testerów.** Wgraj grę drugi raz pod inny adres i w tej kopii ustaw w
-`testConfig.js` `useByDefault: true`. Testerzy otwierają zwykły link i nic nie muszą dopisywać.
-To bezpieczniejsze, bo nikt nie pomyli środowisk, a Twoja kopia zostaje czysta.
+W trybie testowym:
+- na górze ekranu widać fioletową etykietę **🧪 ŚRODOWISKO TESTOWE**,
+- gra łączy się z projektem testowym (klucze z `testConfig.js`),
+- zapis gry w przeglądarce jest **osobny** (klucze `idler_test:*`), więc Twój zwykły zapis jest nietknięty,
+  nawet jeśli sam otworzysz ten sam adres z `?env=test` i z `?env=prod`.
 
-W środowisku testowym na górze ekranu widać fioletową etykietę **🧪 ŚRODOWISKO TESTOWE**.
+Zostaw w `testConfig.js` `useByDefault: false`. Wartość `true` jest potrzebna tylko wtedy, gdy wgrywasz
+osobną kopię gry wyłącznie dla testerów (wtedy nie trzeba dopisywać `?env=test`).
 
 ## 6. Twoje konto administratora w bazie testowej
 
@@ -74,7 +74,6 @@ skasować i założyć od nowa (krok 1–4).
 
 ## Uwagi
 
-- Zapis gry w przeglądarce (`idler_save`) jest wspólny dla jednego adresu strony. Jeśli sam używasz tej samej
-  kopii gry i raz wejdziesz z `?env=test`, zapis lokalny zostanie podłączony do konta testowego. Do własnej
-  gry używaj więc zwykłego adresu, a testerom dawaj osobną kopię (opcja B).
+- Zapisy zwykłego i testowego środowiska są rozdzielone w tej samej przeglądarce, ale konto testowe i zwykłe
+  to osobne konta w osobnych bazach (rejestrujesz się osobno).
 - Darmowy plan Supabase usypia projekt po tygodniu bez ruchu. Wystarczy go wznowić w panelu.

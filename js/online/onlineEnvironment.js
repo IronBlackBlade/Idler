@@ -1,6 +1,10 @@
 /*
  * Wybór środowiska online: zwykłe (onlineConfig.js) albo testowe (testConfig.js).
- * Ładowany po obu plikach konfiguracji, a przed accounts.js.
+ * Ładowany jako PIERWSZY skrypt (przed kodem gry), bo w trybie testowym przestawia
+ * zapis lokalny: klucze "idler_*" trafiają do osobnej przestrzeni "idler_test:*",
+ * dzięki czemu jedna kopia gry obsługuje oba środowiska bez mieszania zapisów.
+ * Podmianę kluczy Supabase wykonuje później onlineEnvironmentApply.js
+ * (po wczytaniu onlineConfig.js).
  *
  *   ?env=test  – używaj projektu testowego (zapamiętane w tej przeglądarce),
  *   ?env=prod  – wróć do zwykłego projektu.
@@ -49,14 +53,30 @@
   // useByDefault wygrywa, jeśli ktoś nie wybrał inaczej w tej przeglądarce.
   const active = chosen === "test" && hasTestConfig ? "test" : "prod";
 
+  window.IDLER_ONLINE_ENV = active;
+
   if (active === "test") {
-    window.IDLER_ONLINE_CONFIG = {
-      supabaseUrl: test.supabaseUrl,
-      supabaseAnonKey: test.supabaseAnonKey,
+    // Osobny zapis lokalny dla środowiska testowego (wybór środowiska zostaje wspólny).
+    const PREFIX = "idler_test:";
+    const proto = Storage.prototype;
+    const originalGet = proto.getItem;
+    const originalSet = proto.setItem;
+    const originalRemove = proto.removeItem;
+    const mapKey = (key) => {
+      const text = String(key);
+      return text.indexOf("idler_") === 0 && text !== STORAGE_KEY ? PREFIX + text : text;
+    };
+
+    proto.getItem = function (key) {
+      return originalGet.call(this, mapKey(key));
+    };
+    proto.setItem = function (key, value) {
+      return originalSet.call(this, mapKey(key), value);
+    };
+    proto.removeItem = function (key) {
+      return originalRemove.call(this, mapKey(key));
     };
   }
-
-  window.IDLER_ONLINE_ENV = active;
 
   if (chosen === "test" && !hasTestConfig && typeof console !== "undefined") {
     console.warn("Idler: wybrano środowisko testowe, ale js/online/testConfig.js jest pusty.");
