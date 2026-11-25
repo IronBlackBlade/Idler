@@ -771,6 +771,10 @@ function loadGame() {
         migrateLegacyClassSkills();
     }
 
+    if (typeof migrateMageOnlySpells === "function") {
+        migrateMageOnlySpells();
+    }
+
     if (
         !player.lockedInventoryItems ||
         typeof player.lockedInventoryItems !==

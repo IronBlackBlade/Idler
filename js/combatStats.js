@@ -346,7 +346,7 @@ function getDerivedStats() {
             Math.max(
                 0,
                 Math.floor(
-                    equipmentFlatBonuses.armor *
+                    (equipmentFlatBonuses.armor + getWeaponClassStatBonus("armor")) *
                     (
                         100 +
                         (
@@ -392,7 +392,8 @@ function getDerivedStats() {
                     equipmentSetBonuses
                         .dodgeChance +
                     bowDodgeChanceBonus +
-                    bowCapstoneDodgeBonus
+                    bowCapstoneDodgeBonus +
+                    getWeaponClassStatBonus("dodgeChance")
                 )
             ),
 
@@ -426,7 +427,8 @@ function getDerivedStats() {
                             )
                             : 0
                     ) +
-                    crossbowCritChanceBonus
+                    crossbowCritChanceBonus +
+                    getWeaponClassStatBonus("critChance")
                 )
             ),
 
@@ -438,6 +440,7 @@ function getDerivedStats() {
                 ) +
                 equipmentFlatBonuses
                     .critDamage +
+                getWeaponClassStatBonus("critDamage") +
                 (
                     typeof getSkillEffectValue ===
                         "function"
@@ -511,6 +514,72 @@ const weaponCombatSettings = {
         label: "Kostur"
     }
 };
+
+/*
+ * Premie rodzajów broni. Każda broń ma jeden stały bonus rosnący z jej
+ * poziomem: wartość = podstawa + zakres * (poziom / 100), maks. na poz. 100.
+ * Dodatkowo broń "naturalna" dla klasy wzmacnia jej umiejętności aktywne.
+ */
+const weaponClassBonuses = {
+    dagger: { stat: "critChance", base: 3, range: 12, label: "Szansa na krytyk", unit: "%" },
+    slashing: { stat: "critDamage", base: 5, range: 20, label: "Obrażenia krytyczne", unit: "%" },
+    blunt: { stat: "armor", base: 1, range: 9, label: "Pancerz", unit: "" },
+    bow: { stat: "dodgeChance", base: 1, range: 4, label: "Szansa na unik", unit: "%" },
+    crossbow: { stat: "critChance", base: 2, range: 8, label: "Szansa na krytyk", unit: "%" },
+    wand: { stat: "manaCostReduction", base: 3, range: 12, label: "Tańsze czary i umiejętności", unit: "%" },
+    staff: { stat: "manaRegenPercent", base: 10, range: 30, label: "Regeneracja many", unit: "%" }
+};
+
+const weaponClassAbilityClasses = {
+    dagger: { classId: "rogue", label: "Łotrzyk" },
+    slashing: { classId: "warrior", label: "Wojownik" },
+    blunt: { classId: "guardian", label: "Strażnik" },
+    bow: { classId: "hunter", label: "Łowca" },
+    crossbow: { classId: "hunter", label: "Łowca" },
+    wand: { classId: "mage", label: "Mag" },
+    staff: { classId: "mage", label: "Mag" }
+};
+
+function getWeaponClassBonusValue(weapon) {
+    const definition = weaponClassBonuses[weapon?.weaponClass];
+
+    if (!definition) {
+        return 0;
+    }
+
+    const level = Math.max(1, Number(weapon.requiredLevel) || 1);
+
+    return Math.round(
+        (definition.base + definition.range * Math.min(1, level / 100)) * 10
+    ) / 10;
+}
+
+function getWeaponClassStatBonus(stat, weaponOverride) {
+    const weaponId = player?.equipment?.weapon;
+    const weapon = weaponOverride || (weaponId ? items[weaponId] : null);
+    const definition = weaponClassBonuses[weapon?.weaponClass];
+
+    if (!definition || definition.stat !== stat) {
+        return 0;
+    }
+
+    return getWeaponClassBonusValue(weapon);
+}
+
+/*
+ * Broń "naturalna" dla klasy: +10% do jej umiejętności aktywnych.
+ */
+function getWeaponClassAbilityMultiplier() {
+    const weaponId = player?.equipment?.weapon;
+    const weapon = weaponId ? items[weaponId] : null;
+
+    return (
+        weapon &&
+        weaponClassAbilityClasses[weapon.weaponClass]?.classId === player?.classId
+    )
+        ? 1.1
+        : 1;
+}
 
 function getWeaponCombatSettings(
     weapon
@@ -690,6 +759,29 @@ function getWeaponCombatLabels(
             damageBonus +
             "%"
         );
+    }
+
+    if (weapon.weaponClass === "dagger") {
+        labels.push(
+            "Siła trafienia: " +
+            Math.round((settings.damageMultiplier - 1) * 100) + "%"
+        );
+    }
+
+    const bonusDefinition = weaponClassBonuses[weapon.weaponClass];
+
+    if (bonusDefinition) {
+        labels.push(
+            bonusDefinition.label + ": +" +
+            String(getWeaponClassBonusValue(weapon)).replace(".", ",") +
+            bonusDefinition.unit
+        );
+    }
+
+    const abilityClass = weaponClassAbilityClasses[weapon.weaponClass];
+
+    if (abilityClass) {
+        labels.push(abilityClass.label + ": umiejętności +10% obrażeń");
     }
 
     return labels;

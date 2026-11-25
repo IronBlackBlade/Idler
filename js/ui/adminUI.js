@@ -7,6 +7,7 @@
   const TABS = [
     { id: "players", label: "👤 Gracze" },
     { id: "chat", label: "💬 Czat" },
+    { id: "dm", label: "✉ Prywatne" },
     { id: "bugs", label: "🐞 Błędy" },
     { id: "log", label: "📜 Dziennik" },
   ];
@@ -24,6 +25,7 @@
   ];
   const ACTION_LABELS = {
     clear_flag: "zdjął flagę",
+    dm_report_closed: "zamknął zgłoszenie wiadomości prywatnej",
     set_flag: "oflagował",
     mute: "wyciszył",
     unmute: "zdjął wyciszenie",
@@ -142,6 +144,7 @@
     let result;
     if (tab === "players") result = await call("idler_admin_find", { p_query: query });
     else if (tab === "chat") result = await call("idler_admin_chat_reports");
+    else if (tab === "dm") result = await call("idler_admin_dm_reports");
     else if (tab === "bugs") result = await call("idler_admin_bug_reports", { p_status: bugStatus });
     else result = await call("idler_admin_log_list");
 
@@ -359,6 +362,77 @@
     });
   }
 
+  function renderDmReports(root) {
+    if (!data) return;
+
+    root.appendChild(
+      el(
+        "p",
+        "forum-meta",
+        "Widzisz tylko wiadomości zgłoszone przez graczy (zgłoszona i do 9 poprzednich z rozmowy). Pozostałe rozmowy są prywatne.",
+      ),
+    );
+
+    if (data.reports.length === 0) {
+      root.appendChild(el("p", "ranking-message", "Brak zgłoszeń wiadomości prywatnych."));
+      return;
+    }
+
+    data.reports.forEach((report) => {
+      const card = el("div", "admin-card");
+      const head = el("div", "forum-head");
+      head.appendChild(el("strong", "", report.reported_username || "?"));
+      head.appendChild(el("span", "forum-meta", "zgłosił: " + (report.reporter || "?") + " · " + formatDateTime(report.created_at)));
+      card.appendChild(head);
+
+      const context = Array.isArray(report.context) ? report.context : [];
+      if (context.length > 0) {
+        const thread = el("div", "admin-quote");
+        context.forEach((item) => {
+          const line = el("div", item.from_reported ? "admin-dm-reported" : "admin-dm-other");
+          line.textContent =
+            (item.from_reported ? (report.reported_username || "?") : (report.reporter || "?")) + ": " + (item.body || "");
+          if (item.from_reported && item.body === report.reported_body) {
+            line.style.fontWeight = "700";
+          }
+          thread.appendChild(line);
+        });
+        card.appendChild(thread);
+      } else {
+        card.appendChild(el("div", "admin-quote", report.reported_body || ""));
+      }
+
+      if (report.reason) card.appendChild(el("div", "forum-meta", "Powód: " + report.reason));
+
+      const actions = el("div", "admin-actions");
+      if (report.reported_user_id) {
+        const select = el("select", "admin-select");
+        MUTE_OPTIONS.forEach((option) => {
+          const node = el("option", "", option.label);
+          node.value = String(option.minutes);
+          select.appendChild(node);
+        });
+        actions.appendChild(select);
+        actions.appendChild(
+          button("Wycisz autora", "admin-btn", () =>
+            act(
+              "idler_admin_mute",
+              { p_user_id: report.reported_user_id, p_minutes: Number(select.value), p_reason: "zgłoszenie wiadomości prywatnej" },
+              "Wyciszono: " + report.reported_username,
+            ),
+          ),
+        );
+      }
+      actions.appendChild(
+        button("Zamknij zgłoszenie", "admin-btn", () =>
+          act("idler_admin_dm_dismiss", { p_report_id: report.id }, "Zgłoszenie zamknięte."),
+        ),
+      );
+      card.appendChild(actions);
+      root.appendChild(card);
+    });
+  }
+
   function renderBugs(root) {
     const filter = el("div", "forum-filter");
     BUG_STATUSES.forEach((item) => {
@@ -502,6 +576,7 @@
 
     if (tab === "players") renderPlayers(root);
     else if (tab === "chat") renderChat(root);
+    else if (tab === "dm") renderDmReports(root);
     else if (tab === "bugs") renderBugs(root);
     else renderLog(root);
   }

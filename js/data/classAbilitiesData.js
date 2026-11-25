@@ -117,7 +117,7 @@ Object.assign(skills, {
         description:
             "Potężne cięcie bronią, które zadaje duże obrażenia i wywołuje krwawienie.",
         tree: "warrior_arts",
-        branch: "arts",
+        branch: "offensive_arts",
         type: "active",
         spellType: "offensive",
         classAbility: true,
@@ -133,8 +133,8 @@ Object.assign(skills, {
             manaCostReductionPerLevel: 1,
             baseCooldownSeconds: 8,
             cooldownReductionSecondsPerLevel: 0.5,
-            baseDamageMultiplier: 2.0,
-            damageMultiplierPerLevel: 0.3,
+            baseDamageMultiplier: 1.08,
+            damageMultiplierPerLevel: 0.13,
             bleedTickMultiplier: 0.25,
             bleedTicks: 4,
             bleedTickSeconds: 1
@@ -147,7 +147,7 @@ Object.assign(skills, {
         description:
             "Wzmacnia Cię na krótko: zadajesz więcej obrażeń.",
         tree: "warrior_arts",
-        branch: "arts",
+        branch: "defensive_arts",
         type: "active",
         spellType: "defensive",
         classAbility: true,
@@ -164,8 +164,8 @@ Object.assign(skills, {
             baseCooldownSeconds: 25,
             cooldownReductionSecondsPerLevel: 1.5,
             durationSeconds: 10,
-            baseDamageDealtPercent: 15,
-            damageDealtPercentPerLevel: 3
+            baseDamageDealtPercent: 24,
+            damageDealtPercentPerLevel: 3.9
         }
     },
 
@@ -175,7 +175,7 @@ Object.assign(skills, {
         description:
             "Im mniej masz zdrowia, tym więcej obrażeń zadajesz (do wartości maksymalnej przy bliskim zeru HP).",
         tree: "warrior_arts",
-        branch: "arts",
+        branch: "defensive_arts",
         type: "active",
         spellType: "defensive",
         classAbility: true,
@@ -193,8 +193,8 @@ Object.assign(skills, {
             cooldownReductionSecondsPerLevel: 2,
             durationSeconds: 12,
             scalesWithMissingHp: true,
-            baseDamageDealtPercent: 30,
-            damageDealtPercentPerLevel: 6
+            baseDamageDealtPercent: 54.167,
+            damageDealtPercentPerLevel: 11.458
         }
     },
 
@@ -222,8 +222,8 @@ Object.assign(skills, {
             manaCostReductionPerLevel: 1,
             baseCooldownSeconds: 10,
             cooldownReductionSecondsPerLevel: 0.5,
-            baseDamageMultiplier: 1.7,
-            damageMultiplierPerLevel: 0.25,
+            baseDamageMultiplier: 2.88,
+            damageMultiplierPerLevel: 0.47,
             baseLifestealPercent: 30,
             lifestealPercentPerLevel: 4
         }
@@ -253,8 +253,8 @@ Object.assign(skills, {
             baseCooldownSeconds: 45,
             cooldownReductionSecondsPerLevel: 2,
             durationSeconds: 10,
-            baseDamageDealtPercent: 35,
-            damageDealtPercentPerLevel: 5,
+            baseDamageDealtPercent: 44,
+            damageDealtPercentPerLevel: 7.9,
             damageTakenPercent: 20
         }
     },
@@ -300,8 +300,8 @@ Object.assign(skills, {
             manaCostReductionPerLevel: 1,
             baseCooldownSeconds: 9,
             cooldownReductionSecondsPerLevel: 0.5,
-            baseDamageMultiplier: 1.9,
-            damageMultiplierPerLevel: 0.25,
+            baseDamageMultiplier: 2.72,
+            damageMultiplierPerLevel: 0.4,
             baseBossDamagePercent: 30,
             bossDamagePercentPerLevel: 5
         }
@@ -330,8 +330,8 @@ Object.assign(skills, {
             manaCostReductionPerLevel: 1,
             baseCooldownSeconds: 7,
             cooldownReductionSecondsPerLevel: 0.5,
-            baseDamageMultiplier: 1.3,
-            damageMultiplierPerLevel: 0.2,
+            baseDamageMultiplier: 2.1,
+            damageMultiplierPerLevel: 0.3,
             executeThresholdPercent: 35,
             executeMultiplier: 2
         }
@@ -389,7 +389,7 @@ Object.assign(skills, {
         name: "Szybki strzał",
         description: "Dwa błyskawiczne strzały pod rząd.",
         tree: "hunter_arts",
-        branch: "arts",
+        branch: "offensive_arts",
         type: "active",
         spellType: "offensive",
         classAbility: true,
@@ -406,7 +406,7 @@ Object.assign(skills, {
             baseCooldownSeconds: 6,
             cooldownReductionSecondsPerLevel: 0.4,
             baseDamageMultiplier: 0.9,
-            damageMultiplierPerLevel: 0.15,
+            damageMultiplierPerLevel: 0.075,
             hits: 2
         }
     },
@@ -415,7 +415,7 @@ Object.assign(skills, {
         name: "Znak łowcy",
         description: "Oznaczasz zdobycz: przez chwilę zadajesz więcej obrażeń.",
         tree: "hunter_arts",
-        branch: "arts",
+        branch: "defensive_arts",
         type: "active",
         spellType: "defensive",
         classAbility: true,
@@ -432,7 +432,7 @@ Object.assign(skills, {
             baseCooldownSeconds: 24,
             cooldownReductionSecondsPerLevel: 1.5,
             durationSeconds: 10,
-            baseDamageDealtPercent: 15,
+            baseDamageDealtPercent: 21,
             damageDealtPercentPerLevel: 3
         }
     },
@@ -441,7 +441,7 @@ Object.assign(skills, {
         name: "Zwinny unik",
         description: "Szybki przewrót: przez chwilę otrzymujesz mniej obrażeń.",
         tree: "hunter_arts",
-        branch: "arts",
+        branch: "defensive_arts",
         type: "active",
         spellType: "defensive",
         classAbility: true,
@@ -486,8 +486,8 @@ Object.assign(skills, {
             manaCostReductionPerLevel: 1,
             baseCooldownSeconds: 11,
             cooldownReductionSecondsPerLevel: 0.5,
-            baseDamageMultiplier: 0.6,
-            damageMultiplierPerLevel: 0.1,
+            baseDamageMultiplier: 1.05,
+            damageMultiplierPerLevel: 0.188,
             hits: 4
         }
     },
@@ -513,8 +513,8 @@ Object.assign(skills, {
             manaCostReductionPerLevel: 1,
             baseCooldownSeconds: 10,
             cooldownReductionSecondsPerLevel: 0.5,
-            baseDamageMultiplier: 1.8,
-            damageMultiplierPerLevel: 0.25,
+            baseDamageMultiplier: 3.06,
+            damageMultiplierPerLevel: 0.495,
             baseBossDamagePercent: 30,
             bossDamagePercentPerLevel: 5
         }
@@ -559,8 +559,8 @@ Object.assign(skills, {
             manaCostReductionPerLevel: 1,
             baseCooldownSeconds: 12,
             cooldownReductionSecondsPerLevel: 0.5,
-            baseDamageMultiplier: 2.4,
-            damageMultiplierPerLevel: 0.35,
+            baseDamageMultiplier: 2.333,
+            damageMultiplierPerLevel: 0.417,
             bleedTickMultiplier: 0.2,
             bleedTicks: 4,
             bleedTickSeconds: 1
@@ -588,8 +588,8 @@ Object.assign(skills, {
             manaCostReductionPerLevel: 1,
             baseCooldownSeconds: 9,
             cooldownReductionSecondsPerLevel: 0.5,
-            baseDamageMultiplier: 1.5,
-            damageMultiplierPerLevel: 0.2,
+            baseDamageMultiplier: 2.4,
+            damageMultiplierPerLevel: 0.39,
             executeThresholdPercent: 35,
             executeMultiplier: 2
         }
@@ -617,7 +617,7 @@ Object.assign(skills, {
         name: "Wyładowanie energii",
         description: "Trzy szybkie wyładowania arkanicznej energii.",
         tree: "mage_arts",
-        branch: "arts",
+        branch: "offensive_arts",
         type: "active",
         spellType: "offensive",
         classAbility: true,
@@ -633,8 +633,8 @@ Object.assign(skills, {
             manaCostReductionPerLevel: 1,
             baseCooldownSeconds: 7,
             cooldownReductionSecondsPerLevel: 0.4,
-            baseDamageMultiplier: 0.8,
-            damageMultiplierPerLevel: 0.12,
+            baseDamageMultiplier: 0.72,
+            damageMultiplierPerLevel: 0.087,
             hits: 3
         }
     },
@@ -643,7 +643,7 @@ Object.assign(skills, {
         name: "Moc żywiołów",
         description: "Przez chwilę Twoje obrażenia są większe.",
         tree: "mage_arts",
-        branch: "arts",
+        branch: "defensive_arts",
         type: "active",
         spellType: "defensive",
         classAbility: true,
@@ -660,7 +660,7 @@ Object.assign(skills, {
             baseCooldownSeconds: 25,
             cooldownReductionSecondsPerLevel: 1.5,
             durationSeconds: 10,
-            baseDamageDealtPercent: 15,
+            baseDamageDealtPercent: 21,
             damageDealtPercentPerLevel: 3
         }
     },
@@ -669,7 +669,7 @@ Object.assign(skills, {
         name: "Przypływ many",
         description: "Gdy brakuje Ci many, odzyskujesz jej część.",
         tree: "mage_arts",
-        branch: "arts",
+        branch: "defensive_arts",
         type: "active",
         spellType: "defensive",
         classAbility: true,
@@ -714,7 +714,7 @@ Object.assign(skills, {
             baseCooldownSeconds: 12,
             cooldownReductionSecondsPerLevel: 0.5,
             baseDamageMultiplier: 1.5,
-            damageMultiplierPerLevel: 0.2,
+            damageMultiplierPerLevel: 0.268,
             bleedTickMultiplier: 0.3,
             bleedTicks: 6,
             bleedTickSeconds: 1
@@ -742,8 +742,8 @@ Object.assign(skills, {
             manaCostReductionPerLevel: 1,
             baseCooldownSeconds: 10,
             cooldownReductionSecondsPerLevel: 0.5,
-            baseDamageMultiplier: 1.6,
-            damageMultiplierPerLevel: 0.25,
+            baseDamageMultiplier: 2.88,
+            damageMultiplierPerLevel: 0.47,
             baseLifestealPercent: 25,
             lifestealPercentPerLevel: 4
         }
@@ -841,8 +841,8 @@ Object.assign(skills, {
             manaCostReductionPerLevel: 1,
             baseCooldownSeconds: 9,
             cooldownReductionSecondsPerLevel: 0.5,
-            baseDamageMultiplier: 1.3,
-            damageMultiplierPerLevel: 0.2,
+            baseDamageMultiplier: 1.68,
+            damageMultiplierPerLevel: 0.255,
             bleedTickMultiplier: 0.25,
             bleedTicks: 4,
             bleedTickSeconds: 1
@@ -871,7 +871,7 @@ Object.assign(skills, {
         name: "Uderzenie tarczą",
         description: "Mocne uderzenie tarczą.",
         tree: "guardian_arts",
-        branch: "arts",
+        branch: "offensive_arts",
         type: "active",
         spellType: "offensive",
         classAbility: true,
@@ -887,8 +887,8 @@ Object.assign(skills, {
             manaCostReductionPerLevel: 1,
             baseCooldownSeconds: 7,
             cooldownReductionSecondsPerLevel: 0.4,
-            baseDamageMultiplier: 1.5,
-            damageMultiplierPerLevel: 0.2
+            baseDamageMultiplier: 1.8,
+            damageMultiplierPerLevel: 0.15
         }
     },
     grd_stand_firm: {
@@ -896,7 +896,7 @@ Object.assign(skills, {
         name: "Niezłomna postawa",
         description: "Przez chwilę otrzymujesz mniej obrażeń.",
         tree: "guardian_arts",
-        branch: "arts",
+        branch: "defensive_arts",
         type: "active",
         spellType: "defensive",
         classAbility: true,
@@ -922,7 +922,7 @@ Object.assign(skills, {
         name: "Drugi oddech",
         description: "Odzyskujesz część zdrowia.",
         tree: "guardian_arts",
-        branch: "arts",
+        branch: "defensive_arts",
         type: "active",
         spellType: "defensive",
         classAbility: true,
@@ -993,8 +993,8 @@ Object.assign(skills, {
             manaCostReductionPerLevel: 1,
             baseCooldownSeconds: 10,
             cooldownReductionSecondsPerLevel: 0.5,
-            baseDamageMultiplier: 1.9,
-            damageMultiplierPerLevel: 0.3
+            baseDamageMultiplier: 3.42,
+            damageMultiplierPerLevel: 0.58
         }
     },
     bas_bulwark: {
@@ -1063,8 +1063,8 @@ Object.assign(skills, {
             manaCostReductionPerLevel: 1,
             baseCooldownSeconds: 9,
             cooldownReductionSecondsPerLevel: 0.5,
-            baseDamageMultiplier: 1.5,
-            damageMultiplierPerLevel: 0.25,
+            baseDamageMultiplier: 2.56,
+            damageMultiplierPerLevel: 0.38,
             baseBossDamagePercent: 25,
             bossDamagePercentPerLevel: 5
         }
@@ -1092,8 +1092,8 @@ Object.assign(skills, {
             baseCooldownSeconds: 26,
             cooldownReductionSecondsPerLevel: 1.5,
             durationSeconds: 10,
-            baseDamageDealtPercent: 15,
-            damageDealtPercentPerLevel: 3
+            baseDamageDealtPercent: 24,
+            damageDealtPercentPerLevel: 3.9
         }
     },
 
@@ -1103,7 +1103,7 @@ Object.assign(skills, {
         name: "Cios w plecy",
         description: "Szybki, podwójny cios sztyletem.",
         tree: "rogue_arts",
-        branch: "arts",
+        branch: "offensive_arts",
         type: "active",
         spellType: "offensive",
         classAbility: true,
@@ -1119,8 +1119,8 @@ Object.assign(skills, {
             manaCostReductionPerLevel: 1,
             baseCooldownSeconds: 6,
             cooldownReductionSecondsPerLevel: 0.4,
-            baseDamageMultiplier: 1.0,
-            damageMultiplierPerLevel: 0.15,
+            baseDamageMultiplier: 0.9,
+            damageMultiplierPerLevel: 0.075,
             hits: 2
         }
     },
@@ -1129,7 +1129,7 @@ Object.assign(skills, {
         name: "Zasłona cienia",
         description: "Przez chwilę otrzymujesz mniej obrażeń.",
         tree: "rogue_arts",
-        branch: "arts",
+        branch: "defensive_arts",
         type: "active",
         spellType: "defensive",
         classAbility: true,
@@ -1155,7 +1155,7 @@ Object.assign(skills, {
         name: "Adrenalina",
         description: "Przez chwilę zadajesz więcej obrażeń.",
         tree: "rogue_arts",
-        branch: "arts",
+        branch: "defensive_arts",
         type: "active",
         spellType: "defensive",
         classAbility: true,
@@ -1172,8 +1172,8 @@ Object.assign(skills, {
             baseCooldownSeconds: 30,
             cooldownReductionSecondsPerLevel: 1.5,
             durationSeconds: 10,
-            baseDamageDealtPercent: 18,
-            damageDealtPercentPerLevel: 3
+            baseDamageDealtPercent: 24,
+            damageDealtPercentPerLevel: 3.9
         }
     },
 
@@ -1200,7 +1200,7 @@ Object.assign(skills, {
             manaCostReductionPerLevel: 1,
             baseCooldownSeconds: 10,
             cooldownReductionSecondsPerLevel: 0.5,
-            baseDamageMultiplier: 1.0,
+            baseDamageMultiplier: 0.988,
             damageMultiplierPerLevel: 0.15,
             bleedTickMultiplier: 0.4,
             bleedTicks: 6,
@@ -1229,8 +1229,8 @@ Object.assign(skills, {
             manaCostReductionPerLevel: 1,
             baseCooldownSeconds: 11,
             cooldownReductionSecondsPerLevel: 0.5,
-            baseDamageMultiplier: 0.7,
-            damageMultiplierPerLevel: 0.1,
+            baseDamageMultiplier: 0.72,
+            damageMultiplierPerLevel: 0.12,
             hits: 3,
             bleedTickMultiplier: 0.15,
             bleedTicks: 5,
@@ -1277,8 +1277,8 @@ Object.assign(skills, {
             manaCostReductionPerLevel: 1,
             baseCooldownSeconds: 9,
             cooldownReductionSecondsPerLevel: 0.5,
-            baseDamageMultiplier: 1.6,
-            damageMultiplierPerLevel: 0.25,
+            baseDamageMultiplier: 2.4,
+            damageMultiplierPerLevel: 0.39,
             executeThresholdPercent: 35,
             executeMultiplier: 2
         }
@@ -1305,8 +1305,8 @@ Object.assign(skills, {
             manaCostReductionPerLevel: 1,
             baseCooldownSeconds: 12,
             cooldownReductionSecondsPerLevel: 0.5,
-            baseDamageMultiplier: 2.2,
-            damageMultiplierPerLevel: 0.35,
+            baseDamageMultiplier: 3.4,
+            damageMultiplierPerLevel: 0.59,
             baseBossDamagePercent: 30,
             bossDamagePercentPerLevel: 5
         }
@@ -1326,6 +1326,254 @@ Object.assign(skills, {
         goldCosts: [5000, 12000, 26000, 55000, 110000],
         prerequisites: [],
         effect: { critChancePercentPerLevel: 1 }
+    },
+
+    // ===== Wojownik: podstawy i mistrzostwa =====
+    war_offense_adept: {
+        id: "war_offense_adept",
+        name: "Adept wojny",
+        description: "Zwiększa obrażenia umiejętności ofensywnych. Za każdy poziom: +2%.",
+        tree: "warrior_arts",
+        branch: "general",
+        type: "passive",
+        requiredClass: "warrior",
+        requiredLevel: 10,
+        maxLevel: 5,
+        costPerLevel: 1,
+        goldCosts: [100, 250, 600, 1500, 4000],
+        prerequisite: null,
+        effect: { offensiveSpellDamagePercentPerLevel: 2 }
+    },
+    war_defense_adept: {
+        id: "war_defense_adept",
+        name: "Adept hartu",
+        description: "Zwiększa siłę umiejętności ochronnych i leczących. Za każdy poziom: +2%.",
+        tree: "warrior_arts",
+        branch: "general",
+        type: "passive",
+        requiredClass: "warrior",
+        requiredLevel: 10,
+        maxLevel: 5,
+        costPerLevel: 1,
+        goldCosts: [100, 250, 600, 1500, 4000],
+        prerequisite: null,
+        effect: { defensiveSpellPowerPercentPerLevel: 2 }
+    },
+    war_offense_mastery: {
+        id: "war_offense_mastery",
+        name: "Mistrz wojny",
+        description: "Zwiększa końcowe obrażenia wszystkich umiejętności ofensywnych o 20%.",
+        tree: "warrior_arts",
+        branch: "offensive_arts",
+        type: "passive",
+        requiredClass: "warrior",
+        requiredLevel: 40,
+        maxLevel: 1,
+        costPerLevel: 3,
+        goldCosts: [300000],
+        prerequisite: { skillId: "war_rend", requiredSkillLevel: 5 },
+        effect: { offensiveSpellDamagePercentPerLevel: 20 }
+    },
+    war_defense_mastery: {
+        id: "war_defense_mastery",
+        name: "Mistrz hartu",
+        description: "Zwiększa siłę wszystkich umiejętności ochronnych o 20%.",
+        tree: "warrior_arts",
+        branch: "defensive_arts",
+        type: "passive",
+        requiredClass: "warrior",
+        requiredLevel: 40,
+        maxLevel: 1,
+        costPerLevel: 3,
+        goldCosts: [300000],
+        prerequisite: { skillId: "war_battle_cry", requiredSkillLevel: 5 },
+        effect: { defensiveSpellPowerPercentPerLevel: 20 }
+    },
+
+    // ===== Łowca: podstawy i mistrzostwa =====
+    hun_offense_adept: {
+        id: "hun_offense_adept",
+        name: "Adept łowów",
+        description: "Zwiększa obrażenia umiejętności ofensywnych. Za każdy poziom: +2%.",
+        tree: "hunter_arts",
+        branch: "general",
+        type: "passive",
+        requiredClass: "hunter",
+        requiredLevel: 10,
+        maxLevel: 5,
+        costPerLevel: 1,
+        goldCosts: [100, 250, 600, 1500, 4000],
+        prerequisite: null,
+        effect: { offensiveSpellDamagePercentPerLevel: 2 }
+    },
+    hun_defense_adept: {
+        id: "hun_defense_adept",
+        name: "Adept zwinności",
+        description: "Zwiększa siłę umiejętności ochronnych i leczących. Za każdy poziom: +2%.",
+        tree: "hunter_arts",
+        branch: "general",
+        type: "passive",
+        requiredClass: "hunter",
+        requiredLevel: 10,
+        maxLevel: 5,
+        costPerLevel: 1,
+        goldCosts: [100, 250, 600, 1500, 4000],
+        prerequisite: null,
+        effect: { defensiveSpellPowerPercentPerLevel: 2 }
+    },
+    hun_offense_mastery: {
+        id: "hun_offense_mastery",
+        name: "Mistrz łowów",
+        description: "Zwiększa końcowe obrażenia wszystkich umiejętności ofensywnych o 20%.",
+        tree: "hunter_arts",
+        branch: "offensive_arts",
+        type: "passive",
+        requiredClass: "hunter",
+        requiredLevel: 40,
+        maxLevel: 1,
+        costPerLevel: 3,
+        goldCosts: [300000],
+        prerequisite: { skillId: "hun_quick_shot", requiredSkillLevel: 5 },
+        effect: { offensiveSpellDamagePercentPerLevel: 20 }
+    },
+    hun_defense_mastery: {
+        id: "hun_defense_mastery",
+        name: "Mistrz zwinności",
+        description: "Zwiększa siłę wszystkich umiejętności ochronnych o 20%.",
+        tree: "hunter_arts",
+        branch: "defensive_arts",
+        type: "passive",
+        requiredClass: "hunter",
+        requiredLevel: 40,
+        maxLevel: 1,
+        costPerLevel: 3,
+        goldCosts: [300000],
+        prerequisite: { skillId: "hun_evasive_roll", requiredSkillLevel: 5 },
+        effect: { defensiveSpellPowerPercentPerLevel: 20 }
+    },
+
+    // ===== Strażnik: podstawy i mistrzostwa =====
+    grd_offense_adept: {
+        id: "grd_offense_adept",
+        name: "Adept osądu",
+        description: "Zwiększa obrażenia umiejętności ofensywnych. Za każdy poziom: +2%.",
+        tree: "guardian_arts",
+        branch: "general",
+        type: "passive",
+        requiredClass: "guardian",
+        requiredLevel: 10,
+        maxLevel: 5,
+        costPerLevel: 1,
+        goldCosts: [100, 250, 600, 1500, 4000],
+        prerequisite: null,
+        effect: { offensiveSpellDamagePercentPerLevel: 2 }
+    },
+    grd_defense_adept: {
+        id: "grd_defense_adept",
+        name: "Adept straży",
+        description: "Zwiększa siłę umiejętności ochronnych i leczących. Za każdy poziom: +2%.",
+        tree: "guardian_arts",
+        branch: "general",
+        type: "passive",
+        requiredClass: "guardian",
+        requiredLevel: 10,
+        maxLevel: 5,
+        costPerLevel: 1,
+        goldCosts: [100, 250, 600, 1500, 4000],
+        prerequisite: null,
+        effect: { defensiveSpellPowerPercentPerLevel: 2 }
+    },
+    grd_offense_mastery: {
+        id: "grd_offense_mastery",
+        name: "Mistrz osądu",
+        description: "Zwiększa końcowe obrażenia wszystkich umiejętności ofensywnych o 20%.",
+        tree: "guardian_arts",
+        branch: "offensive_arts",
+        type: "passive",
+        requiredClass: "guardian",
+        requiredLevel: 40,
+        maxLevel: 1,
+        costPerLevel: 3,
+        goldCosts: [300000],
+        prerequisite: { skillId: "grd_shield_bash", requiredSkillLevel: 5 },
+        effect: { offensiveSpellDamagePercentPerLevel: 20 }
+    },
+    grd_defense_mastery: {
+        id: "grd_defense_mastery",
+        name: "Mistrz straży",
+        description: "Zwiększa siłę wszystkich umiejętności ochronnych o 20%.",
+        tree: "guardian_arts",
+        branch: "defensive_arts",
+        type: "passive",
+        requiredClass: "guardian",
+        requiredLevel: 40,
+        maxLevel: 1,
+        costPerLevel: 3,
+        goldCosts: [300000],
+        prerequisite: { skillId: "grd_stand_firm", requiredSkillLevel: 5 },
+        effect: { defensiveSpellPowerPercentPerLevel: 20 }
+    },
+
+    // ===== Łotrzyk: podstawy i mistrzostwa =====
+    rog_offense_adept: {
+        id: "rog_offense_adept",
+        name: "Adept cienia",
+        description: "Zwiększa obrażenia umiejętności ofensywnych. Za każdy poziom: +2%.",
+        tree: "rogue_arts",
+        branch: "general",
+        type: "passive",
+        requiredClass: "rogue",
+        requiredLevel: 10,
+        maxLevel: 5,
+        costPerLevel: 1,
+        goldCosts: [100, 250, 600, 1500, 4000],
+        prerequisite: null,
+        effect: { offensiveSpellDamagePercentPerLevel: 2 }
+    },
+    rog_defense_adept: {
+        id: "rog_defense_adept",
+        name: "Adept uników",
+        description: "Zwiększa siłę umiejętności ochronnych i leczących. Za każdy poziom: +2%.",
+        tree: "rogue_arts",
+        branch: "general",
+        type: "passive",
+        requiredClass: "rogue",
+        requiredLevel: 10,
+        maxLevel: 5,
+        costPerLevel: 1,
+        goldCosts: [100, 250, 600, 1500, 4000],
+        prerequisite: null,
+        effect: { defensiveSpellPowerPercentPerLevel: 2 }
+    },
+    rog_offense_mastery: {
+        id: "rog_offense_mastery",
+        name: "Mistrz cienia",
+        description: "Zwiększa końcowe obrażenia wszystkich umiejętności ofensywnych o 20%.",
+        tree: "rogue_arts",
+        branch: "offensive_arts",
+        type: "passive",
+        requiredClass: "rogue",
+        requiredLevel: 40,
+        maxLevel: 1,
+        costPerLevel: 3,
+        goldCosts: [300000],
+        prerequisite: { skillId: "rog_backstab", requiredSkillLevel: 5 },
+        effect: { offensiveSpellDamagePercentPerLevel: 20 }
+    },
+    rog_defense_mastery: {
+        id: "rog_defense_mastery",
+        name: "Mistrz uników",
+        description: "Zwiększa siłę wszystkich umiejętności ochronnych o 20%.",
+        tree: "rogue_arts",
+        branch: "defensive_arts",
+        type: "passive",
+        requiredClass: "rogue",
+        requiredLevel: 40,
+        maxLevel: 1,
+        costPerLevel: 3,
+        goldCosts: [300000],
+        prerequisite: { skillId: "rog_shadow_veil", requiredSkillLevel: 5 },
+        effect: { defensiveSpellPowerPercentPerLevel: 20 }
     }
 });
 

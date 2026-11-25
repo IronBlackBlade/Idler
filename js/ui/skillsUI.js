@@ -373,6 +373,18 @@ function getSkillBranchName(
 ) {
     const branchNames = {
         general: "Ogólne",
+        offensive_arts: "Sztuki ofensywne",
+        defensive_arts: "Sztuki ochronne",
+        archer: "Łucznik",
+        crossbowman: "Kusznik",
+        warlock: "Czarnoksiężnik",
+        druid: "Druid",
+        bastion: "Bastion",
+        light: "Obrońca światła",
+        poisoner: "Truciciel",
+        assassin: "Skrytobójca",
+        berserker: "Berserker",
+        slayer: "Pogromca",
 
         exploration_core:
             "Droga Odkrywcy",
@@ -2312,6 +2324,161 @@ function createMagicSkillTreeLayout(
     return targets;
 }
 
+function createClassAbilityTreeLayout(container, treeId) {
+    const tree = skillTrees.find(entry => entry.id === treeId) || {};
+    const isArtsTree = /_arts$/.test(treeId);
+    const classId = tree.requiredClass || treeId.split("_")[0];
+    const treeSkillList = Object.values(skills).filter(skill => skill.tree === treeId);
+    const hasGeneral = treeSkillList.some(skill => skill.branch === "general");
+    const rootNames = {
+        warrior: "Podstawy walki",
+        hunter: "Podstawy łowiectwa",
+        mage: "Sztuki arkanów",
+        guardian: "Podstawy ochrony",
+        rogue: "Podstawy skrytości"
+    };
+    const targets = {};
+    const layout = document.createElement("div");
+
+    layout.className = "warrior-tree-layout";
+    // Styl układu Magii (linie, kolumny) jest przypięty do data-tree="magic".
+    layout.dataset.tree = "magic";
+    layout.dataset.classTree = treeId;
+
+    const rootSection = document.createElement("section");
+
+    rootSection.className = "warrior-tree-root magic-tree-root";
+
+    const rootHeading = document.createElement("div");
+
+    rootHeading.className = "warrior-tree-root-heading";
+    rootHeading.innerHTML = `
+        <span>${isArtsTree ? "✨" : "🏅"}</span>
+
+        <div>
+            <small>${isArtsTree ? "PUNKT WYJŚCIA" : "ŚCIEŻKA PODKLASY"}</small>
+            <strong>${isArtsTree ? (rootNames[classId] || "Sztuki klasy") : (tree.name || "Podklasa")}</strong>
+        </div>
+    `;
+    rootSection.appendChild(rootHeading);
+
+    if (hasGeneral) {
+        const upperConnector = document.createElement("div");
+
+        upperConnector.className = "magic-tree-connector magic-tree-upper-connector";
+        upperConnector.innerHTML = `
+            <span class="magic-tree-connector-leg magic-tree-connector-left"></span>
+            <span class="magic-tree-connector-leg magic-tree-connector-right"></span>
+        `;
+
+        const rootCards = document.createElement("div");
+
+        rootCards.className = "warrior-tree-root-cards magic-tree-root-cards";
+        targets.general = rootCards;
+
+        const lowerConnector = document.createElement("div");
+
+        lowerConnector.className = "magic-tree-connector magic-tree-lower-connector";
+        lowerConnector.innerHTML = `
+            <span class="magic-tree-connector-leg magic-tree-connector-left"></span>
+            <span class="magic-tree-connector-leg magic-tree-connector-right"></span>
+            <span class="magic-tree-connector-center"></span>
+        `;
+
+        rootSection.appendChild(upperConnector);
+        rootSection.appendChild(rootCards);
+        rootSection.appendChild(lowerConnector);
+    } else {
+        const lowerConnector = document.createElement("div");
+
+        lowerConnector.className = "magic-tree-connector magic-tree-lower-connector";
+        lowerConnector.innerHTML = `
+            <span class="magic-tree-connector-leg magic-tree-connector-left"></span>
+            <span class="magic-tree-connector-leg magic-tree-connector-right"></span>
+            <span class="magic-tree-connector-center"></span>
+        `;
+        rootSection.appendChild(lowerConnector);
+    }
+
+    const branchDefinitions = isArtsTree
+        ? [
+            {
+                id: "offensive_arts",
+                icon: "💥",
+                name: "Sztuki ofensywne",
+                description: "Ciosy zadające obrażenia oraz mistrzostwo ofensywne."
+            },
+            {
+                id: "defensive_arts",
+                icon: "🛡️",
+                name: "Sztuki ochronne",
+                description: "Wzmocnienia, osłony, leczenie oraz mistrzostwo ochronne."
+            }
+        ]
+        : [
+            {
+                id: "__offense",
+                icon: "💥",
+                name: "Techniki ofensywne",
+                description: "Ciosy podklasy zadające obrażenia."
+            },
+            {
+                id: "__support",
+                icon: "🛡️",
+                name: "Wsparcie i pasywy",
+                description: "Wzmocnienia, leczenie i stałe premie podklasy."
+            }
+        ];
+
+    const branches = document.createElement("div");
+
+    branches.className = "warrior-tree-branches magic-tree-branches";
+
+    branchDefinitions.forEach(branch => {
+        const section = document.createElement("section");
+
+        section.className = "warrior-tree-branch";
+        section.dataset.branch = branch.id;
+
+        const heading = document.createElement("div");
+
+        heading.className = "warrior-tree-branch-heading";
+        heading.innerHTML = `
+            <span class="warrior-tree-branch-icon">${branch.icon}</span>
+
+            <div>
+                <strong>${branch.name}</strong>
+                <small>${branch.description}</small>
+            </div>
+        `;
+
+        const chain = document.createElement("div");
+
+        chain.className = "warrior-tree-chain";
+        targets[branch.id] = chain;
+
+        section.appendChild(heading);
+        section.appendChild(chain);
+        branches.appendChild(section);
+    });
+
+    if (!isArtsTree) {
+        treeSkillList.forEach(skill => {
+            // Rozdzielamy po umiejętności, a nie po gałęzi (jedna gałąź na podklasę).
+            skill.__layoutColumn =
+                skill.type === "active" && skill.spellType === "offensive"
+                    ? "__offense"
+                    : "__support";
+        });
+    }
+
+    layout.appendChild(rootSection);
+    layout.appendChild(branches);
+    container.appendChild(layout);
+
+    return targets;
+}
+
 function createHunterSkillTreeLayout(
     container
 ) {
@@ -3053,6 +3220,27 @@ function renderSkills() {
                                 )
                         )
                 );
+    } else if (
+        typeof currentSkillTree === "string" &&
+        skillTrees.find(entry => entry.id === currentSkillTree)?.requiredClass &&
+        /^(warrior|hunter|mage|guardian|rogue)_/.test(currentSkillTree)
+    ) {
+        skillsContainer.classList.add(
+            "warrior-tree-mode"
+        );
+
+        skillTargets =
+            createClassAbilityTreeLayout(
+                skillsContainer,
+                currentSkillTree
+            );
+
+        treeSkills.sort((first, second) => {
+            return (
+                (Number(first.requiredLevel) || 0) -
+                (Number(second.requiredLevel) || 0)
+            );
+        });
     } else {
         skillsContainer.classList.remove(
             "warrior-tree-mode"
@@ -3541,7 +3729,7 @@ function renderSkills() {
 
         const targetContainer =
             skillTargets?.[
-            skill.branch
+            skill.__layoutColumn || skill.branch
             ] ||
             skillsContainer;
 

@@ -66,6 +66,23 @@ function getClassAbilityDamageTakenMultiplier() {
     return Math.max(0.2, 1 + percent / 100);
 }
 
+/* Premie z pasywów (Adept/Mistrz): obrażenia ofensywne i siła ochronna. */
+function getClassAbilityOffensivePowerMultiplier() {
+    return 1 + (
+        typeof getOffensiveSpellDamageSkillBonus === "function"
+            ? getOffensiveSpellDamageSkillBonus()
+            : 0
+    ) / 100;
+}
+
+function getClassAbilityDefensivePowerMultiplier() {
+    return 1 + (
+        typeof getDefensiveSpellPowerPercent === "function"
+            ? getDefensiveSpellPowerPercent()
+            : 0
+    ) / 100;
+}
+
 /* ---------- Rzucanie ---------- */
 
 function castClassAbility(spell, manaCost) {
@@ -122,7 +139,11 @@ function castClassAbilityStrike(spell, manaCost) {
         1,
         Math.floor(
             getAttack() * multiplier * hits *
-            getClassAbilityDamageDealtMultiplier()
+            getClassAbilityDamageDealtMultiplier() *
+            getClassAbilityOffensivePowerMultiplier() *
+            (typeof getWeaponClassAbilityMultiplier === "function"
+                ? getWeaponClassAbilityMultiplier()
+                : 1)
         )
     );
 
@@ -189,10 +210,13 @@ function castClassAbilityBuff(spell, manaCost) {
         ),
         scalesWithMissingHp: effect.scalesWithMissingHp === true,
         damageTakenPercent: Number(effect.damageTakenPercent) || 0,
-        damageTakenReductionPercent: getClassAbilityValue(
-            spell,
-            "baseDamageTakenReductionPercent",
-            "damageTakenReductionPercentPerLevel"
+        damageTakenReductionPercent: Math.min(
+            70,
+            getClassAbilityValue(
+                spell,
+                "baseDamageTakenReductionPercent",
+                "damageTakenReductionPercentPerLevel"
+            ) * getClassAbilityDefensivePowerMultiplier()
         )
     };
 
@@ -221,7 +245,15 @@ function castClassAbilityHeal(spell, manaCost) {
         "baseHealPercent",
         "healPercentPerLevel"
     );
-    const heal = Math.max(1, Math.floor(maxHp * percent / 100));
+    const heal = Math.max(
+        1,
+        Math.floor(
+            maxHp * percent / 100 * getClassAbilityDefensivePowerMultiplier() *
+            (typeof getWeaponClassAbilityMultiplier === "function"
+                ? getWeaponClassAbilityMultiplier()
+                : 1)
+        )
+    );
 
     player.mana -= manaCost;
     player.hp = Math.min(maxHp, player.hp + heal);
@@ -498,3 +530,62 @@ function migrateLegacyClassSkills() {
 }
 
 window.migrateLegacyClassSkills = migrateLegacyClassSkills;
+
+
+/*
+ * Jednorazowa migracja: czary z drzewka Magii są teraz tylko dla Maga.
+ * Pozostałe klasy dostają zwrot punktów za te umiejętności.
+ */
+function migrateMageOnlySpells() {
+    if (!player || player.mageOnlySkillsMigrated === true) {
+        return false;
+    }
+
+    let refundedPoints = 0;
+
+    Object.keys(player.skills || {}).forEach(skillId => {
+        const skill = skills[skillId];
+
+        if (
+            !skill ||
+            skill.tree !== "magic" ||
+            skill.requiredClass !== "mage" ||
+            player.classId === "mage"
+        ) {
+            return;
+        }
+
+        const level = Math.max(0, Number(player.skills[skillId]) || 0);
+
+        refundedPoints += level * (Number(skill.costPerLevel) || 1);
+        delete player.skills[skillId];
+    });
+
+    if (refundedPoints > 0) {
+        player.skillPoints =
+            Math.max(0, Number(player.skillPoints) || 0) + refundedPoints;
+
+        if (typeof addLog === "function") {
+            addLog(
+                "🔄 Czary z drzewka Magii są teraz tylko dla Maga: zwrócono " +
+                refundedPoints + " pkt umiejętności."
+            );
+        }
+    }
+
+    if (player.selectedSpells && player.classId !== "mage") {
+        ["offensive", "defensive"].forEach(slot => {
+            const id = player.selectedSpells[slot];
+
+            if (id && skills[id]?.tree === "magic" && skills[id]?.requiredClass === "mage") {
+                player.selectedSpells[slot] = null;
+            }
+        });
+    }
+
+    player.mageOnlySkillsMigrated = true;
+
+    return refundedPoints > 0;
+}
+
+window.migrateMageOnlySpells = migrateMageOnlySpells;

@@ -145,7 +145,12 @@ function getManaRegenerationPerSecond() {
         ) *
         (
             1 +
-            potionBonus / 100
+            potionBonus / 100 +
+            (
+                typeof getWeaponClassStatBonus === "function"
+                    ? getWeaponClassStatBonus("manaRegenPercent") / 100
+                    : 0
+            )
         );
 
     const mageClassRegeneration =
@@ -5757,7 +5762,12 @@ function getSpellManaCost(
         Math.min(
             80,
             generalPercentageReduction +
-            wandCapstoneReduction
+            wandCapstoneReduction +
+            (
+                typeof getWeaponClassStatBonus === "function"
+                    ? getWeaponClassStatBonus("manaCostReduction")
+                    : 0
+            )
         );
 
     return Math.max(

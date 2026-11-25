@@ -2,7 +2,8 @@ const skillTrees = [
     {
         id: "magic",
         name: "🔮 Magia",
-        description: "Czary, mana i obrażenia magiczne."
+        description: "Czary, mana i obrażenia magiczne.",
+        requiredClass: "mage"
     },
     {
         id: "exploration",
@@ -76,6 +77,7 @@ const skills = {
             "Zwiększa obrażenia zaklęć ofensywnych. Łączny bonus na kolejnych poziomach: 1%, 3%, 5%, 7% i 10%.",
 
         tree: "magic",
+        requiredClass: "mage",
         branch: "general",
         type: "passive",
 
@@ -112,6 +114,7 @@ const skills = {
             "Zwiększa siłę zaklęć ochronnych. Łączny bonus na kolejnych poziomach: 1%, 3%, 5%, 7% i 10%.",
 
         tree: "magic",
+        requiredClass: "mage",
         branch: "general",
         type: "passive",
 
@@ -147,6 +150,7 @@ const skills = {
             "Automatycznie rzuca kulę ognia, która zadaje obrażenia magiczne.",
 
         tree: "magic",
+        requiredClass: "mage",
         branch: "offensive_spells",
 
         type: "active",
@@ -193,6 +197,7 @@ const skills = {
             "Automatycznie zadaje obrażenia magiczne i spowalnia ataki przeciwnika.",
 
         tree: "magic",
+        requiredClass: "mage",
         branch: "offensive_spells",
 
         type: "active",
@@ -238,6 +243,7 @@ const skills = {
             "Automatycznie wystrzeliwuje trzy szybkie pociski zadające osobne obrażenia magiczne.",
 
         tree: "magic",
+        requiredClass: "mage",
         branch: "offensive_spells",
 
         type: "active",
@@ -280,6 +286,7 @@ const skills = {
             "Zadaje obrażenia początkowe, a następnie podpala przeciwnika na 5 sekund.",
 
         tree: "magic",
+        requiredClass: "mage",
         branch: "offensive_spells",
 
         type: "active",
@@ -325,6 +332,7 @@ const skills = {
             "Przyzywa meteor zadający ogromne obrażenia kosztem dużej ilości many i długiego czasu odnowienia.",
 
         tree: "magic",
+        requiredClass: "mage",
         branch: "offensive_spells",
 
         type: "active",
@@ -365,6 +373,7 @@ const skills = {
             "Zwiększa końcowe obrażenia wszystkich czarów ofensywnych o 20%.",
 
         tree: "magic",
+        requiredClass: "mage",
         branch: "offensive_spells",
         type: "passive",
 
@@ -393,6 +402,7 @@ const skills = {
             "Automatycznie przywraca zdrowie, gdy HP bohatera spadnie do 50% lub mniej.",
 
         tree: "magic",
+        requiredClass: "mage",
         branch: "defensive_spells",
 
         type: "active",
@@ -440,6 +450,7 @@ const skills = {
             "Automatycznie tworzy barierę zmniejszającą otrzymywane obrażenia.",
 
         tree: "magic",
+        requiredClass: "mage",
         branch: "defensive_spells",
 
         type: "active",
@@ -482,6 +493,7 @@ const skills = {
             "Poniżej 70% HP przekierowuje część otrzymywanych obrażeń na manę przez 6 sekund.",
 
         tree: "magic",
+        requiredClass: "mage",
         branch: "defensive_spells",
 
         type: "active",
@@ -527,6 +539,7 @@ const skills = {
             "Poniżej 70% HP stopniowo przywraca zdrowie przez 6 sekund.",
 
         tree: "magic",
+        requiredClass: "mage",
         branch: "defensive_spells",
 
         type: "active",
@@ -571,6 +584,7 @@ const skills = {
             "Poniżej 45% HP tworzy odbicia pozwalające całkowicie uniknąć kolejnych ataków.",
 
         tree: "magic",
+        requiredClass: "mage",
         branch: "defensive_spells",
 
         type: "active",
@@ -615,6 +629,7 @@ const skills = {
             "Zwiększa siłę wszystkich czarów defensywnych o 20%.",
 
         tree: "magic",
+        requiredClass: "mage",
         branch: "defensive_spells",
         type: "passive",
 

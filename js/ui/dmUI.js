@@ -318,6 +318,30 @@
     }
   }
 
+  async function reportMessage(message) {
+    if (!message || !message.id) return;
+
+    const yes =
+      typeof showGameConfirm === "function"
+        ? await showGameConfirm(
+            "Zgłosić tę wiadomość gracza " +
+              withName +
+              " administratorowi? Administrator zobaczy zgłoszoną wiadomość i do 9 poprzednich z tej rozmowy.",
+            { title: "Zgłoszenie wiadomości", confirmText: "Zgłoś" },
+          )
+        : window.confirm("Zgłosić tę wiadomość administratorowi?");
+
+    if (!yes) return;
+
+    const result = await call("idler_dm_report", { p_message_id: message.id, p_reason: null });
+
+    if (isOk(result)) {
+      notify("Dziękujemy, zgłoszenie zostało wysłane.", "success");
+    } else {
+      notify(failText(result), "error");
+    }
+  }
+
   // ---------- Realtime ----------
 
   function closeChannel() {
@@ -521,6 +545,16 @@
       row.appendChild(el("span", message.mine ? "dm-me" : "dm-them", message.mine ? "Ja" : withName));
       row.appendChild(el("span", "chat-colon", ": "));
       row.appendChild(el("span", "chat-body", message.body));
+
+      if (!message.mine) {
+        const reportButton = el("button", "chat-report", "⚑");
+        reportButton.type = "button";
+        reportButton.title = "Zgłoś wiadomość administratorowi";
+        reportButton.setAttribute("aria-label", "Zgłoś wiadomość gracza " + withName);
+        reportButton.addEventListener("click", () => reportMessage(message));
+        row.appendChild(reportButton);
+      }
+
       list.appendChild(row);
     });
     body.appendChild(list);

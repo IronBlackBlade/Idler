@@ -3227,7 +3227,7 @@ const items = {
         name: "Pierścień many",
         rarity: "common",
         type: "ring",
-        requiredLevel: 5,
+        requiredLevel: 1,
         intelligence: 2,
         value: 90
     },
