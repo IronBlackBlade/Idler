@@ -17,7 +17,7 @@
  * Dopóki pola są puste, nic się nie zmienia: gra działa na konfiguracji z onlineConfig.js.
  */
 window.IDLER_TEST_CONFIG = {
-  supabaseUrl: "https://vrsbfibklgwmfenlplji.supabase.co/rest/v1/",
+  supabaseUrl: "https://vrsbfibklgwmfenlplji.supabase.co",
   supabaseAnonKey: "sb_publishable_v-Q0l2mtCy19qTpR6UE_qQ_jfKhEqmE",
   useByDefault: false,
 };
