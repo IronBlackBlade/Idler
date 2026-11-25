@@ -170,7 +170,21 @@ const IdlerAccounts = (function () {
       return "Nie udało się utworzyć konta. Ta nazwa gracza mogła zostać właśnie zajęta.";
     }
 
-    return "Coś poszło nie tak. Spróbuj ponownie za chwilę.";
+    // Nierozpoznany błąd: pokaż szczegóły techniczne (ułatwia diagnozę środowiska testowego).
+    if (typeof console !== "undefined") {
+      console.error("Idler konto: nierozpoznany błąd", error);
+    }
+
+    const detail = [error?.status, error?.code, error?.message]
+      .filter(Boolean)
+      .map(String)
+      .join(" / ")
+      .slice(0, 160);
+
+    return (
+      "Coś poszło nie tak. Spróbuj ponownie za chwilę." +
+      (detail ? " (Szczegóły: " + detail + ")" : "")
+    );
   }
 
   // ---------- Profil ----------
