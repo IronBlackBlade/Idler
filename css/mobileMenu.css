@@ -10,6 +10,8 @@
 }
 
 @media (max-width: 1000px) {
+    body.has-mobile-menu { --mobile-topbar-height: 68px; }
+
     /* ---------- cienki pasek u góry ---------- */
     body.has-mobile-menu .mobile-topbar {
         position: sticky;
@@ -20,9 +22,9 @@
         gap: 8px;
         box-sizing: border-box;
         width: 100%;
-        min-height: 54px;
-        padding: 6px 10px;
-        padding-top: max(6px, env(safe-area-inset-top));
+        min-height: 68px;
+        padding: 8px 12px;
+        padding-top: max(8px, env(safe-area-inset-top));
         background: linear-gradient(#3b2b1e, #2f2217);
         border-bottom: 3px solid var(--oak-0, #150f0b);
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.45);
@@ -32,15 +34,15 @@
     .mobile-topbar-menu {
         position: relative;
         flex: 0 0 auto;
-        width: 42px;
-        height: 42px;
+        width: 48px;
+        height: 48px;
         padding: 0;
         border: 0;
         border-radius: 6px;
         background: linear-gradient(#4b392a, #392a1e);
         box-shadow: 0 3px 0 #150f0b, inset 0 1px 0 #ffffff22;
         color: #f6e8cc;
-        font-size: 22px;
+        font-size: 26px;
         line-height: 1;
         cursor: pointer;
     }
@@ -66,19 +68,19 @@
         align-items: center;
         gap: 6px;
         min-width: 0;
-        max-width: 38%;
+        max-width: 36%;
     }
 
     .mobile-topbar-avatar {
         display: grid;
         place-items: center;
         flex: 0 0 auto;
-        width: 32px;
-        height: 32px;
+        width: 42px;
+        height: 42px;
         border-radius: 50%;
         background: #1d130d;
         box-shadow: 0 0 0 2px #6a4a30;
-        font-size: 18px;
+        font-size: 24px;
     }
 
     .mobile-topbar-hero strong,
@@ -91,39 +93,45 @@
 
     .mobile-topbar-hero strong {
         color: #f6e8cc;
-        font-size: 13px;
+        font-size: 16px;
         line-height: 1.2;
     }
 
     .mobile-topbar-hero small {
-        color: #b09a78;
-        font-size: 10px;
+        color: #cdb893;
+        font-size: 12px;
     }
 
     .mobile-topbar-bars {
         flex: 1 1 auto;
         display: flex;
         flex-direction: column;
-        gap: 4px;
-        min-width: 70px;
+        gap: 6px;
+        min-width: 0;
+    }
+
+    body.has-mobile-menu .mobile-topbar-bars,
+    body.has-mobile-menu .mobile-topbar-bar {
+        background: transparent;
+        box-shadow: none;
     }
 
     .mobile-topbar-bar {
         display: flex;
         align-items: center;
-        gap: 4px;
-        font-size: 9px;
+        gap: 5px;
+        font-size: 11px;
     }
 
     .mobile-topbar-bar span {
         flex: 0 0 auto;
-        font-size: 10px;
+        font-size: 13px;
         line-height: 1;
     }
 
     .mobile-topbar-track {
         flex: 1 1 auto;
-        height: 7px;
+        height: 11px;
         min-width: 24px;
         overflow: hidden;
         border-radius: 4px;
@@ -147,8 +155,10 @@
 
     .mobile-topbar-bar em {
         flex: 0 0 auto;
-        min-width: 38px;
-        color: #d8c4a2;
+        min-width: 48px;
+        color: #f0e2c4;
+        font-size: 12px;
+        font-weight: 600;
         font-style: normal;
         text-align: right;
     }
@@ -156,7 +166,7 @@
     .mobile-topbar-gold {
         flex: 0 0 auto;
         color: #f0c97a;
-        font-size: 12px;
+        font-size: 15px;
         font-weight: 700;
         white-space: nowrap;
     }
