@@ -2,7 +2,7 @@
 -- Idler: WSZYSTKIE skrypty SQL w jednym pliku (do nowego projektu Supabase).
 -- Wygenerowane przez: node tools/buildAllSql.js (nie edytuj ręcznie).
 -- Wklej całość w SQL Editor i kliknij Run. Można uruchomić ponownie.
--- Kolejność: schema, cloud_saves, anticheat_ranking, chat, avatars, bug_reports, forum, admin, dm, dm_reports.
+-- Kolejność: schema, cloud_saves, anticheat_ranking, chat, avatars, bug_reports, forum, admin, dm, dm_reports, login_by_username.
 -- ============================================================
 
 
@@ -2575,4 +2575,13 @@ revoke all on function public.idler_admin_dm_reports() from public, anon;
 revoke all on function public.idler_admin_dm_dismiss(bigint) from public, anon;
 grant execute on function public.idler_admin_dm_reports() to authenticated;
 grant execute on function public.idler_admin_dm_dismiss(bigint) to authenticated;
+
+
+-- >>>>>>>>>> login_by_username.sql <<<<<<<<<<
+
+-- Wcześniejsza, mniej bezpieczna wersja logowania nickiem (funkcja zwracała e-mail każdemu).
+-- Teraz logowanie nickiem obsługuje Edge Function "idler-login" (supabase/functions/idler-login).
+-- Ten plik tylko usuwa starą funkcję, jeśli została uruchomiona. Można go uruchamiać wielokrotnie.
+
+drop function if exists public.idler_login_email(text);
 

@@ -1449,11 +1449,14 @@ function startRespawnCooldown() {
 
   addCombatLog("☠️ Bohater został pokonany.");
 
+  let diedInDungeon = false;
+
   if (
     typeof isDungeonRunActive === "function" &&
     isDungeonRunActive() &&
     typeof abandonDungeonRun === "function"
   ) {
+    diedInDungeon = true;
     abandonDungeonRun("Bohater poległ. Wyprawa do lochu dobiegła końca.");
   } else {
     handleBossEscapeAfterPlayerDefeat();
@@ -1533,6 +1536,24 @@ function startRespawnCooldown() {
 
       if (typeof addSystemLog === "function") {
         addSystemLog("✨ Bohater odrodził się z pełnym HP i maną.", "revive");
+      }
+
+      /*
+       * Śmierć w lochu: po odrodzeniu wracamy do aktywności sprzed wyprawy
+       * (walka, kopanie, zielarstwo, łowienie) – o ile gracz sam nie włączył
+       * w międzyczasie innej.
+       */
+      if (
+        diedInDungeon &&
+        typeof resumeActivityAfterDungeon === "function" &&
+        typeof getCurrentActivityTypeForSave === "function" &&
+        !getCurrentActivityTypeForSave()
+      ) {
+        if (resumeActivityAfterDungeon()) {
+          addCombatLog("↩️ Wracasz do poprzedniej aktywności.");
+        }
+      } else if (diedInDungeon) {
+        player.dungeonReturnActivity = null;
       }
 
       saveGame();

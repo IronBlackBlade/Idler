@@ -1201,3 +1201,85 @@
   background: rgba(188, 130, 206, 0.14);
   box-shadow: 0 0 14px rgba(188, 130, 206, 0.2);
 }
+
+
+/* ========================================
+   ALCHEMIA - czytelniejsze karty receptur na komputerze (np. Full HD)
+======================================== */
+@media (min-width: 769px) {
+    #screen-alchemy .alchemy-recipes-list {
+        grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+        gap: 14px;
+    }
+
+    #screen-alchemy .alchemy-recipe-card {
+        padding: 14px;
+    }
+
+    #screen-alchemy .alchemy-recipe-header h3 {
+        font-size: 19px;
+        line-height: 1.2;
+    }
+
+    #screen-alchemy .alchemy-recipe-status {
+        font-size: 12px;
+    }
+
+    #screen-alchemy .alchemy-level-badge {
+        font-size: 13px;
+        padding: 3px 8px;
+    }
+
+    #screen-alchemy .alchemy-recipe-description {
+        font-size: 14px;
+        line-height: 1.4;
+    }
+
+    #screen-alchemy .alchemy-potion-compact-box {
+        padding: 8px 10px;
+    }
+
+    #screen-alchemy .alchemy-potion-compact-row {
+        font-size: 14px;
+    }
+
+    #screen-alchemy .alchemy-potion-compact-label {
+        font-size: 12px;
+    }
+
+    #screen-alchemy .alchemy-recipe-info span,
+    #screen-alchemy .alchemy-recipe-info strong {
+        font-size: 13px;
+    }
+
+    #screen-alchemy .alchemy-ingredients > :first-child:not(.alchemy-ingredient-row) {
+        font-size: 14px;
+    }
+
+    #screen-alchemy .alchemy-ingredient-row {
+        font-size: 14px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+    }
+
+    #screen-alchemy .alchemy-batch-input,
+    #screen-alchemy .alchemy-batch-button {
+        font-size: 18px;
+    }
+
+    #screen-alchemy .alchemy-batch-max-button {
+        font-size: 14px;
+    }
+
+    #screen-alchemy .alchemy-batch-summary {
+        font-size: 18px;
+    }
+
+    #screen-alchemy .alchemy-craft-button {
+        font-size: 15px;
+    }
+
+    #screen-alchemy .alchemy-recipe-locked {
+        opacity: 0.85;
+    }
+}

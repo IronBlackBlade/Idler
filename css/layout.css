@@ -596,3 +596,35 @@ body::-webkit-scrollbar-corner {
     color: #f0d374;
 }
 
+
+/* ==================================================
+   STAŁE KAFELKI W LEWYM MENU: Zadania i Dziennik
+================================================== */
+#menu .menu-quick-tiles {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0 0 10px;
+}
+
+#menu .menu-quick-tiles .menu-quick-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    min-height: 58px;
+    margin-bottom: 0 !important;
+    padding: 8px 6px;
+    box-sizing: border-box;
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.15;
+}
+
+#menu .menu-quick-tiles .menu-quick-tile-icon {
+    font-size: 22px;
+    line-height: 1;
+}

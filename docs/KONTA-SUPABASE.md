@@ -231,3 +231,17 @@ W oknie **Zgłoś błąd** gracz może dołączyć zrzut ekranu: przyciskiem **�
 2. Administrator widzi w panelu (zakładka **Błędy**) przycisk **📎 Pokaż zrzut ekranu** przy zgłoszeniach, które go mają. Kliknięcie obrazu otwiera go w pełnym rozmiarze w nowej karcie. Lista zgłoszeń nie ładuje zdjęć, tylko pobiera je na żądanie.
 3. Zrzuty zajmują miejsce w bazie. Żeby je czyścić po rozpatrzeniu zgłoszeń, uruchom w SQL Editor:
    `update public.bug_reports set screenshot = null where status in ('done', 'rejected');`
+
+## 8. Logowanie nickiem (opcjonalne, bezpieczne)
+
+Logowanie nickiem obsługuje Edge Function `idler-login` (plik `supabase/functions/idler-login/index.ts`).
+Serwer sam zamienia nick na e-mail i zwraca tylko sesję, więc adresy e-mail nie trafiają do przeglądarek.
+
+1. W Supabase: **Edge Functions → Deploy a new function → Via Editor** (albo „Create a new function").
+2. Nazwa funkcji: `idler-login` (dokładnie tak).
+3. Wklej całą zawartość pliku `index.ts` i kliknij **Deploy**.
+4. Nic więcej nie trzeba – `SUPABASE_URL`, klucz anon i service role funkcja dostaje automatycznie.
+5. Zrób to w obu projektach (testowym i produkcyjnym).
+6. Jeśli wcześniej uruchomiłeś starą wersję `login_by_username.sql`, uruchom ją jeszcze raz – teraz tylko usuwa starą, niebezpieczną funkcję.
+
+Bez wdrożonej funkcji logowanie e-mailem działa jak dotąd, a nickiem pokazuje komunikat o chwilowej niedostępności.

@@ -2415,6 +2415,35 @@ button:not(:disabled):hover,
 
 /* ===== Telefon: zwijane receptury w wytwarzaniu ===== */
 @media (max-width: 700px) {
+    /* Oznaczenie dostępności materiałów (widoczne także po zwinięciu karty) */
+    #crafting-list .crafting-item.crafting-ready {
+        border-left: 5px solid #4caf6a !important;
+        box-shadow: inset 4px 0 10px -6px #4caf6a;
+    }
+
+    #crafting-list .crafting-item.crafting-ready .crafting-item-name::after {
+        content: "✅ Masz materiały";
+        display: block;
+        margin-top: 2px;
+        color: #7fd69a;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+    }
+
+    #crafting-list .crafting-item.crafting-lacking {
+        border-left: 5px solid #8e3429 !important;
+    }
+
+    #crafting-list .crafting-item.crafting-lacking .crafting-item-name::after {
+        content: "❌ Brakuje materiałów";
+        display: block;
+        margin-top: 2px;
+        color: #d9806f;
+        font-size: 11px;
+        font-weight: 600;
+    }
+
     #crafting-list .crafting-item .crafting-item-header {
         cursor: pointer;
         position: relative;

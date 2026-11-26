@@ -370,6 +370,7 @@
 }
 
 @media (max-width: 1000px) {
+    #menu > .menu-quick-tiles,
     #menu > .menu-categories,
     #menu > .menu-footer {
         grid-column: 1 / -1;

@@ -299,7 +299,16 @@
       );
     }
 
-    if (mode === "login" || mode === "register" || mode === "reset") {
+    if (mode === "login") {
+      form.appendChild(
+        buildField({
+          label: "Nick lub adres e-mail",
+          type: "text",
+          name: "email",
+          autocomplete: "username",
+        }),
+      );
+    } else if (mode === "register" || mode === "reset") {
       form.appendChild(
         buildField({
           label: "Adres e-mail",

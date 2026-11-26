@@ -125,7 +125,7 @@ const IdlerAccounts = (function () {
     const code = String(error?.code || "").toLowerCase();
 
     if (message.includes("invalid login credentials")) {
-      return "Nieprawidłowy e-mail lub hasło.";
+      return "Nieprawidłowy nick, e-mail lub hasło.";
     }
 
     if (message.includes("email not confirmed")) {
@@ -374,20 +374,85 @@ const IdlerAccounts = (function () {
     }
   }
 
+  // Logowanie nickiem idzie przez Edge Function "idler-login", która po stronie serwera
+  // zamienia nick na e-mail – adres nie trafia do przeglądarki.
+  async function signInWithUsername(identifier, password) {
+    let result;
+
+    try {
+      result = await client.functions.invoke("idler-login", {
+        body: { identifier, password },
+      });
+    } catch (error) {
+      return { ok: false, error: translateError(error) };
+    }
+
+    const { data, error } = result;
+
+    if (data?.session?.access_token && data.session.refresh_token) {
+      const { error: sessionError } = await client.auth.setSession({
+        access_token: data.session.access_token,
+        refresh_token: data.session.refresh_token,
+      });
+
+      return sessionError
+        ? { ok: false, error: translateError(sessionError) }
+        : { ok: true };
+    }
+
+    let payload = data;
+
+    if (!payload && error?.context && typeof error.context.json === "function") {
+      try {
+        payload = await error.context.json();
+      } catch (parseError) {
+        payload = null;
+      }
+    }
+
+    if (payload?.error === "invalid") {
+      return { ok: false, error: "Nieprawidłowy nick, e-mail lub hasło." };
+    }
+
+    if (payload?.error === "not_confirmed") {
+      return {
+        ok: false,
+        error: "Konto nie zostało jeszcze potwierdzone. Kliknij link z wiadomości e-mail.",
+      };
+    }
+
+    console.error("Idler logowanie nickiem: funkcja idler-login niedostępna", error);
+
+    return {
+      ok: false,
+      error:
+        "Logowanie nickiem jest chwilowo niedostępne. Zaloguj się adresem e-mail.",
+    };
+  }
+
   async function signIn({ email, password }) {
     if (!client) {
       return { ok: false, error: "Konta online są niedostępne." };
     }
 
-    const problem = validateEmail(email) || (password ? "" : "Podaj hasło.");
+    const identifier = String(email || "").trim();
+    const problem = identifier
+      ? password
+        ? ""
+        : "Podaj hasło."
+      : "Podaj nick lub adres e-mail.";
 
     if (problem) {
       return { ok: false, error: problem };
     }
 
     try {
+      if (!identifier.includes("@")) {
+        return await signInWithUsername(identifier, String(password));
+      }
+
       const { error } = await client.auth.signInWithPassword({
-        email: String(email).trim(),
+        email: identifier,
         password: String(password),
       });
 

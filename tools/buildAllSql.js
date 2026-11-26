@@ -5,7 +5,7 @@ const path = require("path");
 
 const order = [
   "schema", "cloud_saves", "anticheat_ranking", "chat", "avatars",
-  "bug_reports", "forum", "admin", "dm", "dm_reports",
+  "bug_reports", "forum", "admin", "dm", "dm_reports", "login_by_username",
 ];
 const dir = path.join(__dirname, "..", "supabase");
 let out =

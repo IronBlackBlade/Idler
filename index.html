@@ -8,7 +8,7 @@
     <title>Idler</title>
     <link rel="stylesheet" href="css/style.css?v=20261123-subclass">
     <link rel="stylesheet" href="css/tablet.css?v=1">
-    <link rel="stylesheet" href="css/theme.css?v=4">
+    <link rel="stylesheet" href="css/theme.css?v=5">
     <link rel="stylesheet" href="css/quickPotions.css?v=1">
     <link rel="stylesheet" href="css/mobileMenu.css?v=3">
     <link rel="stylesheet" href="css/dailyQuests.css?v=1">
@@ -139,6 +139,19 @@
                 </div>
             </div>
 
+            <div class="menu-quick-tiles">
+                <button id="menu-quests-button" class="menu-quick-tile" type="button" data-menu-section="quests"
+                    onclick="showScreen('screen-quests')">
+                    <span class="menu-quick-tile-icon">📜</span>
+                    <span>Zadania</span>
+                </button>
+                <button id="menu-journal-button" class="menu-quick-tile" type="button" data-menu-section="journal"
+                    onclick="openJournal()">
+                    <span class="menu-quick-tile-icon">📖</span>
+                    <span>Dziennik</span>
+                </button>
+            </div>
+
             <div class="menu-categories">
                 <section class="menu-category" data-menu-category="activities">
                     <button class="menu-category-toggle" type="button" aria-expanded="true"
@@ -237,44 +250,12 @@
                     </button>
 
                     <div id="menu-category-character" class="menu-category-items" hidden>
-                        <section class="hero-menu-category" data-hero-menu-category>
-                            <button class="hero-menu-toggle" data-menu-section="hero" type="button"
-                                aria-expanded="false" aria-controls="hero-menu-subitems"
-                                onclick="toggleHeroMenuSubitems()">
-                                <span>🧙 Bohater</span>
-                                <span class="hero-menu-chevron" aria-hidden="true"></span>
-                            </button>
-
-                            <div id="hero-menu-subitems" class="hero-menu-subitems" hidden>
-                                <button type="button" data-hero-menu-tab="summary" onclick="openHeroTab('summary')">
-                                    📊 Podsumowanie
-                                </button>
-
-                                <button type="button" data-hero-menu-tab="attributes" onclick="openHeroTab('attributes')">
-                                    💪 Atrybuty
-                                </button>
-
-                                <button type="button" data-hero-menu-tab="equipment" onclick="openHeroTab('equipment')">
-                                    🛡️ Wyposażenie
-                                </button>
-
-                                <button type="button" data-hero-menu-tab="inventory" onclick="openHeroTab('inventory')">
-                                    🎒 Plecak
-                                </button>
-
-                                <button type="button" data-hero-menu-tab="profession-tools" onclick="openHeroTab('profession-tools')">
-                                    🧰 Narzędzia
-                                </button>
-
-                                <button type="button" data-hero-menu-tab="skills" onclick="openHeroTab('skills')">
-                                    🌳 Umiejętności
-                                </button>
-                            </div>
-                        </section>
-                        <button id="menu-quests-button" data-menu-section="quests"
-                            onclick="showScreen('screen-quests')">📜 Zadania</button>
-                        <button id="menu-journal-button" data-menu-section="journal" onclick="openJournal()">📖
-                            Dziennik</button>
+                        <button type="button" data-menu-section="hero" data-hero-menu-tab="summary" onclick="openHeroTab('summary')">📊 Podsumowanie</button>
+                        <button type="button" data-menu-section="hero" data-hero-menu-tab="attributes" onclick="openHeroTab('attributes')">💪 Atrybuty</button>
+                        <button type="button" data-menu-section="hero" data-hero-menu-tab="equipment" onclick="openHeroTab('equipment')">🛡️ Wyposażenie</button>
+                        <button type="button" data-menu-section="hero" data-hero-menu-tab="inventory" onclick="openHeroTab('inventory')">🎒 Plecak</button>
+                        <button type="button" data-menu-section="hero" data-hero-menu-tab="profession-tools" onclick="openHeroTab('profession-tools')">🧰 Narzędzia</button>
+                        <button type="button" data-menu-section="hero" data-hero-menu-tab="skills" onclick="openHeroTab('skills')">🌳 Umiejętności</button>
                     </div>
                 </section>
             </div>
@@ -868,7 +849,7 @@
 
 
             <section id="screen-hero" class="screen">
-                <h2>🧙 Bohater</h2>
+                <h2>🧙 Postać</h2>
 
                 <div class="hero-tabs">
                     <button class="hero-tab-button active" data-hero-tab="summary" onclick="showHeroTab('summary')">

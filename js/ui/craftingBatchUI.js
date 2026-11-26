@@ -235,6 +235,22 @@ function updateCraftingBatchPreview(recipeId, preserveInputValue = false) {
                     "crafting-collapsed",
                     mobile && !expandedRecipes.has(id)
                 );
+
+                /*
+                 * Oznaczenie, czy da się wytworzyć przedmiot teraz (materiały i złoto),
+                 * widoczne także na zwiniętej karcie.
+                 */
+                const craftButton = item.querySelector('[data-crafting-action="craft"]');
+                const levelLocked = item.classList.contains("crafting-level-locked");
+                const available =
+                    Boolean(craftButton) &&
+                    !levelLocked &&
+                    !craftButton.disabled &&
+                    !craftButton.classList.contains("crafting-button-unavailable");
+                const lacking = Boolean(craftButton) && !levelLocked && !available;
+
+                item.classList.toggle("crafting-ready", available);
+                item.classList.toggle("crafting-lacking", lacking);
             });
     }
 
