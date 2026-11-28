@@ -418,7 +418,10 @@ function renderShop() {
       const hasEnoughGold = player.gold >= finalPrice;
 
       const canBuy = hasEnoughGold;
-      const isFishingSupply = shopItem.category === "fishing_supplies";
+      const isFishingSupply =
+        shopItem.subcategory === "fishing_supplies" ||
+        shopItem.category === "fishing_supplies" ||
+        shopItem.type === "fishing_bait";
       const canBuyTen = player.gold >= bulkTenTotalPrice;
 
       const canBuyAndEquip = !isFishingSupply && hasLevel && hasEnoughGold;
@@ -730,7 +733,7 @@ ${row.label}
             onclick="${secondaryButtonAction}"
             ${buyAndEquipDisabledAttribute}
         >
-            ⚔️ ${buyAndEquipButtonText}
+            ${isFishingSupply ? "🎣" : "⚔️"} ${buyAndEquipButtonText}
         </button>
 
     </div>

@@ -74,6 +74,18 @@ function getPotionEffectText(potionItem) {
     combat_defense: "Obrona bohatera: +" + effectValue + "%",
 
     mana_regeneration: "Regeneracja many: +" + effectValue + "%",
+
+    fishing_speed: "Szybkość łowienia: +" + effectValue + "%",
+
+    crafting_speed: "Czas wytwarzania: -" + effectValue + "%",
+
+    alchemy_speed: "Szybkość warzenia mikstur: +" + effectValue + "%",
+
+    cooking_exp: "Doświadczenie gotowania: +" + effectValue + "%",
+
+    crit_chance: "Szansa na trafienie krytyczne: +" + effectValue + "%",
+
+    attack_speed: "Szybkość ataku: +" + effectValue + "%",
   };
 
   return effectTexts[potionItem.potionEffectId] || "Specjalny efekt mikstury";

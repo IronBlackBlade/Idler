@@ -754,8 +754,198 @@ const alchemyRecipes = [
                 quantity: 2
             }
         ]
-    }
+    },
+    {
+        id: "recipe_fishing_speed_potion",
+        category: "gathering",
+        name: "Mikstura rybaka",
+        description:
+            "Mikstura zwiększająca szybkość łowienia.",
 
+        requiredAlchemyLevel: 10,
+        craftingDurationSeconds: 100,
+        alchemyExp: 200,
+
+        resultItemId:
+            "fishing_speed_potion",
+
+        resultQuantity: 1,
+
+        ingredients: [
+            {
+                itemId: "marsh_flower",
+                quantity: 3
+            },
+            {
+                itemId: "swamp_moss",
+                quantity: 2
+            },
+            {
+                itemId: "silver_leaf",
+                quantity: 2
+            }
+        ]
+    },
+
+    {
+        id: "recipe_crafting_speed_potion",
+        category: "crafting",
+        name: "Mikstura rzemieślnika",
+        description:
+            "Mikstura skracająca czas wytwarzania przedmiotów.",
+
+        requiredAlchemyLevel: 20,
+        craftingDurationSeconds: 120,
+        alchemyExp: 420,
+
+        resultItemId:
+            "crafting_speed_potion",
+
+        resultQuantity: 1,
+
+        ingredients: [
+            {
+                itemId: "iron_ore",
+                quantity: 3
+            },
+            {
+                itemId: "coal",
+                quantity: 3
+            },
+            {
+                itemId: "stone_root",
+                quantity: 2
+            }
+        ]
+    },
+
+    {
+        id: "recipe_alchemy_speed_potion",
+        category: "crafting",
+        name: "Mikstura alchemika",
+        description:
+            "Mikstura przyspieszająca warzenie mikstur.",
+
+        requiredAlchemyLevel: 20,
+        craftingDurationSeconds: 120,
+        alchemyExp: 420,
+
+        resultItemId:
+            "alchemy_speed_potion",
+
+        resultQuantity: 1,
+
+        ingredients: [
+            {
+                itemId: "mountain_sage",
+                quantity: 3
+            },
+            {
+                itemId: "mint_leaf",
+                quantity: 3
+            },
+            {
+                itemId: "crystal_shard",
+                quantity: 1
+            }
+        ]
+    },
+
+    {
+        id: "recipe_cooking_exp_potion",
+        category: "crafting",
+        name: "Mikstura smakosza",
+        description:
+            "Mikstura zwiększająca doświadczenie zdobywane podczas gotowania.",
+
+        requiredAlchemyLevel: 10,
+        craftingDurationSeconds: 90,
+        alchemyExp: 230,
+
+        resultItemId:
+            "cooking_exp_potion",
+
+        resultQuantity: 1,
+
+        ingredients: [
+            {
+                itemId: "chamomile",
+                quantity: 3
+            },
+            {
+                itemId: "red_mushroom",
+                quantity: 2
+            },
+            {
+                itemId: "calamus_root",
+                quantity: 2
+            }
+        ]
+    },
+
+    {
+        id: "recipe_crit_chance_potion",
+        category: "hunting",
+        name: "Mikstura sokolego oka",
+        description:
+            "Mikstura zwiększająca szansę na trafienie krytyczne.",
+
+        requiredAlchemyLevel: 35,
+        craftingDurationSeconds: 180,
+        alchemyExp: 900,
+
+        resultItemId:
+            "crit_chance_potion",
+
+        resultQuantity: 1,
+
+        ingredients: [
+            {
+                itemId: "wind_flower",
+                quantity: 3
+            },
+            {
+                itemId: "dark_feather",
+                quantity: 2
+            },
+            {
+                itemId: "wolf_fang",
+                quantity: 2
+            }
+        ]
+    },
+
+    {
+        id: "recipe_attack_speed_potion",
+        category: "hunting",
+        name: "Mikstura furii",
+        description:
+            "Mikstura zwiększająca szybkość ataku.",
+
+        requiredAlchemyLevel: 35,
+        craftingDurationSeconds: 180,
+        alchemyExp: 900,
+
+        resultItemId:
+            "attack_speed_potion",
+
+        resultQuantity: 1,
+
+        ingredients: [
+            {
+                itemId: "star_flower",
+                quantity: 2
+            },
+            {
+                itemId: "wind_flower",
+                quantity: 3
+            },
+            {
+                itemId: "silver_leaf",
+                quantity: 2
+            }
+        ]
+    }
 ];
 
 const potionEffects = {
@@ -908,6 +1098,102 @@ const potionEffects = {
 
         bonuses: {
             manaRegenerationPercent: 50
+        }
+    },
+
+    fishing_speed: {
+        id: "fishing_speed",
+        name: "Mikstura rybaka",
+        icon: "🎣",
+        description:
+            "+15% szybkości łowienia",
+
+        activityType: "fishing",
+        durationMilliseconds:
+            5 * 60 * 1000,
+
+        bonuses: {
+            fishingSpeedPercent: 15
+        }
+    },
+
+    crafting_speed: {
+        id: "crafting_speed",
+        name: "Mikstura rzemieślnika",
+        icon: "🛠️",
+        description:
+            "-15% czasu wytwarzania",
+
+        activityType: "crafting",
+        durationMilliseconds:
+            5 * 60 * 1000,
+
+        bonuses: {
+            craftingSpeedPercent: 15
+        }
+    },
+
+    alchemy_speed: {
+        id: "alchemy_speed",
+        name: "Mikstura alchemika",
+        icon: "⚗️",
+        description:
+            "+15% szybkości warzenia",
+
+        activityType: "alchemy",
+        durationMilliseconds:
+            5 * 60 * 1000,
+
+        bonuses: {
+            alchemySpeedPercent: 15
+        }
+    },
+
+    cooking_exp: {
+        id: "cooking_exp",
+        name: "Mikstura smakosza",
+        icon: "🍲",
+        description:
+            "+25% doświadczenia gotowania",
+
+        activityType: "cooking",
+        durationMilliseconds:
+            5 * 60 * 1000,
+
+        bonuses: {
+            cookingExpPercent: 25
+        }
+    },
+
+    crit_chance: {
+        id: "crit_chance",
+        name: "Mikstura sokolego oka",
+        icon: "👁️",
+        description:
+            "+8% szansy na krytyk",
+
+        activityType: "combat",
+        durationMilliseconds:
+            5 * 60 * 1000,
+
+        bonuses: {
+            critChancePercent: 8
+        }
+    },
+
+    attack_speed: {
+        id: "attack_speed",
+        name: "Mikstura furii",
+        icon: "💢",
+        description:
+            "+10% szybkości ataku",
+
+        activityType: "combat",
+        durationMilliseconds:
+            5 * 60 * 1000,
+
+        bonuses: {
+            attackSpeedPercent: 10
         }
     }
 };

@@ -35,12 +35,72 @@ function refreshShopView() {
     }
 }
 
+let craftingRefreshDeferred = false;
+
+function isCraftingRecipeUnderPointer() {
+    const list = document.getElementById("crafting-list");
+
+    if (!list) {
+        return false;
+    }
+
+    if (list.querySelector(".crafting-item:hover")) {
+        return true;
+    }
+
+    const active = document.activeElement;
+
+    return Boolean(
+        active &&
+        list.contains(active) &&
+        active.matches &&
+        active.matches("input, select, textarea")
+    );
+}
+
 function refreshCraftingView() {
     if (
         !isGameScreenVisible(
             "screen-crafting"
         )
     ) {
+        return;
+    }
+
+    /*
+     * Gdy gracz trzyma kursor nad kartą receptury (albo wpisuje liczbę),
+     * nie przebudowujemy całej listy po każdym wytworzeniu – karty
+     * "migałyby" i wyglądało, jakby klikały się same. Liczby materiałów
+     * odświeżamy w miejscu, a pełne odświeżenie robimy po zjechaniu kursorem.
+     */
+    if (isCraftingRecipeUnderPointer()) {
+        if (typeof updateCraftingBatchPreview === "function") {
+            document
+                .querySelectorAll("#crafting-list [data-crafting-recipe-id]")
+                .forEach(function (card) {
+                    updateCraftingBatchPreview(
+                        card.dataset.craftingRecipeId,
+                        true
+                    );
+                });
+        }
+
+        if (!craftingRefreshDeferred) {
+            craftingRefreshDeferred = true;
+
+            const finishDeferredRefresh = function () {
+                if (isCraftingRecipeUnderPointer()) {
+                    return;
+                }
+
+                document.removeEventListener("mousemove", finishDeferredRefresh);
+                craftingRefreshDeferred = false;
+                refreshCraftingView();
+            };
+
+            document.addEventListener("mousemove", finishDeferredRefresh);
+        }
+
         return;
     }
 

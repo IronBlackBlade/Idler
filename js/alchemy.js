@@ -971,9 +971,25 @@ function getAlchemyRecipeDurationMs(
             ) || 0
         );
 
+    const potionAlchemySpeedBonus =
+        typeof getActivePotionEffectValue ===
+            "function"
+            ? Math.max(
+                0,
+                Number(
+                    getActivePotionEffectValue(
+                        "alchemy_speed"
+                    )
+                ) || 0
+            )
+            : 0;
+
     const speedMultiplier =
         1 +
-        safeAlchemySpeedBonus /
+        (
+            safeAlchemySpeedBonus +
+            potionAlchemySpeedBonus
+        ) /
         100;
 
     return Math.max(

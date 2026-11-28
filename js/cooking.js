@@ -452,6 +452,20 @@ function getCookingRequestedQuantity(recipeId) {
 
 function addCookingExp(amount) {
     amount = scaleProfessionExp(amount);
+
+    const cookingExpPotionBonus =
+        typeof getActivePotionEffectValue === "function"
+            ? Math.max(
+                0,
+                Number(getActivePotionEffectValue("cooking_exp")) || 0
+            )
+            : 0;
+
+    if (cookingExpPotionBonus > 0) {
+        amount = Math.floor(
+            (Number(amount) || 0) * (1 + cookingExpPotionBonus / 100)
+        );
+    }
     ensureCookingState();
     player.cooking.exp += Math.max(0, Number(amount) || 0);
 

@@ -428,7 +428,13 @@ function getDerivedStats() {
                             : 0
                     ) +
                     crossbowCritChanceBonus +
-                    getWeaponClassStatBonus("critChance")
+                    getWeaponClassStatBonus("critChance") +
+                    (
+                        typeof getActivePotionEffectValue ===
+                            "function"
+                            ? getActivePotionEffectValue("crit_chance")
+                            : 0
+                    )
                 )
             ),
 
@@ -644,7 +650,13 @@ function getWeaponCombatSettings(
             0,
             bowAttackSpeedBonus +
             bowCapstoneAttackSpeedBonus +
-            slashingAttackSpeedBonus
+            slashingAttackSpeedBonus +
+            (
+                typeof getActivePotionEffectValue ===
+                    "function"
+                    ? getActivePotionEffectValue("attack_speed")
+                    : 0
+            )
         );
 
     let attackIntervalMs =

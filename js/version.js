@@ -2,7 +2,7 @@
  * Numer wersji gry. Zmieniaj go przy każdej paczce wysyłanej testerom
  * (np. 0.1.1, 0.1.2…). Widać go w rogu ekranu i trafia do zgłoszeń błędów.
  */
-window.IDLER_VERSION = "0.1.1";
+window.IDLER_VERSION = "0.1.6";
 window.IDLER_BUILD_DATE = "2026-11-26";
 
 (function () {

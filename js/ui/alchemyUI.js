@@ -10,6 +10,10 @@ const alchemyCategories = [
     {
         id: "mining",
         name: "⛏️ Kopalnia"
+    },
+    {
+        id: "crafting",
+        name: "🛠️ Rzemiosło"
     }
 ];
 
@@ -162,6 +166,8 @@ const alchemyHuntingSubcategoryByEffect = {
     melee_weapon_damage: "weapon",
     ranged_weapon_damage: "weapon",
     magic_weapon_damage: "weapon",
+    crit_chance: "weapon",
+    attack_speed: "weapon",
 
     spell_damage: "spells",
     mana_regeneration: "spells",

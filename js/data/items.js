@@ -2409,6 +2409,108 @@ const items = {
         value: 45
     },
 
+    fishing_speed_potion: {
+        id: "fishing_speed_potion",
+        name: "Mikstura rybaka",
+
+        description:
+            "Zwiększa szybkość łowienia o 15% przez 5 minut.",
+
+        rarity: "uncommon",
+        type: "potion",
+
+        potionEffectId: "fishing_speed",
+        effectValue: 15,
+        durationSeconds: 300,
+
+        value: 60
+    },
+
+    crafting_speed_potion: {
+        id: "crafting_speed_potion",
+        name: "Mikstura rzemieślnika",
+
+        description:
+            "Skraca czas wytwarzania przedmiotów o 15% przez 5 minut.",
+
+        rarity: "uncommon",
+        type: "potion",
+
+        potionEffectId: "crafting_speed",
+        effectValue: 15,
+        durationSeconds: 300,
+
+        value: 90
+    },
+
+    alchemy_speed_potion: {
+        id: "alchemy_speed_potion",
+        name: "Mikstura alchemika",
+
+        description:
+            "Zwiększa szybkość warzenia mikstur o 15% przez 5 minut.",
+
+        rarity: "uncommon",
+        type: "potion",
+
+        potionEffectId: "alchemy_speed",
+        effectValue: 15,
+        durationSeconds: 300,
+
+        value: 90
+    },
+
+    cooking_exp_potion: {
+        id: "cooking_exp_potion",
+        name: "Mikstura smakosza",
+
+        description:
+            "Zwiększa zdobywane doświadczenie gotowania o 25% przez 5 minut.",
+
+        rarity: "uncommon",
+        type: "potion",
+
+        potionEffectId: "cooking_exp",
+        effectValue: 25,
+        durationSeconds: 300,
+
+        value: 80
+    },
+
+    crit_chance_potion: {
+        id: "crit_chance_potion",
+        name: "Mikstura sokolego oka",
+
+        description:
+            "Zwiększa szansę na trafienie krytyczne o 8% przez 5 minut.",
+
+        rarity: "rare",
+        type: "potion",
+
+        potionEffectId: "crit_chance",
+        effectValue: 8,
+        durationSeconds: 300,
+
+        value: 110
+    },
+
+    attack_speed_potion: {
+        id: "attack_speed_potion",
+        name: "Mikstura furii",
+
+        description:
+            "Zwiększa szybkość ataku o 10% przez 5 minut.",
+
+        rarity: "rare",
+        type: "potion",
+
+        potionEffectId: "attack_speed",
+        effectValue: 10,
+        durationSeconds: 300,
+
+        value: 110
+    },
+
     small_health_potion: {
         id: "small_health_potion",
         name: "Mała mikstura zdrowia",

@@ -820,8 +820,7 @@
 
 .shop-quantity-purchase {
     display: grid;
-    grid-template-columns:
-        minmax(110px, 0.7fr) minmax(130px, 1fr) minmax(120px, auto);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     align-items: end;
     gap: 8px;
     margin-top: 9px;
@@ -836,8 +835,8 @@
     display: flex;
     flex-direction: column;
     gap: 4px;
-    color: #829aa0;
-    font-size: 9px;
+    color: #9db4ba;
+    font-size: 11px;
 }
 
 .shop-quantity-purchase input {
@@ -870,11 +869,12 @@
 
 .shop-quantity-total strong {
     color: #e1c36e;
-    font-size: 12px;
+    font-size: 13px;
 }
 
 .shop-quantity-buy-button {
-    min-height: 34px;
+    grid-column: 1 / -1;
+    min-height: 38px;
     margin: 0;
 }
 

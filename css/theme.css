@@ -642,6 +642,8 @@ select.combat-spell-select{background:#1d130d;color:var(--text);border:0;box-sha
 }
 /* zablokowane i niedostępne – bez unoszenia, tylko lekkie rozjaśnienie */
 .location-locked:hover,.crafting-level-locked:hover,.locations-grid>.game-card.locked:hover{transform:none;filter:brightness(1.08)}
+/* kafelki wytwarzania: bez unoszenia i z obramowaniem do środka, żeby górna krawędź nie była ucinana */
+.crafting-item:hover,.crafting-category-items>.crafting-item:hover{transform:none;outline-offset:-2px}
 .mining-area-card,.herbalism-area-card,.fishing-area-card{
   background:var(--planks),var(--grain),linear-gradient(#4a3626,#3a2a1d);
   border:4px solid var(--oak-0);border-radius:3px;

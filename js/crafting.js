@@ -212,10 +212,17 @@ function getRecipeCraftingDurationMs(recipe) {
 
   const baseDurationMs = Math.round(durationSeconds * 1000);
 
-  const speedReduction =
-    typeof getCraftingSpeedReduction === "function"
-      ? getCraftingSpeedReduction()
+  const potionSpeedReduction =
+    typeof getActivePotionEffectValue === "function"
+      ? Math.max(0, Number(getActivePotionEffectValue("crafting_speed")) || 0)
       : 0;
+
+  const speedReduction = Math.min(
+    75,
+    (typeof getCraftingSpeedReduction === "function"
+      ? getCraftingSpeedReduction()
+      : 0) + potionSpeedReduction,
+  );
 
   /*
    * Przykład:

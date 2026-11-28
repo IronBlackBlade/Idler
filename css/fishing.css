@@ -1605,3 +1605,93 @@ button:disabled {
         grid-template-columns: 1fr;
     }
 }
+
+/* ========================================
+   ŁOWIENIE - większe, czytelniejsze kafelki i teksty na komputerze
+======================================== */
+@media (min-width: 769px) {
+    #screen-fishing-locations .profession-tool-context-header span,
+    #screen-fishing-locations .profession-mastery-strip span,
+    #screen-fishing-locations .profession-mastery-strip strong,
+    #screen-fishing-locations .profession-mastery-next,
+    #screen-fishing-locations .fishing-statistics span,
+    #screen-fishing-locations .fishing-statistics strong,
+    #screen-fishing-locations .fishing-section-heading span,
+    #screen-fishing-locations .fishing-exp-label span,
+    #screen-fishing-locations .fishing-exp-label strong,
+    #screen-fishing-locations .fishing-cycle-label span,
+    #screen-fishing-locations .fishing-cycle-label strong,
+    #screen-fishing-locations .fishing-baits-header span,
+    #screen-fishing-locations .fishing-bait-quantity,
+    #screen-fishing-locations .fishing-inline-areas-header span,
+    #screen-fishing-locations .fishing-area-status,
+    #screen-fishing-locations .fishing-level-badge,
+    #screen-fishing-locations .fishing-area-info span,
+    #screen-fishing-locations .fishing-drop-group span,
+    #screen-fishing-locations .fishing-drop-group strong,
+    #screen-fishing-locations .fishing-record-book-header span,
+    #screen-fishing-locations .fishing-orders-header span,
+    #screen-fishing-locations .fishing-order-requirement span,
+    #screen-fishing-locations .fishing-order-requirement strong,
+    #screen-fishing-locations .fishing-order-rewards span,
+    #screen-fishing-locations .fishing-order-rewards strong,
+    #screen-fishing-locations .fishing-order-tier-progress span,
+    #screen-fishing-locations .fishing-order-tier-progress strong {
+        font-size: 13px;
+    }
+
+    #screen-fishing-locations .fishing-bait-details small,
+    #screen-fishing-locations .fishing-bait-details em,
+    #screen-fishing-locations .fishing-last-result-header small,
+    #screen-fishing-locations small {
+        font-size: 12px;
+    }
+
+    #screen-fishing-locations .fishing-bait-details strong,
+    #screen-fishing-locations .fishing-area-card p,
+    #screen-fishing-locations .fishing-record-book p,
+    #screen-fishing-locations .fishing-order-card p,
+    #screen-fishing-locations .fishing-baits-header strong,
+    #screen-fishing-locations .fishing-record-book-header strong,
+    #screen-fishing-locations .fishing-empty-result,
+    #screen-fishing-locations .fishing-current-level,
+    #screen-fishing-locations .fishing-last-result-header h4,
+    #screen-fishing-locations .fishing-orders h4,
+    #screen-fishing-locations .fishing-order-card h4 {
+        font-size: 14px;
+    }
+
+    #screen-fishing-locations .fishing-toggle-button,
+    #screen-fishing-locations .fishing-select-button,
+    #screen-fishing-locations .fishing-order-complete-button {
+        font-size: 14px;
+    }
+
+    #screen-fishing-locations .fishing-area-card,
+    #screen-fishing-locations .fishing-bait-card,
+    #screen-fishing-locations .fishing-order-card {
+        padding: 14px;
+    }
+
+    #screen-fishing-locations .fishing-order-card h4,
+    #screen-fishing-locations .fishing-area-card h3,
+    #screen-fishing-locations .fishing-area-card h4 {
+        font-size: 16px;
+    }
+}
+
+@media (min-width: 769px) {
+    #screen-fishing-locations .fishing-area-info,
+    #screen-fishing-locations .fishing-area-info * ,
+    #screen-fishing-locations .fishing-order-tier-progress,
+    #screen-fishing-locations .fishing-order-tier-progress * {
+        font-size: 13px;
+    }
+
+    #screen-fishing-locations .fishing-orders-header strong,
+    #screen-fishing-locations .fishing-orders-header h3,
+    #screen-fishing-locations .fishing-section-heading strong,
+    #screen-fishing-locations .fishing-baits-header strong {
+        font-size: 15px;
+    }
+}

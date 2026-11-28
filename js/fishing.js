@@ -725,9 +725,23 @@ function beginFishingCycle(area) {
             )
             : 0;
 
+    const potionFishingSpeedBonus =
+        typeof getActivePotionEffectValue ===
+            "function"
+            ? Math.max(
+                0,
+                Number(
+                    getActivePotionEffectValue(
+                        "fishing_speed"
+                    )
+                ) || 0
+            )
+            : 0;
+
     const totalFishingSpeedBonus =
         safeFishingSpeedBonus +
-        skillGatheringSpeedBonus;
+        skillGatheringSpeedBonus +
+        potionFishingSpeedBonus;
 
     const speedMultiplier =
         1 +
